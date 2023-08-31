@@ -1,1 +1,75 @@
+/* !!!!!!!!!!!!!!!!!!!!!!!! INDEX STYLESHEET !!!!!!!!!!!!!!!!!!!!!!!! */
 
+
+
+/* !!!!!!!!!!!!!!!!!!!!!!!! PROGRAM STYLESHEET !!!!!!!!!!!!!!!!!!!!!!!! */
+
+/* Timeline styles */
+.timeline {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    margin-left: 30px; /* Adjust this value to control the timeline's left space */
+}
+
+/* Timeline dot and line styling */
+.event {
+    position: relative;
+    display: flex;
+    margin-bottom: 20px;
+    overflow: visible; /* Allow lines to extend beyond the container */
+}
+
+.event .event-dot {
+    position: absolute;
+    top: 50%;
+    left: -15px; /* Position the dot to the left of the event content */
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.event .event-line {
+    position: absolute;
+    top: -20px; /* Adjust to go beyond the previous event */
+    bottom: -20px; /* Adjust to go beyond the next event */
+    left: -11px; /* Position the line to overlap the dot */
+    width: 2px;
+    background-color: #ccc;
+    z-index: 0;
+}
+
+/* Event card styling */
+.event-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 20px;
+    width: calc(100% - 40px); /* Adjust for padding */
+    margin-left: 60px; /* Adjust this value to align with the dots */
+}
+
+/* Adjust the first line to respect the margin */
+.event:first-child .event-line {
+    top: 0%; /* Position the first line from the middle of the dot */
+}
+
+/* Button styling */
+.btn {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
