@@ -1,4 +1,139 @@
 /* !!!!!!!!!!!!!!!!!!!!!!!! INDEX STYLESHEET !!!!!!!!!!!!!!!!!!!!!!!! */
+@font-face {
+    font-family: 'MontFont';
+    src: url(../font/Mont-Regular.otf) format('otf');
+    font-weight: 500;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'MontFont', sans-serif;
+}
+
+header{
+    background-color: #111D2E;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.nav-item a{
+    width: 100%;
+    height: 100%;
+}
+
+.navbar{
+    min-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.nav-menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-branding{
+    font-size: 2rem;   
+    width: 100%; 
+}
+
+.nav-link{
+    transition: 0.7s ease;
+}
+
+
+.hamburger{
+    display: none;
+    cursor: pointer;
+}
+
+.bar{
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+}
+
+.nav-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    margin: 0px;
+    height: 70px;
+}
+
+.nav-item.active {
+    background-color: #AE003C; 
+    color: white; 
+    width: 90px;
+    margin: 0px;
+}
+
+.nav-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 20px; /* Adjust the padding as needed */
+}
+
+@media(max-width:768px){
+    .hamburger{
+        display:block
+    }
+    .hamburger.active .bar:nth-child(2){
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1){
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3){
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .nav-menu{
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        gap: 0;
+        flex-direction: column;
+        background-color: #111D2E;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        z-index: 1;
+    }
+
+    .nav-menu.active{
+        left: 0;
+    }
+
+    .nav-item.active{
+        width: 100%;
+    }
+
+    .nav-item{
+        width: 100%;
+    }
+}
+
 
 
 
@@ -29,7 +164,6 @@
     height: 10px;
     background-color: #ccc;
     border-radius: 50%;
-    z-index: 1;
 }
 
 .event .event-line {
@@ -67,9 +201,9 @@
     border-radius: 3px;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #AE003C;
 }
