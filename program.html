@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" type="image/x-icon" href="/img/vedettfavicon.png">
     <title>Program</title>
 </head>
 <body>
     <header>
         <nav class="navbar">
-            <a href="#" class="nav-branding">DEV.</a>
+            <a href="#" class="nav-branding"><img src="/img/LogoVedett.svg" alt="Our Vedettweekend logo" width="150px" height="80px"></a>
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="index.html" class="nav-link">
@@ -40,17 +41,45 @@
         </nav>
     </header>
 
-    <ul class="timeline">
-        <li class="event" data-date="16:00 - 19:00">
+    <div class="topimage">
+        <img src="/img/headerpicture.png" alt="picture of the party in 2022">
+    <div class="textcontainer">
+        <div class="image-text">VEDETTWEEKEND</div>
+        <div class="image-text">27 & 28 OKT</div>
+    </div>
+    <div class="ticket">BUY TICKETS</div>
+    </div>
+    
+<div class="top-content">
+        <h1>ARTISTS IN THE SPOTLIGHT</h1>
+    <div class="container-timeline">
+    <div class="hours">
+        <p>19u</p>
+        <p>20u</p>
+        <p>20u</p>
+    </div>
+    <div class="timeline-card">
+        <ul class="timeline">
+        <li class="event">
             <div class="event-dot"></div>
-        <div class="event-line"></div>
+            <div class="event-line"></div>
+            <div class="event-card">
+                <h3>KINDERNAMIDDAG</h3>
+                <p>Event description...</p>
+                <a href="#" class="btn">Externe link</a>
+            </div>
+            
+        </li>
+        <li class="event">
+            <div class="event-dot"></div>
+            <div class="event-line"></div>
             <div class="event-card">
                 <h3>KINDERNAMIDDAG</h3>
                 <p>Event description...</p>
                 <a href="#" class="btn">Externe link</a>
             </div>
         </li>
-        <li class="event" data-date="16:00 - 19:00">
+        <li class="event">
             <div class="event-dot"></div>
             <div class="event-line"></div>
             <div class="event-card">
@@ -61,6 +90,9 @@
         </li>
         <!-- Repeat similar structure for other events -->
     </ul>
+    </div>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
