@@ -45,6 +45,29 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById(initialContentId).classList.add("active");
 });
 
-// Wait for the DOM to fully load
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  function toggleActive(button, sectionId) {
+    // Remove 'active' class from all buttons
+    const buttons = document.querySelectorAll('.tab-buttons');
+    buttons.forEach((btn) => btn.classList.remove('active'));
+
+    // Add 'active' class to the clicked button
+    button.classList.add('active');
+
+    // Scroll to the corresponding section
+    scrollToSection(sectionId);
+  }
+
+
+
+
+
 
 

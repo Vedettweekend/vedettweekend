@@ -62,6 +62,20 @@ h1{
 
 }
 
+h2{
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 32px;
+    color: #111D2E;
+}
+
+p{
+    color: #111D2E;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 1.6;
+}
+
 
 .btn{
     display: flex;
@@ -315,13 +329,65 @@ h1{
     }
 
     .tabs .tab-button {
-        padding: 20px 30px;
+        padding: 10px 20px;
         width: 100%;
-        background-color: white;
+        color: white;
+        background-color: #111D2E;
         border: 1px solid #111D2E;
         border-radius: 4px;
         font-size: larger;
         margin: 0px 12px;
+      }
+
+      .tabs .tab-button .active {
+        padding: 10px 20px;
+        width: 100%;
+        background-color: white;
+        color: #111D2E;
+        border: 1px solid #111D2E;
+        border-radius: 4px;
+        font-size: larger;
+        margin: 0px 12px;
+      }
+
+      .tab-menu .tab-buttons{
+        padding: 5px 10px;
+        width: 100%;
+        background-color: white;
+        color: #111D2E;
+        border: 2px solid #111D2E;
+        border-radius: 4px;
+        font-size: larger;
+      }
+
+      .practical-container .vertical-line{
+        width: 0px;
+      }
+
+      .top-contents{
+        margin-left: 12px;
+        margin-right: 12px;
+      }
+
+      .written-content{
+        width: 100%;
+      }
+
+      .practical-container .tab-menu{
+        width: 100%;
+      }
+
+      .practical-container{
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin-right: auto;
+      }
+
+      .practical-container .tab-menu{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        width: 100%;
       }
 
       .widget{
@@ -329,6 +395,7 @@ h1{
         overflow-x: hidden; /* Add horizontal scrolling if necessary */
     }
 }
+
 
 /* Add this CSS to your stylesheet */
 @media (min-width: 303px) and (max-width: 457px) {
@@ -338,7 +405,14 @@ h1{
       overflow-x: hidden;
       margin-top: 48px;
     }
-    
+
+    body h2{
+        font-size: 32px;
+    }
+
+    body h1{
+        font-size: 32px;
+    }
   }
   
 
@@ -361,7 +435,7 @@ h1{
 }
 
 .widget{
-    max-width: 1280px;
+    max-width: 1880px;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin: 48px 0px;
@@ -382,7 +456,7 @@ h1{
     padding: 28px;
     background-color: white;
     border-radius: 8px;
-    max-width: 620px;
+    max-width: 900px;
     min-width: 200px;
     color:#111D2E;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
@@ -406,7 +480,7 @@ h1{
     padding: 28px;
     background-color: white;
     border-radius: 8px;
-    max-width: 400px;
+    max-width: 600px;
     min-width: 200px;
     color:#111D2E;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
@@ -475,6 +549,15 @@ h1{
     .image-text {
         font-size: 300%;
     }
+
+    .tab-menu {
+        position: sticky;
+        top: 150px;
+        align-self: flex-start;
+        z-index: 1;
+    }
+
+    
 }
 
 /* Program Stylesheet (if exists) */
@@ -550,10 +633,14 @@ h1{
 
 .dj-name{
     font-size: 32px;
+    color: #111D2E;
 }
 
 .stage{
-    font-size: 24px
+    font-size: 24px;
+    color: dimgray;
+    line-height: 1;
+    font-weight: 540;
 }
 
 .info{
@@ -597,6 +684,7 @@ footer {
     background-color: #111D2E;
     color: #fff;
     padding: 20px 0;
+    margin-top: 140px;
 }
 
 .footer-sponsors {
@@ -658,18 +746,19 @@ footer {
     padding: 30px 60px;
     background-color: #111D2E;
     color: #fff;
-    border: 1px solid #111D2E;
+    border: 2px solid #111D2E;
     border-radius: 4px;
     font-size: 32px;
     width: 100%;
     max-width: 600px;
     margin-left: 16px;
+    min-height: 72px;
   }
   
   .tab-button.active {
     color: #111D2E;
     background-color: white;
-    border: 1px solid #111D2E;
+    border: 2px solid #111D2E;
     border-radius: 4px;
   }
   
@@ -739,4 +828,66 @@ footer {
 
 .widget-push{
     padding: 24px;
+}
+
+.practical-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1600px;
+    gap: 24px;
+}
+
+.written-content{
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    width: 100%;
+    padding: 24px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 40px;
+}
+
+.tab-menu{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 12px;
+
+}
+
+.tab-buttons{
+    padding: 30px 60px;
+    color: white;
+    background-color: #111D2E;
+    border: 2px solid #111D2E;
+    border-radius: 8px;
+    font-size: 32px;
+    font-weight: 900;
+    width: 100%;
+    min-height: 72px;
+}
+
+.tab-buttons.active{
+    color: #111D2E;
+    background-color: #fff;
+    border: 2px solid #111D2E;
+}
+
+.vertical-line{
+    width: 4px;
+    background-color: #111D2E;
+    margin-left: 12px;
+}
+
+.horizontal-line{
+    height: 4px;
+    background-color: #111D2E;
+}
+
+iframe{
+    margin: 24px 0px;
 }
