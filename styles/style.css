@@ -36,6 +36,10 @@ header {
     right: 0; /* Add this line to ensure the header spans full width */
 }
 
+a{
+    width: 100%;
+}
+
 
 li {
     list-style: none;
@@ -604,9 +608,6 @@ p{
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.card img{
-    width: 100%;
-}
 
 .card-text{
     display: flex;
