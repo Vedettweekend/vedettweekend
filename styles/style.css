@@ -605,10 +605,6 @@ p{
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.card img :nth-child(1){
-    width: 100%;
-}
-
 .card-text{
     display: flex;
     flex-direction: column;
