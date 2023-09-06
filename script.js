@@ -45,26 +45,33 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById(initialContentId).classList.add("active");
 });
 
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
+// Select all buttons with the class "tab-buttons"
+const buttons = document.querySelectorAll('.tab-buttons');
 
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
-
-  function toggleActive(button, sectionId) {
+// Attach a click event listener to each button
+buttons.forEach((button) => {
+  button.addEventListener('click', function () {
     // Remove 'active' class from all buttons
-    const buttons = document.querySelectorAll('.tab-buttons');
     buttons.forEach((btn) => btn.classList.remove('active'));
 
     // Add 'active' class to the clicked button
     button.classList.add('active');
 
+    // Get the sectionId from the button's dataset
+    const sectionId = button.dataset.sectionId;
+
     // Scroll to the corresponding section
     scrollToSection(sectionId);
-  }
+  });
+});
 
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId);
+
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
 
 
 

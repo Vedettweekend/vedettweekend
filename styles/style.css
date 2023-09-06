@@ -9,15 +9,18 @@
 @font-face {
     font-family: 'MontHeavy';
     src: url(../font/Mont-Heavy.otf) format('otf');
-    font-weight: 800;
+    font-weight: 700;
 }
+
+
+
 
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'MontFont', sans-serif;
+    font-family: 'MontFont', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.6rem;
     font-size: 101%;
 }
@@ -32,7 +35,7 @@ header {
     left: 0; /* Add this line to ensure the header spans full width */
     right: 0; /* Add this line to ensure the header spans full width */
 }
-}
+
 
 li {
     list-style: none;
@@ -52,7 +55,7 @@ html{
 
 h1{
     text-align: center;
-    font-size: 2.4rem;
+    font-size: 3.2vh;
     line-height: 1;
   font-weight: 900;
   text-transform: uppercase; /* Converts text to uppercase */
@@ -138,15 +141,14 @@ p{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 140px;
     margin: 0px;
     height: 100%;
+    width: auto;
 }
 
 .nav-item.active {
     background-color: #AE003C;
     color: white;
-    width: 140px;
     margin: 0px;
 }
 
@@ -156,9 +158,10 @@ p{
     align-items: center;
     justify-content: center;
     height: 100%;
-    font-size: 24px;
-    font-weight: 800;
+    font-size: 1.9vh;
+    font-weight: 600;
     letter-spacing: 1px;
+    padding: 0px 24px;
 }
 
 .textcontainer {
@@ -180,11 +183,11 @@ p{
 
 .ticket {
     position: absolute;
-    bottom: -40px;
+    bottom: -32px;
     right: 0;
     background-color: #AE003C;
     color: white;
-    padding: 20px 40px;
+    padding: 30px 60px;
     border-radius: 8px 8px 8px 8px;
     cursor: pointer;
     margin-right: 80px;
@@ -223,6 +226,21 @@ p{
     }
 }
 
+@media (min-width: 1440px) {
+    
+.nav-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 2.6vh;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 0px 24px;
+}
+
+
 .topimage {
     text-align: center;
     position: relative;
@@ -239,6 +257,15 @@ p{
 }
 
 @media (max-width: 768px) {
+    html footer{
+        margin-top: 0px;
+    }
+}
+
+    p{
+    font-size: 3vh;
+    }
+
     .hamburger {
         display: block;
     }
@@ -337,6 +364,7 @@ p{
         border-radius: 4px;
         font-size: larger;
         margin: 0px 12px;
+        font-weight: 800;
       }
 
       .tabs .tab-button .active {
@@ -394,11 +422,96 @@ p{
         margin: 48px 0px;
         overflow-x: hidden; /* Add horizontal scrolling if necessary */
     }
+
+    .button-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 16px;
+    }   
+    
+    .card .card-text, .big-card .card-text{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .card .card-title, .big-card .card-title{
+        font-weight: 800;
+        font-size: 24px;
+    }
+    
+    .card .card-content, .big-card .card-content{
+        font-weight: 200;
+        font-size: 18px;
+        line-height: 1.4;
+    }
+    
+    .card .card-cta, .big-card .card-cta{
+        display: flex;
+        color: #AE003C;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .card .tab-icon, .big-card .tab-icon{
+        font-size: 16px;
+        min-height: 40px;
+    }
+
+    html .bottom-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 100px 0px;
+        gap: 48px;
+    }
+
+    html .widget-push{
+        padding: 8px;
+    }
+
+    html .image-text {
+        font-size: 2.2vh;
+        color: white;
+        border-radius: 5px;
+        text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        font-family: 'MontHeavy', sans-serif;
+        font-weight: 900;
+        letter-spacing: 1px;
+        line-height: 0.5;
+    }
+
 }
 
 
+@media (max-width: 480px) {
+
+    .image-app {
+    max-width: 100%; /* Allow image to scale down */
+    height: auto;
+    max-height: 600px;
+}
+
+.image-rfid {
+    max-width: 100%; /* Allow image to scale down */
+    height: auto;
+    max-height: 600px;
+}
+
+
+.first-section .app-card{
+    flex: 1;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    min-width: 280px;
+}
+}
+
 /* Add this CSS to your stylesheet */
-@media (min-width: 303px) and (max-width: 457px) {
+@media (min-width: 250px) and (max-width: 457px) {
     /* Set the max width for the widget container */
     .elfsight-app-b91924ae-f3d4-466f-a147-c2b6cdde1ba6.widget {
       max-width: 100%;
@@ -445,14 +558,14 @@ p{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 80px 0px;
+    margin: 200px 0px;
     gap: 48px;
 }
 
 .big-card{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 32px;
     padding: 28px;
     background-color: white;
     border-radius: 8px;
@@ -461,6 +574,10 @@ p{
     color:#111D2E;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
     margin: 0px 24px;
+}
+
+.card .tab-icon, .big-card .tab-icon{
+    margin-top: 12px;
 }
 
 .card-container{
@@ -476,7 +593,7 @@ p{
 .card{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 32px;
     padding: 28px;
     background-color: white;
     border-radius: 8px;
@@ -486,23 +603,25 @@ p{
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.card img :nth-child(1){
+.card img{
     width: 100%;
 }
 
 .card-text{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
 .card-title{
     font-weight: 800;
-    font-size: 28px;
+    font-size: 32px;
 }
 
 .card-content{
     font-weight: 300;
+    font-size: 24px;
+    line-height: 1.4;
 }
 
 .card-cta{
@@ -516,13 +635,14 @@ p{
 
 
 .image-text {
-    font-size: 24px;
+    font-size: 4vh;
     color: white;
     border-radius: 5px;
     text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
     font-family: 'MontHeavy', sans-serif;
     font-weight: 900;
     letter-spacing: 1px;
+    line-height: 0.5;
 }
 
 /* Larger Screens Styles */
@@ -543,6 +663,17 @@ p{
     100% {
         transform: scale(1.1); /* Enlarged size */
     }
+}
+
+@media (max-width: 916px){
+.second-section {
+    flex-direction: column-reverse; /* Reverse order for mobile view */
+    align-items: center;
+}
+
+.second-section img.image-rfid {
+    order: 0; /* Change the order to 0 for mobile view */
+}
 }
 
 @media (min-width: 768px) {
@@ -753,6 +884,7 @@ footer {
     max-width: 600px;
     margin-left: 16px;
     min-height: 72px;
+    font-weight: 800;
   }
   
   .tab-button.active {
@@ -777,7 +909,7 @@ footer {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 200px;
+    margin-top: 180px;
     gap: 12px;
   }
 
@@ -855,8 +987,6 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 12px;
-
 }
 
 .tab-buttons{
@@ -890,4 +1020,77 @@ footer {
 
 iframe{
     margin: 24px 0px;
+}
+
+
+.app-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 180px;
+    gap: 200px;
+    max-width: 1600px;
+}
+
+.big-card .card-content{
+    min-height: 200px;
+}
+
+.first-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin-left: 20px;
+    margin-right: 20px;
+    
+}
+
+
+.app-card{
+    flex: 1;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 32px;
+    min-width: 450px;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.img-big-card{
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+.tab-icon{
+    background-color: white;
+    color: #111D2E;
+    padding: 10px 20px;
+    border: 1px solid #111D2E;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    gap: 12px;
+    font-size: 24px;
+    font-weight: 700;
+    width: 100%;
+    min-height: 72px;
 }
