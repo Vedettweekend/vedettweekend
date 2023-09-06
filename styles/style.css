@@ -1,5 +1,7 @@
 /* Global Styles */
 
+/* Global Styles */
+
 @font-face {
     font-family: 'MontFont';
     src: url(../font/Mont-Regular.otf) format('otf');
@@ -34,10 +36,6 @@ header {
     position: fixed;
     left: 0; /* Add this line to ensure the header spans full width */
     right: 0; /* Add this line to ensure the header spans full width */
-}
-
-a{
-    width: 100%;
 }
 
 
@@ -245,6 +243,7 @@ p{
 }
 
 
+
 .topimage {
     text-align: center;
     position: relative;
@@ -258,8 +257,6 @@ p{
     width: 100%;
     height: 400px;
     object-fit: cover; /* Crop the image while maintaining its aspect ratio */
-}
-
 }
 
 @media (max-width: 768px) {
@@ -608,6 +605,9 @@ p{
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.card img :nth-child(1){
+    width: 100%;
+}
 
 .card-text{
     display: flex;
