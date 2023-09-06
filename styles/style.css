@@ -256,11 +256,12 @@ p{
     object-fit: cover; /* Crop the image while maintaining its aspect ratio */
 }
 
+}
+
 @media (max-width: 768px) {
     html footer{
         margin-top: 0px;
     }
-}
 
     p{
     font-size: 3vh;
