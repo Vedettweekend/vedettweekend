@@ -276,6 +276,10 @@ p{
     font-size: 3vh;
     }
 
+    p.info {
+        font-size: 3vh;
+    }
+
     .hamburger {
         display: block;
     }
