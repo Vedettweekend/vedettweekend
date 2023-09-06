@@ -27,6 +27,10 @@
     font-size: 101%;
 }
 
+a{
+    width: 100%;
+}
+
 /* Header Styles */
 
 header {
