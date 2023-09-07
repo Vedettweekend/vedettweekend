@@ -31,6 +31,14 @@ a{
     width: 100%;
 }
 
+html .top-image{
+    margin: 0;
+}
+
+html footer {
+    margin: 0;
+}
+
 /* Header Styles */
 
 header {
@@ -405,11 +413,6 @@ p{
 
       .practical-container .vertical-line{
         width: 0px;
-      }
-
-      .top-contents{
-        margin-left: 12px;
-        margin-right: 12px;
       }
 
       .written-content{
