@@ -787,7 +787,7 @@ p{
 .info{
     font-weight: 300;
     padding: 20px 0px;
-    min-height: 250px;
+    min-height: 200px;
 }
 
 .event:first-child .event-line {
