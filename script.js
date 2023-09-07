@@ -73,8 +73,25 @@ function scrollToSection(sectionId) {
   }
 }
 
+function goToArtistOnProgramPage() {
+  // Open the program.html page
+  window.location.href = 'program.html';
 
+  // Wait for the program.html page to load
+  window.addEventListener('load', function () {
+    // Activate the "RETRO" tab
+    const retroTab = document.getElementById('tab2');
+    if (retroTab) {
+      retroTab.classList.add('active');
 
+      // Scroll to the "tomoxkeytone" section within the "RETRO" tab
+      const artistSection = document.getElementById('tomoxkeytone');
+      if (artistSection) {
+        artistSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+}
 
 
 

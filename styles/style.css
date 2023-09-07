@@ -71,11 +71,24 @@ h1{
 
 }
 
-h2{
-    font-size: 48px;
+.app-content h2{
+    font-size: 3vh;
+    line-height: 1;
     font-weight: 900;
     margin-bottom: 32px;
     color: #111D2E;
+}
+
+h3{
+    font-size: 2.2vh;
+    line-height: 1;
+    font-weight: 900;
+    margin-bottom: 12px;
+    color: #111D2E;
+}
+
+.app-card p{
+    font-size: 2vh;
 }
 
 p{
@@ -158,13 +171,20 @@ p{
     margin: 0px;
 }
 
+.written-content h2{
+    font-size: 4vh;
+    color: #111D2E;
+    font-weight: 800;
+    margin-bottom: 3vh;
+}
+
 .nav-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
-    font-size: 1.8vh;
+    font-size: 2.2vh;
     font-weight: 600;
     letter-spacing: 1px;
     padding: 0px 24px;
@@ -274,7 +294,7 @@ html .topimage {
 
 @media (max-width: 767px) {
     html footer{
-        margin-top: 0px;
+        margin-top: 80px;
         width: 100%;
     }
 
@@ -536,6 +556,10 @@ html .topimage {
     border-radius: 8px;
     padding: 12px;
     min-width: 280px;
+}
+
+.app-card h2{
+    font-size: 32px;
 }
 }
 
@@ -842,6 +866,9 @@ footer {
 
 .footer-sponsors h3 {
     font-size: 20px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 40px;
 }
 
 .sponsor-logos {
