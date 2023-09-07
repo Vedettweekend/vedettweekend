@@ -483,11 +483,11 @@ p{
     }
 
     html .widget-push{
-        padding: 8px;
+        padding: 40px;
     }
 
     html .image-text {
-        font-size: 4vh;
+        font-size: 2vh;
         color: white;
         border-radius: 5px;
         text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
@@ -497,6 +497,12 @@ p{
         line-height: 0.5;
     }
 
+    html .embedsocial-hashtag{
+        width: 80%;
+        height: 500px;
+        overflow-y: scroll;
+        z-index: 300;
+    }
 }
 
 
@@ -527,11 +533,6 @@ p{
 /* Add this CSS to your stylesheet */
 @media (min-width: 250px) and (max-width: 457px) {
     /* Set the max width for the widget container */
-    .elfsight-app-b91924ae-f3d4-466f-a147-c2b6cdde1ba6.widget {
-      max-width: 100%;
-      overflow-x: hidden;
-      margin-top: 48px;
-    }
 
     body h2{
         font-size: 32px;
@@ -561,11 +562,10 @@ p{
     margin: 0px 24px;
 }
 
-.widget{
-    max-width: 1880px;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    margin: 48px 0px;
+.embedsocial-hashtag{
+    width: 80%;
+    height: 1000px;
+    overflow-y: scroll;
 }
 
 .bottom-content{
@@ -969,7 +969,7 @@ footer {
 }
 
 .widget-push{
-    padding: 24px;
+    padding: 40px;
 }
 
 .practical-container{
