@@ -164,7 +164,7 @@ p{
     align-items: center;
     justify-content: center;
     height: 100%;
-    font-size: 3.5vh;
+    font-size: 1.8vh;
     font-weight: 600;
     letter-spacing: 1px;
     padding: 0px 24px;
@@ -267,7 +267,7 @@ p{
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     html footer{
         margin-top: 0px;
     }
@@ -354,8 +354,9 @@ p{
         object-position: left top;
     }
 
-    .event-card {
+    html .event-card {
         flex-direction: column;
+        max-width: 390px;
         
     }
 
@@ -487,7 +488,7 @@ p{
     }
 
     html .image-text {
-        font-size: 2vh;
+        font-size: 3vh;
         color: white;
         border-radius: 5px;
         text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
@@ -695,6 +696,7 @@ p{
         top: 150px;
         align-self: flex-start;
         z-index: 1;
+        margin-left: 24px;
     }
 
     
@@ -748,7 +750,6 @@ p{
     width: calc(100% - 40px);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 1220px;
-    margin-left: 16px;
     
 }
 
@@ -1005,7 +1006,7 @@ footer {
     background-color: #111D2E;
     border: 2px solid #111D2E;
     border-radius: 8px;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 900;
     width: 100%;
     min-height: 72px;
@@ -1060,8 +1061,8 @@ iframe{
     justify-content: center;
     align-items: center;
     gap: 32px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 12px;
+    margin-right: 12px;
     
 }
 
