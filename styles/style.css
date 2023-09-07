@@ -173,6 +173,7 @@ p{
 .textcontainer {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
     transform: translate(-50%, -50%);
     position: absolute;
@@ -202,6 +203,11 @@ p{
     font-weight: 900;
     animation: buttonAnimation 1s alternate infinite; /* Adjust the animation duration as needed */
     transition: transform 0.3s ease;
+}
+
+.wegaanduiding{
+    width: 100%;
+    height: auto;
 }
 
 @keyframes buttonAnimation {
@@ -501,6 +507,10 @@ html .topimage {
         width: 80%;
         height: 500px;
         overflow-y: scroll;
+    }
+
+    .top-contents{
+        margin: 12px;
     }
 }
 
