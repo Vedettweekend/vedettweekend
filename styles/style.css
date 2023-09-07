@@ -31,16 +31,6 @@ a{
     width: 100%;
 }
 
-html .top-image{
-    margin: 0;
-    overflow-x: hidden;
-}
-
-html footer {
-    margin: 0;
-    overflow-x: hidden;
-}
-
 /* Header Styles */
 
 header {
@@ -260,13 +250,12 @@ p{
 
 
 
-.topimage {
-    text-align: center;
+html .topimage {
     position: relative;
-    max-width: 100%;
-    margin: 0 auto;
+    margin: 0;
     z-index: 1;
     top: 100px;
+    width: 100%;
 }
 
 .topimage img {
@@ -280,6 +269,7 @@ p{
 @media (max-width: 767px) {
     html footer{
         margin-top: 0px;
+        width: 100%;
     }
 
     p{
@@ -362,6 +352,10 @@ p{
         height: 250px;
         object-fit: cover; /* Crop the image while maintaining its aspect ratio */
         object-position: left top;
+    }
+
+    html .topimage{
+        width: 100%;
     }
 
     html .event-card {
@@ -823,9 +817,6 @@ p{
     align-items: center;
 }
 
-/* Footer Styles */
-
-/* Footer Styles */
 
 footer {
     background-color: #111D2E;
@@ -835,8 +826,6 @@ footer {
 }
 
 .footer-sponsors {
-    max-width: 100%;
-    margin: 0 auto;
     text-align: center;
     padding: 20px;
 }
@@ -860,8 +849,6 @@ footer {
 }
 
 .footer-company {
-    max-width: 100%;
-    margin: 0 auto;
     text-align: center;
     padding: 20px;
 }
@@ -875,8 +862,14 @@ footer {
 .footer-social a {
     color: #fff;
     text-decoration: none;
-    margin-right: 10px;
     font-size: 20px;
+}
+
+.footer-social{
+    display: flex;
+    flex-direction: row;
+    max-width: 220px;
+    margin: auto;
 }
 
 .footer-bottom {
