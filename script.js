@@ -45,53 +45,79 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById(initialContentId).classList.add("active");
 });
 
-// Select all buttons with the class "tab-buttons"
-const buttons = document.querySelectorAll('.tab-buttons');
 
-// Attach a click event listener to each button
-buttons.forEach((button) => {
-  button.addEventListener('click', function () {
-    // Remove 'active' class from all buttons
-    buttons.forEach((btn) => btn.classList.remove('active'));
+    window.onload = function () {
+        // Get the hash from the URL
+        var hash = window.location.hash;
 
-    // Add 'active' class to the clicked button
-    button.classList.add('active');
+        // Check if the hash corresponds to the "Tomoxkeytone" section
+        if (hash === "#tomoxkeytone") {
+            // Activate the second tab
+            var tab2 = document.getElementById("tab2");
+            tab2.click();
+            
+            // Scroll to the artist section after a short delay
+            setTimeout(function () {
+                var artistSection = document.querySelector(hash);
+                if (artistSection) {
+                    artistSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                    });
+                }
+            }, 100);
+        } else if (hash === "#massiv-trillusion") {
+            // Scroll to the "Massiv x Trillusion" section directly without tab activation
+            setTimeout(function () {
+                var artistSection = document.querySelector(hash);
+                if (artistSection) {
+                    artistSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                    });
+                }
+            }, 100);
+        } else if (hash === "#mattic") {
+            // Scroll to the "Mattic" section directly without tab activation
+            setTimeout(function () {
+                var artistSection = document.querySelector(hash);
+                if (artistSection) {
+                    artistSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                    });
+                }
+            }, 100);
+        } else {
+            // Handle the tab navigation for the "Practical" page
+            const buttons = document.querySelectorAll('.tab-buttons');
+            buttons.forEach((button) => {
+                button.addEventListener('click', function () {
+                    buttons.forEach((btn) => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const sectionId = button.dataset.sectionId;
+                    scrollToSection(sectionId);
+                });
+            });
+        }
+    };
 
-    // Get the sectionId from the button's dataset
-    const sectionId = button.dataset.sectionId;
-
-    // Scroll to the corresponding section
-    scrollToSection(sectionId);
-  });
-});
-
-function scrollToSection(sectionId) {
-  const section = document.getElementById(sectionId);
-
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-}
-
-function goToArtistOnProgramPage() {
-  // Open the program.html page
-  window.location.href = 'program.html';
-
-  // Wait for the program.html page to load
-  window.addEventListener('load', function () {
-    // Activate the "RETRO" tab
-    const retroTab = document.getElementById('tab2');
-    if (retroTab) {
-      retroTab.classList.add('active');
-
-      // Scroll to the "tomoxkeytone" section within the "RETRO" tab
-      const artistSection = document.getElementById('tomoxkeytone');
-      if (artistSection) {
-        artistSection.scrollIntoView({ behavior: 'smooth' });
-      }
+    // Scroll function for the "Practical" page
+    function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
     }
-  });
-}
+
+
+
+
+
+
 
 
 
