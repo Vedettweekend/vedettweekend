@@ -279,6 +279,7 @@ p{
 html .topimage {
     position: relative;
     margin: 0;
+    padding: 0;
     z-index: 1;
     top: 100px;
     width: 100%;
@@ -288,6 +289,9 @@ html .topimage {
     width: 100%;
     height: 400px;
     object-fit: cover; /* Crop the image while maintaining its aspect ratio */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 
@@ -299,6 +303,7 @@ html .topimage {
         height: 100%;
         margin: 0px;
         padding: 0px;
+        overflow-x: inherit;
     }
 
     html .topimage{
@@ -306,6 +311,7 @@ html .topimage {
         height: 100%;
         margin: 0px;
         padding: 0px;
+        overflow-x: inherit;
     }
 
     p{
