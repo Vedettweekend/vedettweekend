@@ -1,1 +1,4 @@
-remote_theme: jekyll/minima
+# _config.yml
+
+title: Vedettweekend
+permalink: pretty
