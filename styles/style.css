@@ -493,7 +493,8 @@ html .topimage {
     .card .card-text, .big-card .card-text{
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        justify-content: space-between;
+        flex: 1;
     }
     
     .card .card-title, .big-card .card-title{
@@ -646,12 +647,14 @@ html .topimage {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
+    width: 50%;
     gap: 32px;
     padding: 28px;
     background-color: white;
     border-radius: 8px;
     max-width: 900px;
-    min-width: 200px;
+    min-width: 280px;
     color:#111D2E;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -674,7 +677,8 @@ html .topimage {
 .card{
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex: 1;
+    width: 33%;
     gap: 32px;
     padding: 28px;
     background-color: white;
@@ -688,6 +692,8 @@ html .topimage {
 .card-text{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
     gap: 16px;
 }
 
