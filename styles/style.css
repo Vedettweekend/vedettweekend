@@ -291,7 +291,6 @@ html .topimage {
     object-fit: cover; /* Crop the image while maintaining its aspect ratio */
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
 }
 
 .sponsor-logos img{
