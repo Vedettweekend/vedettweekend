@@ -294,6 +294,10 @@ html .topimage {
     overflow-x: hidden;
 }
 
+.sponsor-logos img{
+    width: 100px;
+}
+
 
 
 @media (max-width: 767px) {
@@ -919,8 +923,9 @@ footer {
 }
 
 .sponsor-logos img {
-    width: 100px; /* Adjust the sponsor logo size as needed */
-    height: auto;
+    max-width: auto;
+        max-height: 80px;
+        object-fit:scale-down;
 }
 
 .footer-company {
