@@ -297,22 +297,17 @@ html .topimage {
 
 
 @media (max-width: 767px) {
-
     
-    html, body{
-        width: 100vw;
-        overflow-x: hidden;
-    }
     html footer{
         margin-top: 80px;
-        width: 100vw;
+        width: 100%;
         height: 100%;
         margin: 0px;
         padding: 0px;
     }
 
     html .topimage{
-        width: 100vw;
+        width: 100%;
         height: 100%;
         margin: 0px;
         padding: 0px;
