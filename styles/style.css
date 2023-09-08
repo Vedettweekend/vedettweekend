@@ -300,8 +300,8 @@ html .topimage {
 
     
     html, body{
-        position: relative;
-        overflow-x: clip;
+        width: 100vw;
+        overflow-x: hidden;
     }
     html footer{
         margin-top: 80px;
@@ -309,7 +309,6 @@ html .topimage {
         height: 100%;
         margin: 0px;
         padding: 0px;
-        overflow-x: inherit;
     }
 
     html .topimage{
@@ -317,7 +316,6 @@ html .topimage {
         height: 100%;
         margin: 0px;
         padding: 0px;
-        overflow-x: inherit;
     }
 
     p{
