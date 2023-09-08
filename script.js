@@ -113,6 +113,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    document.cookie = "myCookie=myValue; SameSite=Lax";
+
 
 
 
