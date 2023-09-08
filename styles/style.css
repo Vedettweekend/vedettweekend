@@ -297,6 +297,9 @@ html .topimage {
 
 
 @media (max-width: 767px) {
+    html, body{
+        overflow-x: clip;
+    }
     html footer{
         margin-top: 80px;
         width: 100vw;
