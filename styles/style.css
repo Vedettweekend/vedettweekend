@@ -299,7 +299,7 @@ html .topimage {
 @media (max-width: 767px) {
     html footer{
         margin-top: 80px;
-        width: 100%;
+        width: 100vw;
         height: 100%;
         margin: 0px;
         padding: 0px;
@@ -307,7 +307,7 @@ html .topimage {
     }
 
     html .topimage{
-        width: 100%;
+        width: 100vw;
         height: 100%;
         margin: 0px;
         padding: 0px;
@@ -548,6 +548,12 @@ html .topimage {
     width: 100%;
     height: auto;
     object-fit: cover;
+    }
+
+    html .dj-picture{
+        max-width: 100%;
+        max-height: auto;
+        object-fit: cover;
     }
 }
 
@@ -1016,6 +1022,12 @@ footer {
 
 .event-image {
     max-width: 350px;
+    max-height: auto;
+    object-fit: cover;
+}
+
+.dj-picture{
+    max-width: 100%;
     max-height: auto;
     object-fit: cover;
 }
