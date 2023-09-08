@@ -629,12 +629,14 @@ html .topimage {
     flex-direction: column;
     align-items: center;
     margin: 200px 0px;
+    padding: 24px;
     gap: 48px;
 }
 
 .big-card{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 32px;
     padding: 28px;
     background-color: white;
@@ -643,7 +645,6 @@ html .topimage {
     min-width: 200px;
     color:#111D2E;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
-    margin: 0px 24px;
 }
 
 .card .tab-icon, .big-card .tab-icon{
@@ -653,9 +654,10 @@ html .topimage {
 .card-container{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex: auto;
     justify-content: center;
-    align-items: center;
+    align-items: top;
+    max-width: 1700px;
     gap: 40px;
     width: 100%;
 }
@@ -663,12 +665,13 @@ html .topimage {
 .card{
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     gap: 32px;
     padding: 28px;
     background-color: white;
     border-radius: 8px;
-    max-width: 600px;
-    min-width: 200px;
+    min-width: 250px;
+    max-width: fit-content;
     color:#111D2E;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -739,6 +742,17 @@ html .topimage {
 
 .second-section img.image-rfid {
     order: 0; /* Change the order to 0 for mobile view */
+}
+
+html .card-container{
+    display: flex;
+    flex-direction: row;
+    flex: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: top;
+    gap: 40px;
+    width: 100%;
 }
 }
 
