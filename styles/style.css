@@ -307,10 +307,9 @@ html .topimage {
     }
 
     html footer{
-        margin-top: 80px;
         width: 100%;
         height: 100%;
-        margin: 0px;
+        margin: 100px 0px 0px 0px;
         padding: 0px;
         overflow-x: inherit;
     }
@@ -1011,13 +1010,12 @@ footer {
     gap: 12px;
   }
 
-  .header-with-triangles {
+  .header-with-circle {
     display: flex;
     align-items: center;
 }
 
-.triangle-left,
-.triangle-right {
+.circle {
     width: 0;
     height: 0;
     border-style: solid;
@@ -1026,17 +1024,11 @@ footer {
     animation: pulse 1s infinite alternate;
 }
 
-.triangle-left {
-    border-width: 15px 30px 15px 0;
-    border-color: transparent #111D2E transparent transparent;
-    margin-right: 24px; /* Adjust the spacing between text and triangle */
-
-}
-
-.triangle-right {
-    border-width: 15px 0 15px 30px;
-    border-color: transparent transparent transparent #111D2E;
-    margin-left: 24px; /* Adjust the spacing between text and triangle */
+.circle {
+    width: 20%;
+    height: 20%;
+    background-color: #111D2E;
+    margin: 0 24px; /* Adjust the spacing between text and circle */
 }
 
 

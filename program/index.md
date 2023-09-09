@@ -5,4 +5,4 @@ title: Program
 
 # Program
 
-Kom onze line-up te weten voor het weekend, we hebben boordevol activiteiten gepland.
+We hebben een weekend boordevol artiesten en activiteiten gepland, kom het hier te weten.
