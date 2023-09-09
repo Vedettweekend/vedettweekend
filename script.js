@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         block: 'center',
                     });
                 }
-            }, 100);
+            }, 10);
         } else if (hash === "#massiv-trillusion") {
             // Scroll to the "Massiv x Trillusion" section directly without tab activation
             setTimeout(function () {
