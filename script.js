@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var hash = window.location.hash;
 
         // Check if the hash corresponds to the "Tomoxkeytone" section
-        if (hash === "#tomoxkeytone") {
+        if (hash === "#djtomo-keytone") {
             // Activate the second tab
             var tab2 = document.getElementById("tab2");
             tab2.click();
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 }
             }, 10);
-        } else if (hash === "#massiv-trillusion") {
+        } else if (hash === "#djmassiv-trillusion") {
             // Scroll to the "Massiv x Trillusion" section directly without tab activation
             setTimeout(function () {
                 var artistSection = document.querySelector(hash);
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 }
             }, 100);
-        } else if (hash === "#mattic") {
+        } else if (hash === "#mattic-alleskapot") {
             // Scroll to the "Mattic" section directly without tab activation
             setTimeout(function () {
                 var artistSection = document.querySelector(hash);
