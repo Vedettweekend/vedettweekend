@@ -1053,10 +1053,6 @@ footer {
     object-fit: cover;
 }
 
-.widget-push{
-    padding: 40px;
-}
-
 .practical-container{
     display: flex;
     justify-content: center;
