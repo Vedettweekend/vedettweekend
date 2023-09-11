@@ -979,7 +979,6 @@ footer {
     font-size: 32px;
     width: 100%;
     max-width: 600px;
-    margin-left: 16px;
     min-height: 72px;
     font-weight: 800;
   }
@@ -1007,7 +1006,8 @@ footer {
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 180px;
-    gap: 12px;
+    padding: 0px 32px;
+    gap: 16px;
   }
 
   .header-with-circle {
@@ -1081,7 +1081,7 @@ footer {
 }
 
 .tab-buttons{
-    padding: 30px 60px;
+    padding: 0px 60px;
     color: white;
     background-color: #111D2E;
     border: 2px solid #111D2E;
