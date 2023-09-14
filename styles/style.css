@@ -932,6 +932,10 @@ footer {
     margin-top: 20px;
 }
 
+.sponsor-logos a{
+    width: 100px;
+}
+
 .sponsor-logos img {
     max-width: auto;
         max-height: 80px;
