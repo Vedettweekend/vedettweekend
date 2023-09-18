@@ -320,11 +320,15 @@ html .topimage {
     }
 
     p{
-    font-size: 2vh;
+    font-size: 16px;
     }
 
     p.info {
-        font-size: 2vh;
+        font-size: 16px;
+    }
+
+    .app-card p{
+        font-size: 18px;
     }
 
     .hamburger {
