@@ -223,6 +223,10 @@ p{
     transition: transform 0.3s ease;
 }
 
+.ticket:hover{
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.4);
+}
+
 .wegaanduiding{
     width: 100%;
     height: auto;
@@ -991,6 +995,7 @@ footer {
     max-width: 600px;
     min-height: 72px;
     font-weight: 800;
+    cursor: pointer;
   }
   
   .tab-button.active {
@@ -1084,6 +1089,18 @@ footer {
     margin-right: 40px;
 }
 
+footer img:hover {
+    transform: scale(1.2);
+}
+
+.button-container a:hover{
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-card a:hover{
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 .tab-menu{
     display: flex;
     flex-direction: column;
@@ -1100,6 +1117,7 @@ footer {
     font-weight: 900;
     width: 100%;
     min-height: 60px;
+    cursor: pointer;
 }
 
 .tab-buttons.active{
