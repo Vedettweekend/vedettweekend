@@ -323,11 +323,11 @@ html .topimage {
         padding: 0px;
     }
 
-    .practical-container h3{
+    .practical-container .written-content h3{
         font-size: 24px;
     }
 
-    .practical-container h2{
+    .practical-container .written-content h2{
         font-size: 32px;
     }
 
