@@ -144,11 +144,10 @@ videos.forEach(video => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    var video = document.getElementById('video');
+    var videos = document.querySelectorAll('.video2');
 
-    // Play the video automatically when the page loads
-    video.play();
-    
-    // Remove the event listener for video click
-    video.removeEventListener('click', toggleVideoPlay);
+    // Play each video automatically when the page loads
+    videos.forEach(video => {
+        video.play();
+    });
 });
