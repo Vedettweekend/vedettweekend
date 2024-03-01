@@ -8,6 +8,8 @@
     <link rel="icon" type="image/x-icon" href="./img/faviconvedett.ico">
     <link rel="canonical" href="https://www.vedettweekend.be/" />
     <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <script src="https://esq-store.s3.amazonaws.com/public/js/embed.js"></script>
+
     
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -33,7 +35,12 @@
             <ul class="nav-menu">
                 <li class="nav-item active">
                     <a href="#" class="nav-link">
-                        <div class="nav-content">Home</div>
+                        <div class="nav-content">HOME</div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="./tickets" class="nav-link">
+                        <div class="nav-content">TICKETS</div>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -59,21 +66,28 @@
             </div>
         </nav>
     </header>
-
-    <div class="topimage">
-        <img src="./img/headerpicture.png" alt="picture of the party in 2022">
-        <div class="textcontainer">
-            <div class="image-text">VEDETTWEEKEND</div>
-            <div class="image-text">27 & 28 OKT</div>
-        </div>
-        <a href="https://vedettweekend.anykrowd.app/#/dashboard"><div class="ticket">Buy Tickets Here</div></a>
+    <div class="videos-container2">
+    <div class="video-container">
+        <video id="video" autoplay loop muted>
+            <source src="./img/Vedettvideo2024.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <img id="logo" src="./img/Vedettweekend2024.svg" alt="Logo">
     </div>
 
-    <div class="top-content">
-        <div class="header-with-circle">
-            <div class="circle"></div>
-            <h1>ARTISTS IN THE SPOTLIGHT</h1>
-            <div class="circle"></div>
+    <a href="vedettweekend.be" class="carousel">
+    <video class="video2" autoplay loop muted>
+        <source src="./img/buyticketsloopgif.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </a>
+    </div>
+
+
+    <div class="artist-spotlight">
+        <div class="tussen-titel">
+            <h1>ARTIESTEN</h1>
+            <h2>IN DE SPOTLIGHT</h2>
         </div>
         <div class="card-container">
             <div class="card">
@@ -120,11 +134,19 @@
         </div>
     </div>
 
-    <div class="bottom-content">
-        <div class="header-with-circle">
-            <div class="circle"></div>
-            <h1>HOT NEWS</h1>
-            <div class="circle"></div>
+    <div class="video-container3">
+        <video class="myVideo" loop>
+            <source src="./img/aftermovie2022.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button id="playButton">▶</button>
+    </div>
+
+ 
+    <div class="artist-spotlight">
+        <div class="tussen-titel">
+            <h1>SPONSORS</h1>
+            <h2>IN DE SPOTLIGHT</h2>
         </div>
         <div class="card-container">
             <div class="big-card">
@@ -162,16 +184,39 @@
         </div>
     </div>
 
+    <div id="widbox" style="width: 100%; height: 100%;" data-widbox-widget-id="g71kLoLr3DWWsndY2EdN"></div>
+    <script src="https://widbox.sfo3.cdn.digitaloceanspaces.com/scripts/widbox.min.js" defer></script>
 
+    <hr class="full-width-line">
 
+    <footer>
+        <div class="footer-text">
+        <div>
+            <h4>VOLG ONS OP</h4>
+            <div>
+                <a href="https://www.facebook.com/vedettweekend">
+                    <i class="fab fa-facebook"></i><img src="img/facebook.svg" alt="facebook icon">
+                </a>
+                <a href="https://www.instagram.com/vedettweekend/">
+                    <i class="fab fa-instagram"></i><img src="img/insta.svg" alt="instagram icon">
+                </a>
+                <a href="https://www.tiktok.com/@vedettweekend">
+                    <i class="fab fa-tiktok"></i><img src="img/tiktok.svg" alt="tiktok icon">
+                </a>
+                <a href="https://linktr.ee/vedettweekend">
+                    <i class="fab fa-linktree"></i><img src="img/linktree.svg" alt="linktree icon">
+                </a>
+            </div>
+        </div>
 
-    
+        <div>
+            <h4>MEER INFORMATIE</h4>
+            <a href="https://vedettweekend.be">Over Vedettweekend</a>
+        </div>
 
-    <div class="social-medialink">
-        <div class="header-with-circle">
-            <div class="circle"></div>
-            <h1>FOLLOW OUR INSTA</h1>
-            <div class="circle"></div>
+        <div>
+            <h4>TICKETS KOPEN</h4>
+            <a href="https://vedettweekend.be">Koop hier je tickets</a>
         </div>
         <div class="widget-push"></div>
         <div class="embedsocial-hashtag" data-ref="31c59ee5b4b88f3cb92335ad204de52ab32fcabe"> <a class="feed-powered-by-es" href="https://embedsocial.com/social-media-aggregator/" target="_blank" title="Widget by EmbedSocial"> Widget by EmbedSocial <span>→</span> </a> </div> <script> (function(d, s, id) { var js; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/cdn/ht.js"; d.getElementsByTagName("head")[0].appendChild(js); }(document, "script", "EmbedSocialHashtagScript")); </script>
