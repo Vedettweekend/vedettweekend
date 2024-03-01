@@ -142,3 +142,13 @@ videos.forEach(video => {
         playButton.textContent = '▶';
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    var video = document.getElementById('video');
+
+    // Play the video automatically when the page loads
+    video.play();
+    
+    // Remove the event listener for video click
+    video.removeEventListener('click', toggleVideoPlay);
+});
