@@ -487,8 +487,6 @@ p{
     gap: 40px;
     flex-direction: column;
     width: 100%;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-right: 40px;
 }
 
 .tab-menu {
@@ -797,10 +795,20 @@ h4 {
 }
 
 .tab-buttons {
-    padding: 15px 30px;
+    padding: 15px 16px;
     font-size: 18px;
     min-height: 50px;
   }
+
+  .tab-buttons {
+    background-color: rgba(255, 225, 255, 0.1);
+  }
+
+
+
+  .tab-menu {
+    gap: 0px;
+}
 
   .background-image{
     background-size: 200% auto; /* Maintain aspect ratio and fit width of the viewport */
