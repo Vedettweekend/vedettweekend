@@ -175,6 +175,12 @@ a {
     height: auto;
 }
 
+.embeddedVideo {
+    width: 100%;
+    height: 50vh;
+}
+
+
 .video2 {
 
         width: 100%; /* Allow the video to scale based on its aspect ratio */

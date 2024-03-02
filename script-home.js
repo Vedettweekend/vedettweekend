@@ -101,8 +101,6 @@ function playVideo() {
 // Add event listener for mouse enter event
 video2.addEventListener('mouseleave', playVideo);
 
-// Add event listener for mouse leave event (optional)
-video2.addEventListener('mouseenter', pauseVideo);
 
 const videos = document.querySelectorAll('.myVideo');
 const playButton = document.getElementById('playButton');
