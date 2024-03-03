@@ -1,8 +1,8 @@
 ---
 layout: default
-title: App
+title: Tickets
 ---
 
-# App
+# Tickets
 
-Sinds dit jaar hebben we een app op de markt gebracht die jouw festivalervaring naar een hoger niveau zal tillen.
+Bestel nu je tickets voor het Vedettweekend om het leukste feest van het najaar te vieren!
