@@ -597,6 +597,11 @@ p{
     font-size: 28px;
   }
 
+  footer div {
+    font-weight: 100;
+  }
+
+  
  
   
 
@@ -768,6 +773,11 @@ footer{
 footer div div{
     min-width: 175px;
     width: auto;
+}
+
+footer div{
+    font-weight: 100;
+    font-size: 1rem;
 }
 
 h4 {
