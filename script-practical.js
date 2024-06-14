@@ -176,4 +176,13 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
     });
-  })(jQuery);
+  })
+
+    // Fullscreen image functionality
+    document.querySelector('.wegaanduiding').addEventListener('click', function() {
+        document.getElementById('fullscreenOverlay').style.display = 'flex';
+    });
+
+    document.getElementById('fullscreenOverlay').addEventListener('click', function() {
+        this.style.display = 'none';
+    });

@@ -353,8 +353,46 @@ h4{
     height: auto; /* Maintain aspect ratio */
 }
 
-.sponsor-container{
- margin: 2.5% 0px 10vw 0px;
+
+.sponsor-container img:hover{
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out;   
+}
+
+.sponsor-container {
+    margin: 2.5% 0px 10vw 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden; /* To hide the overflow of banners */
+}
+
+.banner-right, .banner-left {
+    display: flex;
+    white-space: nowrap; /* Prevent line breaks */
+}
+
+.colorbanner {
+    width: 400px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 50px; 
+}
+
+@keyframes move-banner {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.banner-right, .banner-left {
+    animation: move-banner 20s linear infinite; /* Adjust the duration as needed */
+}
+
+.banner-left {
+    animation-direction: reverse;
 }
 
 
@@ -371,13 +409,18 @@ h4{
     padding: 12px 0px;
 }
 
-
-
-.colorbanner {
-    width: 25%;
-    flex: 0 0 23%; /* Adjust width to fit four images in a row with a little space */
-    height: auto; /* Maintain aspect ratio */
+@media (max-width: 768px) {
+    /* Adjust animation duration for smaller screens (e.g., mobile devices) */
+    .banner-right, .banner-left {
+        animation-duration: 25s; /* Slower animation for mobile */
+    }
+    .colorbanner {
+        width: 200px; /* Adjust the width as needed */
+        height: auto; /* Maintain aspect ratio */
+        margin: 0 50px; 
+    }
 }
+
 
 .sponsor-logos img{
     width: 100px;
@@ -406,6 +449,14 @@ footer a{
 p{
     font-size: 28px;
     font-weight: 100;
+}
+
+
+
+footer .footer-text a:hover, footer .footer-sponsors a:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out;
+    color: #C53364 !important; 
 }
 
 .sponsor-logos {
@@ -507,6 +558,27 @@ p{
 .wegaanduiding{
     width: 100%;
     max-width: 500px;
+    cursor: pointer;
+}
+
+/* Fullscreen overlay */
+.fullscreen-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.fullscreen-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
 }
 
 .contact h3{
@@ -574,7 +646,9 @@ p{
     text-align: left;
   }
 
-  .ag-timeline-card_meta{
+
+
+  .ag-timeline-card_meta_red{
     color: white;
     background-color: #DD3126;
     border-radius: 32px;
@@ -586,9 +660,20 @@ p{
   }
 
 
-  .ag-timeline-card_meta_retro{
+  .ag-timeline-card_meta_blue{
     color: white;
-    background-color: #D3408C;
+    background-color: #3AADE5;
+    border-radius: 32px;
+    padding: 10px 16px;
+    margin: 10px 0 0;
+    font-family: 'ESL Legend', sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+  }
+
+  .ag-timeline-card_meta_purple{
+    color: white;
+    background-color: #BB5BFA;
     border-radius: 32px;
     padding: 10px 16px;
     margin: 10px 0 0;
@@ -851,7 +936,7 @@ h4 {
   }
 
 
-  .ag-timeline-card_meta{
+  .ag-timeline-card_meta_red{
     color: white;
     background-color: #DD3126;
     border-radius: 32px;
@@ -863,9 +948,20 @@ h4 {
   }
 
 
-  .ag-timeline-card_meta_retro{
+  .ag-timeline-card_meta_blue{
     color: white;
-    background-color: #D3408C;
+    background-color: #3AADE5;
+    border-radius: 32px;
+    padding: 5px 8px;
+    margin: 10px 0 0;
+    font-family: 'ESL Legend', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .ag-timeline-card_meta_purple{
+    color: white;
+    background-color: #BB5BFA;
     border-radius: 32px;
     padding: 5px 8px;
     margin: 10px 0 0;
@@ -1011,6 +1107,10 @@ h4 {
     position: relative;
   }
   
+  .ag-timeline-card_item:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+
   .ag-timeline_item:nth-child(2n+1) .ag-timeline-card_item {
     -webkit-transform: translateX(-200%);
     -moz-transform: translateX(-200%);
@@ -1072,7 +1172,7 @@ h4 {
   }
   
   .ag-timeline-card_info {
-    padding: 12px 12px;
+    padding: 0.8rem 1.2rem;
   }
   
   .ag-timeline-card_title {
