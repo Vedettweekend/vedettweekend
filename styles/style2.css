@@ -659,6 +659,17 @@ footer .footer-text a:hover, footer .footer-sponsors a:hover {
     font-size: 28px;
   }
 
+  .ag-timeline-card_meta_white{
+    color: #111D2E;
+    background-color: white;
+    border-radius: 32px;
+    padding: 10px 16px;
+    margin: 10px 0 0;
+    font-family: 'ESL Legend', sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+  }
+
 
   .ag-timeline-card_meta_blue{
     color: white;
