@@ -182,7 +182,6 @@ a {
 
 
 .video2 {
-
         width: 100%; /* Allow the video to scale based on its aspect ratio */
         height: 8vh;
         object-fit: cover;
