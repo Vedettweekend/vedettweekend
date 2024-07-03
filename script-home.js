@@ -149,3 +149,40 @@ document.addEventListener("DOMContentLoaded", function() {
         video.play();
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const marqueeContainer = document.querySelector('.marquee-container');
+    const marquee = document.querySelector('.marquee');
+    const marqueeItems = document.querySelectorAll('.marquee span');
+
+    let totalWidth = 0;
+
+    // Calculate total width of all span elements
+    marqueeItems.forEach(item => {
+        totalWidth += item.offsetWidth;
+    });
+
+    // Calculate animation duration based on total width and viewport width
+    const containerWidth = marqueeContainer.offsetWidth;
+    const animationDuration = totalWidth / 100; // Adjust divisor for speed
+
+    // Adjust animation duration for different screen sizes
+    const viewportWidth = window.innerWidth;
+    if (viewportWidth < 768) {
+        marquee.style.animationDuration = `${animationDuration * 1}s`; // Increase speed for smaller screens
+    } else {
+        marquee.style.animationDuration = `${animationDuration}s`; // Normal speed for larger screens
+    }
+     // Pause animation on hover
+    marqueeContainer.addEventListener('mouseenter', function() {
+        marquee.style.animationPlayState = 'paused';
+    });
+
+    // Resume animation on mouse leave
+    marqueeContainer.addEventListener('mouseleave', function() {
+        marquee.style.animationPlayState = 'running';
+    });
+});
+
+
+

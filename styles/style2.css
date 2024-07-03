@@ -188,11 +188,63 @@ a {
     
 }
 
-.carousel {
+
+
+
+/* Ensure the container takes up the full width and height of 8vh */
+.marquee-container {
+    width: 100%; /* Use viewport width to cover the entire screen */
+    height: 8vh;
+    overflow: hidden;
+    position: relative; /* Set relative position to contain absolute children */
     display: flex;
-    justify-content: center; /* Center the video horizontally */
-    align-items: center; /* Center the video vertically */
+    align-items: center; /* Center align vertically */
+    background: url('../img/MarqueeBackground.svg') center/cover; /* Use SVG as background */
 }
+
+/* Marquee text styling and animation */
+.marquee {
+    width: 100%;
+    display: flex;
+  justify-content: space-between;
+    white-space: nowrap;
+    position: absolute; /* Position absolute to the container */
+    animation: marquee linear infinite; /* Animation with dynamic duration */
+}
+
+
+.marquee span {
+    display: inline-block;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 5vh;
+    color: #fff; /* White text */
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000; /* Black border around the text */
+}
+
+.klik-hier, .tickets-kopen{
+    margin-left: 12px;
+    
+}
+
+
+/* Keyframes for the marquee animation */
+@keyframes marquee {
+    0% {
+        transform: translateX(100%); /* Start off-screen to the right */
+    }
+    100% {
+        transform: translateX(-100%); /* Move off-screen to the left */
+    }
+}
+
+
+
+
 
 #video {
     position: absolute;
@@ -233,8 +285,9 @@ h1{
 }
 
 h2{
-    font-size: 40px;
-    font-weight: 500;
+    font-size: 1vw;
+    color:lightslategray;
+    letter-spacing: 1px;
 }
 
 .spotlight{
