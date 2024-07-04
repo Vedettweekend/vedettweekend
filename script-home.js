@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+function initializeMarquee() {
     const marqueeContainer = document.querySelector('.marquee-container');
     const marquee = document.querySelector('.marquee');
     const marqueeItems = document.querySelectorAll('.marquee span');
@@ -168,15 +168,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set the width of the marquee to the total width of the spans
     marquee.style.width = `${totalWidth}px`;
 
-    // Calculate animation duration based on total width and viewport width
+    // Calculate animation duration based on total width
     const animationDuration = totalWidth / 100; // Adjust divisor for speed
 
-    // Set animation duration for all screen sizes
+    // Set animation duration
     marquee.style.animationDuration = `${animationDuration}s`;
 
-    // Set initial position based on viewport width
-    const viewportWidth = window.innerWidth;
-    marquee.style.transform = `translateX(${viewportWidth}px)`;
+    // Start the animation
+    marquee.style.animationPlayState = 'running';
 
     // Pause animation on hover
     marqueeContainer.addEventListener('mouseenter', function() {
@@ -187,7 +186,13 @@ document.addEventListener('DOMContentLoaded', function() {
     marqueeContainer.addEventListener('mouseleave', function() {
         marquee.style.animationPlayState = 'running';
     });
-});
+}
+
+// Initialize marquee on DOM content loaded
+document.addEventListener('DOMContentLoaded', initializeMarquee);
+
+// Ensure marquee restarts when the user navigates back to the page
+window.addEventListener('pageshow', initializeMarquee);
 
 
 
