@@ -157,23 +157,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let totalWidth = 0;
 
-    // Calculate total width of all span elements
+    // Calculate total width of all span elements including margins
     marqueeItems.forEach(item => {
-        totalWidth += item.offsetWidth;
+        const style = window.getComputedStyle(item);
+        const marginLeft = parseFloat(style.marginLeft);
+        const marginRight = parseFloat(style.marginRight);
+        totalWidth += item.offsetWidth + marginLeft + marginRight;
     });
 
+    // Set the width of the marquee to the total width of the spans
+    marquee.style.width = `${totalWidth}px`;
+
     // Calculate animation duration based on total width and viewport width
-    const containerWidth = marqueeContainer.offsetWidth;
     const animationDuration = totalWidth / 100; // Adjust divisor for speed
 
-    // Adjust animation duration for different screen sizes
+    // Set animation duration for all screen sizes
+    marquee.style.animationDuration = `${animationDuration}s`;
+
+    // Set initial position based on viewport width
     const viewportWidth = window.innerWidth;
-    if (viewportWidth < 768) {
-        marquee.style.animationDuration = `${animationDuration * 1}s`; // Increase speed for smaller screens
-    } else {
-        marquee.style.animationDuration = `${animationDuration}s`; // Normal speed for larger screens
-    }
-     // Pause animation on hover
+    marquee.style.transform = `translateX(${viewportWidth}px)`;
+
+    // Pause animation on hover
     marqueeContainer.addEventListener('mouseenter', function() {
         marquee.style.animationPlayState = 'paused';
     });
@@ -183,6 +188,9 @@ document.addEventListener('DOMContentLoaded', function() {
         marquee.style.animationPlayState = 'running';
     });
 });
+
+
+
 
 
 

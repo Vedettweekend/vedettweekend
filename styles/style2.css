@@ -235,12 +235,13 @@ a {
 /* Keyframes for the marquee animation */
 @keyframes marquee {
     0% {
-        transform: translateX(100%); /* Start off-screen to the right */
+        transform: translateX(100vw); /* Start just outside the viewport */
     }
     100% {
-        transform: translateX(-100%); /* Move off-screen to the left */
+        transform: translateX(-100%); /* Move completely off-screen to the left */
     }
 }
+
 
 
 
