@@ -63,7 +63,7 @@ header {
     display: flex;
     align-items: center;
     height: 100px;
-    gap: 1vw;
+    gap: 2vw;
 }
 
 .nav-branding {
@@ -90,6 +90,17 @@ a {
     color: white;
     text-decoration: none;
 }
+
+.nav-content {
+    position: relative;
+}
+
+.flame-icon {
+    position: absolute;
+    top: -12px;  /* Adjust to position the flame correctly */
+    right: -24px; /* Adjust to position the flame correctly */
+}
+
 
 .nav-menu .nav-item a:hover {
     color: #C53364 /* Underline effect on hover */
