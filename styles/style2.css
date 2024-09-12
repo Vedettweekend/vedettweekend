@@ -91,17 +91,6 @@ a {
     text-decoration: none;
 }
 
-.nav-content {
-    position: relative;
-}
-
-.flame-icon {
-    position: absolute;
-    top: -12px;  /* Adjust to position the flame correctly */
-    right: -24px; /* Adjust to position the flame correctly */
-}
-
-
 .nav-menu .nav-item a:hover {
     color: #C53364 /* Underline effect on hover */
 }
