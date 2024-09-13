@@ -1,16 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const hamburger = document.querySelector(".hamburger");
-    const navMenu = document.querySelector(".nav-menu");
-    const navbar = document.querySelector(".navbar");
-    const navItems = document.querySelectorAll(".nav-item");
-    let headerBackground;
-    const video = document.getElementById('video'); // Get the video element
-
-    document.cookie = "__Secure-3PSIDCC=value; SameSite=None; Secure";
+    // Ensure all videos are initialized properly
+    const video = document.getElementById('video');
+    const video2 = document.querySelector('.video2');
+    const videos = document.querySelectorAll('.myVideo');
+    const playButton = document.getElementById('playButton');
 
     // Function to toggle video play/pause on click
     function toggleVideoPlay() {
-        if (video.paused) {
+        if (video && video.paused) {
             video.play();
         } else {
             video.pause();
@@ -18,56 +15,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Event listener for video click
-    video.addEventListener('click', () => {
-        toggleVideoPlay();
-    });
-
-    // Function to toggle visibility of nav items
-    function toggleNavItemsDisplay() {
-        if (window.innerWidth >= 1024 || navMenu.classList.contains("active")) {
-            navItems.forEach(item => {
-                item.style.display = 'block';
-            });
-            navMenu.style.pointerEvents = 'auto'; // Enable pointer events when menu is open
-        } else {
-            navItems.forEach(item => {
-                item.style.display = 'none';
-            });
-            navMenu.style.pointerEvents = 'none'; // Disable pointer events when menu is closed
-        }
+    if (video) {
+        video.addEventListener('click', toggleVideoPlay);
     }
 
-    // Function to handle menu toggle
-    function toggleMenu() {
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
-        navbar.classList.toggle("active");
-        document.body.classList.toggle("menu-open"); // Toggle class on body
-        
-        // Add transition effect to the nav-menu background color
-        navMenu.style.transition = "background-color 0.5s ease";
-
-        // Toggle display property of nav items
-        toggleNavItemsDisplay();
-    }
-
-    hamburger.addEventListener("click", toggleMenu);
-
-    document.querySelectorAll(".nav-link").forEach(link => {
-        link.addEventListener("click", () => {
-            hamburger.classList.remove("active");
-            navMenu.classList.remove("active");
-            navbar.classList.remove("active");
-            document.body.classList.remove("menu-open"); // Remove class on body
-            toggleNavItemsDisplay(); // Ensure nav items are hidden after clicking a link
-        });
-    });
-
-    // Function to handle window resize
+    // Function to handle window resize for navigation items
     function handleWindowResize() {
         toggleNavItemsDisplay(); // Adjust nav items visibility on window resize
     }
 
+    // Handle scroll to display header background
+    let headerBackground;
     window.addEventListener('scroll', function() {
         if (!headerBackground) {
             headerBackground = document.createElement('div');
@@ -75,125 +33,134 @@ document.addEventListener("DOMContentLoaded", function() {
             document.body.appendChild(headerBackground);
         }
 
-        var videoContainer = document.querySelector('.video-container');
-        var videoBottom = videoContainer.getBoundingClientRect().bottom + 500; // Adjust this value as needed
+        const videoContainer = document.querySelector('.video-container');
+        if (videoContainer) {
+            const videoBottom = videoContainer.getBoundingClientRect().bottom + 500; // Adjust as needed
 
-        if (window.scrollY > videoBottom) {
-            headerBackground.style.display = 'block';
-        } else {
-            headerBackground.style.display = 'none';
+            if (window.scrollY > videoBottom) {
+                headerBackground.style.display = 'block';
+            } else {
+                headerBackground.style.display = 'none';
+            }
         }
     });
 
+    // Add resize event listener
     window.addEventListener('resize', handleWindowResize);
 
-    const video2 = document.querySelector('.video2');
-
-    // Ensure the video plays at 50% speed initially
-    video2.playbackRate = 0.5;
-    video2.play();
-
-    // Add event listener for mouse enter event to pause the video
-    video2.addEventListener('mouseover', function() {
-        video2.pause();
-    });
-
-    // Add event listener for mouse leave event to play the video
-    video2.addEventListener('mouseout', function() {
+    // Handle .video2 playback at a controlled speed
+    if (video2) {
+        video2.playbackRate = 0.5;
         video2.play();
-    });
 
-    const videos = document.querySelectorAll('.myVideo');
-    const playButton = document.getElementById('playButton');
-
-    playButton.addEventListener('click', () => {
-        videos.forEach(video => {
-            if (video.paused) {
-                video.play();
-                playButton.textContent = '❚❚'; // Change button text to pause symbol
-            } else {
-                video.pause();
-                playButton.textContent = '▶'; // Change button text to play symbol
-            }
+        // Pause on hover
+        video2.addEventListener('mouseover', function() {
+            video2.pause();
         });
-    });
 
+        // Play on mouse leave
+        video2.addEventListener('mouseout', function() {
+            video2.play();
+        });
+    }
+
+    // Handle multiple video controls via a play button
+    if (playButton) {
+        playButton.addEventListener('click', () => {
+            videos.forEach(video => {
+                if (video.paused) {
+                    video.play();
+                    playButton.textContent = '❚❚'; // Pause symbol
+                } else {
+                    video.pause();
+                    playButton.textContent = '▶'; // Play symbol
+                }
+            });
+        });
+    }
+
+    // Handle individual video play/pause and button updates
     videos.forEach(video => {
         video.addEventListener('click', () => {
             if (video.paused) {
                 video.play();
-                playButton.textContent = '❚❚';
+                playButton.textContent = '❚❚'; // Pause symbol
             } else {
                 video.pause();
-                playButton.textContent = '▶';
+                playButton.textContent = '▶'; // Play symbol
             }
         });
 
+        // Hide the play button when the video is playing
         video.addEventListener('play', () => {
             playButton.style.display = 'none';
         });
 
+        // Show the play button when the video is paused
         video.addEventListener('pause', () => {
             playButton.style.display = 'block';
         });
 
+        // Ensure play button resets after video ends
         video.addEventListener('ended', () => {
             playButton.textContent = '▶';
         });
     });
 
-    // Play each video automatically when the page loads
+    // Auto-play all videos with class "video2" at a specific speed
     const videoElements = document.querySelectorAll('.video2');
     videoElements.forEach(video => {
         video.playbackRate = 0.1;
         video.play();
     });
-});
 
-function initializeMarquee() {
-    const marqueeContainer = document.querySelector('.marquee-container');
-    const marquee = document.querySelector('.marquee');
-    const marqueeItems = document.querySelectorAll('.marquee span');
+    // Initialize marquee
+    function initializeMarquee() {
+        const marqueeContainer = document.querySelector('.marquee-container');
+        const marquee = document.querySelector('.marquee');
+        const marqueeItems = document.querySelectorAll('.marquee span');
 
-    let totalWidth = 0;
+        if (marqueeItems.length === 0) return;
 
-    // Calculate total width of all span elements including margins
-    marqueeItems.forEach(item => {
-        const style = window.getComputedStyle(item);
-        const marginLeft = parseFloat(style.marginLeft);
-        const marginRight = parseFloat(style.marginRight);
-        totalWidth += item.offsetWidth + marginLeft + marginRight;
-    });
+        let totalWidth = 0;
 
-    // Set the width of the marquee to the total width of the spans
-    marquee.style.width = `${totalWidth}px`;
+        // Calculate total width of all span elements including margins
+        marqueeItems.forEach(item => {
+            const style = window.getComputedStyle(item);
+            const marginLeft = parseFloat(style.marginLeft);
+            const marginRight = parseFloat(style.marginRight);
+            totalWidth += item.offsetWidth + marginLeft + marginRight;
+        });
 
-    // Calculate animation duration based on total width
-    const animationDuration = totalWidth / 100; // Adjust divisor for speed
+        // Set the width of the marquee to the total width of the spans
+        marquee.style.width = `${totalWidth}px`;
 
-    // Set animation duration
-    marquee.style.animationDuration = `${animationDuration}s`;
+        // Calculate animation duration based on total width
+        const animationDuration = totalWidth / 100; // Adjust divisor for speed
 
-    // Start the animation
-    marquee.style.animationPlayState = 'running';
+        // Set animation duration
+        marquee.style.animationDuration = `${animationDuration}s`;
 
-    // Pause animation on hover
-    marqueeContainer.addEventListener('mouseenter', function() {
-        marquee.style.animationPlayState = 'paused';
-    });
-
-    // Resume animation on mouse leave
-    marqueeContainer.addEventListener('mouseleave', function() {
+        // Start the animation
         marquee.style.animationPlayState = 'running';
-    });
-}
 
-// Initialize marquee on DOM content loaded
-document.addEventListener('DOMContentLoaded', initializeMarquee);
+        // Pause animation on hover
+        marqueeContainer.addEventListener('mouseenter', function() {
+            marquee.style.animationPlayState = 'paused';
+        });
 
-// Ensure marquee restarts when the user navigates back to the page
-window.addEventListener('pageshow', initializeMarquee);
+        // Resume animation on mouse leave
+        marqueeContainer.addEventListener('mouseleave', function() {
+            marquee.style.animationPlayState = 'running';
+        });
+    }
 
+    // Initialize marquee on DOM content loaded
+    initializeMarquee();
+
+    // Ensure marquee restarts when navigating back to the page
+    window.addEventListener('pageshow', initializeMarquee);
+});
 
 
 
