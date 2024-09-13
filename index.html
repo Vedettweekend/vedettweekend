@@ -115,10 +115,15 @@
     }
 
     @media (max-width: 768px) {
-    .btn-container {
-        position: absolute; /* Adjust position on mobile to fit the screen */
-        width: 90%;
-        justify-content: center;
+        .btn-container {
+        position: fixed; /* Ensure it stays in view and can be centered */
+        bottom: 1em; /* Align at the bottom */
+        left: 0;   /* Align to the left */
+        width: 100%; /* Full width of the screen */
+        justify-content: center; /* Center content horizontally */
+        align-items: center; /* Center content vertically */
+        padding: 0 5%; /* Add some padding for better appearance */
+        box-sizing: border-box; /* Include padding in the width */
     }
 
     .btn {
@@ -129,7 +134,6 @@
     
 }
 </style>
-
     <title>Home | Vedettweekend</title>
 </head>
 <body>
@@ -387,6 +391,7 @@
 
     <div class="footer-sponsors">
         
+        <!-- ALLE SPONSORS VAN ZILVER TOT DIAMOND-->
         <div class="sponsor-logos">
             <a href="https://altavina.be/nl"><img src="img/Altavina(FV).svg" alt="Sponsor 1"></a>
             <a href="https://www.bakertilly.be/nl"><img src="img/BakerTilly(FV) 1.svg" alt="Sponsor 2"></a>
