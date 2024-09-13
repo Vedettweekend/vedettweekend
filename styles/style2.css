@@ -188,36 +188,6 @@ a {
 }
 
 
-.btn-container {
-    position: absolute;
-    bottom: 20px;  /* Adjust distance from bottom */
-    right: 20px;   /* Adjust distance from right */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10; /* Ensures it's above the video */
-}
-
-.btn {
-    margin: 10px;
-    padding: 30px;
-    text-align: center;
-    font-size: 2em;
-    font-weight: 500;
-    text-transform: uppercase;
-    transition: 0.5s;
-    background-size: 200% auto;
-    color: white;
-    box-shadow: 0 0 20px #eee;
-    border-radius: 10px;
-    background-color:rgb(197, 51, 100, 0.85); /* Optional: makes button semi-transparent */
-    animation: pulse 2s infinite;
-}
-
-.btn:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
 @keyframes pulse {
     0% {
         transform: scale(1);  /* Normal size */
@@ -456,18 +426,6 @@ h4{
         height: auto; /* Maintain aspect ratio */
         margin: 0 50px; 
     }
-    .btn-container {
-        position: absolute; /* Adjust position on mobile to fit the screen */
-        width: 90%;
-        justify-content: center;
-    }
-
-    .btn {
-        width: 100%; /* Make the button take the full width */
-        padding: 20px; /* Adjust padding for mobile */
-        font-size: 1.5em; /* Adjust font size for better readability */
-    }
-    
 }
 
 .sponsor-logos img{
