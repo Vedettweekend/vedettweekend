@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const videoContainer = document.querySelector('.video-container');
         if (videoContainer) {
-            const videoBottom = videoContainer.getBoundingClientRect().bottom + 500; // Adjust as needed
+            const videoBottom = videoContainer.getBoundingClientRect().bottom + 350; // Adjust as needed
 
             if (window.scrollY > videoBottom) {
                 headerBackground.style.display = 'block';
@@ -114,53 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
         video.play();
     });
 
-    // Initialize marquee
-    function initializeMarquee() {
-        const marqueeContainer = document.querySelector('.marquee-container');
-        const marquee = document.querySelector('.marquee');
-        const marqueeItems = document.querySelectorAll('.marquee span');
-
-        if (marqueeItems.length === 0) return;
-
-        let totalWidth = 0;
-
-        // Calculate total width of all span elements including margins
-        marqueeItems.forEach(item => {
-            const style = window.getComputedStyle(item);
-            const marginLeft = parseFloat(style.marginLeft);
-            const marginRight = parseFloat(style.marginRight);
-            totalWidth += item.offsetWidth + marginLeft + marginRight;
-        });
-
-        // Set the width of the marquee to the total width of the spans
-        marquee.style.width = `${totalWidth}px`;
-
-        // Calculate animation duration based on total width
-        const animationDuration = totalWidth / 100; // Adjust divisor for speed
-
-        // Set animation duration
-        marquee.style.animationDuration = `${animationDuration}s`;
-
-        // Start the animation
-        marquee.style.animationPlayState = 'running';
-
-        // Pause animation on hover
-        marqueeContainer.addEventListener('mouseenter', function() {
-            marquee.style.animationPlayState = 'paused';
-        });
-
-        // Resume animation on mouse leave
-        marqueeContainer.addEventListener('mouseleave', function() {
-            marquee.style.animationPlayState = 'running';
-        });
-    }
-
-    // Initialize marquee on DOM content loaded
-    initializeMarquee();
-
-    // Ensure marquee restarts when navigating back to the page
-    window.addEventListener('pageshow', initializeMarquee);
-});
+})
 
 
 
