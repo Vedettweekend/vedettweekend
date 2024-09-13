@@ -215,7 +215,6 @@ a {
 }
 
 .btn:hover {
-    
     background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -468,8 +467,8 @@ h4{
         padding: 20px; /* Adjust padding for mobile */
         font-size: 1.5em; /* Adjust font size for better readability */
     }
+    
 }
-
 
 .sponsor-logos img{
     width: 100px;
