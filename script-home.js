@@ -48,26 +48,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Ensure all videos are initialized properly
-    const video = document.getElementById('video');
-    const video2 = document.querySelector('.video2');
-    const videos = document.querySelectorAll('.myVideo');
-    const playButton = document.getElementById('playButton');
-
-    // Function to toggle video play/pause on click
-    function toggleVideoPlay() {
-        if (video && video.paused) {
-            video.play();
-        } else {
-            video.pause();
-        }
-    }
-
-    // Event listener for video click
-    if (video) {
-        video.addEventListener('click', toggleVideoPlay);
-    }
-
     // Function to handle window resize for navigation items
     function handleWindowResize() {
         toggleNavItemsDisplay(); // Adjust nav items visibility on window resize
@@ -97,73 +77,46 @@ document.addEventListener("DOMContentLoaded", function() {
     timeout = setTimeout(handleWindowResize, 100); // 100ms debounce
     });
 
+      // Ensure all videos are initialized properly
+const video = document.getElementById('video');
+const playButton = document.getElementById('playButton');
 
-    // Handle .video2 playback at a controlled speed
-    if (video2) {
-        video2.playbackRate = 0.5;
-        video2.play();
-
-        // Pause on hover
-        video2.addEventListener('mouseover', function() {
-            video2.pause();
-        });
-
-        // Play on mouse leave
-        video2.addEventListener('mouseout', function() {
-            video2.play();
-        });
+// Function to update the play/pause button text
+function updateButton() {
+    if (video && video.paused) {
+        playButton.textContent = '▶'; // Play icon
+    } else {
+        playButton.textContent = '❚❚'; // Pause icon
     }
+}
 
-    // Handle multiple video controls via a play button
-    if (playButton) {
-        playButton.addEventListener('click', () => {
-            videos.forEach(video => {
-                if (video.paused) {
-                    video.play();
-                    playButton.textContent = '❚❚'; // Pause symbol
-                } else {
-                    video.pause();
-                    playButton.textContent = '▶'; // Play symbol
-                }
-            });
-        });
+// Function to toggle video play/pause on click
+function toggleVideoPlay() {
+    if (video) {
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+        updateButton(); // Update button state
     }
+}
 
-    // Handle individual video play/pause and button updates
-    videos.forEach(video => {
-        video.addEventListener('click', () => {
-            if (video.paused) {
-                video.play();
-                playButton.textContent = '❚❚'; // Pause symbol
-            } else {
-                video.pause();
-                playButton.textContent = '▶'; // Play symbol
-            }
-        });
+// Event listener for button click
+if (playButton) {
+    playButton.addEventListener('click', toggleVideoPlay);
+}
 
-        // Hide the play button when the video is playing
-        video.addEventListener('play', () => {
-            playButton.style.display = 'none';
-        });
+// Event listener for video click (optional, if you want video click to also toggle play/pause)
+if (video) {
+    video.addEventListener('click', toggleVideoPlay);
+}
 
-        // Show the play button when the video is paused
-        video.addEventListener('pause', () => {
-            playButton.style.display = 'block';
-        });
+// Initialize button state
+updateButton();
 
-        // Ensure play button resets after video ends
-        video.addEventListener('ended', () => {
-            playButton.textContent = '▶';
-        });
-    });
 
-    // Auto-play all videos with class "video2" at a specific speed
-    const videoElements = document.querySelectorAll('.video2');
-    videoElements.forEach(video => {
-        video.playbackRate = 0.1;
-        video.play();
-    });
-
+    
 })
 
 
