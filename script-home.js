@@ -47,9 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
             toggleNavItemsDisplay(); // Ensure nav items are hidden after clicking a link
         });
     });
-})
 
-document.addEventListener("DOMContentLoaded", function() {
     // Ensure all videos are initialized properly
     const video = document.getElementById('video');
     const video2 = document.querySelector('.video2');
