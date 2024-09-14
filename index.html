@@ -19,58 +19,6 @@
     })(window,document,'script','dataLayer','GTM-TCSXPDTW');</script>
     <!-- End Google Tag Manager -->
 
-    <script>document.addEventListener("DOMContentLoaded", function() {
-        const hamburger = document.querySelector(".hamburger");
-        const navMenu = document.querySelector(".nav-menu");
-        const navbar = document.querySelector(".navbar");
-        const navItems = document.querySelectorAll(".nav-item");
-    
-        document.cookie = "__Secure-3PSIDCC=value; SameSite=None; Secure";
-    
-    
-    
-        // Function to toggle visibility of nav items
-        function toggleNavItemsDisplay() {
-            if (window.innerWidth >= 1024 || navMenu.classList.contains("active")) {
-                navItems.forEach(item => {
-                    item.style.display = 'block';
-                });
-                navMenu.style.pointerEvents = 'auto'; // Enable pointer events when menu is open
-            } else {
-                navItems.forEach(item => {
-                    item.style.display = 'none';
-                });
-                navMenu.style.pointerEvents = 'none'; // Disable pointer events when menu is closed
-            }
-        }
-    
-        // Function to handle menu toggle
-        function toggleMenu() {
-            hamburger.classList.toggle("active");
-            navMenu.classList.toggle("active");
-            navbar.classList.toggle("active");
-            document.body.classList.toggle("menu-open"); // Toggle class on body
-            
-            // Add transition effect to the nav-menu background color
-            navMenu.style.transition = "background-color 0.5s ease";
-    
-            // Toggle display property of nav items
-            toggleNavItemsDisplay();
-        }
-    
-        hamburger.addEventListener("click", toggleMenu);
-    
-        document.querySelectorAll(".nav-link").forEach(link => {
-            link.addEventListener("click", () => {
-                hamburger.classList.remove("active");
-                navMenu.classList.remove("active");
-                navbar.classList.remove("active");
-                document.body.classList.remove("menu-open"); // Remove class on body
-                toggleNavItemsDisplay(); // Ensure nav items are hidden after clicking a link
-            });
-        });
-    })</script>
-
 <style>
    .btn-container {
     position: absolute;
@@ -421,7 +369,8 @@
         &copy; 2024 Vedettweekend. All rights reserved. - Website made by Tom Lievens
     </div>
 </footer>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v17.0" nonce="hc8Wtw7g"></script>
-    <script src="script-home.js"></script>
+    <script src="script-home.js" defer></script>
+    <script async crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v17.0" nonce="hc8Wtw7g"></script>
+    
 </body>
 </html>
