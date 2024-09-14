@@ -132,8 +132,14 @@
     </header>
     <div class="videos-container2">
         <div class="video-container">
-            <video id="video" autoplay muted loop playsinline preload="none" poster="./img/aftermovie2023.png">
-                <source src="./img/Aftermovie-background.mp4" type="video/mp4">
+            <video id="video" autoplay muted loop playsinline preload="none" poster="./img/poster-background.png">
+                <!-- Smaller video for mobile screens -->
+                <source src="./img/Aftermovie-background-small.mp4" media="(max-width: 768px)" type="video/mp4">
+                
+                <!-- Larger video for larger screens -->
+                <source src="./img/Aftermovie-background.mp4" media="(min-width: 769px)" type="video/mp4">
+                
+                <!-- Fallback message if the video is not supported -->
                 Your browser does not support the video tag.
             </video>
             <img id="logo" src="./img/Vedettweekend2024.svg" alt="Logo">
@@ -155,7 +161,16 @@
 
             <div class="card">
                 <div class="date-badge">VR 25 OKT</div>
-                <img src="./img/Kezze24.png" class="dj-picture" alt="Picture of dj kezze">
+                <picture>
+                    <!-- Smaller image for screens 768px and below -->
+                    <source srcset="./img/kezze-small.jpg" media="(max-width: 768px)">
+                    
+                    <!-- Larger image for screens wider than 768px -->
+                    <source srcset="./img/Kezze24.png" media="(min-width: 769px)">
+                    
+                    <!-- Fallback img tag (loaded if none of the sources are matched) -->
+                    <img src="./img/Kezze24.png" class="dj-picture" alt="Picture of DJ Kezze">
+                  </picture>
                 <h3>CHECK IT OUT:</h3>
                 <div class="card-text">
                     <a href="https://www.facebook.com/vedettweekend">
@@ -174,7 +189,16 @@
             
             <div class="card">
                 <div class="date-badge">ZA 26 OKT</div>
-                <img src="./img/GekkeBoys24.png" class="dj-picture" alt="Picture of de gekke boys">
+                <picture>
+                    <!-- Smaller image for screens 768px and below -->
+                    <source srcset="./img/GekkeBoys-small.jpg" media="(max-width: 768px)">
+                    
+                    <!-- Larger image for screens wider than 768px -->
+                    <source srcset="./img/GekkeBoys24.png" media="(min-width: 769px)">
+                    
+                    <!-- Fallback img tag (loaded if none of the sources are matched) -->
+                    <img src="./img/GekkeBoys24.png" class="dj-picture" alt="Picture of DJ Kezze">
+                  </picture>
                 <h3>CHECK IT OUT:</h3>
                 <div class="card-text">
                     <a href="https://www.facebook.com/vedettweekend">
@@ -191,7 +215,16 @@
             
             <div class="card">
                 <div class="date-badge">VR 25 OKT</div>
-                <img src="./img/DjMassiv24.png" class="dj-picture" alt="Picture of dj massiv">
+                <picture>
+                    <!-- Smaller image for screens 768px and below -->
+                    <source srcset="./img/c-track-small.jpg" media="(max-width: 768px)">
+                    
+                    <!-- Larger image for screens wider than 768px -->
+                    <source srcset="./img/C-track.png" media="(min-width: 769px)">
+                    
+                    <!-- Fallback img tag (loaded if none of the sources are matched) -->
+                    <img src="./img/C-track.png" class="dj-picture" alt="Picture of DJ Kezze">
+                  </picture>
                 <h3>CHECK IT OUT:</h3>
                 <div class="card-text">
                     <a href="https://www.facebook.com/vedettweekend">
@@ -208,7 +241,16 @@
 
             <div class="card">
                 <div class="date-badge">ZA 26 OKT</div>
-                <img src="./img/Tomorrowband24.png" class="dj-picture" alt="Picture of tomorrowband">
+                <picture>
+                    <!-- Smaller image for screens 768px and below -->
+                    <source srcset="./img/Tomorrowband-small.jpg" media="(max-width: 768px)">
+                    
+                    <!-- Larger image for screens wider than 768px -->
+                    <source srcset="./img/Tomorrowband24.png" media="(min-width: 769px)">
+                    
+                    <!-- Fallback img tag (loaded if none of the sources are matched) -->
+                    <img src="./img/Tomorrowband24.png" class="dj-picture" alt="Picture of DJ Kezze">
+                  </picture>
                 <h3>CHECK IT OUT:</h3>
                 <div class="card-text">
                     <a href="https://www.facebook.com/vedettweekend">
