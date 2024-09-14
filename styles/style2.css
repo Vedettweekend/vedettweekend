@@ -164,8 +164,8 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    color: white;
+    font-size: 3em;
+    color: red;
     z-index: 1;
 }
 

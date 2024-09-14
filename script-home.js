@@ -75,27 +75,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Handle scroll to display header background
     let headerBackground;
-    window.addEventListener('scroll', function() {
-        if (!headerBackground) {
-            headerBackground = document.createElement('div');
-            headerBackground.classList.add('header-background');
-            document.body.appendChild(headerBackground);
-        }
-
-        const videoContainer = document.querySelector('.video-container');
-        if (videoContainer) {
-            const videoBottom = videoContainer.getBoundingClientRect().bottom + 350; // Adjust as needed
-
-            if (window.scrollY > videoBottom) {
-                headerBackground.style.display = 'block';
-            } else {
-                headerBackground.style.display = 'none';
+    const videoContainer = document.querySelector('.video-container');
+    if (videoContainer) {
+        window.addEventListener('scroll', function() {
+            if (!headerBackground) {
+                headerBackground = document.createElement('div');
+                headerBackground.classList.add('header-background');
+                document.body.appendChild(headerBackground);
             }
-        }
-    });
+    
+            const videoBottom = videoContainer.getBoundingClientRect().bottom + 350;
+            headerBackground.style.display = window.scrollY > videoBottom ? 'block' : 'none';
+        });
+    }
+    
 
     // Add resize event listener
-    window.addEventListener('resize', handleWindowResize);
+    let timeout;
+    window.addEventListener('resize', function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(handleWindowResize, 100); // 100ms debounce
+    });
+
 
     // Handle .video2 playback at a controlled speed
     if (video2) {
