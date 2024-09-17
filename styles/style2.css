@@ -1,9 +1,8 @@
-
-
 html, body {
     background-color:  #111D2E;
     max-width: 100%;
     overflow-x: hidden;
+    forced-color-adjust: none;
 }
 
 * {
@@ -20,7 +19,11 @@ header {
     z-index: 1000; /* Ensure it's above other content */
 }
 
-
+svg {
+    color-scheme: light;
+    forced-color-adjust: none;
+    fill: #FFFFFF; /* or whatever specific color you need */
+}
 
 .header-background {
     position: fixed;
@@ -165,6 +168,22 @@ a {
     z-index: 10;
 }
 
+.spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #BB5BFA;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 50px auto;
+    display: block;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
 .myVideo {
     width: 100%;
     height: auto;
@@ -282,7 +301,6 @@ h4{
     gap: 20px;
 }
 
-
 .card {
     flex-grow: 1;
     width: calc(25% - 15px);
@@ -296,6 +314,8 @@ h4{
     align-items: center;
     height: 100%;
     position: relative;
+    forced-color-adjust: none;
+    filter: none !important; /* Remove any dark mode filters */
 }
 
 .card-text {
@@ -710,13 +730,21 @@ footer .footer-text a:hover, footer .footer-sponsors a:hover {
         width: 25px;
         height: 3px;
         margin: 5px auto;
-        -webkit-transition: all 0.3s ease-in-out;
         transition: all 0.3s ease-in-out;
-        background-color: white;
+        
+        /* Force white background and ensure no dark mode effects */
+        background-color: #FFFFFF !important;
+        color: #FFFFFF !important;
+        filter: none !important; /* Remove any dark mode filters */
+        forced-color-adjust: none;
     }
-
+    
     .hamburger {
         display: block;
+    
+        /* Prevent dark mode from affecting parent container */
+        forced-color-adjust: none;
+        filter: none !important; /* Ensure no filters on parent */
     }
 
     .hamburger.active .bar:nth-child(2) {

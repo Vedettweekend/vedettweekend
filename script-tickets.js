@@ -52,6 +52,26 @@ function handleWindowResize() {
 }
 window.addEventListener('resize', handleWindowResize);
 
+function checkIframeLoaded() {
+    const iframe = document.querySelector("#esq-store iframe");
+    if (iframe) {
+      // When iframe is present, listen for its load event
+      iframe.addEventListener('load', function () {
+        // Add a slight delay to ensure iframe content is fully visible
+        setTimeout(function () {
+          // Hide the spinner once the iframe is fully loaded and visible
+          document.getElementById('loading-spinner').style.display = 'none';
+        }, 300); // Adjust this delay if needed (in milliseconds)
+      });
+    } else {
+      // If iframe is not found yet, keep checking every 500ms
+      setTimeout(checkIframeLoaded, 500);
+    }
+  }
+
+  // Start checking for the iframe after the embed function is called
+  checkIframeLoaded();
+
 
 
 
