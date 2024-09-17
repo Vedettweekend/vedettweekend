@@ -98,6 +98,10 @@ a {
     color: #C53364 /* Underline effect on hover */
 }
 
+video::-webkit-media-controls-play-button {
+    display: none;
+}
+
 
 .video-container {
     position: relative;
