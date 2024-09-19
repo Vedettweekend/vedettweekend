@@ -97,6 +97,16 @@ if (video) {
     });
 }
 
+if (video) {
+    // Wait for user interaction (scroll, tap)
+    window.addEventListener('scroll', function() {
+        if (video.paused) {
+            video.muted = true;
+            video.play();
+        }
+    }, { once: true });  // Ensure this happens only once
+}
+
 // Function to toggle video play/pause on click
 function toggleVideoPlay() {
     if (video) {
