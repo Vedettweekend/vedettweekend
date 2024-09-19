@@ -90,6 +90,13 @@ function updateButton() {
     }
 }
 
+if (video) {
+    video.muted = true;
+    video.play().catch(function(error) {
+        console.error('Autoplay failed:', error);
+    });
+}
+
 // Function to toggle video play/pause on click
 function toggleVideoPlay() {
     if (video) {
