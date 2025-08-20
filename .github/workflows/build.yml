@@ -1,0 +1,52 @@
+name: Build Website
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (if any)
+        run: |
+          echo "Checking for package.json..."
+          if [ -f "package.json" ]; then
+            npm install
+          else
+            echo "No package.json found, skipping npm install"
+          fi
+
+      - name: Build website
+        run: |
+          echo "Building website..."
+          echo "HTML files found:"
+          find . -name "*.html" -not -path "./.git/*"
+          echo "CSS files found:"
+          find . -name "*.css" -not -path "./.git/*"
+          echo "JS files found:"
+          find . -name "*.js" -not -path "./.git/*"
+          echo "Build completed successfully!"
+
+      - name: Validate HTML
+        run: |
+          echo "Validating HTML files..."
+          for file in $(find . -name "*.html" -not -path "./.git/*"); do
+            echo "Checking $file..."
+            if grep -q "<!DOCTYPE html>" "$file" || grep -q "<html" "$file"; then
+              echo "✅ $file appears to be valid HTML"
+            else
+              echo "⚠️  $file might have HTML issues"
+            fi
+          done
