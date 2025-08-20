@@ -1,0 +1,245 @@
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    create: 'Content: create {{collection}} "{{slug}}"'
+    update: 'Content: update {{collection}} "{{slug}}"'
+    delete: 'Content: delete {{collection}} "{{slug}}"'
+    uploadMedia: 'Media: upload {{path}}'
+    deleteMedia: 'Media: delete {{path}}'
+
+local_backend: true
+
+media_folder: "img"
+public_folder: "/img"
+
+collections:
+  # ===== SITE SETTINGS =====
+  - name: "site_settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "content/site-settings.md"
+        fields:
+          - {label: "Site Title", name: "title", widget: "string", default: "Vedettweekend"}
+          - {label: "Site Description", name: "description", widget: "text", default: "Vedettweekend 2025 staat weer voor de deur, op vrijdag 25 en zaterdag 26 oktober staat Nieuwenrode weer volledig op stelten want het wordt de grootste editie tot nu toe."}
+          - {label: "Logo", name: "logo", widget: "image", default: "img/vedettweekend-2025.svg"}
+          - {label: "Favicon", name: "favicon", widget: "image", default: "img/faviconvedett.ico"}
+          - {label: "Background Video Desktop", name: "bgVideoDesktop", widget: "file", default: "img/Aftermovie-background.mp4"}
+          - {label: "Background Video Mobile", name: "bgVideoMobile", widget: "file", default: "img/aftermovie-bg-mobile.mp4"}
+          - {label: "Ticket URL", name: "ticketUrl", widget: "string", default: "https://vedettweekend.eventsquare.store/nl/iuyug9ujkxeq/dqyto5nq8d2y"}
+          - {label: "YouTube Video ID", name: "youtubeVideoId", widget: "string", default: "4B3gF9HZRSI"}
+
+  # ===== FEATURED ARTISTS =====
+  - name: "featured_artists"
+    label: "Featured Artists"
+    folder: "content/featured-artists"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Artist Name", name: "name", widget: "string"}
+      - {label: "Date Badge", name: "dateBadge", widget: "string", hint: "e.g., VR 25 OKT, ZA 26 OKT"}
+      - {label: "Artist Image Desktop", name: "imageDesktop", widget: "image"}
+      - {label: "Artist Image Mobile", name: "imageMobile", widget: "image"}
+      - {label: "Title", name: "title", widget: "string", default: "CHECK IT OUT:"}
+      - {label: "DJ Name", name: "djName", widget: "string", hint: "Full DJ/Artist name to display"}
+      - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when card is clicked"}
+      - {label: "Website Icon", name: "websiteIcon", widget: "string", default: "fas fa-link", hint: "Font Awesome icon class (default: fas fa-link for all DJ cards)"}
+      - {label: "Order", name: "order", widget: "number", default: 1, hint: "Display order (1 = first)"}
+      - {label: "Active", name: "active", widget: "boolean", default: true}
+
+  # ===== SPONSORS =====
+  - name: "sponsors"
+    label: "Sponsors"
+    folder: "content/sponsors"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Sponsor Name", name: "name", widget: "string"}
+      - {label: "Logo", name: "logo", widget: "image"}
+      - {label: "Website URL", name: "url", widget: "string"}
+      - {label: "Alt Text", name: "altText", widget: "string"}
+      - {label: "Category", name: "category", widget: "select", options: ["Main Sponsor", "Gold Sponsor", "Silver Sponsor", "Bronze Sponsor"]}
+      - {label: "Show in Footer", name: "showInFooter", widget: "boolean", default: true}
+      - {label: "Order", name: "order", widget: "number", default: 1}
+      - {label: "Active", name: "active", widget: "boolean", default: true}
+
+  # ===== SOCIAL MEDIA =====
+  - name: "social_media"
+    label: "Social Media"
+    folder: "content/social-media"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Platform Name", name: "platform", widget: "string"}
+      - {label: "URL", name: "url", widget: "string"}
+      - {label: "Icon", name: "icon", widget: "image"}
+      - {label: "Display Order", name: "order", widget: "number", default: 1}
+      - {label: "Active", name: "active", widget: "boolean", default: true}
+
+  # ===== TICKETSHOP =====
+  - name: "ticketshop"
+    label: "Ticketshop"
+    files:
+      - name: "main"
+        label: "Main Ticketshop Settings"
+        file: "content/ticketshop.md"
+        fields:
+          - {label: "Banner Image", name: "bannerImage", widget: "image", default: "img/BANNEREVENTSQUARE.png"}
+          - {label: "Banner Alt Text", name: "bannerAlt", widget: "string", default: "our event banner"}
+          - {label: "EventSquare Iframe Link", name: "iframeLink", widget: "string", default: "https://vedettweekend.eventsquare.store/iuyug9ujkxeq", hint: "Full EventSquare store URL"}
+
+  # ===== LINEUP =====
+  - name: "lineup"
+    label: "Line-up Settings"
+    files:
+      - name: "friday"
+        label: "Friday Line-up"
+        file: "content/lineup-friday.md"
+        fields:
+          - {label: "Day Title", name: "title", widget: "string", default: "VRIJDAG 25 OKTOBER"}
+          - label: "Events"
+            name: "events"
+            widget: "list"
+            fields:
+              - {label: "Time Slot", name: "time", widget: "string", required: true}
+              - {label: "Artist Name", name: "artist", widget: "string", required: true}
+              - {label: "Artist Image", name: "image", widget: "image", required: true}
+              - {label: "Description", name: "description", widget: "text", required: true}
+              - {label: "Website URL", name: "url", widget: "string", required: true}
+              - {label: "Special Event", name: "isSpecial", widget: "boolean", default: false}
+      
+      - name: "saturday"
+        label: "Saturday Line-up"
+        file: "content/lineup-saturday.md"
+        fields:
+          - {label: "Day Title", name: "title", widget: "string", default: "ZATERDAG 26 OKTOBER"}
+          - label: "Events"
+            name: "events"
+            widget: "list"
+            fields:
+              - {label: "Time Slot", name: "time", widget: "string", required: true}
+              - {label: "Artist Name", name: "artist", widget: "string", required: true}
+              - {label: "Artist Image", name: "image", widget: "image", required: true}
+              - {label: "Description", name: "description", widget: "text", required: true}
+              - {label: "Website_URL", name: "url", widget: "string", required: true}
+              - {label: "Special Event", name: "isSpecial", widget: "boolean", default: false}
+
+  # ===== INFO PAGE CONTENT =====
+  - name: "info"
+    label: "Info Page"
+    files:
+      - name: "main"
+        label: "Main Info Content"
+        file: "content/info.md"
+        fields:
+          - label: "Location"
+            name: "location"
+            widget: "object"
+            fields:
+              - {label: "Map URL", name: "mapUrl", widget: "string", default: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2501.0103342622466!2d4.299708515568803!3d50.96157617954885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3f65901d680d9%3A0xe78e8533337ed717!2sIpsvoordestraat%2033%2C%201880%20Nieuwenrode%2C%20Belgium!5e0!3m2!1sen!2sbe!4v1660738719425!5m2!1sen!2sbe"}
+              - {label: "Bike Info", name: "bikeInfo", widget: "text", default: "Je kan gratis gebruik maken van onze ruime fietsenstalling op het festivalterrein (zie verkeer)."}
+              - {label: "Car Info", name: "carInfo", widget: "text", default: "Parkeren kan op het festivalterrein indien je niet opgehaald wordt (zie verkeer)."}
+              - {label: "Pickup Info", name: "pickupInfo", widget: "text", default: "Je ouders/vrienden kunnen je gemakkelijk oppikken in één van onze kiss & ride zones (zie verkeer)."}
+          - label: "Facilities"
+            name: "facilities"
+            widget: "list"
+            fields:
+              - {label: "Facility", name: "facility", widget: "string"}
+          - {label: "Payment Info", name: "paymentInfo", widget: "text", default: "Op het Vedettweekend accepteren wij verschillende betaalmethoden, waaronder Payconiq, cash en Bancontact. Ook kun je ter plaatse tickets kopen aan de kassa, zolang de voorraad strekt. Echter, om het jezelf makkelijk te maken, raden we aan om je tickets en drankvouchers vooraf online aan te schaffen tegen het meest voordelig tarief."}
+          - label: "Traffic"
+            name: "traffic"
+            widget: "object"
+            fields:
+              - {label: "Image", name: "image", widget: "image", default: "./img/Wegaanduiding24.png"}
+              - {label: "Description", name: "description", widget: "text", default: "Het volledige verkeersplan is trouwens ook te vinden op onze Facebookpagina en Instagrampagina. We raden jou ook aan om dit naar je ouders door te sturen indien ze je komen halen."}
+              - {label: "Perimeter Info", name: "perimeterInfo", widget: "text", default: "Er is bovendien drankperimeter ingesteld voor de hele Ipsvoordestraat, je kan aan het begin en het einde van de straat jouw afval achterlaten in de daarvoor voorziene vuilbakken."}
+          - label: "FAQ"
+            name: "faq"
+            widget: "list"
+            fields:
+              - {label: "Question", name: "question", widget: "string"}
+              - {label: "Answer", name: "answer", widget: "text"}
+
+  # ===== FOOTER CONTENT =====
+  - name: "footer_content"
+    label: "Footer Content"
+    files:
+      - name: "contact_info"
+        label: "Contact Information"
+        file: "content/footer-contact.md"
+        fields:
+          - {label: "Organization Name", name: "orgName", widget: "string", default: "Scouts De Vlasbloem"}
+          - {label: "Address Line 1", name: "address1", widget: "string", default: "Maatschappelijke zetel:"}
+          - {label: "Address Line 2", name: "address2", widget: "string", default: "Paddegatstraat 53a"}
+          - {label: "City & Country", name: "cityCountry", widget: "string", default: "1880 Nieuwenrode- België"}
+          - {label: "Phone", name: "phone", widget: "string", default: "0697.774.844"}
+          - {label: "Email", name: "email", widget: "string", default: "info@vedettweekend.be"}
+          - {label: "Website", name: "website", widget: "string", default: "https://vedettweekend.be"}
+
+  # ===== PAGES =====
+  - name: "pages"
+    label: "Pages"
+    folder: "content/pages"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Page Title", name: "title", widget: "string"}
+      - {label: "Slug", name: "slug", widget: "string", hint: "URL path (e.g., about, contact)"}
+      - {label: "Content", name: "body", widget: "markdown"}
+      - {label: "Meta Description", name: "description", widget: "text"}
+      - {label: "Active", name: "active", widget: "boolean", default: true}
+
+  # ===== EVENTS =====
+  - name: "events"
+    label: "Events"
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Event Name", name: "name", widget: "string"}
+      - {label: "Event Date", name: "date", widget: "datetime"}
+      - {label: "Event End Date", name: "endDate", widget: "datetime", required: false}
+      - {label: "Location", name: "location", widget: "string"}
+      - {label: "Description", name: "description", widget: "markdown"}
+      - {label: "Event Image", name: "image", widget: "image", required: false}
+      - {label: "Ticket URL", name: "ticketUrl", widget: "string", required: false}
+      - {label: "Active", name: "active", widget: "boolean", default: true}
+
+# ===== WIDGETS =====
+widgets:
+  - name: "string"
+    label: "Text"
+    widget: "string"
+  - name: "text"
+    label: "Long Text"
+    widget: "text"
+  - name: "markdown"
+    label: "Markdown"
+    widget: "markdown"
+  - name: "number"
+    label: "Number"
+    widget: "number"
+  - name: "boolean"
+    label: "Boolean"
+    widget: "boolean"
+  - name: "image"
+    label: "Image"
+    widget: "image"
+  - name: "file"
+    label: "File"
+    widget: "file"
+  - name: "select"
+    label: "Select"
+    widget: "select"
+  - name: "list"
+    label: "List"
+    widget: "list"
+  - name: "datetime"
+    label: "Date & Time"
+    widget: "datetime"
+
+# ===== EDITOR COMPONENTS =====
+editor:
+  preview: false

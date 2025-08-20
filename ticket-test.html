@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tickets | Vedettweekend</title>
-    <meta name="description" content="Koop nu je tickets voor Vedettweekend 2025 op vrijdag 25 en zaterdag 26 oktober!">
+    <meta name="description" content="Koop nu je tickets voor Vedettweekend 2024 op vrijdag 25 en zaterdag 26 oktober!">
     
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles/style2.css">
+    <link rel="stylesheet" href="styles-new.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="img/vedettfavicon.png">
@@ -34,27 +34,27 @@
         <nav class="navbar">
             <div class="nav-branding">
                 <a href="./">
-                    <img src="./img/vedettweekend-2025.svg" alt="Vedettweekend logo" class="nav-logo">
+                    <img src="./img/Vedettweekend2024.svg" alt="Vedettweekend logo" class="nav-logo">
                 </a>
             </div>
             <ul class="nav-menu" id="navMenu">
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link">
+                    <a href="index-test.html" class="nav-link">
                         <span class="nav-content">HOME</span>
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a href="tickets.html" class="nav-link">
+                    <a href="ticket-test.html" class="nav-link">
                         <span class="nav-content">TICKETS</span>
                     </a>
                 </li>
                                 <li class="nav-item">
-                    <a href="./program.html" class="nav-link">
+                    <a href="./line-up-test.html" class="nav-link">
                         <span class="nav-content">LINE-UP</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./practical.html" class="nav-link">
+                    <a href="./info-test.html" class="nav-link">
                         <span class="nav-content">INFO</span>
                     </a>
                 </li>
@@ -67,29 +67,18 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="tickets-main">
-        <!-- Hero Section -->
-        <section class="info-hero">
-            <div class="info-hero-content">
-                <h1 class="info-title">VEDETTWEEKEND 2025</h1>
-                <h2 class="info-subtitle">KOOP JE TICKETS</h2>
-                <p class="info-description">Beveilig je plekje voor het weekend van je leven!</p>
-            </div>
-        </section>
-
-        <!-- Ticket Shop Section -->
-        <div class="ticketshop">
-            <div class="ticketshop-container">
-                <div id="esq-store">
-                    <!-- Loading animation -->
-                    <div id="loading-spinner" class="spinner"></div>
-                </div>
+    <!-- Ticket Shop Section -->
+    <div class="ticketshop">
+        <div class="ticketshop-container">
+            <img src="{{ticketshop.bannerImage}}" alt="{{ticketshop.bannerAlt}}" class="ticketshop-banner">
+            <div id="esq-store">
+                <!-- Loading animation -->
+                <div id="loading-spinner" class="spinner"></div>
             </div>
         </div>
+    </div>
 
-        <hr class="full-width-line">
-    </main>
+    <hr class="full-width-line">
 
     <!-- Footer Component -->
     <footer class="footer">
@@ -142,7 +131,7 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2025 Vedettweekend. All rights reserved. - Website made by Tom Lievens</p>
+            <p>&copy; 2024 Vedettweekend. All rights reserved. - Website made by Tom Lievens</p>
         </div>
     </footer>
 
