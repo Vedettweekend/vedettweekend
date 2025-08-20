@@ -45,8 +45,6 @@ class VedettWebsite {
 
         // Initialize on load
         window.addEventListener('load', () => this.handleLoad());
-        
-
     }
 
     initializeComponents() {
@@ -108,54 +106,43 @@ class VedettWebsite {
     // ===== HEADER SCROLL EFFECT =====
     handleHeaderScroll() {
         const header = document.querySelector('.header');
-        const scrollY = window.scrollY;
+        const videoSection = document.querySelector('.hero-video');
         
-        if (header) {
-            if (scrollY > 600) { /* Increased threshold - solid background appears after video section */
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+        if (!header || !videoSection) return;
+        
+        const videoBottom = videoSection.offsetTop + videoSection.offsetHeight;
+        const scrollPosition = window.pageYOffset;
+        
+        if (scrollPosition > videoBottom - 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
     }
 
     // ===== VIDEO CONTROLS =====
     initializeVideo() {
-        const video = document.getElementById('heroVideo');
-        const playButton = document.getElementById('playButton');
+        const heroVideo = document.getElementById('heroVideo');
+        if (!heroVideo) return;
         
-        if (video && playButton) {
-            // Ensure video is muted for autoplay
-            video.muted = true;
-            
-            // Try to autoplay
-            video.play().catch(error => {
-                console.log('Autoplay prevented:', error);
-                // Show play button if autoplay fails
-                playButton.style.display = 'block';
+        // Autoplay video on mobile (muted)
+        if (window.innerWidth <= 768) {
+            heroVideo.muted = true;
+            heroVideo.play().catch(() => {
+                // Autoplay failed, show play button
+                const playButton = document.getElementById('playButton');
+                if (playButton) playButton.style.display = 'block';
             });
-            
-            // Update button state
-            video.addEventListener('play', () => this.updatePlayButton(playButton, false));
-            video.addEventListener('pause', () => this.updatePlayButton(playButton, true));
         }
     }
 
     toggleVideo(playButton, video) {
         if (video.paused) {
             video.play();
+            playButton.innerHTML = '<i class="fas fa-pause"></i>';
         } else {
             video.pause();
-        }
-    }
-
-    updatePlayButton(playButton, isPaused) {
-        if (isPaused) {
-            playButton.textContent = '▶';
-            playButton.setAttribute('aria-label', 'Play video');
-        } else {
-            playButton.textContent = '❚❚';
-            playButton.setAttribute('aria-label', 'Pause video');
+            playButton.innerHTML = '<i class="fas fa-play"></i>';
         }
     }
 
@@ -177,24 +164,61 @@ class VedettWebsite {
 
     // ===== ANIMATIONS =====
     initializeAnimations() {
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate-in');
                 }
             });
-        }, observerOptions);
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
 
-        // Observe elements for animation
         document.querySelectorAll('.artist-card, .sponsor-item, .section-header').forEach(el => {
             observer.observe(el);
         });
+    }
+
+    // ===== COUNTDOWN TIMER =====
+    initializeCountdown() {
+        // Get individual countdown elements
+        const daysElement = document.getElementById('days');
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+        
+        if (!daysElement || !hoursElement || !minutesElement || !secondsElement) return;
+
+        const targetDate = new Date('2025-10-24T20:00:00').getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                // Event has started
+                daysElement.textContent = '00';
+                hoursElement.textContent = '00';
+                minutesElement.textContent = '00';
+                secondsElement.textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Update individual elements
+            daysElement.textContent = days.toString().padStart(2, '0');
+            hoursElement.textContent = hours.toString().padStart(2, '0');
+            minutesElement.textContent = minutes.toString().padStart(2, '0');
+            secondsElement.textContent = seconds.toString().padStart(2, '0');
+        };
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     }
 
     // ===== CONTENT LOADING =====
@@ -234,7 +258,7 @@ class VedettWebsite {
             {
                 date: 'ZA 26 OKT',
                 image: './img/Tomorrowband24.png',
-                imageMobile: './img/Tomorrowband-small.jpg',
+                imageMobile: './img/Tomorrowband24.png',
                 title: 'CHECK OUT:',
                 djName: 'TOMORROWBAND',
                 websiteUrl: 'https://www.facebook.com/vedettweekend',
@@ -283,7 +307,7 @@ class VedettWebsite {
             { image: 'img/dreamsupport(fv).png', url: 'https://www.dreamsupport.be/', alt: 'Dreamsupport Sponsor' },
             { image: 'img/Consteca(FV).png', url: 'https://www.consteca.be/', alt: 'Consteca Sponsor' },
             { image: 'img/Cynthia\'sBakery(FV).png', url: 'https://www.facebook.com/p/Cynthias-bakery-100063702123669/', alt: 'Cynthia\'s Bakery Sponsor' },
-            { image: 'img/Thielemans.png', url: 'https://kantoorthielemans.be/', alt: 'Thielemans Sponsor' },
+            { image: 'img/Thielemans.png', url: 'https://www.kantoorthielemans.be/', alt: 'Thielemans Sponsor' },
             { image: 'img/Tubo(FV).png', url: 'https://verwarminggids.be/nieuwenrode/tubo-centrale-verwarming-en/', alt: 'Tubo Sponsor' },
             { image: 'img/VanRoey(FV).png', url: 'https://www.vanroey.be/en/', alt: 'VanRoey Sponsor' },
             { image: 'img/Argenta(FV).png', url: 'https://www.argenta.be/nl/kantoren/de-jongh--gits-bv-3136.html', alt: 'Argenta Sponsor' },
@@ -331,72 +355,6 @@ class VedettWebsite {
                 <img src="${sponsor.image}" alt="${sponsor.alt}" loading="lazy">
             </a>
         `).join('');
-    }
-
-    // ===== RESIZE HANDLING =====
-    handleResize() {
-        // Close mobile menu on resize if screen becomes large
-        if (window.innerWidth > 768) {
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('navMenu');
-            if (hamburger && navMenu) {
-                this.closeMobileMenu(hamburger, navMenu);
-            }
-        }
-    }
-
-    // ===== LOAD HANDLING =====
-    handleLoad() {
-        // Add loaded class to body for potential CSS animations
-        document.body.classList.add('loaded');
-        
-        // Initialize any additional components that need the page to be fully loaded
-        this.initializeLazyLoading();
-    }
-
-    // ===== LAZY LOADING =====
-    initializeLazyLoading() {
-        // Intersection Observer for lazy loading images
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    if (img.dataset.src) {
-                        img.src = img.dataset.src;
-                        img.removeAttribute('data-src');
-                        observer.unobserve(img);
-                    }
-                }
-            });
-        });
-
-        // Observe images with data-src attribute
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            imageObserver.observe(img);
-        });
-    }
-
-    // ===== ERROR HANDLING =====
-    handleError(error, context) {
-        console.error(`Error in ${context}:`, error);
-        
-        // You could add error reporting here (e.g., to a service like Sentry)
-        // or show user-friendly error messages
-    }
-
-    // ===== PERFORMANCE MONITORING =====
-    measurePerformance() {
-        // Measure page load performance
-        if ('performance' in window) {
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    const perfData = performance.getEntriesByType('navigation')[0];
-                    if (perfData) {
-                        console.log('Page Load Time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-                    }
-                }, 0);
-            });
-        }
     }
 
     // ===== LINEUP FUNCTIONALITY =====
@@ -498,189 +456,117 @@ class VedettWebsite {
     }
 
     loadInfoFromData() {
-        // Update location info
-        if (window.info.location) {
+        // Load hardcoded info data
+        if (window.info) {
             this.updateLocationInfo(window.info.location);
-        }
-        
-        // Update facilities
-        if (window.info.facilities) {
             this.updateFacilities(window.info.facilities);
-        }
-        
-        // Update payment info
-        if (window.info.paymentInfo) {
             this.updatePaymentInfo(window.info.paymentInfo);
-        }
-        
-        // Update traffic info
-        if (window.info.traffic) {
             this.updateTrafficInfo(window.info.traffic);
-        }
-        
-        // Update FAQ
-        if (window.info.faq) {
             this.updateFAQ(window.info.faq);
         }
     }
 
-    updateLocationInfo(location) {
-        // Update map iframe
-        const mapIframe = document.querySelector('.map-container iframe');
-        if (mapIframe && location.mapUrl) {
-            mapIframe.src = location.mapUrl;
-        }
-        
-        // Update location cards
-        const bikeInfo = document.querySelector('.info-card:nth-child(1) p');
-        const carInfo = document.querySelector('.info-card:nth-child(2) p');
-        const pickupInfo = document.querySelector('.info-card:nth-child(3) p');
-        
-        if (bikeInfo && location.bikeInfo) bikeInfo.textContent = location.bikeInfo;
-        if (carInfo && location.carInfo) carInfo.textContent = location.carInfo;
-        if (pickupInfo && location.pickupInfo) pickupInfo.textContent = location.pickupInfo;
+    updateLocationInfo(locationData) {
+        // Your HTML already has the location info hardcoded, so no updates needed
+        // This function is kept for future CMS integration
     }
 
-    updateFacilities(facilities) {
-        const facilitiesGrid = document.querySelector('.facilities-grid');
-        if (!facilitiesGrid) return;
-        
-        // Handle both array of strings and array of objects
-        const facilityItems = Array.isArray(facilities) ? facilities : [];
-        
-        // Icon mapping for each facility type
-        const facilityIcons = {
-            'Bewaakte vestiaire': 'fas fa-tshirt',
-            'EHBO Post': 'fas fa-first-aid',
-            'Lounge': 'fas fa-couch',
-            'WC-Dorp': 'fas fa-toilet',
-            'Eetkraam': 'fas fa-utensils',
-            'Security': 'fas fa-shield-alt',
-            'Doorsales': 'fas fa-ticket-alt'
-        };
-        
-        facilitiesGrid.innerHTML = facilityItems.map(facility => {
-            const facilityName = typeof facility === 'string' ? facility : (facility.facility || 'Facility');
-            const iconClass = facilityIcons[facilityName] || 'fas fa-check';
-            return `
-                <div class="facility-item">
-                    <i class="${iconClass}"></i>
-                    <span>${facilityName}</span>
-                </div>
-            `;
-        }).join('');
+    updateFacilities(facilitiesData) {
+        // Your HTML already has the facilities hardcoded, so no updates needed
+        // This function is kept for future CMS integration
     }
 
-    updatePaymentInfo(paymentInfo) {
-        const paymentElement = document.querySelector('.payment-info p');
-        if (paymentElement) {
-            paymentElement.innerHTML = paymentInfo;
-        }
-        
-        // Add payment icon to the heading
-        const paymentHeading = document.querySelector('.payment-info h3');
-        if (paymentHeading && !paymentHeading.querySelector('i')) {
-            paymentHeading.innerHTML = `
-                <i class="fas fa-credit-card"></i>
-                <span>Betaalmethoden</span>
-            `;
-        }
+    updatePaymentInfo(paymentData) {
+        // Your HTML already has the payment info hardcoded, so no updates needed
+        // This function is kept for future CMS integration
     }
 
-    updateTrafficInfo(traffic) {
-        // Update traffic image
-        const trafficImage = document.getElementById('trafficImage');
-        if (trafficImage && traffic.image) {
-            trafficImage.src = traffic.image;
-        }
-        
-        // Update traffic text
-        const trafficText = document.querySelector('.traffic-text');
-        if (trafficText) {
-            trafficText.innerHTML = `
-                <p>${traffic.description}</p>
-                <p>${traffic.perimeterInfo}</p>
-            `;
-        }
+    updateTrafficInfo(trafficData) {
+        // Your HTML already has the traffic info hardcoded, so no updates needed
+        // This function is kept for future CMS integration
     }
 
-    updateFAQ(faq) {
-        const faqList = document.querySelector('.faq-list');
-        if (!faqList) return;
-        
-        faqList.innerHTML = faq.map((item, index) => `
-            <div class="faq-item">
-                <h3>${index + 1}. ${item.question}</h3>
-                <p>${item.answer}</p>
-            </div>
-        `).join('');
+    updateFAQ(faqData) {
+        // Your HTML already has the FAQ hardcoded, so no updates needed
+        // This function is kept for future CMS integration
     }
 
-    // ===== COUNTDOWN TIMER =====
-    initializeCountdown() {
-        // Set the target date: Friday, October 24th, 2025 at 20:00
-        const targetDate = new Date('2025-10-24T20:00:00');
-        
-        const updateCountdown = () => {
-            const now = new Date().getTime();
-            const distance = targetDate.getTime() - now;
-            
-            if (distance < 0) {
-                // Event has started
-                document.querySelectorAll('.countdown-number').forEach(el => {
-                    el.textContent = '00';
-                });
-                document.querySelector('.countdown-title').textContent = 'VEDETTWEEKEND 2025 IS BEGONNEN! 🎉';
-                return;
+    // ===== RESIZE HANDLING =====
+    handleResize() {
+        // Close mobile menu on resize if screen becomes large
+        if (window.innerWidth > 768) {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+            if (hamburger && navMenu) {
+                this.closeMobileMenu(hamburger, navMenu);
             }
-            
-            // Calculate time units
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            // Update DOM elements
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-            
-            if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
-            if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
-            if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
-            if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
-        };
-        
-        // Update countdown immediately
-        updateCountdown();
-        
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
-    }
-
-
-}
-
-// ===== INITIALIZATION =====
-document.addEventListener('DOMContentLoaded', () => {
-    try {
-        new VedettWebsite();
-    } catch (error) {
-        console.error('Failed to initialize VedettWebsite:', error);
-    }
-});
-
-// ===== NETLIFY CMS INTEGRATION =====
-if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-        if (!user) {
-            window.netlifyIdentity.on("login", () => {
-                document.location.href = "/admin/";
-            });
         }
-    });
+    }
+
+    // ===== LOAD HANDLING =====
+    handleLoad() {
+        // Add loaded class to body for potential CSS animations
+        document.body.classList.add('loaded');
+        
+        // Initialize any additional components that need the page to be fully loaded
+        this.initializeLazyLoading();
+    }
+
+    // ===== LAZY LOADING =====
+    initializeLazyLoading() {
+        // Intersection Observer for lazy loading images
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        observer.unobserve(img);
+                    }
+                }
+            });
+        });
+
+        // Observe all images with data-src attribute
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+
+    // ===== TICKETSHOP FUNCTIONALITY =====
+    loadTicketshop() {
+        // Check if we have CMS data, otherwise fall back to hardcoded data
+        if (window.ticketshopCMS) {
+            this.loadTicketshopFromCMS();
+        } else if (window.ticketshop) {
+            this.loadTicketshopFromData();
+        }
+    }
+
+    loadTicketshopFromCMS() {
+        // Load ticketshop data from CMS
+        if (window.ticketshopCMS.iframeUrl) {
+            const iframe = document.getElementById('ticketshopIframe');
+            if (iframe) {
+                iframe.src = window.ticketshopCMS.iframeUrl;
+            }
+        }
+    }
+
+    loadTicketshopFromData() {
+        // Load ticketshop data from hardcoded data
+        if (window.ticketshop && window.ticketshop.iframeUrl) {
+            const iframe = document.getElementById('ticketshopIframe');
+            if (iframe) {
+                iframe.src = window.ticketshop.iframeUrl;
+            }
+        }
+    }
 }
+
+// ===== STRAPI CMS INTEGRATION =====
+// Strapi API integration will be added here when ready
 
 // ===== SERVICE WORKER REGISTRATION (OPTIONAL) =====
 if ('serviceWorker' in navigator) {
@@ -695,7 +581,9 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// ===== EXPORT FOR MODULE USAGE (OPTIONAL) =====
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = VedettWebsite;
-}
+// Fullscreen functions are already defined in the HTML files
+
+// ===== INITIALIZATION =====
+document.addEventListener('DOMContentLoaded', () => {
+    new VedettWebsite();
+});
