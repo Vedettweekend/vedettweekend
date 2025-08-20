@@ -24,7 +24,7 @@ collections:
         fields:
           - {label: "Site Title", name: "title", widget: "string", default: "Vedettweekend"}
           - {label: "Site Description", name: "description", widget: "text", default: "Vedettweekend 2025 staat weer voor de deur, op vrijdag 25 en zaterdag 26 oktober staat Nieuwenrode weer volledig op stelten want het wordt de grootste editie tot nu toe."}
-          - {label: "Logo", name: "logo", widget: "image", default: "img/vedettweekend-2025.svg"}
+          - {label: "Logo", name: "logo", widget: "image", default: "img/Vedettweekend-2025.svg"}
           - {label: "Favicon", name: "favicon", widget: "image", default: "img/faviconvedett.ico"}
           - {label: "Background Video Desktop", name: "bgVideoDesktop", widget: "file", default: "img/Aftermovie-background.mp4"}
           - {label: "Background Video Mobile", name: "bgVideoMobile", widget: "file", default: "img/aftermovie-bg-mobile.mp4"}
