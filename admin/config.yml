@@ -2,6 +2,7 @@ backend:
   name: github
   repo: TomoowTomoow/vedettweekend
   branch: main
+  auth_type: implicit
 
 media_folder: "img"
 public_folder: "/img"
