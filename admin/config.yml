@@ -2,69 +2,20 @@ backend:
   name: github
   repo: TomoowTomoow/vedettweekend
   branch: main
-  auth_endpoint: netlify
-  commit_messages:
-    create: 'Content: create {{collection}} "{{slug}}"'
-    update: 'Content: update {{collection}} "{{slug}}"'
-    delete: 'Content: delete {{collection}} "{{slug}}"'
-    uploadMedia: 'Media: upload {{path}}'
-    deleteMedia: 'Media: delete {{path}}'
-
-local_backend: false
 
 media_folder: "img"
 public_folder: "/img"
 
 collections:
-  # ===== FEATURED ARTISTS =====
   - name: "featured_artists"
     label: "Featured Artists"
     folder: "content/featured-artists"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "Artist Name", name: "name", widget: "string"}
-      - {label: "Date Badge", name: "dateBadge", widget: "string", hint: "e.g., VR 25 OKT, ZA 26 OKT"}
-      - {label: "Artist Image Desktop", name: "imageDesktop", widget: "image"}
-      - {label: "Artist Image Mobile", name: "imageMobile", widget: "image"}
-      - {label: "Title", name: "title", widget: "string", default: "CHECK IT OUT:"}
-      - {label: "DJ Name", name: "djName", widget: "string", hint: "Full DJ/Artist name to display"}
-      - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when card is clicked"}
-      - {label: "Website Icon", name: "websiteIcon", widget: "string", default: "fas fa-link", hint: "Font Awesome icon class (default: fas fa-link for all DJ cards)"}
-      - {label: "Order", name: "order", widget: "number", default: 1, hint: "Display order (1 = first)"}
-      - {label: "Active", name: "active", widget: "boolean", default: true}
-
-  # ===== SPONSORS =====
-  - name: "sponsors"
-    label: "Sponsors"
-    folder: "content/sponsors"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - {label: "Sponsor Name", name: "name", widget: "string"}
-      - {label: "Logo", name: "logo", widget: "image"}
-      - {label: "Website URL", name: "url", widget: "string"}
-      - {label: "Alt Text", name: "altText", widget: "string"}
-      - {label: "Category", name: "category", widget: "select", options: ["Main Sponsor", "Gold Sponsor", "Silver Sponsor", "Bronze Sponsor"]}
-      - {label: "Show in Footer", name: "showInFooter", widget: "boolean", default: true}
+      - {label: "Date Badge", name: "dateBadge", widget: "string"}
+      - {label: "Artist Image", name: "imageDesktop", widget: "image"}
+      - {label: "DJ Name", name: "djName", widget: "string"}
+      - {label: "Website URL", name: "websiteUrl", widget: "string"}
       - {label: "Order", name: "order", widget: "number", default: 1}
       - {label: "Active", name: "active", widget: "boolean", default: true}
-
-  # ===== SITE SETTINGS =====
-  - name: "site_settings"
-    label: "Site Settings"
-    files:
-      - name: "general"
-        label: "General Settings"
-        file: "content/site-settings.md"
-        fields:
-          - {label: "Site Title", name: "title", widget: "string", default: "Vedettweekend"}
-          - {label: "Site Description", name: "description", widget: "text", default: "Vedettweekend 2025 staat weer voor de deur, op vrijdag 25 en zaterdag 26 oktober staat Nieuwenrode weer volledig op stelten want het wordt de grootste editie tot nu toe."}
-          - {label: "Logo", name: "logo", widget: "image", default: "img/Vedettweekend-2025.svg"}
-          - {label: "Background Video Desktop", name: "bgVideoDesktop", widget: "file", default: "img/Aftermovie-background.mp4"}
-          - {label: "Background Video Mobile", name: "bgVideoMobile", widget: "file", default: "img/aftermovie-bg-mobile.mp4"}
-          - {label: "Ticket URL", name: "ticketUrl", widget: "string", default: "https://vedettweekend.eventsquare.store/nl/iuyug9ujkxeq/dqyto5nq8d2y"}
-
-# ===== EDITOR COMPONENTS =====
-editor:
-  preview: false
