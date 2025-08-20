@@ -1,12 +1,10 @@
 ---
 title: "Vedettweekend"
-description: "Vedettweekend 2024 staat weer voor de deur, op vrijdag 25 en zaterdag 26 oktober staat Nieuwenrode weer volledig op stelten want het wordt de grootste editie tot nu toe."
-logo: "img/Vedettweekend2024.svg"
-favicon: "img/faviconvedett.ico"
+description: "Vedettweekend 2025 staat weer voor de deur, op vrijdag 25 en zaterdag 26 oktober staat Nieuwenrode weer volledig op stelten want het wordt de grootste editie tot nu toe."
+logo: "img/Vedettweekend-2025.svg"
 bgVideoDesktop: "img/Aftermovie-background.mp4"
 bgVideoMobile: "img/aftermovie-bg-mobile.mp4"
 ticketUrl: "https://vedettweekend.eventsquare.store/nl/iuyug9ujkxeq/dqyto5nq8d2y"
-youtubeVideoId: "4B3gF9HZRSI"
 ---
 
 # Site Settings
