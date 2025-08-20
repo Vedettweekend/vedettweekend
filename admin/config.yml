@@ -3,6 +3,9 @@ backend:
   repo: TomoowTomoow/vedettweekend
   branch: main
   auth_type: implicit
+  base_url: https://meek-moonbeam-ef046b.netlify.app
+
+local_backend: true
 
 media_folder: "img"
 public_folder: "/img"

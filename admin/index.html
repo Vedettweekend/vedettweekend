@@ -4,8 +4,146 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vedettweekend CMS</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .cms-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .cms-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #C53364;
+        }
+        .cms-title {
+            color: #C53364;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        .cms-subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin: 10px 0 0 0;
+        }
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .collection-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .collection-card:hover {
+            border-color: #C53364;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(197, 51, 100, 0.2);
+        }
+        .collection-title {
+            color: #C53364;
+            font-size: 1.5rem;
+            margin: 0 0 15px 0;
+        }
+        .collection-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .collection-button {
+            background: #C53364;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .collection-button:hover {
+            background: #a02a52;
+            transform: translateY(-1px);
+        }
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .info-title {
+            color: #1976d2;
+            font-size: 1.3rem;
+            margin: 0 0 15px 0;
+        }
+        .info-text {
+            color: #424242;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+    <div class="cms-container">
+        <div class="cms-header">
+            <h1 class="cms-title">Vedettweekend CMS</h1>
+            <p class="cms-subtitle">Content Management System</p>
+        </div>
+        
+        <div class="info-box">
+            <h3 class="info-title">⚠️ CMS Under Development</h3>
+            <p class="info-text">
+                The Netlify CMS is experiencing technical difficulties. For now, you can edit content directly in your GitHub repository.<br>
+                <strong>Repository:</strong> <a href="https://github.com/TomoowTomoow/vedettweekend" target="_blank">github.com/TomoowTomoow/vedettweekend</a>
+            </p>
+        </div>
+        
+        <div class="collection-grid">
+            <div class="collection-card">
+                <h3 class="collection-title">Featured Artists</h3>
+                <p class="collection-description">
+                    Manage DJ cards, images, and information displayed on the homepage.
+                </p>
+                <button class="collection-button" onclick="window.open('https://github.com/TomoowTomoow/vedettweekend/tree/main/content/featured-artists', '_blank')">
+                    Edit in GitHub
+                </button>
+            </div>
+            
+            <div class="collection-card">
+                <h3 class="collection-title">Sponsors</h3>
+                <p class="collection-description">
+                    Update sponsor logos, links, and categories displayed throughout the site.
+                </p>
+                <button class="collection-button" onclick="window.open('https://github.com/TomoowTomoow/vedettweekend/tree/main/content/sponsors', '_blank')">
+                    Edit in GitHub
+                </button>
+            </div>
+            
+            <div class="collection-card">
+                <h3 class="collection-title">Site Settings</h3>
+                <p class="collection-description">
+                    Change global site settings like logo, videos, and ticket URLs.
+                </p>
+                <button class="collection-button" onclick="window.open('https://github.com/TomoowTomoow/vedettweekend/edit/main/content/site-settings.md', '_blank')">
+                    Edit in GitHub
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
