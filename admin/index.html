@@ -8,22 +8,5 @@
 <body>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-    
-    <script>
-        // Handle Netlify Identity redirects
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    // User is not logged in, show login
-                    window.netlifyIdentity.open();
-                }
-            });
-            
-            window.netlifyIdentity.on("login", () => {
-                // User logged in successfully
-                console.log("User logged in");
-            });
-        }
-    </script>
 </body>
 </html>
