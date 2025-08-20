@@ -1,0 +1,16 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "img/uploads"
+public_folder: "/img/uploads"
+
+collections:
+  - name: "site_settings"
+    label: "Site Settings"
+    files:
+      - name: "youtube_video"
+        label: "YouTube Video URL"
+        file: "content/site-settings/youtube-video.md"
+        fields:
+          - {label: "YouTube Video URL", name: "youtube_url", widget: "string", default: "https://www.youtube.com/embed/4B3gF9HZRSI"}

@@ -135,6 +135,7 @@
         <div class="video-wrapper">
             <iframe 
                 class="embedded-video" 
+                id="youtubeVideo"
                 src="https://www.youtube.com/embed/4B3gF9HZRSI" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
@@ -234,6 +235,29 @@
     </footer>
 
 
+    
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- CMS Data Loading -->
+    <script>
+        // Load YouTube URL from CMS
+        fetch('/content/site-settings/youtube-video.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get youtube_url
+                const match = text.match(/youtube_url:\s*"([^"]+)"/);
+                if (match && match[1]) {
+                    const iframe = document.getElementById('youtubeVideo');
+                    if (iframe) {
+                        iframe.src = match[1];
+                    }
+                }
+            })
+            .catch(error => {
+                console.log('Using default YouTube URL');
+            });
+    </script>
     
     <!-- Main JavaScript -->
     <script src="script-new.js"></script>
