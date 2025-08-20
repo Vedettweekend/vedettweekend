@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: TomoowTomoow/vedettweekend
+  repo: Vedettweekend/vedettweekend
   branch: main
   auth_type: implicit
   base_url: https://meek-moonbeam-ef046b.netlify.app
