@@ -75,16 +75,46 @@
                 Your browser does not support the video tag.
             </video>
             <div class="hero-overlay">
-                <img src="./img/Vedettweekend-2025.svg" alt="Vedettweekend Logo" class="hero-logo">
                 <button id="playButton" class="play-button" aria-label="Play/Pause video">❚❚</button>
             </div>
         </div>
         
-        <!-- CTA Button Component -->
-        <div class="cta-container">
-            <a href="tickets.html" class="cta-button">
-                <span class="cta-text">KOOP TICKETS</span>
-            </a>
+        <!-- Countdown Container with Logo, Timer, and Button -->
+        <div class="countdown-container">
+            <!-- Logo at the top -->
+            <div class="countdown-logo">
+                <img src="./img/Vedettweekend-2025.svg" alt="Vedettweekend Logo" class="hero-logo">
+            </div>
+            
+            <!-- Countdown Timer -->
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">DAGEN</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">UREN</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">MINUTEN</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">SECONDEN</span>
+                </div>
+            </div>
+            
+            <!-- CTA Button inside countdown container -->
+            <div class="countdown-cta">
+                <a href="tickets.html" class="cta-button">
+                    <span class="cta-text">KOOP TICKETS</span>
+                </a>
+            </div>
         </div>
     </section>
 

@@ -165,6 +165,178 @@ body {
     transform: translateY(-9px) rotate(-45deg);
 }
 
+/* ===== COUNTDOWN TIMER ===== */
+.countdown-container {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 800px;
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.countdown-logo {
+    margin-bottom: 1rem;
+}
+
+.countdown-logo .hero-logo {
+    max-width: 85%;
+    height: auto;
+    max-height: 400px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+}
+
+.countdown-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-family: 'Mont', sans-serif;
+}
+
+.countdown-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.countdown-separator {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    margin-top: -1rem;
+}
+
+.countdown-cta {
+    margin-top: 1rem;
+}
+
+.countdown-cta .cta-button {
+    margin: 0;
+}
+
+/* Responsive hero overlay */
+@media (max-width: 780px) {
+    .hero-overlay {
+        justify-content: center;
+        padding-top: 0;
+    }
+}
+
+/* Responsive countdown */
+@media (max-width: 768px) {
+    .countdown-container {
+        bottom: 2rem;
+        width: calc(100% - 10vw);
+        left: 5vw;
+        transform: none;
+        gap: 1.5rem;
+    }
+    
+    .countdown-logo .hero-logo {
+        max-width: 90%;
+        max-height: 300px;
+    }
+    
+    .countdown-timer {
+        gap: 0.5rem;
+    }
+    
+    .countdown-item {
+        min-width: 60px;
+    }
+    
+    .countdown-number {
+        font-size: 2.2rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.7rem;
+    }
+    
+    .countdown-separator {
+        font-size: 2rem;
+        margin-top: -0.5rem;
+    }
+    
+    .cta-button {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown-container {
+        bottom: 3rem;
+        gap: 2rem;
+        left: 5vw;
+        transform: none;
+    }
+
+    .countdown-cta {
+        margin-top: 1rem;
+        width: 100%;
+    }
+    
+    .countdown-logo .hero-logo {
+        max-width: 95%;
+        max-height: 250px;
+    }
+    
+    .countdown-timer {
+        gap: 0.25rem;
+    }
+    
+    .countdown-item {
+        min-width: 50px;
+    }
+    
+    .countdown-number {
+        font-size: 1.8rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.6rem;
+    }
+    
+    .countdown-separator {
+        font-size: 1.5rem;
+        margin-top: -0.25rem;
+    }
+    
+    .cta-button {
+        width: 100%;
+        max-width: none;
+    }
+}
+
 /* ===== HERO SECTION COMPONENT ===== */
 .hero {
     position: relative;
@@ -202,7 +374,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 120px;
     z-index: 2;
 }
 
@@ -240,23 +413,21 @@ body {
 }
 
 /* ===== CTA BUTTON COMPONENT ===== */
-.cta-container {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-}
 
 .cta-button {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #C53364; /* Solid pink background for better visibility */
     color: #ffffff; /* White text for accessibility */
     text-decoration: none;
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
     border-radius: 25px;
     font-size: 1.8rem;
     font-weight: 600;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
     text-transform: uppercase;
     letter-spacing: 3px;
     transition: all 0.3s ease;
@@ -268,6 +439,7 @@ body {
     text-overflow: ellipsis; /* Show ellipsis if text is too long */
     min-width: fit-content; /* Ensure button fits content */
     max-width: none; /* Remove any max-width restrictions */
+    min-height: 60px;
 }
 
 .cta-button:hover {
@@ -1083,6 +1255,7 @@ body {
         padding: 1rem 2rem;
         font-size: 1rem;
         white-space: nowrap; /* Ensure no wrapping on small mobile */
+        width: 100%;
         min-width: fit-content; /* Button fits content */
     }
     

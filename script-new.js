@@ -58,6 +58,9 @@ class VedettWebsite {
         
         // Initialize intersection observer for animations
         this.initializeAnimations();
+        
+        // Initialize countdown timer
+        this.initializeCountdown();
     }
 
     loadContent() {
@@ -611,6 +614,49 @@ class VedettWebsite {
                 <p>${item.answer}</p>
             </div>
         `).join('');
+    }
+
+    // ===== COUNTDOWN TIMER =====
+    initializeCountdown() {
+        // Set the target date: Friday, October 24th, 2025 at 20:00
+        const targetDate = new Date('2025-10-24T20:00:00');
+        
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = targetDate.getTime() - now;
+            
+            if (distance < 0) {
+                // Event has started
+                document.querySelectorAll('.countdown-number').forEach(el => {
+                    el.textContent = '00';
+                });
+                document.querySelector('.countdown-title').textContent = 'VEDETTWEEKEND 2025 IS BEGONNEN! 🎉';
+                return;
+            }
+            
+            // Calculate time units
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Update DOM elements
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            
+            if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+            if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+            if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+            if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+        };
+        
+        // Update countdown immediately
+        updateCountdown();
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
     }
 
 
