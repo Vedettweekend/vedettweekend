@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: TomoowTomoow/vedettweekend
   branch: main
+  base_url: https://vedettweekend.be
+  auth_endpoint: netlify
   commit_messages:
     create: 'Content: create {{collection}} "{{slug}}"'
     update: 'Content: update {{collection}} "{{slug}}"'
@@ -8,7 +11,7 @@ backend:
     uploadMedia: 'Media: upload {{path}}'
     deleteMedia: 'Media: delete {{path}}'
 
-local_backend: true
+local_backend: false
 
 media_folder: "img"
 public_folder: "/img"
