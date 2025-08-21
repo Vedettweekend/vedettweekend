@@ -1,16 +1,6 @@
 backend:
   name: git-gateway
   branch: main
-  publish_mode: simple
-  commit_messages:
-    create: 'Content: create {{collection}} "{{slug}}"'
-    update: 'Content: update {{collection}} "{{slug}}"'
-    delete: 'Content: delete {{collection}} "{{slug}}"'
-    uploadMedia: 'Media: upload {{path}}'
-    deleteMedia: 'Media: delete {{path}}'
-
-# Enable team collaboration
-local_backend: false
 
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
