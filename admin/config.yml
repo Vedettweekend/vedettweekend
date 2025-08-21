@@ -1,7 +1,9 @@
 backend:
-  name: github
+  name: auth0
+  domain: dev-2sqbvsqp2p8q4qyh.eu.auth0.com
+  client_id: 2H7b1aPpWLSRj9Ch8MjO9vwlZZH11dsN
+  branch: main   # optional if using GitHub repo backend
   repo: vedettweekend/vedettweekend
-  branch: main
 
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
