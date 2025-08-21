@@ -1,3 +1,3 @@
 ---
-youtube_url: https://www.youtube.com/watch?v=Nmq0wcvlM_A
+youtube_url: "https://www.youtube.com/embed/Nmq0wcvlM_A"
 ---
