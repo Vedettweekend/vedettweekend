@@ -1,7 +1,8 @@
 backend:
   name: github
-  repo: vedettweekend/vedettweekend
-  branch: main                             # Branch to commit content to
+  repo: vedettweekend/vedettweekend  # your repo
+  branch: main                        # branch to commit changes
+  auth_scope: "repo"
 
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
@@ -14,8 +15,4 @@ collections:
         label: "YouTube Video URL"
         file: "content/site-settings/youtube-video.md"
         fields:
-          - label: "YouTube Video URL"
-            name: "youtube_url"
-            widget: "string"
-            default: "https://www.youtube.com/embed/4B3gF9HZRSI"
-
+          - {label: "YouTube Video URL", name: "youtube_url", widget: "string", default: "https://www.youtube.com/embed/4B3gF9HZRSI"}
