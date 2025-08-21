@@ -1,7 +1,13 @@
 backend:
   name: git-gateway
-  branch: main          # your default branch
-  publish_mode: simple  # auto-publish without pull requests
+  branch: main
+  publish_mode: simple
+  commit_messages:
+    create: 'Content: create {{collection}} "{{slug}}"'
+    update: 'Content: update {{collection}} "{{slug}}"'
+    delete: 'Content: delete {{collection}} "{{slug}}"'
+    uploadMedia: 'Media: upload {{path}}'
+    deleteMedia: 'Media: delete {{path}}'
 
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
