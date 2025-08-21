@@ -254,7 +254,7 @@
             .then(text => {
                 console.log('CMS content loaded:', text.substring(0, 100) + '...');
                 // Parse frontmatter to get youtube_url
-                const match = text.match(/youtube_url:\s*"([^"]+)"/);
+                const match = text.match(/youtube_url:\s*([^\s\n]+)/);
                 if (match && match[1]) {
                     console.log('Found YouTube URL in CMS:', match[1]);
                     const iframe = document.getElementById('youtubeVideo');
