@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: vedettweekend/vedettweekend  # your repo
-  branch: main                        # branch to commit changes
-  auth_scope: "repo"                  # GitHub API scope
-  publish_mode: simple 
+  name: git-gateway
+  branch: main  # your default branch
 
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
