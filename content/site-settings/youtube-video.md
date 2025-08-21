@@ -1,6 +1,3 @@
 ---
-youtube_url: "https://www.youtube.com/embed/4B3gF9HZRSI"
+youtube_url: https://www.youtube.com/watch?v=Nmq0wcvlM_A
 ---
-
-
-
