@@ -250,7 +250,13 @@
                 if (match && match[1]) {
                     const iframe = document.getElementById('youtubeVideo');
                     if (iframe) {
-                        iframe.src = match[1];
+                        // Convert watch URL to embed URL if needed
+                        let videoUrl = match[1];
+                        if (videoUrl.includes('youtube.com/watch?v=')) {
+                            const videoId = videoUrl.split('v=')[1];
+                            videoUrl = `https://www.youtube.com/embed/${videoId}`;
+                        }
+                        iframe.src = videoUrl;
                     }
                 }
             })
