@@ -242,34 +242,20 @@
     <!-- CMS Data Loading -->
     <script>
         // Load YouTube URL from CMS
-        console.log('Loading YouTube URL from CMS...');
         fetch('/content/site-settings/youtube-video.md')
-            .then(response => {
-                console.log('CMS response status:', response.status);
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                console.log('CMS content loaded:', text.substring(0, 100) + '...');
                 // Parse frontmatter to get youtube_url
                 const match = text.match(/youtube_url:\s*([^\s\n]+)/);
                 if (match && match[1]) {
-                    console.log('Found YouTube URL in CMS:', match[1]);
                     const iframe = document.getElementById('youtubeVideo');
                     if (iframe) {
                         iframe.src = match[1];
-                        console.log('Updated iframe src to:', match[1]);
-                    } else {
-                        console.log('YouTube iframe not found');
                     }
-                } else {
-                    console.log('No YouTube URL found in CMS content');
                 }
             })
             .catch(error => {
-                console.log('CMS loading failed, using default URL:', error.message);
+                console.log('Using default YouTube URL');
             });
     </script>
     
