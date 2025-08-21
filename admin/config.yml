@@ -1,9 +1,7 @@
 backend:
-  name: auth0
-  domain: dev-2sqbvsqp2p8q4qyh.eu.auth0.com   # Your Auth0 domain
-  client_id: 2H7b1aPpWLSRj9Ch8MjO9vwlZZH11dsN  # Your Auth0 client ID
-  repo: vedettweekend/vedettweekend             # Your GitHub repo
-  branch: main                                 # Branch to commit content to
+  name: github
+  repo: vedettweekend/vedettweekend
+  branch: main
 
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
