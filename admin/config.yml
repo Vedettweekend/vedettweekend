@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: vedettweekend/vedettweekend
-  branch: main
+  branch: main                             # Branch to commit content to
 
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
@@ -18,3 +18,4 @@ collections:
             name: "youtube_url"
             widget: "string"
             default: "https://www.youtube.com/embed/4B3gF9HZRSI"
+
