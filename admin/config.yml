@@ -9,6 +9,9 @@ backend:
     uploadMedia: 'Media: upload {{path}}'
     deleteMedia: 'Media: delete {{path}}'
 
+# Enable team collaboration
+local_backend: false
+
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
 
