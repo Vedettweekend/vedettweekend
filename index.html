@@ -267,18 +267,20 @@
         // Load Featured Artists from CMS
         async function loadFeaturedArtists() {
             try {
-                const response = await fetch('/content/featured-artists/');
-                const text = await response.text();
+                // Directly fetch each artist file since we know the filenames
+                const artistFiles = [
+                    '2025-01-01-artist-1.md',
+                    '2025-01-02-artist-2.md',
+                    '2025-01-03-artist-3.md',
+                    '2025-01-04-artist-4.md'
+                ];
                 
-                // Parse the directory listing to get artist files
-                const artistFiles = text.match(/href="([^"]+\.md)"/g);
-                if (artistFiles) {
-                    const artists = [];
-                    
-                    for (const file of artistFiles) {
-                        const fileName = file.match(/href="([^"]+\.md)"/)[1];
-                        if (fileName !== 'index.md') {
-                            const artistResponse = await fetch(`/content/featured-artists/${fileName}`);
+                const artists = [];
+                
+                for (const fileName of artistFiles) {
+                    try {
+                        const artistResponse = await fetch(`/content/featured-artists/${fileName}`);
+                        if (artistResponse.ok) {
                             const artistText = await artistResponse.text();
                             
                             // Parse frontmatter
@@ -305,14 +307,20 @@
                                 });
                             }
                         }
+                    } catch (fileError) {
+                        console.log(`Failed to load ${fileName}:`, fileError.message);
                     }
-                    
-                    // Sort by order and display
-                    artists.sort((a, b) => a.order - b.order);
+                }
+                
+                // Sort by order and display
+                artists.sort((a, b) => a.order - b.order);
+                if (artists.length > 0) {
                     displayFeaturedArtists(artists);
+                } else {
+                    console.log('No artists loaded from CMS');
                 }
             } catch (error) {
-                console.log('Using default YouTube URL');
+                console.log('CMS loading failed:', error.message);
             }
         }
 
