@@ -69,12 +69,34 @@
     <!-- Hero Section Component -->
     <section class="hero">
         <div class="video-container">
-            <video id="heroVideo" autoplay muted loop playsinline preload="auto" class="hero-video">
-                <source src="./img/aftermovie-bg-mobile.mp4" media="(max-width: 768px)" type="video/mp4">
-                <source src="./img/Aftermovie-background.webm" media="(min-width: 769px)" type="video/webm">
-                <source src="./img/aftermovie-background.mp4" media="(min-width: 769px)" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <!-- Desktop Video -->
+            <div class="vimeo-video-wrapper desktop-video">
+                <iframe 
+                    src="https://player.vimeo.com/video/1112256600?h=e6bdada777&title=0&byline=0&muted=1&autoplay=1&controls=0&loop=1&background=1&autopause=0&dnt=1&transparent=0&autopause=0&player_id=0&app_id=58479"
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    title="Vedettweekend Aftermovie Background"
+                    class="hero-video">
+                </iframe>
+            </div>
+            
+            <!-- Mobile Video -->
+            <div class="mobile-video-wrapper">
+                <div style="padding:177.8% 0 0 0;position:relative;">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1112287830?badge=0&autopause=0&player_id=0&app_id=58479&muted=1&autoplay=1&loop=1&background=1"
+                        frameborder="0" 
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                        title="aftermovie-bg-mobile">
+                    </iframe>
+                </div>
+            </div>
+            
             <div class="hero-overlay">
 
             </div>
