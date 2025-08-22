@@ -284,30 +284,40 @@
                 console.log('Using default logo image');
             });
 
-        // Load Featured Sponsors from CMS
+        // Load Featured Sponsors from CMS - Simple & Automatic
         async function loadFeaturedSponsors() {
             try {
-                console.log('🚀 Starting sponsor loading...');
+                console.log('🚀 Starting automatic sponsor discovery...');
                 
-                // Only test the files that actually exist (your current sponsors)
-                const sponsorFiles = [
-                    '2025-01-01-sponsor-1.md',
-                    '2025-01-02-sponsor-2.md',
-                    '2025-01-03-sponsor-3.md',
-                    '2025-01-04-sponsor-4.md',
-                    '2025-01-05-sponsor-5.md',
-                    '2025-01-06-sponsor-6.md',
-                    '2025-01-07-sponsor-7.md',
-                    '2025-01-08-sponsor-8.md',
-                    '2025-01-09-sponsor-9.md',
-                    '2025-01-10-sponsor-10.md',
-                    '2025-08-22-map-order-1-active-true-name-feryn-image-img-uploads-feryn-png-websiteurl-feryn-be-alttext-feryn.md'
-                ];
+                // Step 1: Get the directory listing to see all files
+                const response = await fetch('/content/featured-sponsors/');
                 
-                console.log('📋 Testing', sponsorFiles.length, 'known sponsor files');
+                if (!response.ok) {
+                    console.log('❌ Could not access sponsors folder');
+                    return;
+                }
+                
+                const html = await response.text();
+                console.log('📄 Got directory listing, length:', html.length);
+                
+                // Step 2: Extract all .md files from the directory listing
+                const fileMatches = html.match(/href="([^"]+\.md)"/g);
+                
+                if (!fileMatches || fileMatches.length === 0) {
+                    console.log('❌ No .md files found in sponsors folder');
+                    return;
+                }
+                
+                // Step 3: Clean up the filenames and filter out non-sponsor files
+                const sponsorFiles = fileMatches
+                    .map(match => match.replace('href="', '').replace('"', ''))
+                    .filter(filename => filename !== 'index.md' && filename !== 'README.md'); // Exclude any index files
+                
+                console.log('✅ Found', sponsorFiles.length, 'sponsor files:', sponsorFiles);
+                
+                // Step 4: Load each sponsor file and parse the content
                 const sponsors = [];
                 
-                // Load each sponsor file
                 for (const fileName of sponsorFiles) {
                     try {
                         const sponsorResponse = await fetch(`/content/featured-sponsors/${fileName}`);
@@ -342,12 +352,12 @@
                     }
                 }
                 
-                console.log('🎉 Total sponsors found:', sponsors.length);
+                console.log('🎉 Total active sponsors found:', sponsors.length);
                 
-                // Sort sponsors by order
+                // Step 5: Sort sponsors by order
                 sponsors.sort((a, b) => a.order - b.order);
                 
-                // Render sponsors in the main grid
+                // Step 6: Render sponsors in the main grid
                 const sponsorsGrid = document.getElementById('sponsorsGrid');
                 if (sponsorsGrid && sponsors.length > 0) {
                     sponsorsGrid.innerHTML = sponsors.map(sponsor => `
@@ -358,7 +368,7 @@
                     console.log('✅ Main grid updated with', sponsors.length, 'sponsors');
                 }
                 
-                // Update footer sponsors
+                // Step 7: Update footer sponsors
                 const footerSponsors = document.getElementById('footerSponsors');
                 if (footerSponsors && sponsors.length > 0) {
                     footerSponsors.innerHTML = sponsors.map(sponsor => `
@@ -370,7 +380,7 @@
                 }
                 
             } catch (error) {
-                console.error('❌ Error:', error);
+                console.error('❌ Error loading sponsors:', error);
             }
         }
         
