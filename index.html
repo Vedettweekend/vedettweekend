@@ -293,13 +293,14 @@
                             
                             // Parse frontmatter
                             console.log(`\n--- PARSING ${fileName} ---`);
-                            const nameMatch = artistText.match(/name:\s*"([^"]+)"/);
-                            const dateBadgeMatch = artistText.match(/dateBadge:\s*"([^"]+)"/);
-                            const imageMatch = artistText.match(/image:\s*"([^"]+)"/);
-                            const titleMatch = artistText.match(/title:\s*"([^"]+)"/);
-                            const djNameMatch = artistText.match(/djName:\s*"([^"]+)"/);
-                            const websiteUrlMatch = artistText.match(/websiteUrl:\s*"([^"]+)"/);
-                            const websiteIconMatch = artistText.match(/websiteIcon:\s*"([^"]+)"/);
+                            // Handle both quoted and unquoted values
+                            const nameMatch = artistText.match(/name:\s*"?([^"\n]+)"?/);
+                            const dateBadgeMatch = artistText.match(/dateBadge:\s*"?([^"\n]+)"?/);
+                            const imageMatch = artistText.match(/image:\s*"?([^"\n]+)"?/);
+                            const titleMatch = artistText.match(/title:\s*"?([^"\n]+)"?/);
+                            const djNameMatch = artistText.match(/djName:\s*"?([^"\n]+)"?/);
+                            const websiteUrlMatch = artistText.match(/websiteUrl:\s*"?([^"\n]+)"?/);
+                            const websiteIconMatch = artistText.match(/websiteIcon:\s*"?([^"\n]+)"?/);
                             const orderMatch = artistText.match(/order:\s*(\d+)/);
                             const activeMatch = artistText.match(/active:\s*(true|false)/);
                             
