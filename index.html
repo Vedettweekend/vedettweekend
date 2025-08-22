@@ -284,103 +284,155 @@
                 console.log('Using default logo image');
             });
 
-        // Load Featured Sponsors from CMS - Simple & Direct
+                        // Load Featured Sponsors from CMS - Simple & Direct
         async function loadFeaturedSponsors() {
             try {
-                console.log('🚀 Starting sponsor loading...');
+                console.log('🚀 === STARTING SPONSOR LOADING ===');
                 
-                // Your simple approach: Just read the folder and count .md files
-                console.log('📁 Reading sponsors folder...');
+                // Your simple approach: Start with known files and discover more
+                let sponsorFiles = [
+                    // Your existing sponsors (1-10)
+                    'content/featured-sponsors/2025-01-01-sponsor-1.md',
+                    'content/featured-sponsors/2025-01-02-sponsor-2.md',
+                    'content/featured-sponsors/2025-01-03-sponsor-3.md',
+                    'content/featured-sponsors/2025-01-04-sponsor-4.md',
+                    'content/featured-sponsors/2025-01-05-sponsor-5.md',
+                    'content/featured-sponsors/2025-01-06-sponsor-6.md',
+                    'content/featured-sponsors/2025-01-07-sponsor-7.md',
+                    'content/featured-sponsors/2025-01-08-sponsor-8.md',
+                    'content/featured-sponsors/2025-01-09-sponsor-9.md',
+                    'content/featured-sponsors/2025-01-10-sponsor-10.md',
+                    // Your CMS-generated sponsors
+                    'content/featured-sponsors/2025-08-22-map-order-1-active-true-name-feryn-image-img-uploads-feryn-png-websiteurl-feryn-be-alttext-feryn.md',
+                    'content/featured-sponsors/2025-08-22-map-order-11-active-true-name-sponsor-11-image-img-uploads-vd27-png-websiteurl-vedettweekend-be-alttext-vedett.md'
+                ];
                 
-                // Try to read the folder contents directly
-                const response = await fetch('/content/featured-sponsors/');
+                console.log(`📋 Starting with ${sponsorFiles.length} known sponsor files`);
                 
-                if (response.ok) {
-                    const html = await response.text();
-                    console.log('✅ Folder contents loaded, length:', html.length);
+                // Try to discover more sponsors by testing recent dates (but not aggressively)
+                console.log('🔍 Trying to discover more sponsors...');
+                
+                const today = new Date();
+                
+                // Test just the last 3 days for new sponsors (much less aggressive)
+                for (let i = 0; i < 3; i++) {
+                    const date = new Date(today);
+                    date.setDate(date.getDate() - i);
+                    const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
                     
-                    // Extract all .md files from the HTML
-                    const fileMatches = html.match(/href="([^"]+\.md)"/g);
-                    
-                    if (fileMatches && fileMatches.length > 0) {
-                        const sponsorFiles = fileMatches
-                            .map(match => match.replace('href="', '').replace('"', ''))
-                            .filter(filename => filename !== 'index.md' && filename !== 'README.md');
-                        
-                        console.log(`📋 Found ${sponsorFiles.length} sponsor files:`, sponsorFiles);
-                        
-                        // Now load each file and extract properties
-                        const sponsors = [];
-                        
-                        for (const fileName of sponsorFiles) {
-                            try {
-                                console.log(`📖 Loading: ${fileName}`);
-                                const sponsorResponse = await fetch(`/content/featured-sponsors/${fileName}`);
-                                
-                                if (sponsorResponse.ok) {
-                                    const sponsorText = await sponsorResponse.text();
-                                    
-                                    // Extract the properties we need
-                                    const nameMatch = sponsorText.match(/name:\s*"?([^"\n]+)"?/);
-                                    const imageMatch = sponsorText.match(/image:\s*"?([^"\n]+)"?/);
-                                    const websiteUrlMatch = sponsorText.match(/websiteUrl:\s*"?([^"\n]+)"?/);
-                                    const altTextMatch = sponsorText.match(/altText:\s*"?([^"\n]+)"?/);
-                                    const orderMatch = sponsorText.match(/order:\s*(\d+)/);
-                                    const activeMatch = sponsorText.match(/active:\s*(true|false)/);
-                                    
-                                    if (nameMatch && activeMatch && activeMatch[1] === 'true') {
-                                        const sponsorData = {
-                                            name: nameMatch[1],
-                                            image: imageMatch ? imageMatch[1] : '',
-                                            websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : '',
-                                            altText: altTextMatch ? altTextMatch[1] : '',
-                                            order: orderMatch ? parseInt(orderMatch[1]) : 999
-                                        };
-                                        
-                                        console.log(`➕ Added: ${sponsorData.name}`);
-                                        sponsors.push(sponsorData);
-                                    } else {
-                                        console.log(`⚠️ ${fileName} not added - missing name or not active`);
-                                    }
-                                } else {
-                                    console.log(`⚠️ Could not load ${fileName}:`, sponsorResponse.status);
-                                }
-                            } catch (error) {
-                                console.log(`⚠️ Error loading ${fileName}:`, error.message);
+                    // Test just one common pattern per date
+                    const testPattern = `${dateStr}-new-sponsor.md`;
+                    try {
+                        const response = await fetch(`content/featured-sponsors/${testPattern}`);
+                        if (response.ok) {
+                            const fullPath = `content/featured-sponsors/${testPattern}`;
+                            if (!sponsorFiles.includes(fullPath)) {
+                                sponsorFiles.push(fullPath);
+                                console.log(`✅ Discovered new sponsor: ${testPattern}`);
                             }
                         }
-                        
-                        console.log('🎉 Total sponsors found:', sponsors.length);
-                        
-                        // Sort by order and display
-                        sponsors.sort((a, b) => a.order - b.order);
-                        
-                        // Render in the grid
-                        const sponsorsGrid = document.getElementById('sponsorsGrid');
-                        if (sponsorsGrid && sponsors.length > 0) {
-                            const htmlContent = sponsors.map(sponsor => `
-                                <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
-                                    <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
-                                </a>
-                            `).join('');
-                            
-                            sponsorsGrid.innerHTML = htmlContent;
-                            console.log('✅ Displayed', sponsors.length, 'sponsors');
-                        }
-                        
-                    } else {
-                        console.log('❌ No .md files found in folder');
+                    } catch (error) {
+                        // File doesn't exist, skip it
                     }
-                    
-                } else {
-                    console.log('❌ Could not read folder:', response.status);
                 }
                 
-            } catch (error) {
-                console.error('❌ Error:', error);
-            }
+                console.log(`📋 Total sponsor files to test: ${sponsorFiles.length}`);
+                
+                // Now load each file and extract properties
+                const sponsors = [];
+                
+                for (const fileName of sponsorFiles) {
+                    try {
+                        console.log(`📖 Loading: ${fileName}`);
+                        const sponsorResponse = await fetch(fileName);
+                        console.log(`📡 ${fileName} response status:`, sponsorResponse.status);
+                        
+                        if (sponsorResponse.ok) {
+                            const sponsorText = await sponsorResponse.text();
+                            console.log(`✅ ${fileName} loaded, length:`, sponsorText.length);
+                            
+                            // Extract the properties we need
+                            const nameMatch = sponsorText.match(/name:\s*"?([^"\n]+)"?/);
+                            const imageMatch = sponsorText.match(/image:\s*"?([^"\n]+)"?/);
+                            const websiteUrlMatch = sponsorText.match(/websiteUrl:\s*"?([^"\n]+)"?/);
+                            const altTextMatch = sponsorText.match(/altText:\s*"?([^"\n]+)"?/);
+                            const orderMatch = sponsorText.match(/order:\s*(\d+)/);
+                            const activeMatch = sponsorText.match(/active:\s*(true|false)/);
+                            
+                            if (nameMatch && activeMatch && activeMatch[1] === 'true') {
+                                const sponsorData = {
+                                    name: nameMatch[1],
+                                    image: imageMatch ? imageMatch[1] : '',
+                                    websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : '',
+                                    altText: altTextMatch ? altTextMatch[1] : '',
+                                    order: orderMatch ? parseInt(orderMatch[1]) : 999
+                                };
+                                
+                                console.log(`➕ Added sponsor: ${sponsorData.name}`);
+                                sponsors.push(sponsorData);
+                            } else {
+                                console.log(`⚠️ ${fileName} not added - missing name or not active`);
+                            }
+                        } else {
+                            console.log(`❌ Could not load ${fileName}:`, sponsorResponse.status);
+                        }
+                    } catch (error) {
+                        console.log(`⚠️ Error loading ${fileName}:`, error.message);
+                    }
                 }
-
+                
+                console.log('🎉 Total sponsors found:', sponsors.length);
+                console.log('📋 All sponsors:', sponsors);
+                
+                // Sort by order and display
+                sponsors.sort((a, b) => a.order - b.order);
+                console.log('🔄 Sorted sponsors:', sponsors);
+                
+                // Render in the grid
+                const sponsorsGrid = document.getElementById('sponsorsGrid');
+                console.log('🎯 Looking for sponsorsGrid element:', sponsorsGrid);
+                
+                if (sponsorsGrid && sponsors.length > 0) {
+                    const htmlContent = sponsors.map(sponsor => `
+                        <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
+                            <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
+                        </a>
+                    `).join('');
+                    
+                    console.log('🖼️ Generated HTML:', htmlContent);
+                    sponsorsGrid.innerHTML = htmlContent;
+                    console.log('✅ Displayed', sponsors.length, 'sponsors in grid');
+                    
+                    // Verify the DOM was updated
+                    const actualItems = sponsorsGrid.querySelectorAll('.sponsor-item');
+                    console.log('🔍 Actual sponsor items in DOM:', actualItems.length);
+                } else {
+                    console.log('⚠️ Could not update grid:', {
+                        sponsorsGridExists: !!sponsorsGrid,
+                        sponsorsCount: sponsors.length
+                    });
+                }
+                
+                console.log('🏁 === SPONSOR LOADING COMPLETED ===');
+                
+            } catch (error) {
+                console.error('❌ === SPONSOR LOADING ERROR ===');
+                console.error('❌ Error:', error);
+                console.error('❌ Error stack:', error.stack);
+            }
+        }
+        
+        // Load sponsors when page loads
+        console.log('🔧 About to call loadFeaturedSponsors...');
+        loadFeaturedSponsors();
+        console.log('🔧 loadFeaturedSponsors called!');
+        
+        // Also test if the function works by calling it directly
+        setTimeout(() => {
+            console.log('🔧 Testing sponsor loading function...');
+            loadFeaturedSponsors();
+        }, 1000);
+        
         // Load Featured Artists from CMS
         async function loadFeaturedArtists() {
             console.log('=== LOADING FEATURED ARTISTS ===');
