@@ -266,6 +266,7 @@
 
         // Load Featured Artists from CMS
         async function loadFeaturedArtists() {
+            console.log('=== LOADING FEATURED ARTISTS ===');
             try {
                 // Directly fetch each artist file since we know the filenames
                 const artistFiles = [
@@ -275,15 +276,23 @@
                     '2025-01-04-artist-4.md'
                 ];
                 
+                console.log('Artist files to fetch:', artistFiles);
                 const artists = [];
                 
                 for (const fileName of artistFiles) {
                     try {
+                        console.log(`\n--- FETCHING ${fileName} ---`);
+                        console.log(`Attempting to fetch: /content/featured-artists/${fileName}`);
                         const artistResponse = await fetch(`/content/featured-artists/${fileName}`);
+                        console.log(`Response for ${fileName}:`, artistResponse.status, artistResponse.statusText);
+                        
                         if (artistResponse.ok) {
                             const artistText = await artistResponse.text();
+                            console.log(`Successfully loaded ${fileName}, content length:`, artistText.length);
+                            console.log(`Raw content preview:`, artistText.substring(0, 200) + '...');
                             
                             // Parse frontmatter
+                            console.log(`\n--- PARSING ${fileName} ---`);
                             const nameMatch = artistText.match(/name:\s*"([^"]+)"/);
                             const dateBadgeMatch = artistText.match(/dateBadge:\s*"([^"]+)"/);
                             const imageMatch = artistText.match(/image:\s*"([^"]+)"/);
@@ -294,8 +303,24 @@
                             const orderMatch = artistText.match(/order:\s*(\d+)/);
                             const activeMatch = artistText.match(/active:\s*(true|false)/);
                             
+                            console.log(`Regex matches for ${fileName}:`, {
+                                name: nameMatch ? `"${nameMatch[1]}"` : 'NOT FOUND',
+                                dateBadge: dateBadgeMatch ? `"${dateBadgeMatch[1]}"` : 'NOT FOUND',
+                                image: imageMatch ? `"${imageMatch[1]}"` : 'NOT FOUND',
+                                title: titleMatch ? `"${titleMatch[1]}"` : 'NOT FOUND',
+                                djName: djNameMatch ? `"${djNameMatch[1]}"` : 'NOT FOUND',
+                                websiteUrl: websiteUrlMatch ? `"${websiteUrlMatch[1]}"` : 'NOT FOUND',
+                                websiteIcon: websiteIconMatch ? `"${websiteIconMatch[1]}"` : 'NOT FOUND',
+                                order: orderMatch ? orderMatch[1] : 'NOT FOUND',
+                                active: activeMatch ? activeMatch[1] : 'NOT FOUND'
+                            });
+                            
+                            console.log(`\n--- VALIDATING ${fileName} ---`);
+                            console.log(`Has name?`, !!nameMatch);
+                            console.log(`Is active?`, activeMatch ? activeMatch[1] === 'true' : 'NO ACTIVE MATCH');
+                            
                             if (nameMatch && activeMatch[1] === 'true') {
-                                artists.push({
+                                const artistData = {
                                     name: nameMatch[1],
                                     dateBadge: dateBadgeMatch ? dateBadgeMatch[1] : '',
                                     image: imageMatch ? imageMatch[1] : '',
@@ -304,34 +329,59 @@
                                     websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : '',
                                     websiteIcon: websiteIconMatch ? websiteIconMatch[1] : 'fas fa-link',
                                     order: orderMatch ? parseInt(orderMatch[1]) : 999
-                                });
+                                };
+                                
+                                console.log(`Artist data object:`, artistData);
+                                artists.push(artistData);
+                                console.log(`✅ Artist ${fileName} added to array. Total artists:`, artists.length);
+                            } else {
+                                console.log(`❌ Artist ${fileName} not added - missing name or not active`);
+                                if (!nameMatch) console.log('  - Missing name');
+                                if (!activeMatch) console.log('  - Missing active field');
+                                if (activeMatch && activeMatch[1] !== 'true') console.log('  - Active is false');
                             }
+                        } else {
+                            console.log(`❌ Failed to load ${fileName}: HTTP ${artistResponse.status}`);
                         }
                     } catch (fileError) {
-                        console.log(`Failed to load ${fileName}:`, fileError.message);
+                        console.log(`❌ Error loading ${fileName}:`, fileError.message);
                     }
                 }
                 
+                console.log(`\n=== PROCESSING RESULTS ===`);
+                console.log(`Total artists loaded:`, artists.length);
+                console.log(`Artists array:`, artists);
+                
                 // Sort by order and display
-                artists.sort((a, b) => a.order - b.order);
                 if (artists.length > 0) {
+                    console.log(`\n=== DISPLAYING ARTISTS ===`);
+                    artists.sort((a, b) => a.order - b.order);
+                    console.log(`Sorted artists:`, artists);
                     displayFeaturedArtists(artists);
                 } else {
-                    console.log('No artists loaded from CMS');
+                    console.log('❌ No artists loaded from CMS - nothing to display');
                 }
             } catch (error) {
-                console.log('CMS loading failed:', error.message);
+                console.log('❌ CMS loading failed:', error.message);
             }
         }
 
         // Display featured artists
         function displayFeaturedArtists(artists) {
-            const container = document.getElementById('artistsGrid');
-            if (!container) return;
+            console.log('displayFeaturedArtists called with:', artists);
             
+            const container = document.getElementById('artistsGrid');
+            if (!container) {
+                console.log('Container not found!');
+                return;
+            }
+            
+            console.log('Container found, clearing innerHTML');
             container.innerHTML = '';
             
-            artists.forEach(artist => {
+            artists.forEach((artist, index) => {
+                console.log(`Processing artist ${index}:`, artist);
+                
                 // Map CMS fields to what createArtistCard expects
                 const mappedArtist = {
                     date: artist.dateBadge,           // CMS: dateBadge → Expected: date
@@ -343,9 +393,18 @@
                     websiteIcon: artist.websiteIcon    // CMS: websiteIcon → Expected: websiteIcon
                 };
                 
-                // Use the existing createArtistCard function
-                const artistCard = createArtistCard(mappedArtist);
-                container.innerHTML += artistCard;
+                console.log(`Mapped artist ${index}:`, mappedArtist);
+                
+                // Check if createArtistCard function exists
+                if (typeof createArtistCard === 'function') {
+                    console.log('createArtistCard function found, calling it...');
+                    const artistCard = createArtistCard(mappedArtist);
+                    container.innerHTML += artistCard;
+                    console.log('Artist card added to container');
+                } else {
+                    console.log('ERROR: createArtistCard function not found!');
+                    console.log('Available functions:', Object.keys(window));
+                }
             });
         }
 
