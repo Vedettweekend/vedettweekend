@@ -284,41 +284,7 @@
                 console.log('Using default logo image');
             });
 
-        // Debug: Show which video source is being used
-        function showVideoSource() {
-            const video = document.getElementById('heroVideo');
-            if (video) {
-                const currentSrc = video.currentSrc || video.src;
-                const currentType = video.currentSrc ? 'currentSrc' : 'src';
-                console.log('🎥 Video Debug Info:');
-                console.log(`- Current source: ${currentSrc}`);
-                console.log(`- Source type: ${currentType}`);
-                console.log(`- Video format: ${currentSrc.split('.').pop()}`);
-                console.log(`- Full path: ${currentSrc}`);
-                
-                // Also show in page (for easy viewing)
-                const debugInfo = document.createElement('div');
-                debugInfo.style.cssText = 'position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.8); color: white; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 12px; z-index: 9999;';
-                debugInfo.innerHTML = `
-                    <strong>🎥 Video Source:</strong><br>
-                    ${currentSrc.split('/').pop()}<br>
-                    <small>Format: ${currentSrc.split('.').pop().toUpperCase()}</small>
-                `;
-                document.body.appendChild(debugInfo);
-                
-                // Remove debug info after 10 seconds
-                setTimeout(() => {
-                    if (debugInfo.parentNode) {
-                        debugInfo.parentNode.removeChild(debugInfo);
-                    }
-                }, 10000);
-            }
-        }
-        
-        // Show video source info after page loads
-        window.addEventListener('load', () => {
-            setTimeout(showVideoSource, 1000); // Wait 1 second for video to load
-        });
+
 
         // Load Featured Artists from CMS
         async function loadFeaturedArtists() {
