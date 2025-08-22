@@ -1,6 +1,6 @@
 ---
 name: Sponsor 1
-image: /img/uploads/instabel-2025.png
+image: img/Instabel(FV).png
 websiteUrl: https://www.instabel.be/
 altText: Instabel Sponsor
 order: 1

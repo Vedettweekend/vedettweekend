@@ -1,5 +1,5 @@
 ---
-name: sponsor 13
+name: Sponsor 13
 image: /img/uploads/instabel-2025.png
 websiteUrl: vedett.be
 altText: vd

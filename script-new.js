@@ -210,34 +210,12 @@ class VedettWebsite {
     }
 
     loadSponsors() {
-        const sponsorsGrid = document.getElementById('sponsorsGrid');
-        if (!sponsorsGrid) return;
-
-        // Sponsors data - this would come from Netlify CMS
-        const sponsors = [
-            { image: 'img/Instabel(FV).png', url: 'https://www.instabel.be/', alt: 'Instabel Sponsor' },
-            { image: 'img/MaxT(FV).png', url: 'https://www.facebook.com/p/Drankenhandel-Maxt-Dranken-100084040300979/', alt: 'MaxT Sponsor' },
-            { image: 'img/dreamsupport(fv).png', url: 'https://www.dreamsupport.be/', alt: 'Dreamsupport Sponsor' },
-            { image: 'img/Consteca(FV).png', url: 'https://www.consteca.be/', alt: 'Consteca Sponsor' },
-            { image: 'img/Cynthia\'sBakery(FV).png', url: 'https://www.facebook.com/p/Cynthias-bakery-100063702123669/', alt: 'Cynthia\'s Bakery Sponsor' },
-            { image: 'img/Thielemans.png', url: 'https://www.kantoorthielemans.be/', alt: 'Thielemans Sponsor' },
-            { image: 'img/Tubo(FV).png', url: 'https://verwarminggids.be/nieuwenrode/tubo-centrale-verwarming-en/', alt: 'Tubo Sponsor' },
-            { image: 'img/VanRoey(FV).png', url: 'https://www.vanroey.be/en/', alt: 'VanRoey Sponsor' },
-            { image: 'img/Argenta(FV).png', url: 'https://www.argenta.be/nl/kantoren/de-jongh--gits-bv-3136.html', alt: 'Argenta Sponsor' },
-            { image: 'img/BakerTilly(FV) 1.png', url: 'https://www.bakertilly.be/nl', alt: 'BakerTilly Sponsor' }
-        ];
-
-        // Render sponsor items
-        sponsorsGrid.innerHTML = sponsors.map(sponsor => this.createSponsorItem(sponsor)).join('');
+        // This function is now handled by the loadFeaturedSponsors() function in index.html
+        // Sponsors are loaded dynamically from the CMS
+        console.log('Sponsors loading handled by loadFeaturedSponsors()');
     }
 
-    createSponsorItem(sponsor) {
-        return `
-            <a href="${sponsor.url}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
-                <img src="${sponsor.image}" alt="${sponsor.alt}" loading="lazy">
-            </a>
-        `;
-    }
+    // createSponsorItem function removed - now handled by loadFeaturedSponsors() in index.html
 
     loadFooterSponsors() {
         const footerSponsors = document.getElementById('footerSponsors');

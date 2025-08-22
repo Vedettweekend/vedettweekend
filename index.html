@@ -33,7 +33,7 @@
         <nav class="navbar">
             <div class="nav-branding">
                 <a href="./">
-                    <img src="./img/Vedettweekend-2025.svg" alt="Vedettweekend logo" class="nav-logo">
+                    <img alt="Vedettweekend logo" class="nav-logo">
                 </a>
             </div>
             <ul class="nav-menu" id="navMenu">
@@ -106,7 +106,7 @@
         <div class="countdown-container">
             <!-- Logo at the top -->
             <div class="countdown-logo">
-                <img src="./img/Vedettweekend-2025.svg" alt="Vedettweekend Logo" class="hero-logo">
+                <img alt="Vedettweekend Logo" class="hero-logo">
             </div>
             
             <!-- Countdown Timer -->
@@ -387,125 +387,67 @@
             });
         }
 
-        // Load Featured Sponsors from CMS (Dynamic Discovery)
+        // Load Featured Sponsors from CMS (Predictable Naming System)
         async function loadFeaturedSponsors() {
             try {
-                console.log('🚀 === STARTING DYNAMIC SPONSOR DISCOVERY ===');
+                console.log('🚀 === LOADING SPONSORS WITH PREDICTABLE NAMING ===');
                 
-                // Step 1: Try to get directory listing
-                console.log('📁 Attempting to fetch directory listing...');
-                let allSponsorFiles = [];
-                
-                try {
-                    const directoryResponse = await fetch('content/featured-sponsors/');
-                    console.log('📡 Directory response status:', directoryResponse.status);
-                    
-                    if (directoryResponse.ok) {
-                        const directoryText = await directoryResponse.text();
-                        console.log('📄 Directory content length:', directoryText.length);
-                        
-                        // Parse directory listing to find .md files
-                        const mdFileMatches = directoryText.match(/href="([^"]*\.md)"/g);
-                        if (mdFileMatches) {
-                            allSponsorFiles = mdFileMatches.map(match => {
-                                const filename = match.match(/href="([^"]*\.md)"/)[1];
-                                // Extract just the filename, removing all path components
-                                const justFilename = filename.split('/').pop();
-                                return `content/featured-sponsors/${justFilename}`;
-                            });
-                            console.log('✅ Directory listing successful, found files:', allSponsorFiles);
-                        } else {
-                            console.log('⚠️ No .md files found in directory listing');
-                        }
-                    } else {
-                        console.log('❌ Directory listing failed, status:', directoryResponse.status);
-                    }
-                } catch (error) {
-                    console.log('⚠️ Directory listing error:', error.message);
-                }
-                
-                // Step 2: If directory listing failed, use fallback discovery
-                if (allSponsorFiles.length === 0) {
-                    console.log('🔄 Directory listing failed, using fallback discovery...');
-                    
-                    // Generate common patterns for the last 30 days
-                    const today = new Date();
-                    const patterns = [];
-                    
-                    for (let i = 0; i < 30; i++) {
-                        const date = new Date(today);
-                        date.setDate(date.getDate() - i);
-                        const dateStr = date.toISOString().split('T')[0];
-                        
-                        // Test common CMS patterns
-                        patterns.push(`${dateStr}-sponsor-new.md`);
-                        patterns.push(`${dateStr}-new-sponsor.md`);
-                        patterns.push(`${dateStr}-sponsor.md`);
-                        patterns.push(`${dateStr}-map-order-1-active-true-name-test.md`);
-                    }
-                    
-                    console.log(`🔍 Testing ${patterns.length} fallback patterns...`);
-                    
-                    // Test each pattern
-                    for (const pattern of patterns) {
-                        try {
-                            const response = await fetch(`content/featured-sponsors/${pattern}`);
-                            if (response.ok) {
-                                allSponsorFiles.push(`content/featured-sponsors/${pattern}`);
-                                console.log(`✅ Found sponsor file: ${pattern}`);
-                            }
-                        } catch (error) {
-                            // File doesn't exist, skip it
-                        }
-                    }
-                }
-                
-                console.log(`📋 Total sponsor files discovered: ${allSponsorFiles.length}`);
-                
-                // Step 3: Load and parse all discovered files
                 const sponsors = [];
-                let loadedCount = 0;
+                let maxSponsors = 50; // Reasonable limit for sponsors
+                let foundSponsors = 0;
                 
-                for (const fileName of allSponsorFiles) {
+                // Load sponsors using predictable naming: sponsor-1.md, sponsor-2.md, etc.
+                for (let i = 1; i <= maxSponsors; i++) {
                     try {
-                        console.log(`📖 Loading: ${fileName}`);
+                        const fileName = `content/featured-sponsors/sponsor-${i}.md`;
                         const response = await fetch(fileName);
                         
                         if (response.ok) {
                             const text = await response.text();
-                            console.log(`✅ ${fileName} loaded successfully`);
                             
-                            // Extract sponsor data (removed active check as requested)
+                            // Extract sponsor data
                             const nameMatch = text.match(/name:\s*"?([^"\n]+)"?/);
                             const imageMatch = text.match(/image:\s*"?([^"\n]+)"?/);
                             const websiteUrlMatch = text.match(/websiteUrl:\s*"?([^"\n]+)"?/);
                             const altTextMatch = text.match(/altText:\s*"?([^"\n]+)"?/);
+                            const activeMatch = text.match(/active:\s*(true|false)/);
                             
-                            if (nameMatch && imageMatch) {
+                            // Only add if sponsor is active and has required fields
+                            if (nameMatch && imageMatch && activeMatch && activeMatch[1] === 'true') {
                                 const sponsor = {
                                     name: nameMatch[1],
                                     image: imageMatch[1],
                                     websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : '#',
-                                    altText: altTextMatch ? altTextMatch[1] : nameMatch[1]
+                                    altText: altTextMatch ? altTextMatch[1] : nameMatch[1],
+                                    order: i
                                 };
                                 
                                 sponsors.push(sponsor);
-                                loadedCount++;
-                                console.log(`➕ Added sponsor: ${sponsor.name}`);
-                            } else {
-                                console.log(`⚠️ ${fileName} missing required fields (name or image)`);
+                                foundSponsors++;
+                                console.log(`✅ Loaded sponsor ${i}: ${sponsor.name}`);
+                            } else if (nameMatch && imageMatch) {
+                                console.log(`⚠️ Sponsor ${i} exists but is inactive or missing fields`);
                             }
                         } else {
-                            console.log(`❌ Failed to load ${fileName}: ${response.status}`);
+                            // No more sponsor files found, break the loop
+                            console.log(`📁 No more sponsor files after sponsor-${i-1}.md`);
+                            break;
                         }
                     } catch (error) {
-                        console.log(`⚠️ Error loading ${fileName}:`, error.message);
+                        // File doesn't exist, continue to next
+                        if (i === 1) {
+                            console.log('📁 No sponsor files found in folder');
+                        }
+                        break;
                     }
                 }
                 
-                console.log(`🎉 Successfully loaded ${loadedCount} sponsors out of ${allSponsorFiles.length} files`);
+                console.log(`🎉 Found ${foundSponsors} active sponsors`);
                 
-                // Step 4: Display sponsors in grid
+                // Sort sponsors by order field
+                sponsors.sort((a, b) => a.order - b.order);
+                
+                // Display sponsors in grid
                 const sponsorsGrid = document.getElementById('sponsorsGrid');
                 if (sponsorsGrid && sponsors.length > 0) {
                     const htmlContent = sponsors.map(sponsor => `
@@ -517,20 +459,17 @@
                     sponsorsGrid.innerHTML = htmlContent;
                     console.log(`✅ Displayed ${sponsors.length} sponsors in grid`);
                 } else {
-                    console.log('⚠️ Could not find sponsorsGrid element or no sponsors loaded');
+                    console.log('⚠️ No sponsors grid found or no sponsors loaded');
                 }
                 
-                console.log('🏁 === SPONSOR DISCOVERY COMPLETED ===');
-                
             } catch (error) {
-                console.error('❌ === SPONSOR DISCOVERY ERROR ===');
-                console.error('Error:', error);
-                console.error('Stack:', error.stack);
+                console.error('❌ Sponsor loading error:', error);
             }
         }
         
+
         // Load Logo from CMS
-        fetch('/content/site-settings/logo.md')
+        fetch('content/site-settings/logo.md')
             .then(response => response.text())
             .then(text => {
                 // Parse frontmatter to get logo path
@@ -548,12 +487,34 @@
                     heroLogos.forEach(logo => {
                         logo.src = logoMatch[1];
                     });
+                } else {
+                    // Fallback to default logo if CMS fails
+                    const navLogos = document.querySelectorAll('.nav-logo');
+                    const heroLogos = document.querySelectorAll('.hero-logo');
+                    
+                    navLogos.forEach(logo => {
+                        logo.src = './img/vedett25.webp';
+                    });
+                    
+                    heroLogos.forEach(logo => {
+                        logo.src = './img/vedett25.webp';
+                    });
                 }
             })
             .catch(error => {
-                console.log('Using default logo image');
+                // Fallback to default logo if fetch fails
+                const navLogos = document.querySelectorAll('.nav-logo');
+                const heroLogos = document.querySelectorAll('.hero-logo');
+                
+                navLogos.forEach(logo => {
+                    logo.src = './img/vedett25.webp';
+                });
+                
+                heroLogos.forEach(logo => {
+                    logo.src = './img/vedett25.webp';
+                });
             });
-            
+
         // Load artists when page loads
         loadFeaturedArtists();
         

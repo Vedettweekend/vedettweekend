@@ -32,7 +32,7 @@ collections:
     label: "Featured Artists"
     folder: "content/featured-artists"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "artist-{{order}}"
     fields:
       - {label: "Artist Name", name: "name", widget: "string"}
       - {label: "Date Badge", name: "dateBadge", widget: "string", hint: "e.g., VR 25 OKT, ZA 26 OKT"}
@@ -41,18 +41,18 @@ collections:
       - {label: "DJ Name", name: "djName", widget: "string", hint: "Full DJ/Artist name to display"}
       - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when card is clicked"}
       - {label: "Website Icon", name: "websiteIcon", widget: "string", default: "fas fa-link", hint: "Font Awesome icon class"}
-      - {label: "Order", name: "order", widget: "number", default: 1, hint: "Display order (1 = first)"}
+      - {label: "Order", name: "order", widget: "number", default: 1, hint: "Display order (1 = first) - This determines the filename"}
       - {label: "Active", name: "active", widget: "boolean", default: true}
 
   - name: "featured_sponsors"
     label: "Featured Sponsors"
     folder: "content/featured-sponsors"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "sponsor-{{order}}"
     fields:
       - {label: "Sponsor Name", name: "name", widget: "string", hint: "e.g., Sponsor 1, Sponsor 2, etc."}
       - {label: "Sponsor Image", name: "image", widget: "image", hint: "Sponsor logo image"}
       - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"}
       - {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"}
-      - {label: "Order", name: "order", widget: "number", default: 1, hint: "Display order (1 = first)"}
+      - {label: "Order", name: "order", widget: "number", default: 1, hint: "Display order (1 = first) - This determines the filename"}
       - {label: "Active", name: "active", widget: "boolean", default: true}

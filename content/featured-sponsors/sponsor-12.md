@@ -1,5 +1,5 @@
 ---
-name: sponsor 12
+name: Sponsor 12
 image: /img/uploads/instabel-2025.png
 websiteUrl: instabel.be
 altText: ins
