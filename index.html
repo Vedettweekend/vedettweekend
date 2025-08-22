@@ -265,53 +265,55 @@
             });
 
         // Load Featured Artists from CMS
-        function loadFeaturedArtists() {
-            // For now, use the CMS data directly embedded in HTML
-            // This ensures the data is always available on the live site
-            const artists = [
-                {
-                    name: "Artist 1",
-                    dateBadge: "VR 25 OKT",
-                    image: "img/Kezze24.png",
-                    title: "CHECK IT OUT:",
-                    djName: "Kezze",
-                    websiteUrl: "https://example.com",
-                    websiteIcon: "fas fa-link",
-                    order: 1
-                },
-                {
-                    name: "Artist 2",
-                    dateBadge: "ZA 26 OKT",
-                    image: "img/GekkeBoys24.png",
-                    title: "CHECK IT OUT:",
-                    djName: "Gekke Boys",
-                    websiteUrl: "https://example.com",
-                    websiteIcon: "fas fa-link",
-                    order: 2
-                },
-                {
-                    name: "Artist 3",
-                    dateBadge: "VR 25 OKT",
-                    image: "img/C-track.png",
-                    title: "CHECK IT OUT:",
-                    djName: "C-track",
-                    websiteUrl: "https://example.com",
-                    websiteIcon: "fas fa-link",
-                    order: 3
-                },
-                {
-                    name: "Artist 4",
-                    dateBadge: "ZA 26 OKT",
-                    image: "img/Tomorrowband24.png",
-                    title: "CHECK IT OUT:",
-                    djName: "Tomorrowband",
-                    websiteUrl: "https://example.com",
-                    websiteIcon: "fas fa-link",
-                    order: 4
+        async function loadFeaturedArtists() {
+            try {
+                const response = await fetch('/content/featured-artists/');
+                const text = await response.text();
+                
+                // Parse the directory listing to get artist files
+                const artistFiles = text.match(/href="([^"]+\.md)"/g);
+                if (artistFiles) {
+                    const artists = [];
+                    
+                    for (const file of artistFiles) {
+                        const fileName = file.match(/href="([^"]+\.md)"/)[1];
+                        if (fileName !== 'index.md') {
+                            const artistResponse = await fetch(`/content/featured-artists/${fileName}`);
+                            const artistText = await artistResponse.text();
+                            
+                            // Parse frontmatter
+                            const nameMatch = artistText.match(/name:\s*"([^"]+)"/);
+                            const dateBadgeMatch = artistText.match(/dateBadge:\s*"([^"]+)"/);
+                            const imageMatch = artistText.match(/image:\s*"([^"]+)"/);
+                            const titleMatch = artistText.match(/title:\s*"([^"]+)"/);
+                            const djNameMatch = artistText.match(/djName:\s*"([^"]+)"/);
+                            const websiteUrlMatch = artistText.match(/websiteUrl:\s*"([^"]+)"/);
+                            const websiteIconMatch = artistText.match(/websiteIcon:\s*"([^"]+)"/);
+                            const orderMatch = artistText.match(/order:\s*(\d+)/);
+                            const activeMatch = artistText.match(/active:\s*(true|false)/);
+                            
+                            if (nameMatch && activeMatch[1] === 'true') {
+                                artists.push({
+                                    name: nameMatch[1],
+                                    dateBadge: dateBadgeMatch ? dateBadgeMatch[1] : '',
+                                    image: imageMatch ? imageMatch[1] : '',
+                                    title: titleMatch ? titleMatch[1] : 'CHECK IT OUT:',
+                                    djName: djNameMatch ? djNameMatch[1] : '',
+                                    websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : '',
+                                    websiteIcon: websiteIconMatch ? websiteIconMatch[1] : 'fas fa-link',
+                                    order: orderMatch ? parseInt(orderMatch[1]) : 999
+                                });
+                            }
+                        }
+                    }
+                    
+                    // Sort by order and display
+                    artists.sort((a, b) => a.order - b.order);
+                    displayFeaturedArtists(artists);
                 }
-            ];
-            
-            displayFeaturedArtists(artists);
+            } catch (error) {
+                console.log('Using default YouTube URL');
+            }
         }
 
         // Display featured artists
