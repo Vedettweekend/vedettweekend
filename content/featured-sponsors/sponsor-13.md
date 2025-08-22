@@ -1,8 +1,8 @@
 ---
 name: Sponsor 13
-image: /img/uploads/instabel-2025.png
-websiteUrl: vedett.be
-altText: vd
+image: img/placeholder.png
+websiteUrl: https://example.com
+altText: Sponsor 13
 order: 13
-active: true
+active: false
 ---

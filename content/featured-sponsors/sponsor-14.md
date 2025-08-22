@@ -1,8 +1,8 @@
 ---
-name: Sponsor 12
+name: Sponsor 14
 image: img/placeholder.png
 websiteUrl: https://example.com
-altText: Sponsor 12
-order: 12
+altText: Sponsor 14
+order: 14
 active: false
 ---

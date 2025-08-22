@@ -31,7 +31,7 @@ collections:
   - name: "featured_artists"
     label: "Featured Artists"
     folder: "content/featured-artists"
-    create: true
+    create: false
     slug: "artist-{{order}}"
     fields:
       - {label: "Artist Name", name: "name", widget: "string"}
@@ -47,7 +47,7 @@ collections:
   - name: "featured_sponsors"
     label: "Featured Sponsors"
     folder: "content/featured-sponsors"
-    create: true
+    create: false
     slug: "sponsor-{{order}}"
     fields:
       - {label: "Sponsor Name", name: "name", widget: "string", hint: "e.g., Sponsor 1, Sponsor 2, etc."}

@@ -33,7 +33,7 @@
         <nav class="navbar">
             <div class="nav-branding">
                 <a href="./">
-                    <img alt="Vedettweekend logo" class="nav-logo">
+                    <img class="nav-logo" src="./img/vedett25.webp">
                 </a>
             </div>
             <ul class="nav-menu" id="navMenu">
@@ -106,7 +106,7 @@
         <div class="countdown-container">
             <!-- Logo at the top -->
             <div class="countdown-logo">
-                <img alt="Vedettweekend Logo" class="hero-logo">
+                <img class="hero-logo" src="./img/vedett25.webp">
             </div>
             
             <!-- Countdown Timer -->
@@ -387,83 +387,45 @@
             });
         }
 
-        // Load Featured Sponsors from CMS (Predictable Naming System)
+                // Load Featured Sponsors from CMS (Simplified - Fixed 15 files)
         async function loadFeaturedSponsors() {
             try {
-                console.log('🚀 === LOADING SPONSORS WITH PREDICTABLE NAMING ===');
-                
                 const sponsors = [];
-                let maxSponsors = 50; // Reasonable limit for sponsors
-                let foundSponsors = 0;
                 
-                // Load sponsors using predictable naming: sponsor-1.md, sponsor-2.md, etc.
-                for (let i = 1; i <= maxSponsors; i++) {
-                    try {
-                        const fileName = `content/featured-sponsors/sponsor-${i}.md`;
-                        const response = await fetch(fileName);
-                        
-                        if (response.ok) {
-                            const text = await response.text();
-                            
-                            // Extract sponsor data
-                            const nameMatch = text.match(/name:\s*"?([^"\n]+)"?/);
-                            const imageMatch = text.match(/image:\s*"?([^"\n]+)"?/);
-                            const websiteUrlMatch = text.match(/websiteUrl:\s*"?([^"\n]+)"?/);
-                            const altTextMatch = text.match(/altText:\s*"?([^"\n]+)"?/);
-                            const activeMatch = text.match(/active:\s*(true|false)/);
-                            
-                            // Only add if sponsor is active and has required fields
-                            if (nameMatch && imageMatch && activeMatch && activeMatch[1] === 'true') {
-                                const sponsor = {
-                                    name: nameMatch[1],
-                                    image: imageMatch[1],
-                                    websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : '#',
-                                    altText: altTextMatch ? altTextMatch[1] : nameMatch[1],
-                                    order: i
-                                };
-                                
-                                sponsors.push(sponsor);
-                                foundSponsors++;
-                                console.log(`✅ Loaded sponsor ${i}: ${sponsor.name}`);
-                            } else if (nameMatch && imageMatch) {
-                                console.log(`⚠️ Sponsor ${i} exists but is inactive or missing fields`);
-                            }
-                        } else {
-                            // No more sponsor files found, break the loop
-                            console.log(`📁 No more sponsor files after sponsor-${i-1}.md`);
-                            break;
-                        }
-                    } catch (error) {
-                        // File doesn't exist, continue to next
-                        if (i === 1) {
-                            console.log('📁 No sponsor files found in folder');
-                        }
-                        break;
+                // Load all 15 sponsor files (they all exist now)
+                for (let i = 1; i <= 15; i++) {
+                    const response = await fetch(`content/featured-sponsors/sponsor-${i}.md`);
+                    const text = await response.text();
+                    
+                    // Extract only what we need: image, URL, and active status
+                    const imageMatch = text.match(/image:\s*"?([^"\n]+)"?/);
+                    const websiteUrlMatch = text.match(/websiteUrl:\s*"?([^"\n]+)"?/);
+                    const activeMatch = text.match(/active:\s*(true|false)/);
+                    
+                    // Only add if sponsor is active
+                    if (imageMatch && websiteUrlMatch && activeMatch && activeMatch[1] === 'true') {
+                        sponsors.push({
+                            image: imageMatch[1],
+                            websiteUrl: websiteUrlMatch[1],
+                            order: i
+                        });
                     }
                 }
                 
-                console.log(`🎉 Found ${foundSponsors} active sponsors`);
-                
-                // Sort sponsors by order field
-                sponsors.sort((a, b) => a.order - b.order);
-                
-                // Display sponsors in grid
+                // Display active sponsors in grid
                 const sponsorsGrid = document.getElementById('sponsorsGrid');
                 if (sponsorsGrid && sponsors.length > 0) {
                     const htmlContent = sponsors.map(sponsor => `
                         <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
-                            <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
+                            <img src="${sponsor.image}" alt="Sponsor" loading="lazy">
                         </a>
                     `).join('');
                     
                     sponsorsGrid.innerHTML = htmlContent;
-                    console.log(`✅ Displayed ${sponsors.length} sponsors in grid`);
-                } else {
-                    console.log('⚠️ No sponsors grid found or no sponsors loaded');
                 }
                 
             } catch (error) {
-                console.error('❌ Sponsor loading error:', error);
+                console.error('Sponsor loading error:', error);
             }
         }
         
