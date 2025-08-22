@@ -332,21 +332,19 @@
             container.innerHTML = '';
             
             artists.forEach(artist => {
-                const artistCard = `
-                    <div class="artist-card" onclick="window.open('${artist.websiteUrl}', '_blank')">
-                        <div class="artist-image">
-                            <img src="${artist.image}" alt="${artist.name}" class="artist-img">
-                        </div>
-                        <div class="artist-info">
-                            <div class="date-badge">${artist.dateBadge}</div>
-                            <h3 class="artist-title">${artist.title}</h3>
-                            <h4 class="artist-name">${artist.djName}</h4>
-                            <div class="website-link">
-                                <i class="${artist.websiteIcon}"></i>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                // Map CMS fields to what createArtistCard expects
+                const mappedArtist = {
+                    date: artist.dateBadge,           // CMS: dateBadge → Expected: date
+                    image: artist.image,               // CMS: image → Expected: image
+                    imageMobile: artist.image,         // CMS: image → Expected: imageMobile (fallback)
+                    title: artist.title,               // CMS: title → Expected: title
+                    djName: artist.djName,             // CMS: djName → Expected: djName
+                    websiteUrl: artist.websiteUrl,     // CMS: websiteUrl → Expected: websiteUrl
+                    websiteIcon: artist.websiteIcon    // CMS: websiteIcon → Expected: websiteIcon
+                };
+                
+                // Use the existing createArtistCard function
+                const artistCard = createArtistCard(mappedArtist);
                 container.innerHTML += artistCard;
             });
         }
