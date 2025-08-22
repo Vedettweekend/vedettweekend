@@ -284,30 +284,83 @@
                 console.log('Using default logo image');
             });
 
-        // Load Featured Sponsors from CMS - Simple & Direct (like artists)
+        // Load Featured Sponsors from CMS - Dynamic Discovery
         async function loadFeaturedSponsors() {
             try {
-                console.log('🚀 Starting sponsor loading...');
+                console.log('🚀 Starting dynamic sponsor discovery...');
                 
-                // Direct approach: Load sponsor files directly (like artists do)
-                // This avoids the directory listing issue that doesn't work on live servers
-                const sponsorFiles = [
-                    '2025-01-01-sponsor-1.md',
-                    '2025-01-02-sponsor-2.md',
-                    '2025-01-03-sponsor-3.md',
-                    '2025-01-04-sponsor-4.md',
-                    '2025-01-05-sponsor-5.md',
-                    '2025-01-06-sponsor-6.md',
-                    '2025-01-07-sponsor-7.md',
-                    '2025-01-08-sponsor-8.md',
-                    '2025-01-09-sponsor-9.md',
-                    '2025-01-10-sponsor-10.md',
-                    '2025-08-22-map-order-1-active-true-name-feryn-image-img-uploads-feryn-png-websiteurl-feryn-be-alttext-feryn.md'
-                ];
+                // Dynamic discovery: Try multiple methods to find all sponsor files
+                console.log('🔍 Starting dynamic file discovery...');
                 
-                console.log('📋 Testing', sponsorFiles.length, 'sponsor files');
+                let sponsorFiles = [];
                 
-                // Step 4: Load each sponsor file and parse the content
+                // Method 1: Try to get directory listing
+                try {
+                    console.log('📁 Trying directory listing...');
+                    const response = await fetch('/content/featured-sponsors/');
+                    if (response.ok) {
+                        const html = await response.text();
+                        const fileMatches = html.match(/href="([^"]+\.md)"/g);
+                        if (fileMatches && fileMatches.length > 0) {
+                            sponsorFiles = fileMatches
+                                .map(match => match.replace('href="', '').replace('"', ''))
+                                .filter(filename => filename !== 'index.md' && filename !== 'README.md');
+                            console.log('✅ Directory listing worked! Found', sponsorFiles.length, 'files');
+                        }
+                    }
+                } catch (error) {
+                    console.log('⚠️ Directory listing failed:', error.message);
+                }
+                
+                // Method 2: If directory listing failed, try dynamic file testing
+                if (sponsorFiles.length === 0) {
+                    console.log('🔄 Directory listing failed, trying dynamic file testing...');
+                    
+                    const currentYear = new Date().getFullYear();
+                    const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0');
+                    
+                    // Test a wide range of possible filenames
+                    const testPatterns = [];
+                    
+                    // Test numbered patterns (like your current sponsors)
+                    for (let i = 1; i <= 50; i++) {
+                        testPatterns.push(`${currentYear}-${currentMonth}-${String(i).padStart(2, '0')}-sponsor-${i}.md`);
+                    }
+                    
+                    // Test CMS-generated patterns (like Feryn)
+                    for (let i = 1; i <= 50; i++) {
+                        testPatterns.push(`${currentYear}-${currentMonth}-${String(i).padStart(2, '0')}-map-order-${i}-active-true-name-test.md`);
+                    }
+                    
+                    // Test today's date patterns
+                    const today = new Date();
+                    const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+                    testPatterns.push(`${todayStr}-new-sponsor.md`);
+                    testPatterns.push(`${todayStr}-sponsor-new.md`);
+                    
+                    console.log('🧪 Testing', testPatterns.length, 'potential file patterns...');
+                    
+                    // Test each pattern
+                    for (const pattern of testPatterns) {
+                        try {
+                            const response = await fetch(`/content/featured-sponsors/${pattern}`);
+                            if (response.ok) {
+                                sponsorFiles.push(pattern);
+                                console.log(`✅ Found: ${pattern}`);
+                            }
+                        } catch (error) {
+                            // File doesn't exist, skip it
+                        }
+                    }
+                }
+                
+                console.log('📋 Total sponsor files found:', sponsorFiles.length);
+                if (sponsorFiles.length === 0) {
+                    console.log('❌ No sponsor files found with any method');
+                    return;
+                }
+                
+                // Load and parse each sponsor file
                 const sponsors = [];
                 
                 for (const fileName of sponsorFiles) {
