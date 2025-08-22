@@ -62,8 +62,7 @@ class VedettWebsite {
     }
 
     loadContent() {
-        // Load featured artists
-        this.loadFeaturedArtists();
+        // Featured artists are now loaded from CMS in index.html
         
         // Load sponsors
         this.loadSponsors();
@@ -222,53 +221,7 @@ class VedettWebsite {
     }
 
     // ===== CONTENT LOADING =====
-    loadFeaturedArtists() {
-        const artistsGrid = document.getElementById('artistsGrid');
-        if (!artistsGrid) return;
-
-        // Featured artists data - this would come from Netlify CMS
-        const featuredArtists = [
-            {
-                date: 'VR 25 OKT',
-                image: './img/Kezze24.png',
-                imageMobile: './img/Kezze-small.jpg',
-                title: 'CHECK OUT:',
-                djName: 'KEZZE',
-                websiteUrl: 'https://www.facebook.com/vedettweekend',
-                websiteIcon: 'fas fa-link'
-            },
-            {
-                date: 'ZA 26 OKT',
-                image: './img/GekkeBoys24.png',
-                imageMobile: './img/GekkeBoys-small.jpg',
-                title: 'CHECK OUT:',
-                djName: 'GEKKE BOYS',
-                websiteUrl: 'https://www.instagram.com/vedettweekend/',
-                websiteIcon: 'fas fa-link'
-            },
-            {
-                date: 'VR 25 OKT',
-                image: './img/C-track.png',
-                imageMobile: './img/C-track-small.jpg',
-                title: 'CHECK OUT:',
-                djName: 'C-TRACK',
-                websiteUrl: 'https://www.tiktok.com/@vedettweekend',
-                websiteIcon: 'fas fa-link'
-            },
-            {
-                date: 'ZA 26 OKT',
-                image: './img/Tomorrowband24.png',
-                imageMobile: './img/Tomorrowband24.png',
-                title: 'CHECK OUT:',
-                djName: 'TOMORROWBAND',
-                websiteUrl: 'https://www.facebook.com/vedettweekend',
-                websiteIcon: 'fas fa-link'
-            }
-        ];
-
-        // Render artist cards
-        artistsGrid.innerHTML = featuredArtists.map(artist => this.createArtistCard(artist)).join('');
-    }
+    // Featured artists are now loaded from CMS in index.html
 
     createArtistCard(artist) {
         return `
