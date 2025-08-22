@@ -287,32 +287,77 @@
         // Load Featured Sponsors from CMS
         async function loadFeaturedSponsors() {
             try {
-                // Try to discover all sponsor files dynamically
-                let sponsorFiles = [];
+                console.log('🚀 Starting dynamic sponsor discovery...');
                 
-                // Add the original numbered sponsors (only 1-10 since that's what you have)
-                for (let i = 1; i <= 10; i++) {
-                    sponsorFiles.push(`2025-01-0${i}-sponsor-${i}.md`);
+                // Method 1: Try to get directory listing (most reliable)
+                let sponsorFiles = [];
+                try {
+                    console.log('📁 Attempting to fetch directory listing...');
+                    const response = await fetch('/content/featured-sponsors/');
+                    
+                    if (response.ok) {
+                        const html = await response.text();
+                        console.log('📄 Directory listing HTML received, length:', html.length);
+                        
+                        // Parse HTML to extract all .md files
+                        const fileMatches = html.match(/href="([^"]+\.md)"/g);
+                        if (fileMatches && fileMatches.length > 0) {
+                            sponsorFiles = fileMatches.map(match => 
+                                match.replace('href="', '').replace('"', '')
+                            );
+                            console.log('✅ Found', sponsorFiles.length, 'sponsor files via directory listing');
+                            console.log('📋 Files found:', sponsorFiles);
+                        } else {
+                            console.log('⚠️ No .md files found in directory listing');
+                        }
+                    } else {
+                        console.log('⚠️ Directory listing not accessible, using fallback method');
+                    }
+                } catch (error) {
+                    console.log('⚠️ Directory listing failed, using fallback method:', error.message);
                 }
                 
-                // Add pattern for CMS-generated files (like your Feryn file)
-                const currentYear = new Date().getFullYear();
-                const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0');
-                const currentDay = String(new Date().getDate()).padStart(2, '0');
+                // Method 2: Fallback - try to discover files by testing common patterns
+                if (sponsorFiles.length === 0) {
+                    console.log('🔄 Using fallback discovery method...');
+                    
+                    // Test a range of possible file patterns
+                    const testPatterns = [];
+                    
+                    // Test numbered patterns (1-100)
+                    for (let i = 1; i <= 100; i++) {
+                        if (i < 10) {
+                            testPatterns.push(`2025-01-0${i}-sponsor-${i}.md`);
+                        } else {
+                            testPatterns.push(`2025-01-${i}-sponsor-${i}.md`);
+                        }
+                    }
+                    
+                    // Test CMS-generated patterns with current date
+                    const currentYear = new Date().getFullYear();
+                    const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0');
+                    const currentDay = String(new Date().getDate()).padStart(2, '0');
+                    
+                    // Add some common CMS naming patterns
+                    testPatterns.push(`${currentYear}-${currentMonth}-${currentDay}-map-order-1-active-true-name-feryn-image-img-uploads-feryn-png-websiteurl-feryn-be-alttext-feryn.md`);
+                    testPatterns.push(`${currentYear}-${currentMonth}-${currentDay}-sponsor-11.md`);
+                    testPatterns.push(`${currentYear}-${currentMonth}-${currentDay}-feryn.md`);
+                    
+                    sponsorFiles = testPatterns;
+                    console.log('🔄 Fallback: Testing', testPatterns.length, 'file patterns');
+                }
                 
-                // Test for CMS-generated files with current date - only add the actual Feryn file
-                sponsorFiles.push(`${currentYear}-${currentMonth}-${currentDay}-map-order-1-active-true-name-feryn-image-img-uploads-feryn-png-websiteurl-feryn-be-alttext-feryn.md`);
-                
-                console.log('Testing sponsor files:', sponsorFiles);
+                console.log('🎯 Total files to test:', sponsorFiles.length);
                 const sponsors = [];
                 
+                // Test each file and load valid sponsors
                 for (const fileName of sponsorFiles) {
                     try {
                         const sponsorResponse = await fetch(`/content/featured-sponsors/${fileName}`);
                         
                         if (sponsorResponse.ok) {
                             const sponsorText = await sponsorResponse.text();
-                            console.log(`Successfully loaded ${fileName}`);
+                            console.log(`✅ Successfully loaded ${fileName}`);
                             
                             // Parse frontmatter
                             const nameMatch = sponsorText.match(/name:\s*"?([^"\n]+)"?/);
@@ -331,8 +376,10 @@
                                     order: orderMatch ? parseInt(orderMatch[1]) : 999
                                 };
                                 
-                                console.log(`Adding sponsor: ${sponsorData.name} (${sponsorData.image})`);
+                                console.log(`➕ Adding sponsor: ${sponsorData.name} (${sponsorData.image})`);
                                 sponsors.push(sponsorData);
+                            } else {
+                                console.log(`⏭️ Skipping ${fileName} - missing name or not active`);
                             }
                         }
                     } catch (error) {
@@ -340,53 +387,40 @@
                     }
                 }
                 
-                console.log('Total sponsors found:', sponsors.length);
+                console.log('🎉 Total active sponsors found:', sponsors.length);
                 
                 // Sort sponsors by order
                 sponsors.sort((a, b) => a.order - b.order);
+                console.log('📊 Sponsors sorted by order:', sponsors.map(s => `${s.order}: ${s.name}`));
                 
                 // Render sponsors in the main sponsors grid
                 const sponsorsGrid = document.getElementById('sponsorsGrid');
                 if (sponsorsGrid && sponsors.length > 0) {
-                    console.log('🎯 Rendering sponsors in main grid:', sponsors);
+                    console.log('🎨 Rendering sponsors in main grid...');
                     sponsorsGrid.innerHTML = sponsors.map(sponsor => `
                         <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
                             <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
                         </a>
                     `).join('');
                     console.log('✅ Main sponsors grid updated with', sponsors.length, 'sponsors');
-                    
-                    // Debug: Check what's actually in the DOM
-                    const renderedSponsors = sponsorsGrid.querySelectorAll('.sponsor-item');
-                    console.log('🔍 Actually rendered in DOM:', renderedSponsors.length, 'sponsor items');
-                    renderedSponsors.forEach((item, index) => {
-                        const img = item.querySelector('img');
-                        console.log(`  ${index + 1}: ${img.alt} - ${img.src}`);
-                    });
                 }
                 
                 // Also update footer sponsors
                 const footerSponsors = document.getElementById('footerSponsors');
                 if (footerSponsors && sponsors.length > 0) {
-                    console.log('🎯 Rendering sponsors in footer:', sponsors);
+                    console.log('🎨 Rendering sponsors in footer...');
                     footerSponsors.innerHTML = sponsors.map(sponsor => `
                         <a href="${sponsor.websiteUrl}" target="_blank" rel="noopener noreferrer" aria-label="${sponsor.altText}">
                             <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
                         </a>
                     `).join('');
                     console.log('✅ Footer sponsors updated with', sponsors.length, 'sponsors');
-                    
-                    // Debug: Check what's actually in the footer DOM
-                    const renderedFooterSponsors = footerSponsors.querySelectorAll('a');
-                    console.log('🔍 Actually rendered in footer DOM:', renderedFooterSponsors.length, 'sponsor items');
-                    renderedFooterSponsors.forEach((item, index) => {
-                        const img = item.querySelector('img');
-                        console.log(`  ${index + 1}: ${img.alt} - ${img.src}`);
-                    });
                 }
                 
+                console.log('🎯 Sponsor loading complete!');
+                
             } catch (error) {
-                console.error('Error loading sponsors:', error);
+                console.error('❌ Error loading sponsors:', error);
             }
         }
         
