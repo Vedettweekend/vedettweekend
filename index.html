@@ -67,80 +67,65 @@
     </header>
 
     <!-- Hero Section Component -->
-    <section class="hero">
-        <div class="video-container">
-            <!-- Desktop Video - Fixed 1600x900 with natural cropping -->
-            <div class="vimeo-video-wrapper">
-                <iframe
-                    src="https://player.vimeo.com/video/1112256600?h=e6bdada777&title=0&byline=0&muted=1&autoplay=1&controls=0&loop=1&background=1&autopause=0&dnt=1&transparent=0&autopause=0&player_id=0&app_id=58479"
-                    width="100%"
-                    height="100%"
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    title="Vedettweekend Aftermovie Background"
-                    class="hero-video">
-                </iframe>
+<section class="hero">
+    <div class="video-container">
+        <div class="hero-video">
+            <div class="hero-video-frame">
+              <iframe 
+                src="https://player.vimeo.com/video/1112333630?background=1&autoplay=1&muted=1&loop=1&byline=0&title=0"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+                title="Vedettweekend Aftermovie 2023"
+              ></iframe>
             </div>
-            
-            <!-- Mobile Video - Only shows on mobile -->
-            <div class="mobile-video-wrapper">
-                <div style="padding:177.8% 0 0 0;position:relative;">
-                    <iframe
-                        src="https://player.vimeo.com/video/1112287830?badge=0&autopause=0&player_id=0&app_id=58479&muted=1&autoplay=1&loop=1&background=1"
-                        frameborder="0"
-                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                        title="aftermovie-bg-mobile">
-                    </iframe>
-                </div>
-            </div>
-            
-            <div class="hero-overlay">
-
-            </div>
+          </div>
+              
+  
+      
+  
+      <!-- Overlay -->
+      <div class="hero-overlay"></div>
+    </div>
+  
+    <!-- Countdown Container with Logo, Timer, and Button -->
+    <div class="countdown-container">
+      <!-- Logo -->
+      <div class="countdown-logo">
+        <img class="hero-logo" src="./img/vedett25.webp">
+      </div>
+  
+      <!-- Timer -->
+      <div class="countdown-timer">
+        <div class="countdown-item">
+          <span class="countdown-number" id="days">00</span>
+          <span class="countdown-label">DAGEN</span>
         </div>
-        
-        <!-- Countdown Container with Logo, Timer, and Button -->
-        <div class="countdown-container">
-            <!-- Logo at the top -->
-            <div class="countdown-logo">
-                <img class="hero-logo" src="./img/vedett25.webp">
-            </div>
-            
-            <!-- Countdown Timer -->
-            <div class="countdown-timer">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">00</span>
-                    <span class="countdown-label">DAGEN</span>
-                </div>
-                <div class="countdown-separator">:</div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">00</span>
-                    <span class="countdown-label">UREN</span>
-                </div>
-                <div class="countdown-separator">:</div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">00</span>
-                    <span class="countdown-label">MINUTEN</span>
-                </div>
-                <div class="countdown-separator">:</div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="seconds">00</span>
-                    <span class="countdown-label">SECONDEN</span>
-                </div>
-            </div>
-            
-            <!-- CTA Button inside countdown container -->
-            <div class="countdown-cta">
-                <a href="tickets.html" class="cta-button">
-                    <span class="cta-text">KOOP TICKETS</span>
-                </a>
-            </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="hours">00</span>
+          <span class="countdown-label">UREN</span>
         </div>
-    </section>
-
+        <div class="countdown-separator">:</div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="minutes">00</span>
+          <span class="countdown-label">MINUTEN</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="seconds">00</span>
+          <span class="countdown-label">SECONDEN</span>
+        </div>
+      </div>
+  
+      <!-- CTA Button -->
+      <div class="countdown-cta">
+        <a href="tickets.html" class="cta-button">
+          <span class="cta-text">KOOP TICKETS</span>
+        </a>
+      </div>
+    </div>
+  </section>
     <!-- Featured Artists Section Component -->
     <section class="featured-artists">
         <div class="section-header">
