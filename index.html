@@ -383,29 +383,34 @@
             artists.forEach((artist, index) => {
                 console.log(`Processing artist ${index}:`, artist);
                 
-                // Map CMS fields to what createArtistCard expects
-                const mappedArtist = {
-                    date: artist.dateBadge,           // CMS: dateBadge → Expected: date
-                    image: artist.image,               // CMS: image → Expected: image
-                    imageMobile: artist.image,         // CMS: image → Expected: imageMobile (fallback)
-                    title: artist.title,               // CMS: title → Expected: title
-                    djName: artist.djName,             // CMS: djName → Expected: djName
-                    websiteUrl: artist.websiteUrl,     // CMS: websiteUrl → Expected: websiteUrl
-                    websiteIcon: artist.websiteIcon    // CMS: websiteIcon → Expected: websiteIcon
-                };
+                // Create artist card HTML directly (since createArtistCard isn't global)
+                const artistCard = `
+                    <a href="${artist.websiteUrl}" class="artist-card-link" target="_blank" rel="noopener noreferrer">
+                        <div class="artist-card">
+                            <div class="card-header">
+                                <div class="date-badge">${artist.dateBadge}</div>
+                                <div class="website-icon">
+                                    <i class="${artist.websiteIcon}"></i>
+                                </div>
+                            </div>
+                            <div class="artist-image-container">
+                                <picture>
+                                    <source srcset="${artist.image}" media="(max-width: 768px)">
+                                    <source srcset="${artist.image}" media="(min-width: 769px)">
+                                    <img src="${artist.image}" class="artist-image" alt="Artist image" loading="lazy">
+                                </picture>
+                            </div>
+                            <div class="artist-card-footer">
+                                <h3 class="artist-title">${artist.title}</h3>
+                                <div class="dj-name">${artist.djName}</div>
+                            </div>
+                        </div>
+                    </a>
+                `;
                 
-                console.log(`Mapped artist ${index}:`, mappedArtist);
-                
-                // Check if createArtistCard function exists
-                if (typeof createArtistCard === 'function') {
-                    console.log('createArtistCard function found, calling it...');
-                    const artistCard = createArtistCard(mappedArtist);
-                    container.innerHTML += artistCard;
-                    console.log('Artist card added to container');
-                } else {
-                    console.log('ERROR: createArtistCard function not found!');
-                    console.log('Available functions:', Object.keys(window));
-                }
+                console.log(`Artist card HTML created for ${index}`);
+                container.innerHTML += artistCard;
+                console.log(`✅ Artist card ${index} added to container`);
             });
         }
 
