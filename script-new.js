@@ -16,17 +16,11 @@ class VedettWebsite {
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
         
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', () => this.toggleMobileMenu(hamburger, navMenu));
-        }
 
-        // Close mobile menu when clicking on links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => this.closeMobileMenu(hamburger, navMenu));
-        });
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => this.handleHeaderScroll());
+
+
+
 
         // Video controls
         const playButton = document.getElementById('playButton');
@@ -81,43 +75,9 @@ class VedettWebsite {
         }
     }
 
-    // ===== MOBILE NAVIGATION =====
-    toggleMobileMenu(hamburger, navMenu) {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-        
-        // Prevent body scroll when menu is open
-        if (navMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    }
 
-    closeMobileMenu(hamburger, navMenu) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        document.body.classList.remove('menu-open');
-        document.body.style.overflow = '';
-    }
 
-    // ===== HEADER SCROLL EFFECT =====
-    handleHeaderScroll() {
-        const header = document.querySelector('.header');
-        const videoSection = document.querySelector('.hero-video');
-        
-        if (!header || !videoSection) return;
-        
-        const videoBottom = videoSection.offsetTop + videoSection.offsetHeight;
-        const scrollPosition = window.pageYOffset;
-        
-        if (scrollPosition > videoBottom - 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    }
+
 
     // ===== VIDEO CONTROLS =====
     initializeVideo() {
