@@ -1,8 +1,8 @@
 ---
-name: Sponsor 11
+name: Sponsor 12
 image: /img/uploads/vd27.png
-websiteUrl: vedettweekend.be
+websiteUrl: www.vedettweekend.be
 altText: vedett
-order: 11
+order: 12
 active: true
 ---
