@@ -288,30 +288,51 @@
         async function loadFeaturedSponsors() {
             try {
                 console.log('🚀 Starting automatic sponsor discovery...');
+                console.log('📍 Current URL:', window.location.href);
                 
                 // Step 1: Get the directory listing to see all files
+                console.log('📁 Attempting to fetch: /content/featured-sponsors/');
                 const response = await fetch('/content/featured-sponsors/');
                 
+                console.log('📡 Response status:', response.status, response.statusText);
+                console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
+                
                 if (!response.ok) {
-                    console.log('❌ Could not access sponsors folder');
+                    console.log('❌ Could not access sponsors folder. Status:', response.status);
+                    console.log('❌ This might mean directory listing is disabled or path is wrong');
                     return;
                 }
                 
                 const html = await response.text();
                 console.log('📄 Got directory listing, length:', html.length);
+                console.log('📄 First 500 characters:', html.substring(0, 500));
+                console.log('📄 Last 500 characters:', html.substring(html.length - 500));
                 
                 // Step 2: Extract all .md files from the directory listing
                 const fileMatches = html.match(/href="([^"]+\.md)"/g);
+                console.log('🔍 Raw file matches found:', fileMatches);
                 
                 if (!fileMatches || fileMatches.length === 0) {
-                    console.log('❌ No .md files found in sponsors folder');
-                    return;
+                    console.log('❌ No .md files found in directory listing');
+                    console.log('❌ HTML content might not contain expected format');
+                    console.log('❌ Trying alternative pattern matching...');
+                    
+                    // Try alternative patterns
+                    const altMatches1 = html.match(/href=['"]([^'"]+\.md)['"]/g);
+                    const altMatches2 = html.match(/([^\/\s]+\.md)/g);
+                    console.log('🔍 Alternative pattern 1:', altMatches1);
+                    console.log('🔍 Alternative pattern 2:', altMatches2);
+                    
+                    if (!altMatches1 && !altMatches2) {
+                        console.log('❌ All pattern matching failed');
+                        return;
+                    }
                 }
                 
                 // Step 3: Clean up the filenames and filter out non-sponsor files
                 const sponsorFiles = fileMatches
                     .map(match => match.replace('href="', '').replace('"', ''))
-                    .filter(filename => filename !== 'index.md' && filename !== 'README.md'); // Exclude any index files
+                    .filter(filename => filename !== 'index.md' && filename !== 'README.md');
                 
                 console.log('✅ Found', sponsorFiles.length, 'sponsor files:', sponsorFiles);
                 
@@ -320,11 +341,15 @@
                 
                 for (const fileName of sponsorFiles) {
                     try {
+                        console.log(`📖 Attempting to load: /content/featured-sponsors/${fileName}`);
                         const sponsorResponse = await fetch(`/content/featured-sponsors/${fileName}`);
+                        
+                        console.log(`📖 Response for ${fileName}:`, sponsorResponse.status, sponsorResponse.statusText);
                         
                         if (sponsorResponse.ok) {
                             const sponsorText = await sponsorResponse.text();
-                            console.log(`✅ Loaded ${fileName}`);
+                            console.log(`✅ Loaded ${fileName}, content length:`, sponsorText.length);
+                            console.log(`📄 Content preview:`, sponsorText.substring(0, 200));
                             
                             // Parse frontmatter
                             const nameMatch = sponsorText.match(/name:\s*"?([^"\n]+)"?/);
@@ -333,6 +358,15 @@
                             const altTextMatch = sponsorText.match(/altText:\s*"?([^"\n]+)"?/);
                             const orderMatch = sponsorText.match(/order:\s*(\d+)/);
                             const activeMatch = sponsorText.match(/active:\s*(true|false)/);
+                            
+                            console.log(`🔍 Parsed data for ${fileName}:`, {
+                                name: nameMatch ? nameMatch[1] : 'NOT FOUND',
+                                image: imageMatch ? imageMatch[1] : 'NOT FOUND',
+                                websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : 'NOT FOUND',
+                                altText: altTextMatch ? altTextMatch[1] : 'NOT FOUND',
+                                order: orderMatch ? orderMatch[1] : 'NOT FOUND',
+                                active: activeMatch ? activeMatch[1] : 'NOT FOUND'
+                            });
                             
                             if (nameMatch && activeMatch && activeMatch[1] === 'true') {
                                 const sponsorData = {
@@ -343,44 +377,85 @@
                                     order: orderMatch ? parseInt(orderMatch[1]) : 999
                                 };
                                 
-                                console.log(`➕ Added: ${sponsorData.name}`);
+                                console.log(`➕ Added sponsor:`, sponsorData);
                                 sponsors.push(sponsorData);
+                            } else {
+                                console.log(`⚠️ Sponsor ${fileName} not added:`, {
+                                    hasName: !!nameMatch,
+                                    hasActive: !!activeMatch,
+                                    isActive: activeMatch ? activeMatch[1] === 'true' : false
+                                });
                             }
+                        } else {
+                            console.log(`❌ Failed to load ${fileName}:`, sponsorResponse.status);
                         }
                     } catch (error) {
-                        console.log(`⚠️ Could not load ${fileName}`);
+                        console.log(`⚠️ Error loading ${fileName}:`, error.message);
                     }
                 }
                 
                 console.log('🎉 Total active sponsors found:', sponsors.length);
+                console.log('📋 All sponsors data:', sponsors);
                 
                 // Step 5: Sort sponsors by order
                 sponsors.sort((a, b) => a.order - b.order);
+                console.log('🔄 Sponsors after sorting:', sponsors);
                 
                 // Step 6: Render sponsors in the main grid
                 const sponsorsGrid = document.getElementById('sponsorsGrid');
+                console.log('🎯 Looking for sponsorsGrid element:', sponsorsGrid);
+                
                 if (sponsorsGrid && sponsors.length > 0) {
-                    sponsorsGrid.innerHTML = sponsors.map(sponsor => `
+                    const htmlContent = sponsors.map(sponsor => `
                         <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
                             <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
                         </a>
                     `).join('');
+                    
+                    console.log('🖼️ Generated HTML for main grid:', htmlContent);
+                    sponsorsGrid.innerHTML = htmlContent;
                     console.log('✅ Main grid updated with', sponsors.length, 'sponsors');
+                    
+                    // Verify the DOM was updated
+                    const actualItems = sponsorsGrid.querySelectorAll('.sponsor-item');
+                    console.log('🔍 Actual sponsor items in DOM after update:', actualItems.length);
+                } else {
+                    console.log('⚠️ Could not update main grid:', {
+                        sponsorsGridExists: !!sponsorsGrid,
+                        sponsorsCount: sponsors.length
+                    });
                 }
                 
                 // Step 7: Update footer sponsors
                 const footerSponsors = document.getElementById('footerSponsors');
+                console.log('🎯 Looking for footerSponsors element:', footerSponsors);
+                
                 if (footerSponsors && sponsors.length > 0) {
-                    footerSponsors.innerHTML = sponsors.map(sponsor => `
+                    const footerHtml = sponsors.map(sponsor => `
                         <a href="${sponsor.websiteUrl}" target="_blank" rel="noopener noreferrer" aria-label="${sponsor.altText}">
                             <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
                         </a>
                     `).join('');
+                    
+                    console.log('🖼️ Generated HTML for footer:', footerHtml);
+                    footerSponsors.innerHTML = footerHtml;
                     console.log('✅ Footer updated with', sponsors.length, 'sponsors');
+                    
+                    // Verify the DOM was updated
+                    const actualFooterItems = footerSponsors.querySelectorAll('a');
+                    console.log('🔍 Actual footer items in DOM after update:', actualFooterItems.length);
+                } else {
+                    console.log('⚠️ Could not update footer:', {
+                        footerSponsorsExists: !!footerSponsors,
+                        sponsorsCount: sponsors.length
+                    });
                 }
+                
+                console.log('🏁 Sponsor loading function completed');
                 
             } catch (error) {
                 console.error('❌ Error loading sponsors:', error);
+                console.error('❌ Error stack:', error.stack);
             }
         }
         
