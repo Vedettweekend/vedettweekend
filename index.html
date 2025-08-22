@@ -264,34 +264,6 @@
                 console.log('Using default YouTube URL');
             });
 
-        // Load Logo Images from CMS
-        fetch('/content/site-settings/logo-images.md')
-            .then(response => response.text())
-            .then(text => {
-                // Parse frontmatter to get logo paths
-                const navLogoMatch = text.match(/nav_logo:\s*"?([^"\n]+)"?/);
-                const heroLogoMatch = text.match(/hero_logo:\s*"?([^"\n]+)"?/);
-                
-                if (navLogoMatch && navLogoMatch[1]) {
-                    // Update navigation logo
-                    const navLogos = document.querySelectorAll('.nav-logo');
-                    navLogos.forEach(logo => {
-                        logo.src = navLogoMatch[1];
-                    });
-                }
-                
-                if (heroLogoMatch && heroLogoMatch[1]) {
-                    // Update hero logo
-                    const heroLogo = document.querySelector('.hero-logo');
-                    if (heroLogo) {
-                        heroLogo.src = heroLogoMatch[1];
-                    }
-                }
-            })
-            .catch(error => {
-                console.log('Using default logo images');
-            });
-
         // Load Featured Artists from CMS
         async function loadFeaturedArtists() {
             console.log('=== LOADING FEATURED ARTISTS ===');
