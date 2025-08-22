@@ -1,3 +1,3 @@
 ---
-logo_image: img/vedett25.webp
+logo_image: /img/uploads/vd27.png
 ---
