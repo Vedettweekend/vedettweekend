@@ -290,8 +290,8 @@
                 // Try to discover all sponsor files dynamically
                 let sponsorFiles = [];
                 
-                // Add the original numbered sponsors
-                for (let i = 1; i <= 20; i++) {
+                // Add the original numbered sponsors (only 1-10 since that's what you have)
+                for (let i = 1; i <= 10; i++) {
                     sponsorFiles.push(`2025-01-0${i}-sponsor-${i}.md`);
                 }
                 
@@ -300,12 +300,8 @@
                 const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0');
                 const currentDay = String(new Date().getDate()).padStart(2, '0');
                 
-                // Test for CMS-generated files with current date
+                // Test for CMS-generated files with current date - only add the actual Feryn file
                 sponsorFiles.push(`${currentYear}-${currentMonth}-${currentDay}-map-order-1-active-true-name-feryn-image-img-uploads-feryn-png-websiteurl-feryn-be-alttext-feryn.md`);
-                
-                // Add more patterns for different naming conventions
-                sponsorFiles.push(`${currentYear}-${currentMonth}-${currentDay}-sponsor-11.md`);
-                sponsorFiles.push(`${currentYear}-${currentMonth}-${currentDay}-feryn.md`);
                 
                 console.log('Testing sponsor files:', sponsorFiles);
                 const sponsors = [];
@@ -352,23 +348,41 @@
                 // Render sponsors in the main sponsors grid
                 const sponsorsGrid = document.getElementById('sponsorsGrid');
                 if (sponsorsGrid && sponsors.length > 0) {
+                    console.log('🎯 Rendering sponsors in main grid:', sponsors);
                     sponsorsGrid.innerHTML = sponsors.map(sponsor => `
                         <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
                             <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
                         </a>
                     `).join('');
                     console.log('✅ Main sponsors grid updated with', sponsors.length, 'sponsors');
+                    
+                    // Debug: Check what's actually in the DOM
+                    const renderedSponsors = sponsorsGrid.querySelectorAll('.sponsor-item');
+                    console.log('🔍 Actually rendered in DOM:', renderedSponsors.length, 'sponsor items');
+                    renderedSponsors.forEach((item, index) => {
+                        const img = item.querySelector('img');
+                        console.log(`  ${index + 1}: ${img.alt} - ${img.src}`);
+                    });
                 }
                 
                 // Also update footer sponsors
                 const footerSponsors = document.getElementById('footerSponsors');
                 if (footerSponsors && sponsors.length > 0) {
+                    console.log('🎯 Rendering sponsors in footer:', sponsors);
                     footerSponsors.innerHTML = sponsors.map(sponsor => `
                         <a href="${sponsor.websiteUrl}" target="_blank" rel="noopener noreferrer" aria-label="${sponsor.altText}">
                             <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
                         </a>
                     `).join('');
                     console.log('✅ Footer sponsors updated with', sponsors.length, 'sponsors');
+                    
+                    // Debug: Check what's actually in the footer DOM
+                    const renderedFooterSponsors = footerSponsors.querySelectorAll('a');
+                    console.log('🔍 Actually rendered in footer DOM:', renderedFooterSponsors.length, 'sponsor items');
+                    renderedFooterSponsors.forEach((item, index) => {
+                        const img = item.querySelector('img');
+                        console.log(`  ${index + 1}: ${img.alt} - ${img.src}`);
+                    });
                 }
                 
             } catch (error) {
