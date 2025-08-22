@@ -169,13 +169,11 @@ body {
 .countdown-container {
     text-align: center;
     margin: 0 auto;
-    max-width: none;
-    width: calc(100% - 10vw);
+    max-width: 800px;
     position: absolute;
     bottom: 4rem;
-    left: 5vw;
-    right: 5vw;
-    transform: none;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -354,128 +352,16 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
+    width: 100%;
+    height: 100%;
     z-index: 1;
 }
 
-.vimeo-video-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    overflow: hidden;
-}
-
 .hero-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    border: none;
-    pointer-events: none; /* Prevents interaction with video */
-    min-width: 100vw !important;
-    min-height: 100vh !important;
-    max-width: none !important;
-    max-height: none !important;
-    transform: scale(1.5); /* Force stretch by scaling up */
-}
-
-/* Desktop and Mobile Video Display */
-.desktop-video {
-    display: block;
-}
-
-.mobile-video-wrapper {
-    display: none;
-}
-
-/* Tablet/Medium Screen Video Sizing (769px - 1000px) */
-@media (min-width: 769px) and (max-width: 1000px) {
-    .hero-video {
-        width: 100vw !important;
-        height: 100vh !important;
-        min-width: 100vw !important;
-        min-height: 100vh !important;
-        transform: scale(1.8) !important; /* Scale up to fill height */
-        top: -20% !important; /* Adjust position to center scaled video */
-        left: -20% !important;
-        position: absolute !important;
-        max-width: none !important;
-        max-height: none !important;
-    }
-    
-    .vimeo-video-wrapper {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
-    }
-    
-    .video-container {
-        width: 100vw;
-        height: 100vh;
-        position: relative;
-    }
-}
-
-/* Mobile-specific video sizing */
-@media (max-width: 768px) {
-    .desktop-video {
-        display: none; /* Hide desktop video on mobile */
-    }
-    
-    .mobile-video-wrapper {
-        display: block; /* Show mobile video on mobile */
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        overflow: hidden;
-    }
-    
-    .mobile-video-wrapper iframe {
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) scale(2.5) !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        min-width: 100vw !important;
-        min-height: 100vh !important;
-        max-width: none !important;
-        max-height: none !important;
-    }
-    
-    .hero-video {
-        width: 100vw !important;
-        height: 100vh !important;
-        min-width: 100vw !important;
-        min-height: 100vh !important;
-        transform: none; /* Remove scaling */
-        top: 0; /* Reset position */
-        left: 0; /* Reset position */
-        position: absolute;
-        max-width: none !important;
-        max-height: none !important;
-    }
-    
-    .vimeo-video-wrapper {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
-    }
-    
-    .video-container {
-        width: 100vw;
-        height: 100vh;
-        position: relative;
-    }
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 100vh; /* Ensure video takes full viewport height */
 }
 
 .hero-overlay {
@@ -1251,43 +1137,6 @@ body {
     
     .sponsors-grid {
         margin: 2rem 80px;
-    }
-    
-    /* Video full height coverage for tablets - maintain desktop size, just crop */
-    .hero-video {
-        width: 1600px !important; /* Keep desktop size */
-        height: 900px !important; /* Keep desktop size */
-        min-width: 1600px !important;
-        min-height: 900px !important;
-        transform: none !important; /* No scaling */
-        top: 0 !important; /* Center the video */
-        left: 50% !important;
-        transform: translateX(-50%) !important; /* Center horizontally */
-        position: absolute !important;
-        max-width: none !important;
-        max-height: none !important;
-        object-fit: cover !important;
-    }
-    
-    .vimeo-video-wrapper {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
-    }
-    
-    .desktop-video {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
-    }
-    
-    .video-container {
-        width: 100vw;
-        height: 100vh;
-        position: relative;
-        overflow: hidden;
     }
 }
 

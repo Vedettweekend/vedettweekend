@@ -33,7 +33,7 @@
         <nav class="navbar">
             <div class="nav-branding">
                 <a href="./">
-                    <img src="./img/vedett25.webp" alt="Vedettweekend logo" class="nav-logo">
+                    <img src="./img/Vedettweekend-2025.svg" alt="Vedettweekend logo" class="nav-logo">
                 </a>
             </div>
             <ul class="nav-menu" id="navMenu">
@@ -69,34 +69,11 @@
     <!-- Hero Section Component -->
     <section class="hero">
         <div class="video-container">
-            <!-- Desktop Video -->
-            <div class="vimeo-video-wrapper desktop-video">
-                <iframe 
-                    src="https://player.vimeo.com/video/1112256600?h=e6bdada777&title=0&byline=0&muted=1&autoplay=1&controls=0&loop=1&background=1&autopause=0&dnt=1&transparent=0&autopause=0&player_id=0&app_id=58479"
-                    width="100%" 
-                    height="100%" 
-                    frameborder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    title="Vedettweekend Aftermovie Background"
-                    class="hero-video">
-                </iframe>
-            </div>
-            
-            <!-- Mobile Video -->
-            <div class="mobile-video-wrapper">
-                <div style="padding:177.8% 0 0 0;position:relative;">
-                    <iframe 
-                        src="https://player.vimeo.com/video/1112287830?badge=0&autopause=0&player_id=0&app_id=58479&muted=1&autoplay=1&loop=1&background=1"
-                        frameborder="0" 
-                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        style="position:absolute;top:0;left:0;width:100%;height:100%;" 
-                        title="aftermovie-bg-mobile">
-                    </iframe>
-                </div>
-            </div>
-            
+            <video id="heroVideo" autoplay muted loop playsinline preload="auto" class="hero-video">
+                <source src="./img/aftermovie-bg-mobile.mp4" media="(max-width: 768px)" type="video/mp4">
+                <source src="./img/Aftermovie-background.mp4" media="(min-width: 769px)" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
             <div class="hero-overlay">
 
             </div>
@@ -106,7 +83,7 @@
         <div class="countdown-container">
             <!-- Logo at the top -->
             <div class="countdown-logo">
-                <img src="./img/vedett25.webp" alt="Vedettweekend Logo" class="hero-logo">
+                <img src="./img/Vedettweekend-2025.svg" alt="Vedettweekend Logo" class="hero-logo">
             </div>
             
             <!-- Countdown Timer -->
@@ -287,93 +264,6 @@
                 console.log('Using default YouTube URL');
             });
 
-        // Load Logo from CMS
-        fetch('/content/site-settings/logo.md')
-            .then(response => response.text())
-            .then(text => {
-                // Parse frontmatter to get logo path
-                const logoMatch = text.match(/logo_image:\s*"?([^"\n]+)"?/);
-                
-                if (logoMatch && logoMatch[1]) {
-                    // Update all logos on the page
-                    const allLogos = document.querySelectorAll('.nav-logo, .hero-logo');
-                    allLogos.forEach(logo => {
-                        logo.src = logoMatch[1];
-                    });
-                }
-            })
-            .catch(error => {
-                console.log('Using default logo image');
-            });
-
-                        
-                // Load Featured Sponsors from CMS (Simple Version)
-        async function loadFeaturedSponsors() {
-            try {
-                console.log('🚀 Loading sponsors...');
-                
-                // Simple list of known sponsor files
-                const sponsorFiles = [
-                    'content/featured-sponsors/2025-01-01-sponsor-1.md',
-                    'content/featured-sponsors/2025-01-02-sponsor-2.md',
-                    'content/featured-sponsors/2025-01-03-sponsor-3.md',
-                    'content/featured-sponsors/2025-01-04-sponsor-4.md',
-                    'content/featured-sponsors/2025-01-05-sponsor-5.md',
-                    'content/featured-sponsors/2025-01-06-sponsor-6.md',
-                    'content/featured-sponsors/2025-01-07-sponsor-7.md',
-                    'content/featured-sponsors/2025-01-08-sponsor-8.md',
-                    'content/featured-sponsors/2025-01-09-sponsor-9.md',
-                    'content/featured-sponsors/2025-01-10-sponsor-10.md'
-                ];
-                
-                const sponsors = [];
-                
-                for (const fileName of sponsorFiles) {
-                    try {
-                        const response = await fetch(fileName);
-                        if (response.ok) {
-                            const text = await response.text();
-                            
-                            // Extract sponsor data
-                            const nameMatch = text.match(/name:\s*"?([^"\n]+)"?/);
-                            const imageMatch = text.match(/image:\s*"?([^"\n]+)"?/);
-                            const websiteUrlMatch = text.match(/websiteUrl:\s*"?([^"\n]+)"?/);
-                            const altTextMatch = text.match(/altText:\s*"?([^"\n]+)"?/);
-                            const activeMatch = text.match(/active:\s*(true|false)/);
-                            
-                            if (nameMatch && activeMatch && activeMatch[1] === 'true') {
-                                sponsors.push({
-                                    name: nameMatch[1],
-                                    image: imageMatch ? imageMatch[1] : '',
-                                    websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : '',
-                                    altText: altTextMatch ? altTextMatch[1] : ''
-                                });
-                            }
-                        }
-                    } catch (error) {
-                        // Skip if file doesn't exist
-                    }
-                }
-                
-                console.log(`✅ Loaded ${sponsors.length} sponsors`);
-                
-                // Display sponsors
-                const sponsorsGrid = document.getElementById('sponsorsGrid');
-                if (sponsorsGrid && sponsors.length > 0) {
-                    const htmlContent = sponsors.map(sponsor => `
-                        <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
-                            <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
-                        </a>
-                    `).join('');
-                    
-                    sponsorsGrid.innerHTML = htmlContent;
-                }
-                
-            } catch (error) {
-                console.error('❌ Error loading sponsors:', error);
-            }
-        }
-        
         // Load Featured Artists from CMS
         async function loadFeaturedArtists() {
             console.log('=== LOADING FEATURED ARTISTS ===');
@@ -526,9 +416,6 @@
 
         // Load artists when page loads
         loadFeaturedArtists();
-        
-        // Load sponsors when page loads
-        loadFeaturedSponsors();
     </script>
     
     <!-- Main JavaScript -->

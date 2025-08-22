@@ -31,7 +31,7 @@
         <nav class="navbar">
             <div class="nav-branding">
                 <a href="./index.html">
-                    <img src="./img/vedett25.webp" alt="Vedettweekend Logo" class="nav-logo">
+                    <img src="./img/Vedettweekend-2025.svg" alt="Vedettweekend Logo" class="nav-logo">
                 </a>
             </div>
             <ul class="nav-menu" id="navMenu">
@@ -287,28 +287,6 @@
 
     <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    
-    <!-- CMS Data Loading -->
-    <script>
-        // Load Logo from CMS
-        fetch('/content/site-settings/logo.md')
-            .then(response => response.text())
-            .then(text => {
-                // Parse frontmatter to get logo path
-                const logoMatch = text.match(/logo_image:\s*"?([^"\n]+)"?/);
-                
-                if (logoMatch && logoMatch[1]) {
-                    // Update navigation logo
-                    const navLogos = document.querySelectorAll('.nav-logo');
-                    navLogos.forEach(logo => {
-                        logo.src = logoMatch[1];
-                    });
-                }
-            })
-            .catch(error => {
-                console.log('Using default logo image');
-            });
-    </script>
     
     <!-- Main JavaScript -->
     <script src="script-new.js"></script>
