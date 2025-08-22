@@ -267,8 +267,35 @@
         // Load Featured Artists from CMS
         async function loadFeaturedArtists() {
             try {
-                const response = await fetch('/content/featured-artists/');
-                const text = await response.text();
+                // Try different possible paths for the content files
+                const possiblePaths = [
+                    '/content/featured-artists/',
+                    './content/featured-artists/',
+                    'content/featured-artists/',
+                    '/vedettweekend/content/featured-artists/',
+                    'https://vedettweekend.netlify.app/content/featured-artists/'
+                ];
+                
+                let response, text;
+                let pathFound = false;
+                
+                for (const path of possiblePaths) {
+                    try {
+                        response = await fetch(path);
+                        if (response.ok) {
+                            text = await response.text();
+                            pathFound = true;
+                            console.log('Found content at:', path);
+                            break;
+                        }
+                    } catch (e) {
+                        console.log('Path not found:', path);
+                    }
+                }
+                
+                if (!pathFound) {
+                    throw new Error('No content path found');
+                }
                 
                 // Parse the directory listing to get artist files
                 const artistFiles = text.match(/href="([^"]+\.md)"/g);
@@ -278,7 +305,9 @@
                     for (const file of artistFiles) {
                         const fileName = file.match(/href="([^"]+\.md)"/)[1];
                         if (fileName !== 'index.md') {
-                            const artistResponse = await fetch(`/content/featured-artists/${fileName}`);
+                            // Try the same path that worked for the directory
+                            const workingPath = pathFound ? possiblePaths.find(p => p !== '/vedettweekend/content/featured-artists/') : possiblePaths[0];
+                            const artistResponse = await fetch(`${workingPath}${fileName}`);
                             const artistText = await artistResponse.text();
                             
                             // Parse frontmatter
@@ -312,7 +341,8 @@
                     displayFeaturedArtists(artists);
                 }
             } catch (error) {
-                console.log('Using default featured artists:', error.message);
+                console.log('CMS loading failed:', error.message);
+                throw error; // Re-throw to prevent fallback
             }
         }
 
