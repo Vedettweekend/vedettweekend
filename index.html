@@ -264,6 +264,25 @@
                 console.log('Using default YouTube URL');
             });
 
+        // Load Logo from CMS
+        fetch('/content/site-settings/logo.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get logo path
+                const logoMatch = text.match(/logo_image:\s*"?([^"\n]+)"?/);
+                
+                if (logoMatch && logoMatch[1]) {
+                    // Update all logos on the page
+                    const allLogos = document.querySelectorAll('.nav-logo, .hero-logo');
+                    allLogos.forEach(logo => {
+                        logo.src = logoMatch[1];
+                    });
+                }
+            })
+            .catch(error => {
+                console.log('Using default logo image');
+            });
+
         // Load Featured Artists from CMS
         async function loadFeaturedArtists() {
             console.log('=== LOADING FEATURED ARTISTS ===');

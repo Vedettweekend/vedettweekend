@@ -21,6 +21,12 @@ collections:
         file: "content/site-settings/youtube-video.md"
         fields:
           - {label: "YouTube Video URL", name: "youtube_url", widget: "string", default: "https://www.youtube.com/embed/4B3gF9HZRSI"}
+      
+      - name: "logo"
+        label: "Website Logo"
+        file: "content/site-settings/logo.md"
+        fields:
+          - {label: "Logo Image", name: "logo_image", widget: "image", hint: "This logo will be used in the header and on the main page"}
 
   - name: "featured_artists"
     label: "Featured Artists"
