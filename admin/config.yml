@@ -21,3 +21,19 @@ collections:
         file: "content/site-settings/youtube-video.md"
         fields:
           - {label: "YouTube Video URL", name: "youtube_url", widget: "string", default: "https://www.youtube.com/embed/4B3gF9HZRSI"}
+
+  - name: "featured_artists"
+    label: "Featured Artists"
+    folder: "content/featured-artists"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Artist Name", name: "name", widget: "string"}
+      - {label: "Date Badge", name: "dateBadge", widget: "string", hint: "e.g., VR 25 OKT, ZA 26 OKT"}
+      - {label: "Artist Image", name: "image", widget: "image", hint: "Single image for both desktop and mobile"}
+      - {label: "Title", name: "title", widget: "string", default: "CHECK IT OUT:"}
+      - {label: "DJ Name", name: "djName", widget: "string", hint: "Full DJ/Artist name to display"}
+      - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when card is clicked"}
+      - {label: "Website Icon", name: "websiteIcon", widget: "string", default: "fas fa-link", hint: "Font Awesome icon class"}
+      - {label: "Order", name: "order", widget: "number", default: 1, hint: "Display order (1 = first)"}
+      - {label: "Active", name: "active", widget: "boolean", default: true}

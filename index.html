@@ -263,6 +263,88 @@
             .catch(error => {
                 console.log('Using default YouTube URL');
             });
+
+        // Load Featured Artists from CMS
+        async function loadFeaturedArtists() {
+            try {
+                const response = await fetch('/content/featured-artists/');
+                const text = await response.text();
+                
+                // Parse the directory listing to get artist files
+                const artistFiles = text.match(/href="([^"]+\.md)"/g);
+                if (artistFiles) {
+                    const artists = [];
+                    
+                    for (const file of artistFiles) {
+                        const fileName = file.match(/href="([^"]+\.md)"/)[1];
+                        if (fileName !== 'index.md') {
+                            const artistResponse = await fetch(`/content/featured-artists/${fileName}`);
+                            const artistText = await artistResponse.text();
+                            
+                            // Parse frontmatter
+                            const nameMatch = artistText.match(/name:\s*"([^"]+)"/);
+                            const dateBadgeMatch = artistText.match(/dateBadge:\s*"([^"]+)"/);
+                            const imageMatch = artistText.match(/image:\s*"([^"]+)"/);
+                            const titleMatch = artistText.match(/title:\s*"([^"]+)"/);
+                            const djNameMatch = artistText.match(/djName:\s*"([^"]+)"/);
+                            const websiteUrlMatch = artistText.match(/websiteUrl:\s*"([^"]+)"/);
+                            const websiteIconMatch = artistText.match(/websiteIcon:\s*"([^"]+)"/);
+                            const orderMatch = artistText.match(/order:\s*(\d+)/);
+                            const activeMatch = artistText.match(/active:\s*(true|false)/);
+                            
+                            if (nameMatch && activeMatch[1] === 'true') {
+                                artists.push({
+                                    name: nameMatch[1],
+                                    dateBadge: dateBadgeMatch ? dateBadgeMatch[1] : '',
+                                    image: imageMatch ? imageMatch[1] : '',
+                                    title: titleMatch ? titleMatch[1] : 'CHECK IT OUT:',
+                                    djName: djNameMatch ? djNameMatch[1] : '',
+                                    websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : '',
+                                    websiteIcon: websiteIconMatch ? websiteIconMatch[1] : 'fas fa-link',
+                                    order: orderMatch ? parseInt(orderMatch[1]) : 999
+                                });
+                            }
+                        }
+                    }
+                    
+                    // Sort by order and display
+                    artists.sort((a, b) => a.order - b.order);
+                    displayFeaturedArtists(artists);
+                }
+            } catch (error) {
+                console.log('Using default featured artists:', error.message);
+            }
+        }
+
+        // Display featured artists
+        function displayFeaturedArtists(artists) {
+            const container = document.getElementById('featuredArtistsGrid');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            artists.forEach(artist => {
+                const artistCard = `
+                    <div class="artist-card" onclick="window.open('${artist.websiteUrl}', '_blank')">
+                        <div class="artist-image">
+                            <img src="${artist.image}" alt="${artist.name}" class="artist-img">
+                        </div>
+                        <div class="artist-info">
+                            <div class="date-badge">${artist.dateBadge}</div>
+                            <h3 class="artist-title">${artist.title}</h3>
+                            <h4 class="artist-name">${artist.djName}</h4>
+                            <div class="website-link">
+                                <i class="${artist.websiteIcon}"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += artistCard;
+            });
+        }
+
+        // Load artists when page loads
+        loadFeaturedArtists();
     </script>
     
     <!-- Main JavaScript -->
