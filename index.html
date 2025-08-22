@@ -284,6 +284,87 @@
                 console.log('Using default logo image');
             });
 
+        // Load Featured Sponsors from CMS
+        async function loadFeaturedSponsors() {
+            try {
+                const sponsorFiles = [
+                    '2025-01-01-sponsor-1.md',
+                    '2025-01-02-sponsor-2.md',
+                    '2025-01-03-sponsor-3.md',
+                    '2025-01-04-sponsor-4.md',
+                    '2025-01-05-sponsor-5.md',
+                    '2025-01-06-sponsor-6.md',
+                    '2025-01-07-sponsor-7.md',
+                    '2025-01-08-sponsor-8.md',
+                    '2025-01-09-sponsor-9.md',
+                    '2025-01-10-sponsor-10.md'
+                ];
+                
+                const sponsors = [];
+                
+                for (const fileName of sponsorFiles) {
+                    try {
+                        const sponsorResponse = await fetch(`/content/featured-sponsors/${fileName}`);
+                        
+                        if (sponsorResponse.ok) {
+                            const sponsorText = await sponsorResponse.text();
+                            
+                            // Parse frontmatter
+                            const nameMatch = sponsorText.match(/name:\s*"?([^"\n]+)"?/);
+                            const imageMatch = sponsorText.match(/image:\s*"?([^"\n]+)"?/);
+                            const websiteUrlMatch = sponsorText.match(/websiteUrl:\s*"?([^"\n]+)"?/);
+                            const altTextMatch = sponsorText.match(/altText:\s*"?([^"\n]+)"?/);
+                            const orderMatch = sponsorText.match(/order:\s*(\d+)/);
+                            const activeMatch = sponsorText.match(/active:\s*(true|false)/);
+                            
+                            if (nameMatch && activeMatch && activeMatch[1] === 'true') {
+                                const sponsorData = {
+                                    name: nameMatch[1],
+                                    image: imageMatch ? imageMatch[1] : '',
+                                    websiteUrl: websiteUrlMatch ? websiteUrlMatch[1] : '',
+                                    altText: altTextMatch ? altTextMatch[1] : '',
+                                    order: orderMatch ? parseInt(orderMatch[1]) : 999
+                                };
+                                
+                                sponsors.push(sponsorData);
+                            }
+                        }
+                    } catch (error) {
+                        console.log(`Error fetching ${fileName}:`, error);
+                    }
+                }
+                
+                // Sort sponsors by order
+                sponsors.sort((a, b) => a.order - b.order);
+                
+                // Render sponsors in the main sponsors grid
+                const sponsorsGrid = document.getElementById('sponsorsGrid');
+                if (sponsorsGrid && sponsors.length > 0) {
+                    sponsorsGrid.innerHTML = sponsors.map(sponsor => `
+                        <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
+                            <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
+                        </a>
+                    `).join('');
+                }
+                
+                // Also update footer sponsors
+                const footerSponsors = document.getElementById('footerSponsors');
+                if (footerSponsors && sponsors.length > 0) {
+                    footerSponsors.innerHTML = sponsors.map(sponsor => `
+                        <a href="${sponsor.websiteUrl}" target="_blank" rel="noopener noreferrer" aria-label="${sponsor.altText}">
+                            <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
+                        </a>
+                    `).join('');
+                }
+                
+            } catch (error) {
+                console.error('Error loading sponsors:', error);
+            }
+        }
+        
+        // Load sponsors when page loads
+        loadFeaturedSponsors();
+
 
 
         // Load Featured Artists from CMS

@@ -250,64 +250,13 @@ class VedettWebsite {
     }
 
     loadSponsors() {
-        const sponsorsGrid = document.getElementById('sponsorsGrid');
-        if (!sponsorsGrid) return;
-
-        // Sponsors data - this would come from Netlify CMS
-        const sponsors = [
-            { image: 'img/Instabel(FV).png', url: 'https://www.instabel.be/', alt: 'Instabel Sponsor' },
-            { image: 'img/MaxT(FV).png', url: 'https://www.facebook.com/p/Drankenhandel-Maxt-Dranken-100084040300979/', alt: 'MaxT Sponsor' },
-            { image: 'img/dreamsupport(fv).png', url: 'https://www.dreamsupport.be/', alt: 'Dreamsupport Sponsor' },
-            { image: 'img/Consteca(FV).png', url: 'https://www.consteca.be/', alt: 'Consteca Sponsor' },
-            { image: 'img/Cynthia\'sBakery(FV).png', url: 'https://www.facebook.com/p/Cynthias-bakery-100063702123669/', alt: 'Cynthia\'s Bakery Sponsor' },
-            { image: 'img/Thielemans.png', url: 'https://www.kantoorthielemans.be/', alt: 'Thielemans Sponsor' },
-            { image: 'img/Tubo(FV).png', url: 'https://verwarminggids.be/nieuwenrode/tubo-centrale-verwarming-en/', alt: 'Tubo Sponsor' },
-            { image: 'img/VanRoey(FV).png', url: 'https://www.vanroey.be/en/', alt: 'VanRoey Sponsor' },
-            { image: 'img/Argenta(FV).png', url: 'https://www.argenta.be/nl/kantoren/de-jongh--gits-bv-3136.html', alt: 'Argenta Sponsor' },
-            { image: 'img/BakerTilly(FV) 1.png', url: 'https://www.bakertilly.be/nl', alt: 'BakerTilly Sponsor' }
-        ];
-
-        // Render sponsor items
-        sponsorsGrid.innerHTML = sponsors.map(sponsor => this.createSponsorItem(sponsor)).join('');
-    }
-
-    createSponsorItem(sponsor) {
-        return `
-            <a href="${sponsor.url}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
-                <img src="${sponsor.image}" alt="${sponsor.alt}" loading="lazy">
-            </a>
-        `;
+        // Sponsors are now loaded from CMS in index.html
+        console.log('Sponsors loaded from CMS');
     }
 
     loadFooterSponsors() {
-        const footerSponsors = document.getElementById('footerSponsors');
-        if (!footerSponsors) return;
-
-        // Footer sponsors data - this would come from Netlify CMS
-        const footerSponsorsList = [
-            { image: 'img/BakerTilly(FV) 1.svg', url: 'https://www.bakertilly.be/nl', alt: 'BakerTilly' },
-            { image: 'img/Consteca(FV).svg', url: 'https://www.consteca.be/', alt: 'Consteca' },
-            { image: 'img/Cynthia\'sBakery(FV).svg', url: 'https://www.facebook.com/p/Cynthias-bakery-100063702123669/', alt: 'Cynthia\'s Bakery' },
-            { image: 'img/Datality(FV).svg', url: 'https://www.datality.be/', alt: 'Datality' },
-            { image: 'img/VanRoey(FV).png', url: 'https://www.vanroey.be/en/', alt: 'VanRoey' },
-            { image: 'img/Instabel(FV).svg', url: 'https://www.instabel.be/', alt: 'Instabel' },
-            { image: 'img/Redlogo.svg', url: 'https://www.redbull.com/', alt: 'Red Bull' },
-            { image: 'img/CoMarkt(FV).svg', url: 'https://comarkthumbeek.be/', alt: 'CoMarkt' },
-            { image: 'img/MaxT(FV).svg', url: 'https://www.facebook.com/p/Drankenhandel-Maxt-Dranken-100084040300979/', alt: 'MaxT' },
-            { image: 'img/Marivoet(FV).svg', url: 'https://www.marivoet.be/', alt: 'Marivoet' },
-            { image: 'img/1tubo.svg', url: 'https://verwarminggids.be/nieuwenrode/tubo-centrale-verwarming-en/', alt: 'Tubo' },
-            { image: 'img/Argenta(FV).svg', url: 'https://www.argenta.be/nl/kantoren/de-jongh--gits-bv-3136.html', alt: 'Argenta' },
-            { image: 'img/dreamsupport(fv).png', url: 'https://www.dreamsupport.be', alt: 'Dreamsupport' },
-            { image: 'img/DuvelMoortgat.svg', url: 'https://www.duvel.com/nl-be', alt: 'Duvel Moortgat' },
-            { image: 'img/Broothaerts.svg', url: 'https://www.selexion.be/nl/ad/broothaerts-elektro-bvba', alt: 'Broothaerts' }
-        ];
-
-        // Render footer sponsor logos
-        footerSponsors.innerHTML = footerSponsorsList.map(sponsor => `
-            <a href="${sponsor.url}" target="_blank" rel="noopener noreferrer" aria-label="${sponsor.alt}">
-                <img src="${sponsor.image}" alt="${sponsor.alt}" loading="lazy">
-            </a>
-        `).join('');
+        // Footer sponsors are now loaded from CMS in index.html
+        console.log('Footer sponsors loaded from CMS');
     }
 
     // ===== LINEUP FUNCTIONALITY =====
