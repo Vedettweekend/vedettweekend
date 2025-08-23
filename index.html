@@ -77,12 +77,14 @@
             >
             <div class="hero-video-frame">
                 <iframe
-                  src="https://www.youtube.com/embed/Nmq0wcvlM_A?autoplay=1&mute=1&loop=1&playlist=Nmq0wcvlM_A&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1"
+                  src="https://space-trial.video-dns.com/JGWV7daWT1/player.html?autoplay=1&muted=1&loop=1"
                   frameborder="0"
                   allow="autoplay; fullscreen"
                   allowfullscreen
+                  title="Background Video"
                 ></iframe>
               </div>
+              
               
               
           </div>
@@ -421,6 +423,7 @@
         }
         
 
+
         // Load Logo from CMS
         fetch('content/site-settings/logo.md')
             .then(response => response.text())
@@ -473,6 +476,9 @@
         
         // Load sponsors when page loads
         loadFeaturedSponsors();
+        
+        // Load footer sponsors when page loads
+        loadFooterSponsors();
     </script>
     
     <!-- Main JavaScript -->

@@ -227,34 +227,49 @@ class VedettWebsite {
     // createSponsorItem function removed - now handled by loadFeaturedSponsors() in index.html
 
     loadFooterSponsors() {
-        const footerSponsors = document.getElementById('footerSponsors');
-        if (!footerSponsors) return;
-
-        // Footer sponsors data - this would come from Netlify CMS
-        const footerSponsorsList = [
-            { image: 'img/BakerTilly(FV) 1.svg', url: 'https://www.bakertilly.be/nl', alt: 'BakerTilly' },
-            { image: 'img/Consteca(FV).svg', url: 'https://www.consteca.be/', alt: 'Consteca' },
-            { image: 'img/Cynthia\'sBakery(FV).svg', url: 'https://www.facebook.com/p/Cynthias-bakery-100063702123669/', alt: 'Cynthia\'s Bakery' },
-            { image: 'img/Datality(FV).svg', url: 'https://www.datality.be/', alt: 'Datality' },
-            { image: 'img/VanRoey(FV).png', url: 'https://www.vanroey.be/en/', alt: 'VanRoey' },
-            { image: 'img/Instabel(FV).svg', url: 'https://www.instabel.be/', alt: 'Instabel' },
-            { image: 'img/Redlogo.svg', url: 'https://www.redbull.com/', alt: 'Red Bull' },
-            { image: 'img/CoMarkt(FV).svg', url: 'https://comarkthumbeek.be/', alt: 'CoMarkt' },
-            { image: 'img/MaxT(FV).svg', url: 'https://www.facebook.com/p/Drankenhandel-Maxt-Dranken-100084040300979/', alt: 'MaxT' },
-            { image: 'img/Marivoet(FV).svg', url: 'https://www.marivoet.be/', alt: 'Marivoet' },
-            { image: 'img/1tubo.svg', url: 'https://verwarminggids.be/nieuwenrode/tubo-centrale-verwarming-en/', alt: 'Tubo' },
-            { image: 'img/Argenta(FV).svg', url: 'https://www.argenta.be/nl/kantoren/de-jongh--gits-bv-3136.html', alt: 'Argenta' },
-            { image: 'img/dreamsupport(fv).png', url: 'https://www.dreamsupport.be', alt: 'Dreamsupport' },
-            { image: 'img/DuvelMoortgat.svg', url: 'https://www.duvel.com/nl-be', alt: 'Duvel Moortgat' },
-            { image: 'img/Broothaerts.svg', url: 'https://www.selexion.be/nl/ad/broothaerts-elektro-bvba', alt: 'Broothaerts' }
-        ];
-
-        // Render footer sponsor logos
-        footerSponsors.innerHTML = footerSponsorsList.map(sponsor => `
-            <a href="${sponsor.url}" target="_blank" rel="noopener noreferrer" aria-label="${sponsor.alt}">
-                <img src="${sponsor.image}" alt="${sponsor.alt}" loading="lazy">
-            </a>
-        `).join('');
+        // Load Footer Sponsors from CMS (Simplified - Fixed 30 files)
+        this.loadFooterSponsorsFromCMS();
+    }
+    
+    async loadFooterSponsorsFromCMS() {
+        try {
+            const sponsors = [];
+            
+            // Load all 30 footer sponsor files (they all exist now)
+            for (let i = 1; i <= 30; i++) {
+                const response = await fetch(`content/footer-sponsors/footer-sponsor-${i}.md`);
+                const text = await response.text();
+                
+                // Extract only what we need: image, URL, and active status
+                const imageMatch = text.match(/image:\s*"?([^"\n]+)"?/);
+                const websiteUrlMatch = text.match(/websiteUrl:\s*"?([^"\n]+)"?/);
+                const activeMatch = text.match(/active:\s*(true|false)/);
+                
+                // Only add if sponsor is active
+                if (imageMatch && websiteUrlMatch && activeMatch && activeMatch[1] === 'true') {
+                    sponsors.push({
+                        image: imageMatch[1],
+                        websiteUrl: websiteUrlMatch[1],
+                        order: i
+                    });
+                }
+            }
+            
+            // Display active footer sponsors
+            const footerSponsorsGrid = document.querySelector('.sponsor-logos');
+            if (footerSponsorsGrid && sponsors.length > 0) {
+                const htmlContent = sponsors.map(sponsor => `
+                    <a href="${sponsor.websiteUrl}" target="_blank" rel="noopener noreferrer">
+                        <img src="${sponsor.image}" alt="Sponsor" loading="lazy">
+                    </a>
+                `).join('');
+                
+                footerSponsorsGrid.innerHTML = htmlContent;
+            }
+            
+        } catch (error) {
+            console.error('Footer sponsor loading error:', error);
+        }
     }
 
     // ===== LINEUP FUNCTIONALITY =====

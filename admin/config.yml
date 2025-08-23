@@ -56,3 +56,16 @@ collections:
       - {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"}
       - {label: "Order", name: "order", widget: "number", default: 1, hint: "Display order (1 = first) - This determines the filename"}
       - {label: "Active", name: "active", widget: "boolean", default: true}
+
+  - name: "footer_sponsors"
+    label: "Footer Sponsors"
+    folder: "content/footer-sponsors"
+    create: false
+    slug: "footer-sponsor-{{order}}"
+    fields:
+      - {label: "Sponsor Name", name: "name", widget: "string", hint: "e.g., Footer Sponsor 1, Footer Sponsor 2, etc."}
+      - {label: "Sponsor Image", name: "image", widget: "image", hint: "Sponsor logo image"}
+      - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"}
+      - {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"}
+      - {label: "Order", name: "order", widget: "number", default: 1, hint: "Display order (1 = first) - This determines the filename"}
+      - {label: "Active", name: "active", widget: "boolean", default: true}
