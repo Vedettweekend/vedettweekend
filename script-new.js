@@ -425,6 +425,9 @@ class VedettWebsite {
         
         // Initialize any additional components that need the page to be fully loaded
         this.initializeLazyLoading();
+        
+        // Load footer sponsors from CMS
+        this.loadFooterSponsors();
     }
 
     // ===== LAZY LOADING =====
