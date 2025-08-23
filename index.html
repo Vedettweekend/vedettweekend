@@ -152,7 +152,6 @@
             <iframe 
                 class="embedded-video" 
                 id="youtubeVideo"
-                src="https://www.youtube.com/embed/HJqjeD9h2l4" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen
@@ -469,6 +468,29 @@
                 heroLogos.forEach(logo => {
                     logo.src = './img/vedett25.webp';
                 });
+            });
+            
+        // Load YouTube Video from CMS
+        fetch('content/site-settings/youtube-video.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get YouTube URL
+                const urlMatch = text.match(/youtube_url:\s*"?([^"\n]+)"?/);
+                
+                if (urlMatch && urlMatch[1]) {
+                    // Convert YouTube watch URL to embed URL
+                    const videoId = urlMatch[1].match(/[?&]v=([^&]+)/);
+                    if (videoId && videoId[1]) {
+                        const embedUrl = `https://www.youtube.com/embed/${videoId[1]}`;
+                        const iframe = document.getElementById('youtubeVideo');
+                        if (iframe) {
+                            iframe.src = embedUrl;
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error loading YouTube video from CMS:', error);
             });
 
         // Load artists when page loads
