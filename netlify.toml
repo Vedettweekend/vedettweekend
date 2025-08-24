@@ -35,3 +35,40 @@
   for = "/*.ico"
   [headers.values]
     Content-Type = "image/x-icon"
+
+# CRITICAL: Override catch-all redirects for static files
+[[redirects]]
+  from = "/styles/*"
+  to = "/styles/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/img/*"
+  to = "/img/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/script-new.js"
+  to = "/script-new.js"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/font/*"
+  to = "/font/:splat"
+  status = 200
+  force = true
+
+# Admin panel
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
+# Catch-all for HTML files (must be last)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
