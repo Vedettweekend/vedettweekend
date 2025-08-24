@@ -66,9 +66,3 @@
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200
-
-# Catch-all for HTML files (must be last)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
