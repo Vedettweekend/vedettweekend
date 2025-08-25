@@ -255,6 +255,11 @@ class VedettWebsite {
                 }
             }
             
+            // Sort footer sponsors by order before displaying
+            if (sponsors.length > 0) {
+                sponsors.sort((a, b) => a.order - b.order);
+            }
+            
             // Display active footer sponsors
             const footerSponsorsGrid = document.querySelector('.sponsor-logos');
             if (footerSponsorsGrid && sponsors.length > 0) {
