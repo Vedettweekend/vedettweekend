@@ -100,9 +100,9 @@ collections:
         label: "Friday Timeline"
         file: "content/lineup/friday-timeline.md"
         fields:
-          - {label: "Day Title", name: "day_title", widget: "string", default: "Vrijdag 24 Oktober", hint: "Title for Friday timeline"}
+          - {label: "Day Title", name: "day_title", widget: "string", default: "VRIJDAG 25 OKTOBER", hint: "Title for Friday timeline"}
           - {label: "Timeline Items", name: "timeline_items", widget: "list", fields: [
-              {label: "Time", name: "time", widget: "string", hint: "e.g., 20:00"},
+              {label: "Time", name: "time", widget: "string", hint: "e.g., 20:00 - 21:00"},
               {label: "Image", name: "image", widget: "image", hint: "Artist/Event image"},
               {label: "Title", name: "title", widget: "string", hint: "Artist/Event name"},
               {label: "Subtext", name: "subtext", widget: "text", hint: "Description or additional info"},
@@ -114,9 +114,9 @@ collections:
         label: "Saturday Timeline"
         file: "content/lineup/saturday-timeline.md"
         fields:
-          - {label: "Day Title", name: "day_title", widget: "string", default: "Zaterdag 25 Oktober", hint: "Title for Saturday timeline"}
+          - {label: "Day Title", name: "day_title", widget: "string", default: "ZATERDAG 26 OKTOBER", hint: "Title for Saturday timeline"}
           - {label: "Timeline Items", name: "timeline_items", widget: "list", fields: [
-              {label: "Time", name: "time", widget: "string", hint: "e.g., 20:00"},
+              {label: "Time", name: "time", widget: "string", hint: "e.g., 20:00 - 21:00"},
               {label: "Image", name: "image", widget: "image", hint: "Artist/Event image"},
               {label: "Title", name: "title", widget: "string", hint: "Artist/Event name"},
               {label: "Subtext", name: "subtext", widget: "text", hint: "Description or additional info"},

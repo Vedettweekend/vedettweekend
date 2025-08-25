@@ -347,9 +347,10 @@
         fetch('content/lineup/friday-timeline.md')
             .then(response => response.text())
             .then(text => {
+                console.log('📅 Friday timeline CMS response:', text);
+                
                 // Parse frontmatter to get Friday timeline data
                 const dayTitleMatch = text.match(/day_title:\s*"?([^"\n]+)"?/);
-                const timelineItemsMatch = text.match(/timeline_items:\s*\[([\s\S]*?)\]/);
                 
                 // Update Friday day title
                 if (dayTitleMatch && dayTitleMatch[1]) {
@@ -357,55 +358,25 @@
                     if (fridayTitle) fridayTitle.textContent = dayTitleMatch[1];
                 }
                 
-                // Parse and display timeline items
-                if (timelineItemsMatch && timelineItemsMatch[1]) {
-                    try {
-                        // Convert YAML-like structure to JavaScript objects
-                        const itemsText = timelineItemsMatch[1];
-                        const items = [];
-                        
-                        // Simple YAML parsing for the timeline items
-                        const itemBlocks = itemsText.split(/\s*-\s*time:/).filter(block => block.trim());
-                        
-                        itemBlocks.forEach(block => {
-                            if (block.trim()) {
-                                const timeMatch = block.match(/^"([^"]+)"/);
-                                const imageMatch = block.match(/image:\s*"?([^"\n]+)"?/);
-                                const titleMatch = block.match(/title:\s*"?([^"\n]+)"?/);
-                                const subtextMatch = block.match(/subtext:\s*"?([^"\n]+)"?/);
-                                const urlMatch = block.match(/url:\s*"?([^"\n]+)"?/);
-                                const activeMatch = block.match(/active:\s*(true|false)/);
-                                
-                                if (activeMatch && activeMatch[1] === 'true') {
-                                    items.push({
-                                        time: timeMatch ? timeMatch[1] : '',
-                                        image: imageMatch ? imageMatch[1] : '',
-                                        title: titleMatch ? titleMatch[1] : '',
-                                        subtext: subtextMatch ? subtextMatch[1] : '',
-                                        url: urlMatch ? urlMatch[1] : ''
-                                    });
-                                }
-                            }
-                        });
-                        
-                        // Display Friday timeline items
-                        displayTimelineItems('fridayTimeline', items);
-                    } catch (error) {
-                        console.error('Error parsing Friday timeline:', error);
-                    }
-                }
+                // Parse timeline items using a more robust approach
+                const items = parseTimelineItems(text);
+                console.log('📅 Parsed Friday items:', items);
+                
+                // Display Friday timeline items
+                displayTimelineItems('fridayTimeline', items);
             })
             .catch(error => {
-                console.log('Using fallback Friday timeline');
+                console.log('❌ Error loading Friday timeline:', error);
             });
         
         // Load Saturday Timeline from CMS
         fetch('content/lineup/saturday-timeline.md')
             .then(response => response.text())
             .then(text => {
+                console.log('📅 Saturday timeline CMS response:', text);
+                
                 // Parse frontmatter to get Saturday timeline data
                 const dayTitleMatch = text.match(/day_title:\s*"?([^"\n]+)"?/);
-                const timelineItemsMatch = text.match(/timeline_items:\s*\[([\s\S]*?)\]/);
                 
                 // Update Saturday day title
                 if (dayTitleMatch && dayTitleMatch[1]) {
@@ -413,47 +384,61 @@
                     if (saturdayTitle) saturdayTitle.textContent = dayTitleMatch[1];
                 }
                 
-                // Parse and display timeline items
-                if (timelineItemsMatch && timelineItemsMatch[1]) {
-                    try {
-                        // Convert YAML-like structure to JavaScript objects
-                        const itemsText = timelineItemsMatch[1];
-                        const items = [];
-                        
-                        // Simple YAML parsing for the timeline items
-                        const itemBlocks = itemsText.split(/\s*-\s*time:/).filter(block => block.trim());
-                        
-                        itemBlocks.forEach(block => {
-                            if (block.trim()) {
-                                const timeMatch = block.match(/^"([^"]+)"/);
-                                const imageMatch = block.match(/image:\s*"?([^"\n]+)"?/);
-                                const titleMatch = block.match(/title:\s*"?([^"\n]+)"?/);
-                                const subtextMatch = block.match(/subtext:\s*"?([^"\n]+)"?/);
-                                const urlMatch = block.match(/url:\s*"?([^"\n]+)"?/);
-                                const activeMatch = block.match(/active:\s*(true|false)/);
-                                
-                                if (activeMatch && activeMatch[1] === 'true') {
-                                    items.push({
-                                        time: timeMatch ? timeMatch[1] : '',
-                                        image: imageMatch ? imageMatch[1] : '',
-                                        title: titleMatch ? titleMatch[1] : '',
-                                        subtext: subtextMatch ? subtextMatch[1] : '',
-                                        url: urlMatch ? urlMatch[1] : ''
-                                    });
-                                }
-                            }
-                        });
-                        
-                        // Display Saturday timeline items
-                        displayTimelineItems('saturdayTimeline', items);
-                    } catch (error) {
-                        console.error('Error parsing Saturday timeline:', error);
-                    }
-                }
+                // Parse timeline items using a more robust approach
+                const items = parseTimelineItems(text);
+                console.log('📅 Parsed Saturday items:', items);
+                
+                // Display Saturday timeline items
+                displayTimelineItems('saturdayTimeline', items);
             })
             .catch(error => {
-                console.log('Using fallback Saturday timeline');
+                console.log('❌ Error loading Saturday timeline:', error);
             });
+        
+        // Robust function to parse timeline items from CMS markdown
+        function parseTimelineItems(text) {
+            const items = [];
+            
+            // Find the timeline_items section
+            const timelineMatch = text.match(/timeline_items:\s*\n([\s\S]*?)(?=\n---|\n\w|$)/);
+            
+            if (timelineMatch) {
+                const timelineSection = timelineMatch[1];
+                console.log('📅 Timeline section found:', timelineSection);
+                
+                // Split by item markers and parse each item
+                const itemBlocks = timelineSection.split(/\s*-\s*time:/).filter(block => block.trim());
+                
+                itemBlocks.forEach((block, index) => {
+                    if (block.trim()) {
+                        console.log(`📅 Parsing block ${index}:`, block);
+                        
+                        // Extract each field using regex
+                        const timeMatch = block.match(/time:\s*"?([^"\n]+)"?/);
+                        const imageMatch = block.match(/image:\s*"?([^"\n]+)"?/);
+                        const titleMatch = block.match(/title:\s*"?([^"\n]+)"?/);
+                        const subtextMatch = block.match(/subtext:\s*"?([^"\n]+)"?/);
+                        const urlMatch = block.match(/url:\s*"?([^"\n]+)"?/);
+                        const activeMatch = block.match(/active:\s*(true|false)/);
+                        
+                        if (timeMatch && activeMatch && activeMatch[1] === 'true') {
+                            const item = {
+                                time: timeMatch[1].trim(),
+                                image: imageMatch ? imageMatch[1].trim() : './img/tba.webp',
+                                title: titleMatch ? titleMatch[1].trim() : 'TBA',
+                                subtext: subtextMatch ? subtextMatch[1].trim() : 'Deze artiest zal binnenkort aangekondigd worden, hou onze socials in het oog voor alle updates',
+                                url: urlMatch ? urlMatch[1].trim() : 'https://www.facebook.com/vedettweekend'
+                            };
+                            
+                            items.push(item);
+                            console.log(`✅ Added item:`, item);
+                        }
+                    }
+                });
+            }
+            
+            return items;
+        }
         
         // Function to display timeline items
         function displayTimelineItems(containerId, items) {
