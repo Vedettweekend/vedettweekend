@@ -56,4 +56,10 @@ timeline_items:
     subtext: test
     url: test.be
     image: /img/uploads/tba.jpg
+  - active: true
+    image: /img/uploads/vedett25.webp
+    time: xxx
+    title: xxx
+    subtext: xxx
+    url: vedett.be
 ---
