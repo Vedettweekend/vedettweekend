@@ -16,4 +16,8 @@ sponsors:
     image: /img/uploads/instabel-2025.png
     websiteUrl: https://www.instabel.be/
     active: true
+  - active: true
+    altText: Vedett 27
+    image: /img/uploads/vd27.png
+    websiteUrl: vedett.be
 ---
