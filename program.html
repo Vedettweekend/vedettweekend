@@ -411,31 +411,25 @@
                 // Find all timeline items by looking for the dash pattern
                 console.log('🔍 Looking for timeline items in:', timelineSection);
                 
-                // Use a more comprehensive regex to find all items, including the first one
-                const itemMatches = timelineSection.matchAll(/(?:^|\n)\s*-\s*time:\s*"?([^"\n]+)"?/g);
+                // Find all items that start with - active: (CMS order is preserved)
+                const itemMatches = timelineSection.matchAll(/(?:^|\n)\s*-\s*active:\s*(true|false)/g);
                 console.log('🔍 Found matches:', Array.from(itemMatches));
                 
                 // Reset the iterator since we used it above
-                const itemMatches2 = timelineSection.matchAll(/(?:^|\n)\s*-\s*time:\s*"?([^"\n]+)"?/g);
+                const itemMatches2 = timelineSection.matchAll(/(?:^|\n)\s*-\s*active:\s*(true|false)/g);
                 
                 for (const match of itemMatches2) {
-                    const timeValue = match[1];
+                    const activeValue = match[1];
                     const startIndex = match.index;
                     
                     console.log(`🔍 Processing match:`, match);
-                    console.log(`🔍 Time value:`, timeValue);
+                    console.log(`🔍 Active value:`, activeValue);
                     console.log(`🔍 Start index:`, startIndex);
                     
                     // Find the end of this item (next dash or end of section)
-                    const nextDash = timelineSection.indexOf('\n  - time:', startIndex + 1);
                     const nextActiveDash = timelineSection.indexOf('\n  - active:', startIndex + 1);
+                    const endIndex = nextActiveDash > -1 ? nextActiveDash : timelineSection.length;
                     
-                    // Find the earliest next item boundary
-                    let endIndex = timelineSection.length;
-                    if (nextDash > -1) endIndex = Math.min(endIndex, nextDash);
-                    if (nextActiveDash > -1) endIndex = Math.min(endIndex, nextActiveDash);
-                    
-                    console.log(`🔍 Next dash at:`, nextDash);
                     console.log(`🔍 Next active dash at:`, nextActiveDash);
                     console.log(`🔍 End index:`, endIndex);
                     
@@ -443,94 +437,6 @@
                     const itemBlock = timelineSection.substring(startIndex, endIndex);
                     
                     console.log(`📅 Parsing item block:`, itemBlock);
-                    
-                    // Extract each field using regex - handle any order of fields
-                    const imageMatch = itemBlock.match(/image:\s*"?([^"\n]+)"?/);
-                    const titleMatch = itemBlock.match(/title:\s*"?([^"\n]+)"?/);
-                    const subtextMatch = itemBlock.match(/subtext:\s*"?([^"\n]+)"?/);
-                    const urlMatch = itemBlock.match(/url:\s*"?([^"\n]+)"?/);
-                    const activeMatch = itemBlock.match(/active:\s*(true|false)/);
-                    
-                    console.log(`🔍 Image match:`, imageMatch);
-                    console.log(`🔍 Title match:`, titleMatch);
-                    console.log(`🔍 Subtext match:`, subtextMatch);
-                    console.log(`🔍 URL match:`, urlMatch);
-                    console.log(`🔍 Active match:`, activeMatch);
-                    
-                    // Check if item is active and has required fields
-                    if (activeMatch && activeMatch[1] === 'true' && timeValue) {
-                        // Clean up the time field - remove any extra whitespace or quotes
-                        let cleanTime = timeValue.trim();
-                        
-                        // Remove quotes if they exist
-                        if (cleanTime.startsWith('"') && cleanTime.endsWith('"')) {
-                            cleanTime = cleanTime.slice(1, -1);
-                        }
-                        
-                        // Remove any leading/trailing whitespace
-                        cleanTime = cleanTime.trim();
-                        
-                        // Ensure URL has proper protocol
-                        let urlValue = urlMatch ? urlMatch[1].trim() : 'https://www.facebook.com/vedettweekend';
-                        if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
-                            urlValue = 'https://' + urlValue;
-                        }
-                        
-                        const item = {
-                            time: cleanTime,
-                            image: imageMatch ? imageMatch[1].trim() : './img/tba.webp',
-                            title: titleMatch ? titleMatch[1].trim() : 'TBA',
-                            subtext: subtextMatch ? subtextMatch[1].trim() : 'Deze artiest zal binnenkort aangekondigd worden, hou onze socials in het oog voor alle updates',
-                            url: urlValue
-                        };
-                        
-                        items.push(item);
-                        console.log(`✅ Added item:`, item);
-                    } else {
-                        if (!activeMatch) {
-                            console.log(`❌ Skipped item - missing active field`);
-                        } else if (activeMatch[1] !== 'true') {
-                            console.log(`❌ Skipped item - not active (active: ${activeMatch[1]})`);
-                        } else if (!timeValue) {
-                            console.log(`❌ Skipped item - missing time value`);
-                        } else {
-                            console.log(`❌ Skipped item - unknown reason`);
-                        }
-                    }
-                }
-                
-                // Now also find and process items that start with - active: (like your 'test' item)
-                const activeFirstMatches = timelineSection.matchAll(/(?:^|\n)\s*-\s*active:\s*(true|false)/g);
-                console.log('🔍 Found active-first matches:', Array.from(activeFirstMatches));
-                
-                // Reset the iterator
-                const activeFirstMatches2 = timelineSection.matchAll(/(?:^|\n)\s*-\s*active:\s*(true|false)/g);
-                
-                for (const match of activeFirstMatches2) {
-                    const activeValue = match[1];
-                    const startIndex = match.index;
-                    
-                    console.log(`🔍 Processing active-first match:`, match);
-                    console.log(`🔍 Active value:`, activeValue);
-                    console.log(`🔍 Start index:`, startIndex);
-                    
-                    // Find the end of this item (next dash or end of section)
-                    const nextDash = timelineSection.indexOf('\n  - time:', startIndex + 1);
-                    const nextActiveDash = timelineSection.indexOf('\n  - active:', startIndex + 1);
-                    
-                    // Find the earliest next item boundary
-                    let endIndex = timelineSection.length;
-                    if (nextDash > -1) endIndex = Math.min(endIndex, nextDash);
-                    if (nextActiveDash > -1) endIndex = Math.min(endIndex, nextActiveDash);
-                    
-                    console.log(`🔍 Next dash at:`, nextDash);
-                    console.log(`🔍 Next active dash at:`, nextActiveDash);
-                    console.log(`🔍 End index:`, endIndex);
-                    
-                    // Extract the full item block
-                    const itemBlock = timelineSection.substring(startIndex, endIndex);
-                    
-                    console.log(`📅 Parsing active-first item block:`, itemBlock);
                     
                     // Extract each field using regex - handle any order of fields
                     const timeMatch = itemBlock.match(/time:\s*"?([^"\n]+)"?/);
@@ -573,14 +479,14 @@
                         };
                         
                         items.push(item);
-                        console.log(`✅ Added active-first item:`, item);
+                        console.log(`✅ Added item:`, item);
                     } else {
                         if (activeValue !== 'true') {
-                            console.log(`❌ Skipped active-first item - not active (active: ${activeValue})`);
+                            console.log(`❌ Skipped item - not active (active: ${activeValue})`);
                         } else if (!timeMatch) {
-                            console.log(`❌ Skipped active-first item - missing time field`);
+                            console.log(`❌ Skipped item - missing time field`);
                         } else {
-                            console.log(`❌ Skipped active-first item - unknown reason`);
+                            console.log(`❌ Skipped item - unknown reason`);
                         }
                     }
                 }
