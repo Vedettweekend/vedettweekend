@@ -394,11 +394,12 @@
                     const sponsors = [];
                     
                     // Find all sponsor items by looking for the start of each list item
-                    const sponsorMatches = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*altText:/g);
+                    // Handle both field orders: altText first OR active first
+                    const sponsorMatches = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*(?:altText|active):/g);
                     console.log('🏢 Found sponsor matches:', Array.from(sponsorMatches));
                     
                     // Reset the iterator
-                    const sponsorMatches2 = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*altText:/g);
+                    const sponsorMatches2 = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*(?:altText|active):/g);
                     
                     for (const match of sponsorMatches2) {
                         const startIndex = match.index;
@@ -407,7 +408,7 @@
                         console.log(`🏢 Start index:`, startIndex);
                         
                         // Find the end of this sponsor item (next dash or end of section)
-                        const nextSponsorDash = sponsorsSection.indexOf('\n  - altText:', startIndex + 1);
+                        const nextSponsorDash = sponsorsSection.indexOf('\n  - ', startIndex + 1);
                         const endIndex = nextSponsorDash > -1 ? nextSponsorDash : sponsorsSection.length;
                         
                         console.log(`🏢 Next sponsor dash at:`, nextSponsorDash);
@@ -418,7 +419,7 @@
                         
                         console.log(`🏢 Parsing sponsor block:`, sponsorBlock);
                         
-                        // Extract each field using regex
+                        // Extract each field using regex (order doesn't matter)
                         const altTextMatch = sponsorBlock.match(/altText:\s*"?([^"\n]+)"?/);
                         const imageMatch = sponsorBlock.match(/image:\s*"?([^"\n]+)"?/);
                         const websiteUrlMatch = sponsorBlock.match(/websiteUrl:\s*"?([^"\n]+)"?/);
@@ -455,6 +456,7 @@
                             } else {
                                 console.log(`❌ Skipped sponsor - unknown reason`);
                             }
+                            console.log(`🏢 Sponsor block that failed:`, sponsorBlock);
                         }
                     }
                     
