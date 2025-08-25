@@ -319,7 +319,7 @@
                 // Parse frontmatter to get hero content
                 const titleMatch = text.match(/hero_title:\s*"?([^"\n]+)"?/);
                 const subtitleMatch = text.match(/hero_subtitle:\s*"?([^"\n]+)"?/);
-                const descriptionMatch = text.match(/hero_description:\s*"?([^"\n]+)"?/);
+                const descriptionMatch = text.match(/hero_description:\s*"?([\s\S]*?)(?=\n\w+:|$)/);
                 
                 // Update hero title
                 if (titleMatch && titleMatch[1]) {
@@ -350,7 +350,7 @@
                 console.log('📅 Friday timeline CMS response:', text);
                 
                 // Parse frontmatter to get Friday timeline data
-                const dayTitleMatch = text.match(/day_title:\s*"?([^"\n]+)"?/);
+                const dayTitleMatch = text.match(/day_title:\s*"?([\s\S]*?)(?=\n\w+:|$)/);
                 
                 // Update Friday day title
                 if (dayTitleMatch && dayTitleMatch[1]) {
@@ -377,7 +377,7 @@
                 console.log('📅 Saturday timeline CMS response:', text);
                 
                 // Parse frontmatter to get Saturday timeline data
-                const dayTitleMatch = text.match(/day_title:\s*"?([^"\n]+)"?/);
+                const dayTitleMatch = text.match(/day_title:\s*"?([\s\S]*?)(?=\n\w+:|$)/);
                 
                 // Update Saturday day title
                 if (dayTitleMatch && dayTitleMatch[1]) {
@@ -438,11 +438,11 @@
                     
                     console.log(`📅 Parsing item block:`, itemBlock);
                     
-                    // Extract each field using regex - handle any order of fields
+                    // Extract each field using regex - capture text until next field or end
                     const timeMatch = itemBlock.match(/time:\s*"?([^"\n]+)"?/);
                     const imageMatch = itemBlock.match(/image:\s*"?([^"\n]+)"?/);
                     const titleMatch = itemBlock.match(/title:\s*"?([^"\n]+)"?/);
-                    const subtextMatch = itemBlock.match(/subtext:\s*"?([^"\n]+)"?/);
+                    const subtextMatch = itemBlock.match(/subtext:\s*"?([\s\S]*?)(?=\n\s+\w+:|$)/);
                     const urlMatch = itemBlock.match(/url:\s*"?([^"\n]+)"?/);
                     
                     console.log(`🔍 Time match:`, timeMatch);
