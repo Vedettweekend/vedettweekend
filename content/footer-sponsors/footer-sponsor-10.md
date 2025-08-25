@@ -1,6 +1,6 @@
 ---
 name: "Marivoet"
-image: "img/Marivoet(FV).svg"
+image: "img/Marivoet(FV).png"
 websiteUrl: "https://www.marivoet.be/"
 altText: "Marivoet"
 order: 10

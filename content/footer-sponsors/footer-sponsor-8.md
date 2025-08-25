@@ -1,6 +1,6 @@
 ---
 name: "CoMarkt"
-image: "img/CoMarkt(FV).svg"
+image: "img/CoMarkt(FV).png"
 websiteUrl: "https://comarkthumbeek.be/"
 altText: "CoMarkt"
 order: 8
