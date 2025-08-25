@@ -1,5 +1,5 @@
 ---
-hero_title: "LINE-UP"
-hero_subtitle: "Vedettweekend 2025"
-hero_description: "Ontdek de line-up van dit jaar"
+hero_title: "VEDETTWEEKEND 2025"
+hero_subtitle: "COMPLETE LINE-UP"
+hero_description: "Ontdek wat je kunt verwachten tijdens dit epische weekend vol muziek en entertainment!"
 ---
