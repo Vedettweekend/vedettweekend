@@ -84,3 +84,42 @@ collections:
       - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"}
       - {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"}
       - {label: "Active", name: "active", widget: "boolean", default: true}
+
+  - name: "lineup"
+    label: "Line-up Page"
+    files:
+      - name: "hero_section"
+        label: "Hero Section"
+        file: "content/lineup/hero-section.md"
+        fields:
+          - {label: "Hero Title", name: "hero_title", widget: "string", default: "LINE-UP", hint: "Main title in the hero section"}
+          - {label: "Hero Subtitle", name: "hero_subtitle", widget: "string", default: "Vedettweekend 2025", hint: "Subtitle below the main title"}
+          - {label: "Hero Description", name: "hero_description", widget: "text", default: "Ontdek de line-up van dit jaar", hint: "Description text in the hero section"}
+      
+      - name: "friday_timeline"
+        label: "Friday Timeline"
+        file: "content/lineup/friday-timeline.md"
+        fields:
+          - {label: "Day Title", name: "day_title", widget: "string", default: "Vrijdag 24 Oktober", hint: "Title for Friday timeline"}
+          - {label: "Timeline Items", name: "timeline_items", widget: "list", fields: [
+              {label: "Time", name: "time", widget: "string", hint: "e.g., 20:00"},
+              {label: "Image", name: "image", widget: "image", hint: "Artist/Event image"},
+              {label: "Title", name: "title", widget: "string", hint: "Artist/Event name"},
+              {label: "Subtext", name: "subtext", widget: "text", hint: "Description or additional info"},
+              {label: "URL", name: "url", widget: "string", hint: "Link when clicked"},
+              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this timeline item"}
+            ]}
+      
+      - name: "saturday_timeline"
+        label: "Saturday Timeline"
+        file: "content/lineup/saturday-timeline.md"
+        fields:
+          - {label: "Day Title", name: "day_title", widget: "string", default: "Zaterdag 25 Oktober", hint: "Title for Saturday timeline"}
+          - {label: "Timeline Items", name: "timeline_items", widget: "list", fields: [
+              {label: "Time", name: "time", widget: "string", hint: "e.g., 20:00"},
+              {label: "Image", name: "image", widget: "image", hint: "Artist/Event image"},
+              {label: "Title", name: "title", widget: "string", hint: "Artist/Event name"},
+              {label: "Subtext", name: "subtext", widget: "text", hint: "Description or additional info"},
+              {label: "URL", name: "url", widget: "string", hint: "Link when clicked"},
+              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this timeline item"}
+            ]}

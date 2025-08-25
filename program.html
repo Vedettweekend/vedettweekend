@@ -61,9 +61,9 @@
         <!-- Hero Section -->
         <section class="lineup-hero">
             <div class="lineup-hero-content">
-                <h1 class="lineup-title">VEDETTWEEKEND 2025</h1>
-                <h2 class="lineup-subtitle">COMPLETE LINE-UP</h2>
-                <p class="lineup-description">Ontdek wat je kunt verwachten tijdens dit epische weekend vol muziek en entertainment!</p>
+                <h1 class="lineup-title" id="heroTitle">VEDETTWEEKEND 2025</h1>
+                <h2 class="lineup-subtitle" id="heroSubtitle">COMPLETE LINE-UP</h2>
+                <p class="lineup-description" id="heroDescription">Ontdek wat je kunt verwachten tijdens dit epische weekend vol muziek en entertainment!</p>
             </div>
         </section>
 
@@ -73,7 +73,7 @@
                 <!-- Friday -->
                 <div class="day-section">
                     <div class="day-header">
-                        <h3 class="day-title">VRIJDAG 24 OKTOBER</h3>
+                        <h3 class="day-title" id="fridayTitle">VRIJDAG 24 OKTOBER</h3>
                         <div class="day-line"></div>
                     </div>
                     
@@ -85,7 +85,7 @@
                 <!-- Saturday -->
                 <div class="day-section">
                     <div class="day-header">
-                        <h3 class="day-title">ZATERDAG 25 OKTOBER</h3>
+                        <h3 class="day-title" id="saturdayTitle">ZATERDAG 25 OKTOBER</h3>
                         <div class="day-line"></div>
                     </div>
                     
@@ -280,7 +280,7 @@
     <!-- Logo Loading from CMS -->
     <script>
         // Load Logo from CMS
-        fetch('content/site-settings/logo.md')
+        fetch('content/home/logo.md')
             .then(response => response.text())
             .then(text => {
                 // Parse frontmatter to get logo path
@@ -306,10 +306,183 @@
                 // Fallback to default logo if fetch fails
                 const navLogos = document.querySelectorAll('.nav-logo');
                 
-                navLogos.forEach(logo => {
-                    logo.src = './img/vedett25.webp';
-                });
+                logo.src = './img/vedett25.webp';
             });
+    </script>
+    
+    <!-- Line-up Content Loading from CMS -->
+    <script>
+        // Load Hero Section from CMS
+        fetch('content/lineup/hero-section.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get hero content
+                const titleMatch = text.match(/hero_title:\s*"?([^"\n]+)"?/);
+                const subtitleMatch = text.match(/hero_subtitle:\s*"?([^"\n]+)"?/);
+                const descriptionMatch = text.match(/hero_description:\s*"?([^"\n]+)"?/);
+                
+                // Update hero title
+                if (titleMatch && titleMatch[1]) {
+                    const heroTitle = document.getElementById('heroTitle');
+                    if (heroTitle) heroTitle.textContent = titleMatch[1];
+                }
+                
+                // Update hero subtitle
+                if (subtitleMatch && subtitleMatch[1]) {
+                    const heroSubtitle = document.getElementById('heroSubtitle');
+                    if (heroSubtitle) heroSubtitle.textContent = subtitleMatch[1];
+                }
+                
+                // Update hero description
+                if (descriptionMatch && descriptionMatch[1]) {
+                    const heroDescription = document.getElementById('heroDescription');
+                    if (heroDescription) heroDescription.textContent = descriptionMatch[1];
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback hero section content');
+            });
+        
+        // Load Friday Timeline from CMS
+        fetch('content/lineup/friday-timeline.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get Friday timeline data
+                const dayTitleMatch = text.match(/day_title:\s*"?([^"\n]+)"?/);
+                const timelineItemsMatch = text.match(/timeline_items:\s*\[([\s\S]*?)\]/);
+                
+                // Update Friday day title
+                if (dayTitleMatch && dayTitleMatch[1]) {
+                    const fridayTitle = document.getElementById('fridayTitle');
+                    if (fridayTitle) fridayTitle.textContent = dayTitleMatch[1];
+                }
+                
+                // Parse and display timeline items
+                if (timelineItemsMatch && timelineItemsMatch[1]) {
+                    try {
+                        // Convert YAML-like structure to JavaScript objects
+                        const itemsText = timelineItemsMatch[1];
+                        const items = [];
+                        
+                        // Simple YAML parsing for the timeline items
+                        const itemBlocks = itemsText.split(/\s*-\s*time:/).filter(block => block.trim());
+                        
+                        itemBlocks.forEach(block => {
+                            if (block.trim()) {
+                                const timeMatch = block.match(/^"([^"]+)"/);
+                                const imageMatch = block.match(/image:\s*"?([^"\n]+)"?/);
+                                const titleMatch = block.match(/title:\s*"?([^"\n]+)"?/);
+                                const subtextMatch = block.match(/subtext:\s*"?([^"\n]+)"?/);
+                                const urlMatch = block.match(/url:\s*"?([^"\n]+)"?/);
+                                const activeMatch = block.match(/active:\s*(true|false)/);
+                                
+                                if (activeMatch && activeMatch[1] === 'true') {
+                                    items.push({
+                                        time: timeMatch ? timeMatch[1] : '',
+                                        image: imageMatch ? imageMatch[1] : '',
+                                        title: titleMatch ? titleMatch[1] : '',
+                                        subtext: subtextMatch ? subtextMatch[1] : '',
+                                        url: urlMatch ? urlMatch[1] : ''
+                                    });
+                                }
+                            }
+                        });
+                        
+                        // Display Friday timeline items
+                        displayTimelineItems('fridayTimeline', items);
+                    } catch (error) {
+                        console.error('Error parsing Friday timeline:', error);
+                    }
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback Friday timeline');
+            });
+        
+        // Load Saturday Timeline from CMS
+        fetch('content/lineup/saturday-timeline.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get Saturday timeline data
+                const dayTitleMatch = text.match(/day_title:\s*"?([^"\n]+)"?/);
+                const timelineItemsMatch = text.match(/timeline_items:\s*\[([\s\S]*?)\]/);
+                
+                // Update Saturday day title
+                if (dayTitleMatch && dayTitleMatch[1]) {
+                    const saturdayTitle = document.getElementById('saturdayTitle');
+                    if (saturdayTitle) saturdayTitle.textContent = dayTitleMatch[1];
+                }
+                
+                // Parse and display timeline items
+                if (timelineItemsMatch && timelineItemsMatch[1]) {
+                    try {
+                        // Convert YAML-like structure to JavaScript objects
+                        const itemsText = timelineItemsMatch[1];
+                        const items = [];
+                        
+                        // Simple YAML parsing for the timeline items
+                        const itemBlocks = itemsText.split(/\s*-\s*time:/).filter(block => block.trim());
+                        
+                        itemBlocks.forEach(block => {
+                            if (block.trim()) {
+                                const timeMatch = block.match(/^"([^"]+)"/);
+                                const imageMatch = block.match(/image:\s*"?([^"\n]+)"?/);
+                                const titleMatch = block.match(/title:\s*"?([^"\n]+)"?/);
+                                const subtextMatch = block.match(/subtext:\s*"?([^"\n]+)"?/);
+                                const urlMatch = block.match(/url:\s*"?([^"\n]+)"?/);
+                                const activeMatch = block.match(/active:\s*(true|false)/);
+                                
+                                if (activeMatch && activeMatch[1] === 'true') {
+                                    items.push({
+                                        time: timeMatch ? timeMatch[1] : '',
+                                        image: imageMatch ? imageMatch[1] : '',
+                                        title: titleMatch ? titleMatch[1] : '',
+                                        subtext: subtextMatch ? subtextMatch[1] : '',
+                                        url: urlMatch ? urlMatch[1] : ''
+                                    });
+                                }
+                            }
+                        });
+                        
+                        // Display Saturday timeline items
+                        displayTimelineItems('saturdayTimeline', items);
+                    } catch (error) {
+                        console.error('Error parsing Saturday timeline:', error);
+                    }
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback Saturday timeline');
+            });
+        
+        // Function to display timeline items
+        function displayTimelineItems(containerId, items) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            items.forEach(item => {
+                const timelineItem = `
+                    <div class="timeline-item">
+                        <div class="timeline-time">${item.time}</div>
+                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="timeline-content">
+                            <div class="timeline-card">
+                                <div class="timeline-card-image">
+                                    <img src="${item.image}" alt="${item.title}" class="timeline-image">
+                                </div>
+                                <div class="timeline-card-info">
+                                    <h4 class="timeline-artist">${item.title}</h4>
+                                    <p class="timeline-dj-description">${item.subtext}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+                
+                container.innerHTML += timelineItem;
+            });
+        }
     </script>
     
 
