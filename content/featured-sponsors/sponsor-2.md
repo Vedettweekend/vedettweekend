@@ -1,5 +1,5 @@
 ---
-name: Sponsor 2
+name: Sponsor B
 image: img/MaxT(FV).png
 websiteUrl: https://www.facebook.com/p/Drankenhandel-Maxt-Dranken-100084040300979/
 altText: MaxT Sponsor
