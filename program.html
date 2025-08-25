@@ -413,13 +413,16 @@
                     if (block.trim()) {
                         console.log(`📅 Parsing block ${index}:`, block);
                         
-                        // Extract each field using regex
+                        // Extract each field using regex - handle both quoted and unquoted values
                         const timeMatch = block.match(/time:\s*"?([^"\n]+)"?/);
                         const imageMatch = block.match(/image:\s*"?([^"\n]+)"?/);
                         const titleMatch = block.match(/title:\s*"?([^"\n]+)"?/);
                         const subtextMatch = block.match(/subtext:\s*"?([^"\n]+)"?/);
                         const urlMatch = block.match(/url:\s*"?([^"\n]+)"?/);
                         const activeMatch = block.match(/active:\s*(true|false)/);
+                        
+                        console.log(`🔍 Time match:`, timeMatch);
+                        console.log(`🔍 Active match:`, activeMatch);
                         
                         if (timeMatch && activeMatch && activeMatch[1] === 'true') {
                             const item = {
@@ -432,11 +435,14 @@
                             
                             items.push(item);
                             console.log(`✅ Added item:`, item);
+                        } else {
+                            console.log(`❌ Skipped item - timeMatch:`, timeMatch, `activeMatch:`, activeMatch);
                         }
                     }
                 });
             }
             
+            console.log(`📅 Final items array:`, items);
             return items;
         }
         
