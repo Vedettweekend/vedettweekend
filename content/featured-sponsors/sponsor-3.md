@@ -1,5 +1,5 @@
 ---
-name: Sponsor 3
+name: Sponsor C
 image: img/dreamsupport(fv).png
 websiteUrl: https://www.dreamsupport.be/
 altText: Dreamsupport Sponsor
