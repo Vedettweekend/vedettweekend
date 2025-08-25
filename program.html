@@ -103,47 +103,49 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h4>VOLG ONS OP</h4>
+                <h4 class="footer-title">VOLG ONS OP</h4>
                 <div class="social-links">
-                    <a href="https://www.facebook.com/vedettweekend" class="social-link">
-                        <i class="fab fa-facebook"></i>
+                    <a href="https://www.facebook.com/vedettweekend" class="social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://www.instagram.com/vedettweekend/" class="social-link">
+                    <a href="https://www.instagram.com/vedettweekend/" class="social-link" aria-label="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.tiktok.com/@vedettweekend" class="social-link">
+                    <a href="https://www.tiktok.com/@vedettweekend" class="social-link" aria-label="TikTok">
                         <i class="fab fa-tiktok"></i>
                     </a>
-                    <a href="https://linktr.ee/vedettweekend" class="social-link">
+                    <a href="https://linktr.ee/vedettweekend" class="social-link" aria-label="Linktree">
                         <i class="fas fa-link"></i>
                     </a>
                 </div>
             </div>
 
             <div class="footer-section">
-                <h4>MEER INFORMATIE</h4>
-                <a href="https://vedettweekend.be">Over Vedettweekend</a>
+                <h4 class="footer-title">MEER INFORMATIE</h4>
+                <a href="https://vedettweekend.be" class="footer-link">Over Vedettweekend</a>
             </div>
 
             <div class="footer-section">
-                <h4>TICKETS KOPEN</h4>
-                <a href="https://vedettweekend.eventsquare.store/nl/iuyug9ujkxeq/dqyto5nq8d2y">Koop hier je tickets</a>
+                <h4 class="footer-title">TICKETS KOPEN</h4>
+                <a href="https://vedettweekend.eventsquare.store/nl/iuyug9ujkxeq/dqyto5nq8d2y" class="footer-link">Koop hier je tickets</a>
             </div>
 
             <div class="footer-section">
-                <h4>CONTACT</h4>
-                <p>Scouts De Vlasbloem</p>
-                <p>Maatschappelijke zetel:</p>
-                <p>Paddegatstraat 53a</p>
-                <p>1880 Nieuwenrode- België</p>
-                <p>0697.774.844</p>
-                <p>info@vedettweekend.be</p>
+                <h4 class="footer-title">CONTACT</h4>
+                <address class="contact-info">
+                    Scouts De Vlasbloem<br>
+                    Maatschappelijke zetel:<br>
+                    Paddegatstraat 53a<br>
+                    1880 Nieuwenrode- België<br>
+                    <a href="tel:+320697774844">0697.774.844</a><br>
+                    <a href="mailto:info@vedettweekend.be">info@vedettweekend.be</a>
+                </address>
             </div>
         </div>
 
         <div class="footer-sponsors">
-            <div class="sponsor-logos">
-                <!-- Footer sponsors will be loaded dynamically from CMS -->
+            <div class="sponsor-logos" id="footerSponsors">
+                <!-- Footer sponsor logos will be populated by JavaScript -->
             </div>
         </div>
 
@@ -343,60 +345,6 @@
                 console.log('Using fallback hero section content');
             });
         
-        // Load Friday Timeline from CMS
-        fetch('content/lineup/friday-timeline.md')
-            .then(response => response.text())
-            .then(text => {
-                console.log('📅 Friday timeline CMS response:', text);
-                
-                // Parse frontmatter to get Friday timeline data
-                const dayTitleMatch = text.match(/day_title:\s*"?([\s\S]*?)(?=\n\w+:|---|$)/);
-                
-                // Update Friday day title
-                if (dayTitleMatch && dayTitleMatch[1]) {
-                    const fridayTitle = document.getElementById('fridayTitle');
-                    if (fridayTitle) fridayTitle.textContent = dayTitleMatch[1];
-                }
-                
-                // Parse timeline items using a more robust approach
-                const items = parseTimelineItems(text);
-                console.log('📅 Parsed Friday items:', items);
-                
-                        // Display Friday timeline items
-        console.log('🎯 About to display Friday timeline items:', items);
-        displayTimelineItems('fridayTimeline', items);
-            })
-            .catch(error => {
-                console.log('❌ Error loading Friday timeline:', error);
-            });
-        
-        // Load Saturday Timeline from CMS
-        fetch('content/lineup/saturday-timeline.md')
-            .then(response => response.text())
-            .then(text => {
-                console.log('📅 Saturday timeline CMS response:', text);
-                
-                // Parse frontmatter to get Saturday timeline data
-                const dayTitleMatch = text.match(/day_title:\s*"?([\s\S]*?)(?=\n\w+:|---|$)/);
-                
-                // Update Saturday day title
-                if (dayTitleMatch && dayTitleMatch[1]) {
-                    const saturdayTitle = document.getElementById('saturdayTitle');
-                    if (saturdayTitle) saturdayTitle.textContent = dayTitleMatch[1];
-                }
-                
-                // Parse timeline items using a more robust approach
-                const items = parseTimelineItems(text);
-                console.log('📅 Parsed Saturday items:', items);
-                
-                        // Display Saturday timeline items
-        console.log('🎯 About to display Saturday timeline items:', items);
-        displayTimelineItems('saturdayTimeline', items);
-            })
-            .catch(error => {
-                console.log('❌ Error loading Saturday timeline:', error);
-            });
-        
         // Robust function to parse timeline items from CMS markdown
         function parseTimelineItems(text) {
             const items = [];
@@ -542,8 +490,55 @@
                 console.error(`💥 Error in displayTimelineItems:`, error);
             }
         }
-    </script>
-    
 
+        // Function to load lineup data from CMS
+        async function loadLineupData() {
+            try {
+                console.log('🎨 Loading lineup data from CMS...');
+                
+                // Load Friday lineup
+                const fridayResponse = await fetch('content/lineup/friday-timeline.md');
+                const fridayText = await fridayResponse.text();
+                
+                // Parse frontmatter to get Friday timeline data
+                const fridayDayTitleMatch = fridayText.match(/day_title:\s*"?([\s\S]*?)(?=\n\w+:|---|$)/);
+                
+                // Update Friday day title
+                if (fridayDayTitleMatch && fridayDayTitleMatch[1]) {
+                    const fridayTitle = document.getElementById('fridayTitle');
+                    if (fridayTitle) fridayTitle.textContent = fridayDayTitleMatch[1];
+                }
+                
+                const fridayItems = parseTimelineItems(fridayText);
+                
+                // Load Saturday lineup
+                const saturdayResponse = await fetch('content/lineup/saturday-timeline.md');
+                const saturdayText = await saturdayResponse.text();
+                
+                // Parse frontmatter to get Saturday timeline data
+                const saturdayDayTitleMatch = saturdayText.match(/day_title:\s*"?([\s\S]*?)(?=\n\w+:|---|$)/);
+                
+                // Update Saturday day title
+                if (saturdayDayTitleMatch && saturdayDayTitleMatch[1]) {
+                    const saturdayTitle = document.getElementById('saturdayTitle');
+                    if (saturdayTitle) saturdayTitle.textContent = saturdayDayTitleMatch[1];
+                }
+                
+                const saturdayItems = parseTimelineItems(saturdayText);
+                
+                // Display the items
+                displayTimelineItems('fridayTimeline', fridayItems);
+                displayTimelineItems('saturdayTimeline', saturdayItems);
+                
+                console.log('✅ Lineup data loaded successfully');
+                
+            } catch (error) {
+                console.error('💥 Error loading lineup data:', error);
+            }
+        }
+
+        // Load lineup data when page loads
+        loadLineupData();
+    </script>
 </body>
 </html>

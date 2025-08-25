@@ -71,7 +71,7 @@ class VedettWebsite {
         this.loadSponsors();
         
         // Load footer sponsors
-        // this.loadFooterSponsors(); // Now handled in index.html
+        this.loadFooterSponsors();
         
         // Load lineup if on lineup page
         if (window.lineup) {
@@ -226,50 +226,109 @@ class VedettWebsite {
 
     // createSponsorItem function removed - now handled by loadFeaturedSponsors() in index.html
 
-    loadFooterSponsors() {
-        // Load Footer Sponsors from CMS (Simplified - Fixed 30 files)
-        this.loadFooterSponsorsFromCMS();
-    }
-    
-    async loadFooterSponsorsFromCMS() {
+    // Load Footer Sponsors from CMS (New expandable panel structure)
+    async loadFooterSponsors() {
         try {
-            const sponsors = [];
+            const response = await fetch('content/home/footer-sponsors.md');
+            const text = await response.text();
             
-            // Load all 30 footer sponsor files (they all exist now)
-            for (let i = 1; i <= 30; i++) {
-                const response = await fetch(`content/footer-sponsors/footer-sponsor-${i}.md`);
-                const text = await response.text();
+            console.log('🏢 Footer sponsors CMS response:', text);
+            
+            // Parse frontmatter to get sponsors list
+            const sponsorsMatch = text.match(/sponsors:\s*\n([\s\S]*?)(?=\n---|$)/);
+            
+            if (sponsorsMatch) {
+                const sponsorsSection = sponsorsMatch[1];
+                console.log('🏢 Footer sponsors section found:', sponsorsSection);
                 
-                // Extract only what we need: image, URL, and active status
-                const imageMatch = text.match(/image:\s*"?([^"\n]+)"?/);
-                const websiteUrlMatch = text.match(/websiteUrl:\s*"?([^"\n]+)"?/);
-                const activeMatch = text.match(/active:\s*(true|false)/);
+                const sponsors = [];
                 
-                // Only add if sponsor is active
-                if (imageMatch && websiteUrlMatch && activeMatch && activeMatch[1] === 'true') {
-                    sponsors.push({
-                        image: imageMatch[1],
-                        websiteUrl: websiteUrlMatch[1]
-                    });
+                // Handle both field orders: altText first OR active first
+                const sponsorMatches = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*(?:altText|active):/g);
+                console.log('🏢 Found footer sponsor matches:', Array.from(sponsorMatches));
+                
+                // Reset the iterator
+                const sponsorMatches2 = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*(?:altText|active):/g);
+                
+                for (const match of sponsorMatches2) {
+                    const startIndex = match.index;
+                    
+                    console.log(`🏢 Processing footer sponsor match:`, match);
+                    console.log(`🏢 Start index:`, startIndex);
+                    
+                    // Find the end of this sponsor item (next dash or end of section)
+                    const nextSponsorDash = sponsorsSection.indexOf('\n  - ', startIndex + 1);
+                    const endIndex = nextSponsorDash > -1 ? nextSponsorDash : sponsorsSection.length;
+                    
+                    console.log(`🏢 Next footer sponsor dash at:`, nextSponsorDash);
+                    console.log(`🏢 End index:`, endIndex);
+                    
+                    // Extract the full sponsor block
+                    const sponsorBlock = sponsorsSection.substring(startIndex, endIndex);
+                    
+                    console.log(`🏢 Parsing footer sponsor block:`, sponsorBlock);
+                    
+                    // Extract each field using regex (order doesn't matter)
+                    const altTextMatch = sponsorBlock.match(/altText:\s*"?([^"\n]+)"?/);
+                    const imageMatch = sponsorBlock.match(/image:\s*"?([^"\n]+)"?/);
+                    const websiteUrlMatch = sponsorBlock.match(/websiteUrl:\s*"?([^"\n]+)"?/);
+                    const activeMatch = sponsorBlock.match(/active:\s*(true|false)/);
+                    
+                    console.log(`🏢 Footer alt text match:`, altTextMatch);
+                    console.log(`🏢 Footer image match:`, imageMatch);
+                    console.log(`🏢 Footer website URL match:`, websiteUrlMatch);
+                    console.log(`🏢 Footer active match:`, activeMatch);
+                    
+                    // Check if sponsor is active and has required fields
+                    if (activeMatch && activeMatch[1] === 'true' && imageMatch && websiteUrlMatch) {
+                        // Ensure URL has proper protocol
+                        let urlValue = websiteUrlMatch[1].trim();
+                        if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
+                            urlValue = 'https://' + urlValue;
+                        }
+                        
+                        const sponsor = {
+                            image: imageMatch[1].trim(),
+                            websiteUrl: urlValue,
+                            altText: altTextMatch ? altTextMatch[1].trim() : 'Footer Sponsor'
+                        };
+                        
+                        sponsors.push(sponsor);
+                        console.log(`✅ Added footer sponsor:`, sponsor);
+                    } else {
+                        if (!activeMatch || activeMatch[1] !== 'true') {
+                            console.log(`❌ Skipped footer sponsor - not active (active: ${activeMatch ? activeMatch[1] : 'missing'})`);
+                        } else if (!imageMatch) {
+                            console.log(`❌ Skipped footer sponsor - missing image field`);
+                        } else if (!websiteUrlMatch) {
+                            console.log(`❌ Skipped footer sponsor - missing website URL field`);
+                        } else {
+                            console.log(`❌ Skipped footer sponsor - unknown reason`);
+                        }
+                        console.log(`🏢 Footer sponsor block that failed:`, sponsorBlock);
+                    }
                 }
-            }
-            
-
-            
-            // Display active footer sponsors
-            const footerSponsorsGrid = document.querySelector('.sponsor-logos');
-            if (footerSponsorsGrid && sponsors.length > 0) {
-                const htmlContent = sponsors.map(sponsor => `
-                    <a href="${sponsor.websiteUrl}" target="_blank" rel="noopener noreferrer">
-                        <img src="${sponsor.image}" alt="Sponsor" loading="lazy">
-                    </a>
-                `).join('');
                 
-                footerSponsorsGrid.innerHTML = htmlContent;
+                console.log('🏢 Final footer sponsors array:', sponsors);
+                
+                // Display active footer sponsors in footer
+                const footerSponsorsContainer = document.getElementById('footerSponsors');
+                if (footerSponsorsContainer && sponsors.length > 0) {
+                    const htmlContent = sponsors.map(sponsor => `
+                        <a href="${sponsor.websiteUrl}" class="footer-sponsor" target="_blank" rel="noopener noreferrer">
+                            <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
+                        </a>
+                    `).join('');
+                    
+                    footerSponsorsContainer.innerHTML = htmlContent;
+                    console.log('🏢 Updated footer sponsors with', sponsors.length, 'sponsors');
+                }
+            } else {
+                console.log('❌ No footer sponsors section found in CMS response');
             }
             
         } catch (error) {
-            console.error('Footer sponsor loading error:', error);
+            console.error('🏢 Footer sponsor loading error:', error);
         }
     }
 
@@ -428,7 +487,7 @@ class VedettWebsite {
         this.initializeLazyLoading();
         
         // Load footer sponsors from CMS
-        // this.loadFooterSponsors(); // Now handled in index.html
+        this.loadFooterSponsors();
     }
 
     // ===== LAZY LOADING =====
