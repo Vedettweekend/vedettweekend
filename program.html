@@ -406,15 +406,15 @@
                 const timelineSection = timelineMatch[1];
                 console.log('📅 Timeline section found:', timelineSection);
                 
-                // Split by item markers and parse each item
-                const itemBlocks = timelineSection.split(/\s*-\s*time:/).filter(block => block.trim());
+                // Split by item markers and parse each item - look for the dash followed by time
+                const itemBlocks = timelineSection.split(/\n\s*-\s*time:/).filter(block => block.trim());
                 
                 itemBlocks.forEach((block, index) => {
                     if (block.trim()) {
                         console.log(`📅 Parsing block ${index}:`, block);
                         
                         // Extract each field using regex - handle both quoted and unquoted values
-                        const timeMatch = block.match(/time:\s*"?([^"\n]+)"?/);
+                        const timeMatch = block.match(/^"?([^"\n]+)"?/);
                         const imageMatch = block.match(/image:\s*"?([^"\n]+)"?/);
                         const titleMatch = block.match(/title:\s*"?([^"\n]+)"?/);
                         const subtextMatch = block.match(/subtext:\s*"?([^"\n]+)"?/);
