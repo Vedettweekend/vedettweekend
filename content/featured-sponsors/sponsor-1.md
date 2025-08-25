@@ -1,5 +1,5 @@
 ---
-name: Sponsor 1
+name: Sponsor A
 image: img/Instabel(FV).png
 websiteUrl: https://www.instabel.be/
 altText: Instabel Sponsor
