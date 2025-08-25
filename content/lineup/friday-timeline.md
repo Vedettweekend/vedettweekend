@@ -1,5 +1,5 @@
 ---
-day_title: VRIJDAG 25 OKTOBER
+day_title: VRIJDAG 24 OKTOBER
 timeline_items:
   - active: true
     time: 20:00 <> 21:00
