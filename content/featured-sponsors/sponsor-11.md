@@ -1,6 +1,6 @@
 ---
 name: Sponsor 11
-image: img/placeholder.png
+image: /img/uploads/feryn.png
 websiteUrl: https://example.com
 altText: Sponsor 11
 order: 11
