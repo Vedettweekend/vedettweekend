@@ -1339,6 +1339,7 @@ body {
 .ticketshop-container {
   max-width: calc(1200px + 10vw);
   width: calc(100% - 10vw);
+  min-height: 300px;
   margin: 0 auto;
   padding: 2rem 2rem;
   background: rgba(255, 255, 255, 0.05);
