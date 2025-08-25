@@ -155,7 +155,7 @@
         window.ticketshop = {
             bannerImage: 'img/BANNEREVENTSQUARE.png',
             bannerAlt: 'our event banner',
-            iframeLink: 'https://vedettweekend.eventsquare.store/iuyug9ujkxeq'
+            iframeLink: 'https://vedettweekend.eventsquare.store/iuyug9ujkxeq' // Fallback URL
         };
     </script>
     
@@ -191,6 +191,25 @@
                 navLogos.forEach(logo => {
                     logo.src = './img/vedett25.webp';
                 });
+            });
+    </script>
+    
+    <!-- Ticketshop URL Loading from CMS -->
+    <script>
+        // Load Ticketshop URL from CMS
+        fetch('content/site-settings/ticketshop.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get ticketshop URL
+                const ticketshopMatch = text.match(/ticketshop_url:\s*"?([^"\n]+)"?/);
+                
+                if (ticketshopMatch && ticketshopMatch[1]) {
+                    // Update the ticketshop iframe URL
+                    window.ticketshop.iframeLink = ticketshopMatch[1];
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback ticketshop URL');
             });
     </script>
     
