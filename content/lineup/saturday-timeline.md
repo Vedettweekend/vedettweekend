@@ -1,53 +1,45 @@
 ---
-day_title: ZATERDAG 24 OKTOBER
+day_title: ZATERDAG 25 OKTOBER
 timeline_items:
-  - time: 17:30 - 21:00
-    image: ./img/Pasta.jpeg
+  - active: true
+    image: /img/uploads/tba.jpg
+    time: 17:30 <> 21:00
     title: Pastafestijn
-    subtext: Geniet van heerlijke pasta voordat de feestavond begint! Een gezellige
-      avond met authentieke Italiaanse gerechten en een warme sfeer.
+    subtext: Kom genieten van een lekkere pasta!
     url: https://www.facebook.com/vedettweekend
-    active: true
-  - time: 21:00 - 21:30
-    image: ./img/tba.webp
-    title: test
+  - active: true
+    time: 21:00 <> 21:30
+    title: TBA
+    image: /img/uploads/tba.jpg
+    url: https://www.facebook.com/vedettweekend
     subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
+      het oog!
+  - active: true
+    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
+      het oog!
+    title: TBA
     url: https://www.facebook.com/vedettweekend
-    active: true
-  - time: 21:30 - 23:00
-    image: ./img/tba.webp
+    time: 21:30 <> 23:00
+    image: /img/uploads/tba.jpg
+  - active: true
+    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
+      het oog!
+    title: TBA
+    url: https://www.facebook.com/vedettweekend
+    time: 23:00 <> 00:30
+    image: /img/uploads/tba.jpg
+  - active: true
+    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
+      het oog!
+    title: TBA
+    url: https://www.facebook.com/vedettweekend
+    time: 00:30 <> 02:00
+    image: /img/uploads/tba.jpg
+  - active: true
+    url: https://www.facebook.com/vedettweekend
     title: TBA
     subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
-    url: https://www.facebook.com/vedettweekend
-    active: true
-  - time: 23:00 - 00:00
-    image: ./img/tba.webp
-    title: TBA
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
-    url: https://www.facebook.com/vedettweekend
-    active: true
-  - time: 00:00 - 01:30
-    image: ./img/tba.webp
-    title: TBA
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
-    url: https://www.facebook.com/vedettweekend
-    active: true
-  - time: 01:30 - 02:30
-    image: ./img/tba.webp
-    title: TBA
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
-    url: https://www.facebook.com/vedettweekend
-    active: true
-  - time: 02:30 - 04:00
-    image: ./img/tba.webp
-    title: TBA
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
-    url: https://www.facebook.com/vedettweekend
-    active: true
+      het oog!
+    image: /img/uploads/tba.jpg
+    time: 02:00 <> 03:00 (+1 winteruur)
 ---
