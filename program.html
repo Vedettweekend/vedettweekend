@@ -362,8 +362,9 @@
                 const items = parseTimelineItems(text);
                 console.log('📅 Parsed Friday items:', items);
                 
-                // Display Friday timeline items
-                displayTimelineItems('fridayTimeline', items);
+                        // Display Friday timeline items
+        console.log('🎯 About to display Friday timeline items:', items);
+        displayTimelineItems('fridayTimeline', items);
             })
             .catch(error => {
                 console.log('❌ Error loading Friday timeline:', error);
@@ -388,8 +389,9 @@
                 const items = parseTimelineItems(text);
                 console.log('📅 Parsed Saturday items:', items);
                 
-                // Display Saturday timeline items
-                displayTimelineItems('saturdayTimeline', items);
+                        // Display Saturday timeline items
+        console.log('🎯 About to display Saturday timeline items:', items);
+        displayTimelineItems('saturdayTimeline', items);
             })
             .catch(error => {
                 console.log('❌ Error loading Saturday timeline:', error);
@@ -407,15 +409,28 @@
                 console.log('📅 Timeline section found:', timelineSection);
                 
                 // Find all timeline items by looking for the dash pattern
-                const itemMatches = timelineSection.matchAll(/\n\s*-\s*time:\s*"?([^"\n]+)"?/g);
+                console.log('🔍 Looking for timeline items in:', timelineSection);
                 
-                for (const match of itemMatches) {
+                const itemMatches = timelineSection.matchAll(/\n\s*-\s*time:\s*"?([^"\n]+)"?/g);
+                console.log('🔍 Found matches:', Array.from(itemMatches));
+                
+                // Reset the iterator since we used it above
+                const itemMatches2 = timelineSection.matchAll(/\n\s*-\s*time:\s*"?([^"\n]+)"?/g);
+                
+                for (const match of itemMatches2) {
                     const timeValue = match[1];
                     const startIndex = match.index;
+                    
+                    console.log(`🔍 Processing match:`, match);
+                    console.log(`🔍 Time value:`, timeValue);
+                    console.log(`🔍 Start index:`, startIndex);
                     
                     // Find the end of this item (next dash or end of section)
                     const nextDash = timelineSection.indexOf('\n  - time:', startIndex + 1);
                     const endIndex = nextDash > -1 ? nextDash : timelineSection.length;
+                    
+                    console.log(`🔍 Next dash at:`, nextDash);
+                    console.log(`🔍 End index:`, endIndex);
                     
                     // Extract the full item block
                     const itemBlock = timelineSection.substring(startIndex, endIndex);
@@ -428,7 +443,10 @@
                     const urlMatch = itemBlock.match(/url:\s*"?([^"\n]+)"?/);
                     const activeMatch = itemBlock.match(/active:\s*(true|false)/);
                     
-                    console.log(`🔍 Time value:`, timeValue);
+                    console.log(`🔍 Image match:`, imageMatch);
+                    console.log(`🔍 Title match:`, titleMatch);
+                    console.log(`🔍 Subtext match:`, subtextMatch);
+                    console.log(`🔍 URL match:`, urlMatch);
                     console.log(`🔍 Active match:`, activeMatch);
                     
                     if (activeMatch && activeMatch[1] === 'true') {
@@ -465,31 +483,49 @@
         
         // Function to display timeline items
         function displayTimelineItems(containerId, items) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            items.forEach(item => {
-                const timelineItem = `
-                    <div class="timeline-item">
-                        <div class="timeline-time">${item.time}</div>
-                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="timeline-content">
-                            <div class="timeline-card">
-                                <div class="timeline-card-image">
-                                    <img src="${item.image}" alt="${item.title}" class="timeline-image">
-                                </div>
-                                <div class="timeline-card-info">
-                                    <h4 class="timeline-artist">${item.title}</h4>
-                                    <p class="timeline-dj-description">${item.subtext}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                `;
+            try {
+                console.log(`🎨 Displaying ${items.length} items for container:`, containerId);
+                console.log(`🎨 Items to display:`, items);
                 
-                container.innerHTML += timelineItem;
-            });
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    console.log(`❌ Container not found:`, containerId);
+                    return;
+                }
+                
+                console.log(`🎨 Container found:`, container);
+                console.log(`🎨 Container before clearing:`, container.innerHTML);
+                container.innerHTML = '';
+                console.log(`🎨 Container after clearing:`, container.innerHTML);
+                
+                items.forEach((item, index) => {
+                    console.log(`🎨 Creating item ${index}:`, item);
+                    
+                    const timelineItem = `
+                        <div class="timeline-item">
+                            <div class="timeline-time">${item.time}</div>
+                            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="timeline-content">
+                                <div class="timeline-card">
+                                    <div class="timeline-card-image">
+                                        <img src="${item.image}" alt="${item.title}" class="timeline-image">
+                                    </div>
+                                    <div class="timeline-card-info">
+                                        <h4 class="timeline-artist">${item.title}</h4>
+                                        <p class="timeline-dj-description">${item.subtext}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    `;
+                    
+                    container.innerHTML += timelineItem;
+                    console.log(`✅ Added item ${index} to DOM`);
+                });
+                
+                console.log(`🎨 Final container HTML:`, container.innerHTML);
+            } catch (error) {
+                console.error(`💥 Error in displayTimelineItems:`, error);
+            }
         }
     </script>
     
