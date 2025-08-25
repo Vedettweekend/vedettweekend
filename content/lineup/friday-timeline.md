@@ -1,6 +1,12 @@
 ---
 day_title: VRIJDAG 25 OKTOBER
 timeline_items:
+  - active: true
+    image: /img/uploads/vedett25.webp
+    time: xxx
+    title: xxx
+    subtext: xxx
+    url: vedett.be
   - time: 20:00 - 21:00
     image: ./img/tba.webp
     title: TBA
@@ -50,12 +56,6 @@ timeline_items:
       het oog voor alle updates
     url: https://www.facebook.com/vedettweekend
     active: true
-  - active: true
-    image: /img/uploads/vedett25.webp
-    time: xxx
-    title: xxx
-    subtext: xxx
-    url: vedett.be
   - active: true
     time: test
     title: test
