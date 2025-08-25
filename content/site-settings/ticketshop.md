@@ -1,3 +1,3 @@
 ---
-ticketshop_url: "https://vedettweekend.eventsquare.store/iuyug9ujkxeq"
+ticketshop_url: https://vedettweekend.eventsquare.store/lnupdtfkj4fx
 ---
