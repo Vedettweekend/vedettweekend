@@ -1,18 +1,18 @@
 ---
 day_title: ZATERDAG 26 OKTOBER
 timeline_items:
-  - time: 21:00 - 21:30
-    image: ./img/tba.webp
-    title: TBA
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
-    url: https://www.facebook.com/vedettweekend
-    active: true
   - time: 17:30 - 21:00
     image: ./img/Pasta.jpeg
     title: Pastafestijn
     subtext: Geniet van heerlijke pasta voordat de feestavond begint! Een gezellige
       avond met authentieke Italiaanse gerechten en een warme sfeer.
+    url: https://www.facebook.com/vedettweekend
+    active: true
+  - time: 21:00 - 21:30
+    image: ./img/tba.webp
+    title: test
+    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
+      het oog voor alle updates
     url: https://www.facebook.com/vedettweekend
     active: true
   - time: 21:30 - 23:00
