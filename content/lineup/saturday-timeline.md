@@ -50,10 +50,4 @@ timeline_items:
       het oog voor alle updates
     url: https://www.facebook.com/vedettweekend
     active: true
-  - active: true
-    time: 04:00 - 05:00
-    title: opruim
-    subtext: test
-    url: vedettweekend.be
-    image: /img/uploads/vedett25.webp
 ---
