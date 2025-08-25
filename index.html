@@ -376,10 +376,10 @@
             });
         }
 
-                // Load Main Sponsors from CMS (New expandable panel structure)
-        async function loadMainSponsors() {
+                // Load Featured Sponsors from CMS (New expandable panel structure)
+        async function loadFeaturedSponsors() {
             try {
-                const response = await fetch('content/home/sponsors.md');
+                const response = await fetch('content/home/featured-sponsors.md');
                 const text = await response.text();
                 
                 console.log('🏢 Featured sponsors CMS response:', text);
@@ -665,7 +665,7 @@
         loadFeaturedArtists();
         
         // Load sponsors when page loads
-        loadMainSponsors();
+        loadFeaturedSponsors();
         loadFooterSponsors();
     </script>
     

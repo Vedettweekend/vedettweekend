@@ -219,12 +219,12 @@ class VedettWebsite {
     }
 
     loadSponsors() {
-        // This function is now handled by the loadMainSponsors() function in index.html
-        // Main sponsors are loaded dynamically from the CMS
-        console.log('Main sponsors loading handled by loadMainSponsors()');
+        // This function is now handled by the loadFeaturedSponsors() function in index.html
+        // Featured sponsors are loaded dynamically from the CMS
+        console.log('Featured sponsors loading handled by loadFeaturedSponsors()');
     }
 
-    // createSponsorItem function removed - now handled by loadMainSponsors() in index.html
+    // createSponsorItem function removed - now handled by loadFeaturedSponsors() in index.html
 
     loadFooterSponsors() {
         // Load Footer Sponsors from CMS (Simplified - Fixed 30 files)

@@ -64,9 +64,9 @@ collections:
   - name: "sponsors"
     label: "Sponsors"
     files:
-      - name: "sponsors_list"
-        label: "Sponsors List"
-        file: "content/home/sponsors.md"
+      - name: "featured_sponsors"
+        label: "Featured Sponsors"
+        file: "content/home/featured-sponsors.md"
         fields:
           - {label: "Sponsors", name: "sponsors", widget: "list", fields: [
               {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"},
@@ -74,12 +74,9 @@ collections:
               {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"},
               {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this sponsor"}
             ]}
-
-  - name: "footer_sponsors"
-    label: "Footer Sponsors"
-    files:
-      - name: "footer_sponsors_list"
-        label: "Footer Sponsors List"
+      
+      - name: "footer_sponsors"
+        label: "Footer Sponsors"
         file: "content/home/footer-sponsors.md"
         fields:
           - {label: "Sponsors", name: "sponsors", widget: "list", fields: [
