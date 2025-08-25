@@ -411,11 +411,12 @@
                 // Find all timeline items by looking for the dash pattern
                 console.log('🔍 Looking for timeline items in:', timelineSection);
                 
-                const itemMatches = timelineSection.matchAll(/\n\s*-\s*time:\s*"?([^"\n]+)"?/g);
+                // Use a more comprehensive regex to find all items, including the first one
+                const itemMatches = timelineSection.matchAll(/(?:^|\n)\s*-\s*time:\s*"?([^"\n]+)"?/g);
                 console.log('🔍 Found matches:', Array.from(itemMatches));
                 
                 // Reset the iterator since we used it above
-                const itemMatches2 = timelineSection.matchAll(/\n\s*-\s*time:\s*"?([^"\n]+)"?/g);
+                const itemMatches2 = timelineSection.matchAll(/(?:^|\n)\s*-\s*time:\s*"?([^"\n]+)"?/g);
                 
                 for (const match of itemMatches2) {
                     const timeValue = match[1];
@@ -434,6 +435,12 @@
                     
                     // Extract the full item block
                     const itemBlock = timelineSection.substring(startIndex, endIndex);
+                    
+                    // Handle malformed items (like your 'test' item that has active: true first)
+                    if (itemBlock.includes('active: true') && !itemBlock.includes('time:')) {
+                        console.log(`⚠️ Skipping malformed item block:`, itemBlock);
+                        continue;
+                    }
                     console.log(`📅 Parsing item block:`, itemBlock);
                     
                     // Extract each field using regex
