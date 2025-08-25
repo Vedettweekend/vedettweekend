@@ -1,6 +1,6 @@
 ---
 name: "Red Bull"
-image: "img/Redlogo.png"
+image: "img/RedBullWhite.png"
 websiteUrl: "https://www.redbull.com/"
 altText: "Red Bull"
 order: 7
