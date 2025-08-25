@@ -51,15 +51,15 @@ timeline_items:
     url: https://www.facebook.com/vedettweekend
     active: true
   - active: true
-    time: test
-    title: test
-    subtext: test
-    url: test.be
-    image: /img/uploads/tba.jpg
-  - active: true
     image: /img/uploads/vedett25.webp
     time: xxx
     title: xxx
     subtext: xxx
     url: vedett.be
+  - active: true
+    time: test
+    title: test
+    subtext: test
+    url: test.be
+    image: /img/uploads/tba.jpg
 ---
