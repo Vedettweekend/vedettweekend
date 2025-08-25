@@ -470,12 +470,18 @@
                         // Remove any leading/trailing whitespace
                         cleanTime = cleanTime.trim();
                         
+                        // Ensure URL has proper protocol
+                        let urlValue = urlMatch ? urlMatch[1].trim() : 'https://www.facebook.com/vedettweekend';
+                        if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
+                            urlValue = 'https://' + urlValue;
+                        }
+                        
                         const item = {
                             time: cleanTime,
                             image: imageMatch ? imageMatch[1].trim() : './img/tba.webp',
                             title: titleMatch ? titleMatch[1].trim() : 'TBA',
                             subtext: subtextMatch ? subtextMatch[1].trim() : 'Deze artiest zal binnenkort aangekondigd worden, hou onze socials in het oog voor alle updates',
-                            url: urlMatch ? urlMatch[1].trim() : 'https://www.facebook.com/vedettweekend'
+                            url: urlValue
                         };
                         
                         items.push(item);
@@ -552,12 +558,18 @@
                         // Remove any leading/trailing whitespace
                         cleanTime = cleanTime.trim();
                         
+                        // Ensure URL has proper protocol
+                        let urlValue = urlMatch ? urlMatch[1].trim() : 'https://www.facebook.com/vedettweekend';
+                        if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
+                            urlValue = 'https://' + urlValue;
+                        }
+                        
                         const item = {
                             time: cleanTime,
                             image: imageMatch ? imageMatch[1].trim() : './img/tba.webp',
                             title: titleMatch ? titleMatch[1].trim() : 'TBA',
                             subtext: subtextMatch ? subtextMatch[1].trim() : 'Deze artiest zal binnenkort aangekondigd worden, hou onze socials in het oog voor alle updates',
-                            url: urlMatch ? urlMatch[1].trim() : 'https://www.facebook.com/vedettweekend'
+                            url: urlValue
                         };
                         
                         items.push(item);
