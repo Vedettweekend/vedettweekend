@@ -61,12 +61,12 @@ collections:
       - {label: "Website Icon", name: "websiteIcon", widget: "string", default: "fas fa-link", hint: "Font Awesome icon class"}
       - {label: "Active", name: "active", widget: "boolean", default: true}
 
-  - name: "featured_sponsors"
-    label: "Featured Sponsors"
+  - name: "sponsors"
+    label: "Sponsors"
     files:
       - name: "sponsors_list"
-        label: "Featured Sponsors List"
-        file: "content/home/featured-sponsors.md"
+        label: "Sponsors List"
+        file: "content/home/sponsors.md"
         fields:
           - {label: "Sponsors", name: "sponsors", widget: "list", fields: [
               {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"},
@@ -77,15 +77,17 @@ collections:
 
   - name: "footer_sponsors"
     label: "Footer Sponsors"
-    folder: "content/footer-sponsors"
-    create: false
-    slug: "footer-sponsor-{{name}}"
-    fields:
-      - {label: "Sponsor Name", name: "name", widget: "string", hint: "e.g., Footer Sponsor 1, Footer Sponsor 2, etc."}
-      - {label: "Sponsor Image", name: "image", widget: "image", hint: "Sponsor logo image"}
-      - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"}
-      - {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"}
-      - {label: "Active", name: "active", widget: "boolean", default: true}
+    files:
+      - name: "footer_sponsors_list"
+        label: "Footer Sponsors List"
+        file: "content/home/footer-sponsors.md"
+        fields:
+          - {label: "Sponsors", name: "sponsors", widget: "list", fields: [
+              {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"},
+              {label: "Sponsor Image", name: "image", widget: "image", hint: "Sponsor logo image"},
+              {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"},
+              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this sponsor"}
+            ]}
 
   - name: "lineup"
     label: "Line-up Page"

@@ -71,7 +71,7 @@ class VedettWebsite {
         this.loadSponsors();
         
         // Load footer sponsors
-        this.loadFooterSponsors();
+        // this.loadFooterSponsors(); // Now handled in index.html
         
         // Load lineup if on lineup page
         if (window.lineup) {
@@ -219,12 +219,12 @@ class VedettWebsite {
     }
 
     loadSponsors() {
-        // This function is now handled by the loadFeaturedSponsors() function in index.html
-        // Sponsors are loaded dynamically from the CMS
-        console.log('Sponsors loading handled by loadFeaturedSponsors()');
+        // This function is now handled by the loadMainSponsors() function in index.html
+        // Main sponsors are loaded dynamically from the CMS
+        console.log('Main sponsors loading handled by loadMainSponsors()');
     }
 
-    // createSponsorItem function removed - now handled by loadFeaturedSponsors() in index.html
+    // createSponsorItem function removed - now handled by loadMainSponsors() in index.html
 
     loadFooterSponsors() {
         // Load Footer Sponsors from CMS (Simplified - Fixed 30 files)
@@ -428,7 +428,7 @@ class VedettWebsite {
         this.initializeLazyLoading();
         
         // Load footer sponsors from CMS
-        this.loadFooterSponsors();
+        // this.loadFooterSponsors(); // Now handled in index.html
     }
 
     // ===== LAZY LOADING =====
