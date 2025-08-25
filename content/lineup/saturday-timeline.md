@@ -1,5 +1,5 @@
 ---
-day_title: ZATERDAG 24 OKTOBER
+day_title: ZATERDAG 25 OKTOBER
 timeline_items:
   - active: true
     image: /img/uploads/tba.jpg
