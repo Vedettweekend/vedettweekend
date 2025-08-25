@@ -1,5 +1,5 @@
 ---
-name: Sponsor 6
+name: Sponsor F
 image: img/Thielemans.png
 websiteUrl: https://www.kantoorthielemans.be/
 altText: Thielemans Sponsor
