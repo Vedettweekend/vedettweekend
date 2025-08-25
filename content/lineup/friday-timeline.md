@@ -2,15 +2,15 @@
 day_title: VRIJDAG 24 OKTOBER
 timeline_items:
   - active: true
+    time: 20:00 <> 21:00
     image: /img/uploads/tba.jpg
-    time: 21:00 <> 22:00
     title: TBA
     subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
       het oog voor alle updates
     url: https://www.facebook.com/vedettweekend
   - active: true
-    time: 20:00 <> 21:00
     image: /img/uploads/tba.jpg
+    time: 21:00 <> 22:00
     title: TBA
     subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
       het oog voor alle updates
@@ -50,10 +50,4 @@ timeline_items:
     url: https://www.facebook.com/vedettweekend
     subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
       het oog voor alle updates
-  - active: true
-    time: test
-    image: /img/uploads/tba.jpg
-    title: test
-    subtext: test
-    url: vedett.be
 ---
