@@ -425,8 +425,19 @@
                         console.log(`🔍 Active match:`, activeMatch);
                         
                         if (timeMatch && activeMatch && activeMatch[1] === 'true') {
+                            // Clean up the time field - remove any extra whitespace or quotes
+                            let cleanTime = timeMatch[1].trim();
+                            
+                            // Remove quotes if they exist
+                            if (cleanTime.startsWith('"') && cleanTime.endsWith('"')) {
+                                cleanTime = cleanTime.slice(1, -1);
+                            }
+                            
+                            // Remove any leading/trailing whitespace
+                            cleanTime = cleanTime.trim();
+                            
                             const item = {
-                                time: timeMatch[1].trim(),
+                                time: cleanTime,
                                 image: imageMatch ? imageMatch[1].trim() : './img/tba.webp',
                                 title: titleMatch ? titleMatch[1].trim() : 'TBA',
                                 subtext: subtextMatch ? subtextMatch[1].trim() : 'Deze artiest zal binnenkort aangekondigd worden, hou onze socials in het oog voor alle updates',
