@@ -69,10 +69,10 @@ collections:
         file: "content/home/featured-sponsors.md"
         fields:
           - {label: "Sponsors", name: "sponsors", widget: "list", fields: [
-              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this sponsor"},
+              {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"},
               {label: "Sponsor Image", name: "image", widget: "image", hint: "Sponsor logo image"},
               {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"},
-              {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"}
+              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this sponsor"}
             ]}
 
   - name: "footer_sponsors"
