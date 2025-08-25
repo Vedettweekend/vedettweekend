@@ -229,35 +229,6 @@ class VedettWebsite {
     loadFooterSponsors() {
         // Load Footer Sponsors from CMS (Simplified - Fixed 30 files)
         this.loadFooterSponsorsFromCMS();
-        
-        // Load Footer Sponsors Settings from CMS
-        this.loadFooterSponsorsSettings();
-    }
-    
-    async loadFooterSponsorsSettings() {
-        try {
-            const response = await fetch('content/site-settings/footer-sponsors.md');
-            const text = await response.text();
-            
-            // Parse frontmatter to get footer sponsors settings
-            const enabledMatch = text.match(/footer_sponsors_enabled:\s*(true|false)/);
-            const titleMatch = text.match(/footer_sponsors_title:\s*"?([^"\n]+)"?/);
-            
-            // Update footer sponsors title
-            if (titleMatch && titleMatch[1]) {
-                const footerTitle = document.querySelector('.footer-sponsors h3, .footer-sponsors h4');
-                if (footerTitle) footerTitle.textContent = titleMatch[1];
-            }
-            
-            // Show/hide footer sponsors based on setting
-            if (enabledMatch && enabledMatch[1] === 'false') {
-                const footerSponsors = document.querySelector('.footer-sponsors');
-                if (footerSponsors) footerSponsors.style.display = 'none';
-            }
-            
-        } catch (error) {
-            console.log('Using fallback footer sponsors settings');
-        }
     }
     
     async loadFooterSponsorsFromCMS() {
@@ -278,16 +249,12 @@ class VedettWebsite {
                 if (imageMatch && websiteUrlMatch && activeMatch && activeMatch[1] === 'true') {
                     sponsors.push({
                         image: imageMatch[1],
-                        websiteUrl: websiteUrlMatch[1],
-                        order: i
+                        websiteUrl: websiteUrlMatch[1]
                     });
                 }
             }
             
-            // Sort footer sponsors by order before displaying
-            if (sponsors.length > 0) {
-                sponsors.sort((a, b) => a.order - b.order);
-            }
+
             
             // Display active footer sponsors
             const footerSponsorsGrid = document.querySelector('.sponsor-logos');
