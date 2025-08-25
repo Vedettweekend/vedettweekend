@@ -1,5 +1,5 @@
 ---
-name: Sponsor 7
+name: Sponsor G
 image: img/Tubo(FV).png
 websiteUrl: https://verwarminggids.be/nieuwenrode/tubo-centrale-verwarming-en/
 altText: Tubo Sponsor
