@@ -414,15 +414,8 @@
                         console.log(`📅 Parsing block ${index}:`, block);
                         
                         // Extract each field using regex - handle both quoted and unquoted values
-                        // For time, look for the actual time value at the start of the block
-                        let timeMatch = block.match(/^"?([^"\n]+)"?/);
-                        
-                        // If that doesn't work, try to find the time value after the first quote
-                        if (!timeMatch || timeMatch[1].includes('time:')) {
-                            // Look for time value in quotes or after colon
-                            timeMatch = block.match(/time:\s*"?([^"\n]+)"?/);
-                        }
-                        
+                        // Always look for the time value after the colon, regardless of quotes
+                        const timeMatch = block.match(/time:\s*"?([^"\n]+)"?/);
                         const imageMatch = block.match(/image:\s*"?([^"\n]+)"?/);
                         const titleMatch = block.match(/title:\s*"?([^"\n]+)"?/);
                         const subtextMatch = block.match(/subtext:\s*"?([^"\n]+)"?/);
