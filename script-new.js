@@ -229,6 +229,35 @@ class VedettWebsite {
     loadFooterSponsors() {
         // Load Footer Sponsors from CMS (Simplified - Fixed 30 files)
         this.loadFooterSponsorsFromCMS();
+        
+        // Load Footer Sponsors Settings from CMS
+        this.loadFooterSponsorsSettings();
+    }
+    
+    async loadFooterSponsorsSettings() {
+        try {
+            const response = await fetch('content/site-settings/footer-sponsors.md');
+            const text = await response.text();
+            
+            // Parse frontmatter to get footer sponsors settings
+            const enabledMatch = text.match(/footer_sponsors_enabled:\s*(true|false)/);
+            const titleMatch = text.match(/footer_sponsors_title:\s*"?([^"\n]+)"?/);
+            
+            // Update footer sponsors title
+            if (titleMatch && titleMatch[1]) {
+                const footerTitle = document.querySelector('.footer-sponsors h3, .footer-sponsors h4');
+                if (footerTitle) footerTitle.textContent = titleMatch[1];
+            }
+            
+            // Show/hide footer sponsors based on setting
+            if (enabledMatch && enabledMatch[1] === 'false') {
+                const footerSponsors = document.querySelector('.footer-sponsors');
+                if (footerSponsors) footerSponsors.style.display = 'none';
+            }
+            
+        } catch (error) {
+            console.log('Using fallback footer sponsors settings');
+        }
     }
     
     async loadFooterSponsorsFromCMS() {

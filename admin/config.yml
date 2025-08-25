@@ -16,23 +16,45 @@ collections:
   - name: "site_settings"
     label: "Site Settings"
     files:
+      - name: "footer_sponsors"
+        label: "Footer Sponsors"
+        file: "content/site-settings/footer-sponsors.md"
+        fields:
+          - {label: "Footer Sponsors Enabled", name: "footer_sponsors_enabled", widget: "boolean", default: true, hint: "Enable or disable footer sponsors display"}
+          - {label: "Footer Sponsors Title", name: "footer_sponsors_title", widget: "string", default: "SPONSORS", hint: "Title displayed above footer sponsors"}
+
+  - name: "home"
+    label: "Home Page"
+    files:
       - name: "youtube_video"
         label: "YouTube Video URL"
-        file: "content/site-settings/youtube-video.md"
+        file: "content/home/youtube-video.md"
         fields:
           - {label: "YouTube Video URL", name: "youtube_url", widget: "string", default: "https://www.youtube.com/embed/4B3gF9HZRSI"}
       
       - name: "logo"
         label: "Website Logo"
-        file: "content/site-settings/logo.md"
+        file: "content/home/logo.md"
         fields:
           - {label: "Logo Image", name: "logo_image", widget: "image", hint: "This logo will be used in the header and on the main page"}
-      
+
+  - name: "tickets"
+    label: "Tickets Page"
+    files:
       - name: "ticketshop"
         label: "Ticketshop URL"
-        file: "content/site-settings/ticketshop.md"
+        file: "content/tickets/ticketshop.md"
         fields:
           - {label: "Ticketshop Iframe URL", name: "ticketshop_url", widget: "string", hint: "The iframe URL for the ticketshop (e.g., EventSquare store URL)"}
+      
+      - name: "hero_section"
+        label: "Hero Section"
+        file: "content/tickets/hero-section.md"
+        fields:
+          - {label: "Hero Title", name: "hero_title", widget: "string", default: "KOOP JE TICKETS", hint: "Main title in the hero section"}
+          - {label: "Hero Subtitle", name: "hero_subtitle", widget: "string", default: "Vedettweekend 2025", hint: "Subtitle below the main title"}
+          - {label: "Hero Description", name: "hero_description", widget: "text", default: "Be there or be square! Koop hier je tickets voor het grootste feest van het jaar.", hint: "Description text in the hero section"}
+          - {label: "Hero Button Text", name: "hero_button_text", widget: "string", default: "KOOP TICKETS", hint: "Text on the main call-to-action button"}
 
   - name: "featured_artists"
     label: "Featured Artists"

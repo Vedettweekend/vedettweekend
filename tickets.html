@@ -197,7 +197,7 @@
     <!-- Ticketshop URL Loading from CMS -->
     <script>
         // Load Ticketshop URL from CMS
-        fetch('content/site-settings/ticketshop.md')
+        fetch('content/tickets/ticketshop.md')
             .then(response => response.text())
             .then(text => {
                 // Parse frontmatter to get ticketshop URL
@@ -210,6 +210,47 @@
             })
             .catch(error => {
                 console.log('Using fallback ticketshop URL');
+            });
+    </script>
+    
+    <!-- Hero Section Loading from CMS -->
+    <script>
+        // Load Hero Section from CMS
+        fetch('content/tickets/hero-section.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get hero content
+                const titleMatch = text.match(/hero_title:\s*"?([^"\n]+)"?/);
+                const subtitleMatch = text.match(/hero_subtitle:\s*"?([^"\n]+)"?/);
+                const descriptionMatch = text.match(/hero_description:\s*"?([^"\n]+)"?/);
+                const buttonTextMatch = text.match(/hero_button_text:\s*"?([^"\n]+)"?/);
+                
+                // Update hero title
+                if (titleMatch && titleMatch[1]) {
+                    const heroTitle = document.querySelector('.hero-title');
+                    if (heroTitle) heroTitle.textContent = titleMatch[1];
+                }
+                
+                // Update hero subtitle
+                if (subtitleMatch && subtitleMatch[1]) {
+                    const heroSubtitle = document.querySelector('.hero-subtitle');
+                    if (heroSubtitle) heroSubtitle.textContent = subtitleMatch[1];
+                }
+                
+                // Update hero description
+                if (descriptionMatch && descriptionMatch[1]) {
+                    const heroDescription = document.querySelector('.hero-description');
+                    if (heroDescription) heroDescription.textContent = descriptionMatch[1];
+                }
+                
+                // Update hero button text
+                if (buttonTextMatch && buttonTextMatch[1]) {
+                    const heroButton = document.querySelector('.hero-button');
+                    if (heroButton) heroButton.textContent = buttonTextMatch[1];
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback hero section content');
             });
     </script>
     

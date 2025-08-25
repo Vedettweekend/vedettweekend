@@ -429,7 +429,7 @@
 
 
         // Load Logo from CMS
-        fetch('content/site-settings/logo.md')
+        fetch('content/home/logo.md')
             .then(response => response.text())
             .then(text => {
                 // Parse frontmatter to get logo path
@@ -476,7 +476,7 @@
             });
             
         // Load YouTube Video from CMS
-        fetch('content/site-settings/youtube-video.md')
+        fetch('content/home/youtube-video.md')
             .then(response => response.text())
             .then(text => {
                 // Parse frontmatter to get YouTube URL

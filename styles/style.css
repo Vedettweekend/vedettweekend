@@ -1366,7 +1366,6 @@ body {
 
 #esq-store {
   width: 100%;
-  min-height: 600px;
   position: relative;
   margin: 0; /* Remove all margins */
   padding: 0; /* Remove all padding */
