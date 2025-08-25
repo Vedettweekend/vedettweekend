@@ -436,14 +436,9 @@
                     // Extract the full item block
                     const itemBlock = timelineSection.substring(startIndex, endIndex);
                     
-                    // Handle malformed items (like your 'test' item that has active: true first)
-                    if (itemBlock.includes('active: true') && !itemBlock.includes('time:')) {
-                        console.log(`⚠️ Skipping malformed item block:`, itemBlock);
-                        continue;
-                    }
                     console.log(`📅 Parsing item block:`, itemBlock);
                     
-                    // Extract each field using regex
+                    // Extract each field using regex - handle any order of fields
                     const imageMatch = itemBlock.match(/image:\s*"?([^"\n]+)"?/);
                     const titleMatch = itemBlock.match(/title:\s*"?([^"\n]+)"?/);
                     const subtextMatch = itemBlock.match(/subtext:\s*"?([^"\n]+)"?/);
@@ -456,7 +451,8 @@
                     console.log(`🔍 URL match:`, urlMatch);
                     console.log(`🔍 Active match:`, activeMatch);
                     
-                    if (activeMatch && activeMatch[1] === 'true') {
+                    // Check if item is active and has required fields
+                    if (activeMatch && activeMatch[1] === 'true' && timeValue) {
                         // Clean up the time field - remove any extra whitespace or quotes
                         let cleanTime = timeValue.trim();
                         
@@ -479,7 +475,15 @@
                         items.push(item);
                         console.log(`✅ Added item:`, item);
                     } else {
-                        console.log(`❌ Skipped item - activeMatch:`, activeMatch);
+                        if (!activeMatch) {
+                            console.log(`❌ Skipped item - missing active field`);
+                        } else if (activeMatch[1] !== 'true') {
+                            console.log(`❌ Skipped item - not active (active: ${activeMatch[1]})`);
+                        } else if (!timeValue) {
+                            console.log(`❌ Skipped item - missing time value`);
+                        } else {
+                            console.log(`❌ Skipped item - unknown reason`);
+                        }
                     }
                 }
             }
