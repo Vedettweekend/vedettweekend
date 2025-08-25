@@ -1,5 +1,5 @@
 ---
-day_title: ZATERDAG 26 OKTOBER
+day_title: ZATERDAG 24 OKTOBER
 timeline_items:
   - time: 17:30 - 21:00
     image: ./img/Pasta.jpeg
