@@ -1,5 +1,5 @@
 ---
-name: Sponsor 8
+name: Sponsor H
 image: img/VanRoey(FV).png
 websiteUrl: https://www.vanroey.be/en/
 altText: VanRoey Sponsor

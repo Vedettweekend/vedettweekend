@@ -1,5 +1,5 @@
 ---
-name: Sponsor 9
+name: Sponsor I
 image: img/Argenta(FV).png
 websiteUrl: https://www.argenta.be/nl/kantoren/de-jongh--gits-bv-3136.html
 altText: Argenta Sponsor

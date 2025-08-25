@@ -1,5 +1,5 @@
 ---
-name: Sponsor 4
+name: Sponsor D
 image: img/Consteca(FV).png
 websiteUrl: https://www.consteca.be/
 altText: Consteca Sponsor

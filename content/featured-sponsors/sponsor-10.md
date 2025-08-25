@@ -1,5 +1,5 @@
 ---
-name: Sponsor 10
+name: Sponsor J
 image: img/BakerTilly(FV) 1.png
 websiteUrl: https://www.bakertilly.be/nl
 altText: BakerTilly Sponsor

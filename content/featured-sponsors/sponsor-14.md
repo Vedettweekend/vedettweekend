@@ -1,5 +1,5 @@
 ---
-name: Sponsor 14
+name: Sponsor N
 image: img/placeholder.png
 websiteUrl: https://example.com
 altText: Sponsor 14
