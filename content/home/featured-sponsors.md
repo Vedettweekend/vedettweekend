@@ -3,7 +3,7 @@ sponsors:
   - altText: Feryn
     image: /img/uploads/feryn.png
     websiteUrl: https://www.facebook.com/p/Cynthias-bakery-100063702123669/
-    active: true
+    active: false
   - altText: Vedett
     image: /img/uploads/vd27.png
     websiteUrl: vedett.be
