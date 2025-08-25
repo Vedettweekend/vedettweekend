@@ -376,46 +376,108 @@
             });
         }
 
-                // Load Featured Sponsors from CMS (Simplified - Fixed 15 files)
+                // Load Featured Sponsors from CMS (New expandable panel structure)
         async function loadFeaturedSponsors() {
             try {
-                const sponsors = [];
+                const response = await fetch('content/home/featured-sponsors.md');
+                const text = await response.text();
                 
-                // Load all 15 sponsor files (they all exist now)
-                for (let i = 1; i <= 15; i++) {
-                    const response = await fetch(`content/featured-sponsors/sponsor-${i}.md`);
-                    const text = await response.text();
+                console.log('🏢 Featured sponsors CMS response:', text);
+                
+                // Parse frontmatter to get sponsors list
+                const sponsorsMatch = text.match(/sponsors:\s*\n([\s\S]*?)(?=\n---|$)/);
+                
+                if (sponsorsMatch) {
+                    const sponsorsSection = sponsorsMatch[1];
+                    console.log('🏢 Sponsors section found:', sponsorsSection);
                     
-                    // Extract only what we need: image, URL, and active status
-                    const imageMatch = text.match(/image:\s*"?([^"\n]+)"?/);
-                    const websiteUrlMatch = text.match(/websiteUrl:\s*"?([^"\n]+)"?/);
-                    const activeMatch = text.match(/active:\s*(true|false)/);
+                    const sponsors = [];
                     
-                                    // Only add if sponsor is active
-                if (imageMatch && websiteUrlMatch && activeMatch && activeMatch[1] === 'true') {
-                                            sponsors.push({
-                            image: imageMatch[1],
-                            websiteUrl: websiteUrlMatch[1]
-                        });
+                    // Find all sponsor items that start with - active:
+                    const sponsorMatches = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*active:\s*(true|false)/g);
+                    console.log('🏢 Found sponsor matches:', Array.from(sponsorMatches));
+                    
+                    // Reset the iterator
+                    const sponsorMatches2 = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*active:\s*(true|false)/g);
+                    
+                    for (const match of sponsorMatches2) {
+                        const activeValue = match[1];
+                        const startIndex = match.index;
+                        
+                        console.log(`🏢 Processing sponsor match:`, match);
+                        console.log(`🏢 Active value:`, activeValue);
+                        console.log(`🏢 Start index:`, startIndex);
+                        
+                        // Find the end of this sponsor item (next dash or end of section)
+                        const nextActiveDash = sponsorsSection.indexOf('\n  - active:', startIndex + 1);
+                        const endIndex = nextActiveDash > -1 ? nextActiveDash : sponsorsSection.length;
+                        
+                        console.log(`🏢 Next active dash at:`, nextActiveDash);
+                        console.log(`🏢 End index:`, endIndex);
+                        
+                        // Extract the full sponsor block
+                        const sponsorBlock = sponsorsSection.substring(startIndex, endIndex);
+                        
+                        console.log(`🏢 Parsing sponsor block:`, sponsorBlock);
+                        
+                        // Extract each field using regex
+                        const imageMatch = sponsorBlock.match(/image:\s*"?([^"\n]+)"?/);
+                        const websiteUrlMatch = sponsorBlock.match(/websiteUrl:\s*"?([^"\n]+)"?/);
+                        const altTextMatch = sponsorBlock.match(/altText:\s*"?([^"\n]+)"?/);
+                        
+                        console.log(`🏢 Image match:`, imageMatch);
+                        console.log(`🏢 Website URL match:`, websiteUrlMatch);
+                        console.log(`🏢 Alt text match:`, altTextMatch);
+                        
+                        // Check if sponsor is active and has required fields
+                        if (activeValue === 'true' && imageMatch && websiteUrlMatch) {
+                            // Ensure URL has proper protocol
+                            let urlValue = websiteUrlMatch[1].trim();
+                            if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
+                                urlValue = 'https://' + urlValue;
+                            }
+                            
+                            const sponsor = {
+                                image: imageMatch[1].trim(),
+                                websiteUrl: urlValue,
+                                altText: altTextMatch ? altTextMatch[1].trim() : 'Sponsor'
+                            };
+                            
+                            sponsors.push(sponsor);
+                            console.log(`✅ Added sponsor:`, sponsor);
+                        } else {
+                            if (activeValue !== 'true') {
+                                console.log(`❌ Skipped sponsor - not active (active: ${activeValue})`);
+                            } else if (!imageMatch) {
+                                console.log(`❌ Skipped sponsor - missing image field`);
+                            } else if (!websiteUrlMatch) {
+                                console.log(`❌ Skipped sponsor - missing website URL field`);
+                            } else {
+                                console.log(`❌ Skipped sponsor - unknown reason`);
+                            }
+                        }
+                    }
+                    
+                    console.log('🏢 Final sponsors array:', sponsors);
+                    
+                    // Display active sponsors in grid
+                    const sponsorsGrid = document.getElementById('sponsorsGrid');
+                    if (sponsorsGrid && sponsors.length > 0) {
+                        const htmlContent = sponsors.map(sponsor => `
+                            <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
+                                <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
+                            </a>
+                        `).join('');
+                        
+                        sponsorsGrid.innerHTML = htmlContent;
+                        console.log('🏢 Updated sponsors grid with', sponsors.length, 'sponsors');
+                    }
+                } else {
+                    console.log('❌ No sponsors section found in CMS response');
                 }
-            }
-            
-
-            
-            // Display active sponsors in grid
-            const sponsorsGrid = document.getElementById('sponsorsGrid');
-            if (sponsorsGrid && sponsors.length > 0) {
-                const htmlContent = sponsors.map(sponsor => `
-                    <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
-                        <img src="${sponsor.image}" alt="Sponsor" loading="lazy">
-                    </a>
-                `).join('');
-                
-                sponsorsGrid.innerHTML = htmlContent;
-            }
                 
             } catch (error) {
-                console.error('Sponsor loading error:', error);
+                console.error('🏢 Sponsor loading error:', error);
             }
         }
         

@@ -63,15 +63,17 @@ collections:
 
   - name: "featured_sponsors"
     label: "Featured Sponsors"
-    folder: "content/featured-sponsors"
-    create: false
-    slug: "sponsor-{{name}}"
-    fields:
-      - {label: "Sponsor Name", name: "name", widget: "string", hint: "e.g., Sponsor 1, Sponsor 2, etc."}
-      - {label: "Sponsor Image", name: "image", widget: "image", hint: "Sponsor logo image"}
-      - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"}
-      - {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"}
-      - {label: "Active", name: "active", widget: "boolean", default: true}
+    files:
+      - name: "sponsors_list"
+        label: "Featured Sponsors List"
+        file: "content/home/featured-sponsors.md"
+        fields:
+          - {label: "Sponsors", name: "sponsors", widget: "list", fields: [
+              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this sponsor"},
+              {label: "Sponsor Image", name: "image", widget: "image", hint: "Sponsor logo image"},
+              {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"},
+              {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"}
+            ]}
 
   - name: "footer_sponsors"
     label: "Footer Sponsors"
