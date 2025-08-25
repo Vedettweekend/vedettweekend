@@ -406,52 +406,57 @@
                 const timelineSection = timelineMatch[1];
                 console.log('📅 Timeline section found:', timelineSection);
                 
-                // Split by item markers and parse each item - look for the dash followed by time
-                const itemBlocks = timelineSection.split(/\n\s*-\s*time:/).filter(block => block.trim());
+                // Find all timeline items by looking for the dash pattern
+                const itemMatches = timelineSection.matchAll(/\n\s*-\s*time:\s*"?([^"\n]+)"?/g);
                 
-                itemBlocks.forEach((block, index) => {
-                    if (block.trim()) {
-                        console.log(`📅 Parsing block ${index}:`, block);
+                for (const match of itemMatches) {
+                    const timeValue = match[1];
+                    const startIndex = match.index;
+                    
+                    // Find the end of this item (next dash or end of section)
+                    const nextDash = timelineSection.indexOf('\n  - time:', startIndex + 1);
+                    const endIndex = nextDash > -1 ? nextDash : timelineSection.length;
+                    
+                    // Extract the full item block
+                    const itemBlock = timelineSection.substring(startIndex, endIndex);
+                    console.log(`📅 Parsing item block:`, itemBlock);
+                    
+                    // Extract each field using regex
+                    const imageMatch = itemBlock.match(/image:\s*"?([^"\n]+)"?/);
+                    const titleMatch = itemBlock.match(/title:\s*"?([^"\n]+)"?/);
+                    const subtextMatch = itemBlock.match(/subtext:\s*"?([^"\n]+)"?/);
+                    const urlMatch = itemBlock.match(/url:\s*"?([^"\n]+)"?/);
+                    const activeMatch = itemBlock.match(/active:\s*(true|false)/);
+                    
+                    console.log(`🔍 Time value:`, timeValue);
+                    console.log(`🔍 Active match:`, activeMatch);
+                    
+                    if (activeMatch && activeMatch[1] === 'true') {
+                        // Clean up the time field - remove any extra whitespace or quotes
+                        let cleanTime = timeValue.trim();
                         
-                        // Extract each field using regex - handle both quoted and unquoted values
-                        // Always look for the time value after the colon, regardless of quotes
-                        const timeMatch = block.match(/time:\s*"?([^"\n]+)"?/);
-                        const imageMatch = block.match(/image:\s*"?([^"\n]+)"?/);
-                        const titleMatch = block.match(/title:\s*"?([^"\n]+)"?/);
-                        const subtextMatch = block.match(/subtext:\s*"?([^"\n]+)"?/);
-                        const urlMatch = block.match(/url:\s*"?([^"\n]+)"?/);
-                        const activeMatch = block.match(/active:\s*(true|false)/);
-                        
-                        console.log(`🔍 Time match:`, timeMatch);
-                        console.log(`🔍 Active match:`, activeMatch);
-                        
-                        if (timeMatch && activeMatch && activeMatch[1] === 'true') {
-                            // Clean up the time field - remove any extra whitespace or quotes
-                            let cleanTime = timeMatch[1].trim();
-                            
-                            // Remove quotes if they exist
-                            if (cleanTime.startsWith('"') && cleanTime.endsWith('"')) {
-                                cleanTime = cleanTime.slice(1, -1);
-                            }
-                            
-                            // Remove any leading/trailing whitespace
-                            cleanTime = cleanTime.trim();
-                            
-                            const item = {
-                                time: cleanTime,
-                                image: imageMatch ? imageMatch[1].trim() : './img/tba.webp',
-                                title: titleMatch ? titleMatch[1].trim() : 'TBA',
-                                subtext: subtextMatch ? subtextMatch[1].trim() : 'Deze artiest zal binnenkort aangekondigd worden, hou onze socials in het oog voor alle updates',
-                                url: urlMatch ? urlMatch[1].trim() : 'https://www.facebook.com/vedettweekend'
-                            };
-                            
-                            items.push(item);
-                            console.log(`✅ Added item:`, item);
-                        } else {
-                            console.log(`❌ Skipped item - timeMatch:`, timeMatch, `activeMatch:`, activeMatch);
+                        // Remove quotes if they exist
+                        if (cleanTime.startsWith('"') && cleanTime.endsWith('"')) {
+                            cleanTime = cleanTime.slice(1, -1);
                         }
+                        
+                        // Remove any leading/trailing whitespace
+                        cleanTime = cleanTime.trim();
+                        
+                        const item = {
+                            time: cleanTime,
+                            image: imageMatch ? imageMatch[1].trim() : './img/tba.webp',
+                            title: titleMatch ? titleMatch[1].trim() : 'TBA',
+                            subtext: subtextMatch ? subtextMatch[1].trim() : 'Deze artiest zal binnenkort aangekondigd worden, hou onze socials in het oog voor alle updates',
+                            url: urlMatch ? urlMatch[1].trim() : 'https://www.facebook.com/vedettweekend'
+                        };
+                        
+                        items.push(item);
+                        console.log(`✅ Added item:`, item);
+                    } else {
+                        console.log(`❌ Skipped item - activeMatch:`, activeMatch);
                     }
-                });
+                }
             }
             
             console.log(`📅 Final items array:`, items);
