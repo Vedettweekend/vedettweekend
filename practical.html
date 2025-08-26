@@ -466,8 +466,8 @@
                 // Parse frontmatter to get verkeer content
                 const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
                 const imageMatch = text.match(/tab_image:\s*"?([^"\n]+)"?/);
-                const subtextMatch = text.match(/tab_subtext:\s*"?([\s\S]*?)(?=\n\s+\w+:|---|$)/);
-                const trafficTextMatch = text.match(/traffic_text:\s*"?([\s\S]*?)(?=\n\s+\w+:|---|$)/);
+                const subtextMatch = text.match(/tab_subtext:\s*"([^"]+)"/);
+                const trafficTextMatch = text.match(/traffic_text:\s*"([^"]+)"/);
                 
                 // Update verkeer tab title
                 if (titleMatch && titleMatch[1]) {
