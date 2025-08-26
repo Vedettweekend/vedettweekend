@@ -364,6 +364,126 @@
         };
     </script>
 
+    <!-- Hero Section Loading from CMS -->
+    <script>
+        // Load Hero Section from CMS
+        fetch('content/practical/hero-section.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get hero content
+                const titleMatch = text.match(/hero_title:\s*"?([^"\n]+)"?/);
+                const subtitleMatch = text.match(/hero_subtitle:\s*"?([^"\n]+)"?/);
+                const descriptionMatch = text.match(/hero_description:\s*"?([^"\n]+)"?/);
+                
+                // Update hero title
+                if (titleMatch && titleMatch[1]) {
+                    const heroTitle = document.querySelector('.info-title');
+                    if (heroTitle) heroTitle.textContent = titleMatch[1];
+                }
+                
+                // Update hero subtitle
+                if (subtitleMatch && subtitleMatch[1]) {
+                    const heroSubtitle = document.querySelector('.info-subtitle');
+                    if (heroSubtitle) heroSubtitle.textContent = subtitleMatch[1];
+                }
+                
+                // Update hero description
+                if (descriptionMatch && descriptionMatch[1]) {
+                    const heroDescription = document.querySelector('.info-description');
+                    if (heroDescription) heroDescription.textContent = descriptionMatch[1];
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback hero section content');
+            });
+    </script>
+
+    <!-- Locatie Tab Loading from CMS -->
+    <script>
+        // Load Locatie Tab from CMS
+        fetch('content/practical/locatie.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get locatie content
+                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
+                
+                // Update locatie tab title
+                if (titleMatch && titleMatch[1]) {
+                    const locatieTabTitle = document.querySelector('[data-tab="locatie"] .tab-title');
+                    if (locatieTabTitle) locatieTabTitle.textContent = titleMatch[1];
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback locatie content');
+            });
+    </script>
+
+    <!-- Voorzieningen Tab Loading from CMS -->
+    <script>
+        // Load Voorzieningen Tab from CMS
+        fetch('content/practical/voorzieningen.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get voorzieningen content
+                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
+                
+                // Update voorzieningen tab title
+                if (titleMatch && titleMatch[1]) {
+                    const voorzieningenTabTitle = document.querySelector('[data-tab="voorzieningen"] .tab-title');
+                    if (voorzieningenTabTitle) voorzieningenTabTitle.textContent = titleMatch[1];
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback voorzieningen content');
+            });
+    </script>
+
+    <!-- Verkeer Tab Loading from CMS -->
+    <script>
+        // Load Verkeer Tab from CMS
+        fetch('content/practical/verkeer.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get verkeer content
+                const imageMatch = text.match(/tab_image:\s*"?([^"\n]+)"?/);
+                const subtextMatch = text.match(/tab_subtext:\s*"?([\s\S]*?)(?=\n---|$)/);
+                
+                // Update verkeer tab image
+                if (imageMatch && imageMatch[1]) {
+                    const verkeerImage = document.querySelector('[data-tab="verkeer"] .traffic-image');
+                    if (verkeerImage) verkeerImage.src = imageMatch[1];
+                }
+                
+                // Update verkeer tab subtext
+                if (subtextMatch && subtextMatch[1]) {
+                    const verkeerSubtext = document.querySelector('[data-tab="verkeer"] .traffic-text');
+                    if (verkeerSubtext) verkeerSubtext.innerHTML = subtextMatch[1];
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback verkeer content');
+            });
+    </script>
+
+    <!-- FAQ Tab Loading from CMS -->
+    <script>
+        // Load FAQ Tab from CMS
+        fetch('content/practical/faq.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get FAQ content
+                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
+                
+                // Update FAQ tab title
+                if (titleMatch && titleMatch[1]) {
+                    const faqTabTitle = document.querySelector('[data-tab="faq"] .tab-title');
+                    if (faqTabTitle) faqTabTitle.textContent = titleMatch[1];
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback FAQ content');
+            });
+    </script>
 
     
     <!-- Main JavaScript -->
@@ -377,9 +497,20 @@
             const tabPanels = document.querySelectorAll('.tab-panel');
             const tabNavigation = document.getElementById('tabNavigation');
 
+            if (!tabButtons.length || !tabPanels.length) {
+                console.warn('Tab elements not found');
+                return;
+            }
+
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const targetTab = button.getAttribute('data-tab');
+                    const targetPanel = document.getElementById(targetTab);
+                    
+                    if (!targetPanel) {
+                        console.warn(`Target panel ${targetTab} not found`);
+                        return;
+                    }
                     
                     // Remove active class from all buttons and panels
                     tabButtons.forEach(btn => btn.classList.remove('active'));
@@ -387,7 +518,7 @@
                     
                     // Add active class to clicked button and target panel
                     button.classList.add('active');
-                    document.getElementById(targetTab).classList.add('active');
+                    targetPanel.classList.add('active');
                     
                     // Center the active tab between the arrows on smaller viewports
                     centerActiveTab(button);
@@ -418,6 +549,12 @@
         function openFullscreen() {
             const overlay = document.getElementById('fullscreenOverlay');
             const image = document.getElementById('fullscreenImage');
+            
+            if (!overlay || !image) {
+                console.warn('Fullscreen elements not found');
+                return;
+            }
+            
             image.src = './img/Wegaanduiding24.png';
             overlay.style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -425,14 +562,25 @@
 
         function closeFullscreen() {
             const overlay = document.getElementById('fullscreenOverlay');
+            
+            if (!overlay) {
+                console.warn('Fullscreen overlay not found');
+                return;
+            }
+            
             overlay.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
         // Close fullscreen when clicking outside the image
-        document.getElementById('fullscreenOverlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeFullscreen();
+        document.addEventListener('DOMContentLoaded', function() {
+            const overlay = document.getElementById('fullscreenOverlay');
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeFullscreen();
+                    }
+                });
             }
         });
 
@@ -467,55 +615,58 @@
         }
 
         // Navigation arrow functionality
-        const navArrowLeft = document.getElementById('navArrowLeft');
-        const navArrowRight = document.getElementById('navArrowRight');
-        
-        if (navArrowLeft && navArrowRight && tabNavigation) {
-            // Scroll left
-            navArrowLeft.addEventListener('click', function() {
-                tabNavigation.scrollBy({
-                    left: -200,
-                    behavior: 'smooth'
+        document.addEventListener('DOMContentLoaded', function() {
+            const navArrowLeft = document.getElementById('navArrowLeft');
+            const navArrowRight = document.getElementById('navArrowRight');
+            const tabNavigation = document.querySelector('.tab-navigation');
+            
+            if (navArrowLeft && navArrowRight && tabNavigation) {
+                // Scroll left
+                navArrowLeft.addEventListener('click', function() {
+                    tabNavigation.scrollBy({
+                        left: -200,
+                        behavior: 'smooth'
+                    });
                 });
-            });
-            
-            // Scroll right
-            navArrowRight.addEventListener('click', function() {
-                tabNavigation.scrollBy({
-                    left: 200,
-                    behavior: 'smooth'
+                
+                // Scroll right
+                navArrowRight.addEventListener('click', function() {
+                    tabNavigation.scrollBy({
+                        left: 200,
+                        behavior: 'smooth'
+                    });
                 });
-            });
-            
-            // Show/hide arrows based on scroll position
-            function updateArrowVisibility() {
-                const isAtStart = tabNavigation.scrollLeft <= 0;
-                const isAtEnd = tabNavigation.scrollLeft >= tabNavigation.scrollWidth - tabNavigation.clientWidth;
                 
-                navArrowLeft.style.opacity = isAtStart ? '0.5' : '1';
-                navArrowLeft.style.pointerEvents = isAtStart ? 'none' : 'auto';
+                // Show/hide arrows based on scroll position
+                function updateArrowVisibility() {
+                    const isAtStart = tabNavigation.scrollLeft <= 0;
+                    const isAtEnd = tabNavigation.scrollLeft >= tabNavigation.scrollWidth - tabNavigation.clientWidth;
+                    
+                    navArrowLeft.style.opacity = isAtStart ? '0.5' : '1';
+                    navArrowLeft.style.pointerEvents = isAtStart ? 'none' : 'auto';
+                    
+                    navArrowRight.style.opacity = isAtEnd ? '0.5' : '1';
+                    navArrowRight.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+                }
                 
-                navArrowRight.style.opacity = isAtEnd ? '0.5' : '1';
-                navArrowRight.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+                // Update arrows on scroll
+                tabNavigation.addEventListener('scroll', updateArrowVisibility);
+                
+                // Initial update
+                updateArrowVisibility();
+                
+                // Update on window resize
+                window.addEventListener('resize', updateArrowVisibility);
+                
+                // Center the initially active tab on page load
+                const initialActiveTab = document.querySelector('.tab-button.active');
+                if (initialActiveTab) {
+                    setTimeout(() => {
+                        centerActiveTab(initialActiveTab);
+                    }, 100); // Small delay to ensure layout is complete
+                }
             }
-            
-            // Update arrows on scroll
-            tabNavigation.addEventListener('scroll', updateArrowVisibility);
-            
-            // Initial update
-            updateArrowVisibility();
-            
-            // Update on window resize
-            window.addEventListener('resize', updateArrowVisibility);
-            
-            // Center the initially active tab on page load
-            const initialActiveTab = document.querySelector('.tab-button.active');
-            if (initialActiveTab) {
-                setTimeout(() => {
-                    centerActiveTab(initialActiveTab);
-                }, 100); // Small delay to ensure layout is complete
-            }
-        }
+        });
     </script>
     
     <!-- Logo Loading from CMS -->
