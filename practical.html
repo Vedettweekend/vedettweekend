@@ -406,11 +406,17 @@
             .then(text => {
                 // Parse frontmatter to get locatie content
                 const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
+                const transportMethodsMatch = text.match(/transport_methods:\s*\n([\s\S]*?)(?=\n---|$)/);
                 
                 // Update locatie tab title
                 if (titleMatch && titleMatch[1]) {
                     const locatieTabTitle = document.querySelector('[data-tab="locatie"] .tab-title');
                     if (locatieTabTitle) locatieTabTitle.textContent = titleMatch[1];
+                }
+                
+                // Update transport methods
+                if (transportMethodsMatch) {
+                    updateTransportMethods(transportMethodsMatch[1]);
                 }
             })
             .catch(error => {
@@ -426,11 +432,24 @@
             .then(text => {
                 // Parse frontmatter to get voorzieningen content
                 const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
+                const facilitiesMatch = text.match(/facilities:\s*\n([\s\S]*?)(?=\n---|$)/);
+                const paymentInfoMatch = text.match(/payment_info:\s*"?([\s\S]*?)(?=\n---|$)/);
                 
                 // Update voorzieningen tab title
                 if (titleMatch && titleMatch[1]) {
                     const voorzieningenTabTitle = document.querySelector('[data-tab="voorzieningen"] .tab-title');
                     if (voorzieningenTabTitle) voorzieningenTabTitle.textContent = titleMatch[1];
+                }
+                
+                // Update facilities
+                if (facilitiesMatch) {
+                    updateFacilities(facilitiesMatch[1]);
+                }
+                
+                // Update payment info
+                if (paymentInfoMatch && paymentInfoMatch[1]) {
+                    const paymentInfo = document.querySelector('[data-tab="voorzieningen"] .payment-info p');
+                    if (paymentInfo) paymentInfo.innerHTML = paymentInfoMatch[1];
                 }
             })
             .catch(error => {
@@ -445,8 +464,15 @@
             .then(response => response.text())
             .then(text => {
                 // Parse frontmatter to get verkeer content
+                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
                 const imageMatch = text.match(/tab_image:\s*"?([^"\n]+)"?/);
-                const subtextMatch = text.match(/tab_subtext:\s*"?([\s\S]*?)(?=\n---|$)/);
+                const trafficTextMatch = text.match(/traffic_text:\s*"?([\s\S]*?)(?=\n---|$)/);
+                
+                // Update verkeer tab title
+                if (titleMatch && titleMatch[1]) {
+                    const verkeerTabTitle = document.querySelector('[data-tab="verkeer"] .tab-title');
+                    if (verkeerTabTitle) verkeerTabTitle.textContent = titleMatch[1];
+                }
                 
                 // Update verkeer tab image
                 if (imageMatch && imageMatch[1]) {
@@ -454,10 +480,10 @@
                     if (verkeerImage) verkeerImage.src = imageMatch[1];
                 }
                 
-                // Update verkeer tab subtext
-                if (subtextMatch && subtextMatch[1]) {
-                    const verkeerSubtext = document.querySelector('[data-tab="verkeer"] .traffic-text');
-                    if (verkeerSubtext) verkeerSubtext.innerHTML = subtextMatch[1];
+                // Update verkeer tab traffic text
+                if (trafficTextMatch && trafficTextMatch[1]) {
+                    const verkeerTrafficText = document.querySelector('[data-tab="verkeer"] .traffic-text');
+                    if (verkeerTrafficText) verkeerTrafficText.innerHTML = trafficTextMatch[1];
                 }
             })
             .catch(error => {
@@ -473,16 +499,144 @@
             .then(text => {
                 // Parse frontmatter to get FAQ content
                 const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
+                const faqItemsMatch = text.match(/faq_items:\s*\n([\s\S]*?)(?=\n---|$)/);
                 
                 // Update FAQ tab title
                 if (titleMatch && titleMatch[1]) {
                     const faqTabTitle = document.querySelector('[data-tab="faq"] .tab-title');
                     if (faqTabTitle) faqTabTitle.textContent = titleMatch[1];
                 }
+                
+                // Update FAQ items
+                if (faqItemsMatch) {
+                    updateFAQItems(faqItemsMatch[1]);
+                }
             })
             .catch(error => {
                 console.log('Using fallback FAQ content');
             });
+    </script>
+
+    <!-- Helper Functions for CMS Updates -->
+    <script>
+        // Function to update transport methods
+        function updateTransportMethods(transportMethodsSection) {
+            const container = document.querySelector('[data-tab="locatie"] .location-info');
+            if (!container) {
+                console.warn('Transport methods container not found');
+                return;
+            }
+            
+            const methods = parseListItems(transportMethodsSection);
+            if (methods.length > 0) {
+                const htmlContent = methods.map(method => `
+                    <div class="info-card">
+                        <h3><i class="${method.icon}"></i> ${method.title}</h3>
+                        <p>${method.description}</p>
+                    </div>
+                `).join('');
+                
+                container.innerHTML = htmlContent;
+            }
+        }
+        
+        // Function to update facilities
+        function updateFacilities(facilitiesSection) {
+            const container = document.querySelector('[data-tab="voorzieningen"] .facilities-grid');
+            if (!container) {
+                console.warn('Facilities container not found');
+                return;
+            }
+            
+            const facilities = parseListItems(facilitiesSection);
+            if (facilities.length > 0) {
+                const htmlContent = facilities.map(facility => `
+                    <div class="facility-item">
+                        <i class="${facility.icon}"></i>
+                        <span>${facility.title}</span>
+                    </div>
+                `).join('');
+                
+                container.innerHTML = htmlContent;
+            }
+        }
+        
+        // Function to update FAQ items
+        function updateFAQItems(faqItemsSection) {
+            const container = document.querySelector('[data-tab="faq"] .faq-list');
+            if (!container) {
+                console.warn('FAQ container not found');
+                return;
+            }
+            
+            const faqItems = parseListItems(faqItemsSection);
+            if (faqItems.length > 0) {
+                const htmlContent = faqItems.map((item, index) => `
+                    <div class="faq-item">
+                        <h3>${index + 1}. ${item.question}</h3>
+                        <p>${item.answer}</p>
+                    </div>
+                `).join('');
+                
+                container.innerHTML = htmlContent;
+            }
+        }
+        
+        // Function to parse list items from CMS markdown
+        function parseListItems(section) {
+            if (!section || typeof section !== 'string') {
+                console.warn('Invalid section provided to parseListItems');
+                return [];
+            }
+            
+            const items = [];
+            
+            try {
+                // Find all items that start with - active: (CMS order is preserved)
+                const itemMatches = section.matchAll(/(?:^|\n)\s*-\s*active:\s*(true|false)/g);
+                
+                for (const match of itemMatches) {
+                    const activeValue = match[1];
+                    const startIndex = match.index;
+                    
+                    // Find the end of this item (next dash or end of section)
+                    const nextActiveDash = section.indexOf('\n  - active:', startIndex + 1);
+                    const endIndex = nextActiveDash > -1 ? nextActiveDash : section.length;
+                    
+                    // Extract the full item block
+                    const itemBlock = section.substring(startIndex, endIndex);
+                    
+                    // Extract each field using regex
+                    const iconMatch = itemBlock.match(/icon:\s*"?([^"\n]+)"?/);
+                    const titleMatch = itemBlock.match(/title:\s*"?([^"\n]+)"?/);
+                    const descriptionMatch = itemBlock.match(/description:\s*"?([\s\S]*?)(?=\n\s+\w+:|---|$)/);
+                    const questionMatch = itemBlock.match(/question:\s*"?([^"\n]+)"?/);
+                    const answerMatch = itemBlock.match(/answer:\s*"?([\s\S]*?)(?=\n\s+\w+:|---|$)/);
+                    
+                    // Check if item is active and has required fields
+                    if (activeValue === 'true') {
+                        if (iconMatch && titleMatch && descriptionMatch) {
+                            // Transport method or facility
+                            items.push({
+                                icon: iconMatch[1].trim(),
+                                title: titleMatch[1].trim(),
+                                description: descriptionMatch[1].trim()
+                            });
+                        } else if (questionMatch && answerMatch) {
+                            // FAQ item
+                            items.push({
+                                question: questionMatch[1].trim(),
+                                answer: answerMatch[1].trim()
+                            });
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error parsing list items:', error);
+            }
+            
+            return items;
+        }
     </script>
 
     
