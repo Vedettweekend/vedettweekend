@@ -141,10 +141,11 @@ collections:
         file: "content/practical/locatie.md"
         fields:
           - {label: "Tab Title", name: "tab_title", widget: "string", default: "LOCATIE", hint: "Title for the locatie tab"}
+          - {label: "Tab Description", name: "tab_description", widget: "text", default: "Hoe kom je naar Vedettweekend?", hint: "Description text for the locatie tab"}
           - {label: "Transport Methods", name: "transport_methods", widget: "list", fields: [
-              {label: "Icon", name: "icon", widget: "string", default: "fas fa-bicycle", hint: "Font Awesome icon class"},
-              {label: "Title", name: "title", widget: "string", default: "Met de fiets", hint: "Transport method title"},
-              {label: "Description", name: "description", widget: "text", default: "Je kan gratis gebruik maken van onze ruime fietsenstalling op het festivalterrein (zie verkeer).", hint: "Transport method description"},
+              {label: "Icon", name: "icon", widget: "string", default: "fas fa-car", hint: "Font Awesome icon class"},
+              {label: "Title", name: "title", widget: "string", hint: "Transport method title"},
+              {label: "Description", name: "description", widget: "text", hint: "Transport method description"},
               {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this transport method"}
             ]}
       
@@ -154,29 +155,83 @@ collections:
         fields:
           - {label: "Tab Title", name: "tab_title", widget: "string", default: "VOORZIENINGEN", hint: "Title for the voorzieningen tab"}
           - {label: "Facilities", name: "facilities", widget: "list", fields: [
-              {label: "Icon", name: "icon", widget: "string", default: "fas fa-tshirt", hint: "Font Awesome icon class"},
-              {label: "Title", name: "title", widget: "string", default: "Bewaakte vestiaire", hint: "Facility title"},
+              {label: "Icon", name: "icon", widget: "string", default: "fas fa-utensils", hint: "Font Awesome icon class"},
+              {label: "Title", name: "title", widget: "string", hint: "Facility title"},
+              {label: "Description", name: "description", widget: "text", hint: "Facility description"},
               {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this facility"}
             ]}
-          - {label: "Payment Info", name: "payment_info", widget: "text", default: "Op het Vedettweekend accepteren wij verschillende betaalmethoden, waaronder Payconiq, cash en Bancontact. Ook kun je ter plaatse tickets kopen aan de kassa, zolang de voorraad strekt. Echter, om het jezelf makkelijk te maken, raden we aan om je tickets en drankvouchers vooraf online aan te schaffen tegen het meest voordelig tarief.", hint: "Payment methods information"}
       
       - name: "verkeer"
         label: "Verkeer Tab"
         file: "content/practical/verkeer.md"
         fields:
           - {label: "Tab Title", name: "tab_title", widget: "string", default: "VERKEER", hint: "Title for the verkeer tab"}
-          - {label: "Tab Image", name: "tab_image", widget: "image", default: "./img/Wegaanduiding24.png", hint: "Image showing traffic information"}
-          - {label: "Traffic Text", name: "traffic_text", widget: "text", default: "Het volledige verkeersplan is trouwens ook te vinden op onze Facebookpagina en Instagrampagina. We raden jou ook aan om dit naar je ouders door te sturen indien ze je komen halen. Er is bovendien drankperimeter ingesteld voor de hele Ipsvoordestraat, je kan aan het begin en het einde van de straat jouw afval achterlaten in de daarvoor voorziene vuilbakken.", hint: "Traffic information text"}
+          - {label: "Traffic Image", name: "traffic_image", widget: "image", hint: "Image showing traffic information"}
+          - {label: "Image Subtext", name: "image_subtext", widget: "text", hint: "Text below the traffic image"}
       
       - name: "faq"
         label: "FAQ Tab"
         file: "content/practical/faq.md"
         fields:
-          - {label: "Tab Title", name: "tab_title", widget: "string", default: "Veelgestelde Vragen", hint: "Title for the FAQ tab"}
+          - {label: "Tab Title", name: "tab_title", widget: "string", default: "FAQ", hint: "Title for the FAQ tab"}
+          - {label: "Tab Subtitle", name: "tab_subtitle", widget: "string", default: "Veelgestelde vragen", hint: "Subtitle for the FAQ tab"}
           - {label: "FAQ Items", name: "faq_items", widget: "list", fields: [
-              {label: "Question", name: "question", widget: "string", default: "Is er een leeftijdsbeperking?", hint: "FAQ question"},
-              {label: "Answer", name: "answer", widget: "text", default: "Er is geen leeftijdsbeperking voor wie wilt komen naar Vedettweekend, je hoeft dus geen 16+ te zijn.", hint: "FAQ answer"},
+              {label: "Question", name: "question", widget: "string", hint: "FAQ question"},
+              {label: "Answer", name: "answer", widget: "text", hint: "FAQ answer"},
               {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this FAQ item"}
             ]}
 
-
+  - name: "practical"
+    label: "Practical Info Page"
+    files:
+      - name: "hero_section"
+        label: "Hero Section"
+        file: "content/practical/hero-section.md"
+        fields:
+          - {label: "Hero Title", name: "hero_title", widget: "string", default: "PRAKTISCHE INFORMATIE", hint: "Main title in the hero section"}
+          - {label: "Hero Subtitle", name: "hero_subtitle", widget: "string", default: "Alles wat je moet weten", hint: "Subtitle below the main title"}
+          - {label: "Hero Description", name: "hero_description", widget: "text", default: "Vind hier alle praktische informatie over Vedettweekend 2025", hint: "Description text in the hero section"}
+      
+      - name: "locatie"
+        label: "Locatie Tab"
+        file: "content/practical/locatie.md"
+        fields:
+          - {label: "Tab Title", name: "tab_title", widget: "string", default: "LOCATIE", hint: "Title for the location tab"}
+          - {label: "Tab Text", name: "tab_text", widget: "text", default: "Hoe kom je naar Vedettweekend?", hint: "Text below the location tab title"}
+          - {label: "Transport Methods", name: "transport_methods", widget: "list", fields: [
+              {label: "Icon", name: "icon", widget: "string", hint: "Font Awesome icon class (e.g., fas fa-car)"},
+              {label: "Title", name: "title", widget: "string", hint: "Transport method title"},
+              {label: "Description", name: "description", widget: "text", hint: "Description of this transport method"},
+              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this transport method"}
+            ]}
+      
+      - name: "voorzieningen"
+        label: "Voorzieningen Tab"
+        file: "content/practical/voorzieningen.md"
+        fields:
+          - {label: "Tab Title", name: "tab_title", widget: "string", default: "VOORZIENINGEN", hint: "Title for the facilities tab"}
+          - {label: "Facilities", name: "facilities", widget: "list", fields: [
+              {label: "Icon", name: "icon", widget: "string", hint: "Font Awesome icon class (e.g., fas fa-utensils)"},
+              {label: "Title", name: "title", widget: "string", hint: "Facility title"},
+              {label: "Description", name: "description", widget: "text", hint: "Description of this facility"},
+              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this facility"}
+            ]}
+      
+      - name: "verkeer"
+        label: "Verkeer Tab"
+        file: "content/practical/verkeer.md"
+        fields:
+          - {label: "Tab Image", name: "tab_image", widget: "image", hint: "Image for the traffic tab"}
+          - {label: "Tab Subtext", name: "tab_subtext", widget: "text", default: "Wegbeschrijving naar Vedettweekend", hint: "Text below the traffic tab image"}
+      
+      - name: "faq"
+        label: "FAQ Tab"
+        file: "content/practical/faq.md"
+        fields:
+          - {label: "Tab Title", name: "tab_title", widget: "string", default: "FAQ", hint: "Title for the FAQ tab"}
+          - {label: "Tab Subtitle", name: "tab_subtitle", widget: "string", default: "Veelgestelde vragen", hint: "Subtitle for the FAQ tab"}
+          - {label: "FAQ Items", name: "faq_items", widget: "list", fields: [
+              {label: "Question", name: "question", widget: "string", hint: "Frequently asked question"},
+              {label: "Answer", name: "answer", widget: "text", hint: "Answer to the question"},
+              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this FAQ item"}
+            ]}

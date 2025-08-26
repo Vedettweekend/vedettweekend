@@ -1,26 +1,30 @@
 ---
 tab_title: "VOORZIENINGEN"
 facilities:
+  - icon: "fas fa-utensils"
+    title: "Restaurant & Bar"
+    description: "Verschillende eetgelegenheden en bars zijn beschikbaar op het terrein."
+    active: true
   - icon: "fas fa-tshirt"
-    title: "Bewaakte vestiaire"
+    title: "Kleding & Souvenirs"
+    description: "Vedettweekend merchandise en kleding verkrijgbaar in de shop."
     active: true
   - icon: "fas fa-first-aid"
-    title: "EHBO Post"
+    title: "Eerste Hulp"
+    description: "Medische hulp is 24/7 beschikbaar op het terrein."
     active: true
-  - icon: "fas fa-couch"
-    title: "Lounge"
+  - icon: "fas fa-toilet"
+    title: "Sanitaire voorzieningen"
+    description: "Voldoende toiletten en douches beschikbaar op het hele terrein."
     active: true
-  - icon: "fas fa-restroom"
-    title: "WC-Dorp"
+  - icon: "fas fa-wifi"
+    title: "Gratis WiFi"
+    description: "Snelle internetverbinding beschikbaar in alle gebieden."
     active: true
-  - icon: "fas fa-utensils"
-    title: "Eetkraam"
+  - icon: "fas fa-charging-station"
+    title: "Oplaadpunten"
+    description: "Elektrische oplaadpunten voor telefoons en andere apparaten."
     active: true
-  - icon: "fas fa-shield-alt"
-    title: "Security"
-    active: true
-  - icon: "fas fa-ticket"
-    title: "Doorsales"
-    active: true
-payment_info: "Op het Vedettweekend accepteren wij verschillende betaalmethoden, waaronder Payconiq, cash en Bancontact. Ook kun je ter plaatse tickets kopen aan de kassa, zolang de voorraad strekt. Echter, om het jezelf makkelijk te maken, raden we aan om je tickets en drankvouchers vooraf online aan te schaffen tegen het meest voordelig tarief."
 ---
+
+
