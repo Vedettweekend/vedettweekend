@@ -463,30 +463,65 @@
         fetch('content/practical/verkeer.md')
             .then(response => response.text())
             .then(text => {
+                console.log('📡 Verkeer response status:', response.status);
+                console.log('📄 Verkeer content loaded:', text);
+                
                 // Parse frontmatter to get verkeer content
                 const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
                 const imageMatch = text.match(/tab_image:\s*"?([^"\n]+)"?/);
-                const trafficTextMatch = text.match(/traffic_text:\s*"?([\s\S]*?)(?=\n---|$)/);
+                const subtextMatch = text.match(/tab_subtext:\s*"?([^"\n]+)"?/);
                 
-                // Update verkeer tab title
+                console.log('🏷️ Title match:', titleMatch);
+                console.log('🖼️ Image match:', imageMatch);
+                console.log('📝 Subtext match:', subtextMatch);
+                
+                // Update verkeer tab title (if provided)
                 if (titleMatch && titleMatch[1]) {
-                    const verkeerTabTitle = document.querySelector('[data-tab="verkeer"] .tab-title');
-                    if (verkeerTabTitle) verkeerTabTitle.textContent = titleMatch[1];
+                    const verkeerTabTitle = document.querySelector('#verkeer .tab-title');
+                    if (verkeerTabTitle) {
+                        verkeerTabTitle.textContent = titleMatch[1];
+                        console.log('✅ Updated verkeer tab title');
+                    } else {
+                        console.log('❌ Verkeer tab title element not found');
+                    }
                 }
                 
                 // Update verkeer tab image
                 if (imageMatch && imageMatch[1]) {
-                    const verkeerImage = document.querySelector('[data-tab="verkeer"] .traffic-image');
-                    if (verkeerImage) verkeerImage.src = imageMatch[1];
+                    const verkeerImage = document.querySelector('#verkeer .traffic-image');
+                    if (verkeerImage) {
+                        verkeerImage.src = imageMatch[1];
+                        console.log('✅ Updated verkeer tab image to:', imageMatch[1]);
+                    } else {
+                        console.log('❌ Verkeer tab image element not found');
+                    }
                 }
                 
-                // Update verkeer tab traffic text
-                if (trafficTextMatch && trafficTextMatch[1]) {
-                    const verkeerTrafficText = document.querySelector('[data-tab="verkeer"] .traffic-text');
-                    if (verkeerTrafficText) verkeerTrafficText.innerHTML = trafficTextMatch[1];
+                // Update verkeer tab subtext (add it below the image)
+                if (subtextMatch && subtextMatch[1]) {
+                    const verkeerImageContainer = document.querySelector('#verkeer .traffic-image-container');
+                    if (verkeerImageContainer) {
+                        // Check if subtext already exists
+                        let existingSubtext = verkeerImageContainer.querySelector('.traffic-subtext');
+                        if (!existingSubtext) {
+                            // Create new subtext element
+                            existingSubtext = document.createElement('p');
+                            existingSubtext.className = 'traffic-subtext';
+                            existingSubtext.style.textAlign = 'center';
+                            existingSubtext.style.marginTop = '10px';
+                            existingSubtext.style.fontStyle = 'italic';
+                            existingSubtext.style.color = '#666';
+                            verkeerImageContainer.appendChild(existingSubtext);
+                        }
+                        existingSubtext.textContent = subtextMatch[1];
+                        console.log('✅ Updated verkeer tab subtext');
+                    } else {
+                        console.log('❌ Verkeer tab image container not found');
+                    }
                 }
             })
             .catch(error => {
+                console.log('❌ Error loading verkeer content:', error);
                 console.log('Using fallback verkeer content');
             });
     </script>
