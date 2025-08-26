@@ -232,20 +232,20 @@ class VedettWebsite {
             const response = await fetch('content/home/footer-sponsors.md');
             const text = await response.text();
             
-            console.log('🏢 Footer sponsors CMS response:', text);
+    
             
             // Parse frontmatter to get sponsors list
             const sponsorsMatch = text.match(/sponsors:\s*\n([\s\S]*?)(?=\n---|$)/);
             
             if (sponsorsMatch) {
                 const sponsorsSection = sponsorsMatch[1];
-                console.log('🏢 Footer sponsors section found:', sponsorsSection);
+    
                 
                 const sponsors = [];
                 
                 // Handle both field orders: altText first OR active first
                 const sponsorMatches = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*(?:altText|active):/g);
-                console.log('🏢 Found footer sponsor matches:', Array.from(sponsorMatches));
+    
                 
                 // Reset the iterator
                 const sponsorMatches2 = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*(?:altText|active):/g);
@@ -253,20 +253,18 @@ class VedettWebsite {
                 for (const match of sponsorMatches2) {
                     const startIndex = match.index;
                     
-                    console.log(`🏢 Processing footer sponsor match:`, match);
-                    console.log(`🏢 Start index:`, startIndex);
+
                     
                     // Find the end of this sponsor item (next dash or end of section)
                     const nextSponsorDash = sponsorsSection.indexOf('\n  - ', startIndex + 1);
                     const endIndex = nextSponsorDash > -1 ? nextSponsorDash : sponsorsSection.length;
                     
-                    console.log(`🏢 Next footer sponsor dash at:`, nextSponsorDash);
-                    console.log(`🏢 End index:`, endIndex);
+
                     
                     // Extract the full sponsor block
                     const sponsorBlock = sponsorsSection.substring(startIndex, endIndex);
                     
-                    console.log(`🏢 Parsing footer sponsor block:`, sponsorBlock);
+
                     
                     // Extract each field using regex (order doesn't matter)
                     const altTextMatch = sponsorBlock.match(/altText:\s*"?([^"\n]+)"?/);
@@ -274,10 +272,7 @@ class VedettWebsite {
                     const websiteUrlMatch = sponsorBlock.match(/websiteUrl:\s*"?([^"\n]+)"?/);
                     const activeMatch = sponsorBlock.match(/active:\s*(true|false)/);
                     
-                    console.log(`🏢 Footer alt text match:`, altTextMatch);
-                    console.log(`🏢 Footer image match:`, imageMatch);
-                    console.log(`🏢 Footer website URL match:`, websiteUrlMatch);
-                    console.log(`🏢 Footer active match:`, activeMatch);
+
                     
                     // Check if sponsor is active and has required fields
                     if (activeMatch && activeMatch[1] === 'true' && imageMatch && websiteUrlMatch) {
@@ -294,22 +289,13 @@ class VedettWebsite {
                         };
                         
                         sponsors.push(sponsor);
-                        console.log(`✅ Added footer sponsor:`, sponsor);
+                        
                     } else {
-                        if (!activeMatch || activeMatch[1] !== 'true') {
-                            console.log(`❌ Skipped footer sponsor - not active (active: ${activeMatch ? activeMatch[1] : 'missing'})`);
-                        } else if (!imageMatch) {
-                            console.log(`❌ Skipped footer sponsor - missing image field`);
-                        } else if (!websiteUrlMatch) {
-                            console.log(`❌ Skipped footer sponsor - missing website URL field`);
-                        } else {
-                            console.log(`❌ Skipped footer sponsor - unknown reason`);
-                        }
-                        console.log(`🏢 Footer sponsor block that failed:`, sponsorBlock);
+                        // Sponsor was not active or missing required fields - skip it
                     }
                 }
                 
-                console.log('🏢 Final footer sponsors array:', sponsors);
+
                 
                 // Display active footer sponsors in footer
                 const footerSponsorsContainer = document.getElementById('footerSponsors');
@@ -321,14 +307,14 @@ class VedettWebsite {
                     `).join('');
                     
                     footerSponsorsContainer.innerHTML = htmlContent;
-                    console.log('🏢 Updated footer sponsors with', sponsors.length, 'sponsors');
+
                 }
             } else {
-                console.log('❌ No footer sponsors section found in CMS response');
+
             }
             
         } catch (error) {
-            console.error('🏢 Footer sponsor loading error:', error);
+            console.error('Footer sponsor loading error:', error);
         }
     }
 
