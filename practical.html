@@ -99,14 +99,17 @@
                     </button>
                 </div>
 
-                <!-- Tab Content -->
-                <div class="tab-content">
+                <!-- Tab Panels -->
+                <div class="tab-panels">
                     <!-- Locatie Tab -->
                     <div id="locatie" class="tab-panel active">
                         <div class="tab-header">
-                            <h2 class="tab-title">Locatie</h2>
+                            <h2 class="tab-title">LOCATIE</h2>
                         </div>
-                        <div class="tab-body">
+                        <div class="tab-content">
+                            <div class="location-info" id="locatieContent">
+                                <!-- CMS content will be loaded here -->
+                            </div>
                             <div class="map-container">
                                 <iframe
                                     width="100%"
@@ -120,25 +123,20 @@
                                     loading="lazy">
                                 </iframe>
                             </div>
-                            
-                            <div class="location-info" id="locatieContent">
-                                <!-- Content will be populated by JavaScript from CMS -->
-                            </div>
                         </div>
                     </div>
 
                     <!-- Voorzieningen Tab -->
                     <div id="voorzieningen" class="tab-panel">
                         <div class="tab-header">
-                            <h2 class="tab-title">Voorzieningen</h2>
+                            <h2 class="tab-title">VOORZIENINGEN</h2>
                         </div>
-                        <div class="tab-body">
+                        <div class="tab-content">
                             <div class="facilities-grid" id="voorzieningenContent">
-                                <!-- Content will be populated by JavaScript from CMS -->
+                                <!-- CMS content will be loaded here -->
                             </div>
-                            
                             <div class="payment-info" id="voorzieningenPayment">
-                                <!-- Payment info will be populated by JavaScript from CMS -->
+                                <!-- CMS content will be loaded here -->
                             </div>
                         </div>
                     </div>
@@ -146,20 +144,11 @@
                     <!-- Verkeer Tab -->
                     <div id="verkeer" class="tab-panel">
                         <div class="tab-header">
-                            <h2 class="tab-title">Verkeer</h2>
+                            <h2 class="tab-title">VERKEER</h2>
                         </div>
-                        <div class="tab-body">
-                            <div class="traffic-info">
-                                <div class="traffic-image-container">
-                                    <img src="./img/Wegaanduiding24.png" class="traffic-image" alt="Wegbeschrijving tijdens Vedettweekend" id="trafficImage" onclick="openFullscreen()" style="cursor: pointer;">
-                                    <button class="fullscreen-btn" onclick="openFullscreen()">
-                                        <i class="fas fa-expand"></i>
-                                    </button>
-                                </div>
-                                
-                                <div class="traffic-text" id="verkeerContent">
-                                    <!-- Content will be populated by JavaScript from CMS -->
-                                </div>
+                        <div class="tab-content">
+                            <div class="traffic-text" id="verkeerContent">
+                                <!-- CMS content will be loaded here -->
                             </div>
                         </div>
                     </div>
@@ -167,11 +156,11 @@
                     <!-- FAQ Tab -->
                     <div id="faq" class="tab-panel">
                         <div class="tab-header">
-                            <h2 class="tab-title">Veelgestelde Vragen</h2>
+                            <h2 class="tab-title">FAQ</h2>
                         </div>
-                        <div class="tab-body">
+                        <div class="tab-content">
                             <div class="faq-list" id="faqContent">
-                                <!-- Content will be populated by JavaScript from CMS -->
+                                <!-- CMS content will be loaded here -->
                             </div>
                         </div>
                     </div>
