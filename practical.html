@@ -448,7 +448,7 @@
                 
                 // Update payment info
                 if (paymentInfoMatch && paymentInfoMatch[1]) {
-                    const paymentInfo = document.querySelector('[data-tab="voorzieningen"] .payment-info p');
+                    const paymentInfo = document.querySelector('#voorzieningen .payment-info p');
                     if (paymentInfo) paymentInfo.innerHTML = paymentInfoMatch[1];
                 }
             })
@@ -466,8 +466,8 @@
                 // Parse frontmatter to get verkeer content
                 const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
                 const imageMatch = text.match(/tab_image:\s*"?([^"\n]+)"?/);
-                const subtextMatch = text.match(/tab_subtext:\s*"?([^"\n]+)"?/);
-                const trafficTextMatch = text.match(/traffic_text:\s*"?([^"\n]+)"?/);
+                const subtextMatch = text.match(/tab_subtext:\s*"?([\s\S]*?)(?=\n\s+\w+:|---|$)/);
+                const trafficTextMatch = text.match(/traffic_text:\s*"?([\s\S]*?)(?=\n\s+\w+:|---|$)/);
                 
                 // Update verkeer tab title
                 if (titleMatch && titleMatch[1]) {
