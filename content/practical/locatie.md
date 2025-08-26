@@ -14,5 +14,3 @@ transport_methods:
     description: "Je ouders/vrienden kunnen je gemakkelijk oppikken in één van onze kiss & ride zones (zie verkeer)."
     active: true
 ---
-
-

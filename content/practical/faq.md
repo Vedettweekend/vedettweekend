@@ -17,5 +17,3 @@ faq_items:
     answer: "Koop tickets voor je vrienden! Je kan meerdere tickets kopen voor jou en je vrienden."
     active: true
 ---
-
-
