@@ -410,7 +410,7 @@
                 
                 // Update locatie tab title
                 if (titleMatch && titleMatch[1]) {
-                    const locatieTabTitle = document.querySelector('[data-tab="locatie"] .tab-title');
+                    const locatieTabTitle = document.querySelector('#locatie .tab-title');
                     if (locatieTabTitle) locatieTabTitle.textContent = titleMatch[1];
                 }
                 
@@ -437,7 +437,7 @@
                 
                 // Update voorzieningen tab title
                 if (titleMatch && titleMatch[1]) {
-                    const voorzieningenTabTitle = document.querySelector('[data-tab="voorzieningen"] .tab-title');
+                    const voorzieningenTabTitle = document.querySelector('#voorzieningen .tab-title');
                     if (voorzieningenTabTitle) voorzieningenTabTitle.textContent = titleMatch[1];
                 }
                 
@@ -463,41 +463,24 @@
         fetch('content/practical/verkeer.md')
             .then(response => response.text())
             .then(text => {
-                console.log('📡 Verkeer response status:', response.status);
-                console.log('📄 Verkeer content loaded:', text);
-                
                 // Parse frontmatter to get verkeer content
                 const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
                 const imageMatch = text.match(/tab_image:\s*"?([^"\n]+)"?/);
                 const subtextMatch = text.match(/tab_subtext:\s*"?([^"\n]+)"?/);
                 
-                console.log('🏷️ Title match:', titleMatch);
-                console.log('🖼️ Image match:', imageMatch);
-                console.log('📝 Subtext match:', subtextMatch);
-                
-                // Update verkeer tab title (if provided)
+                // Update verkeer tab title
                 if (titleMatch && titleMatch[1]) {
                     const verkeerTabTitle = document.querySelector('#verkeer .tab-title');
-                    if (verkeerTabTitle) {
-                        verkeerTabTitle.textContent = titleMatch[1];
-                        console.log('✅ Updated verkeer tab title');
-                    } else {
-                        console.log('❌ Verkeer tab title element not found');
-                    }
+                    if (verkeerTabTitle) verkeerTabTitle.textContent = titleMatch[1];
                 }
                 
                 // Update verkeer tab image
                 if (imageMatch && imageMatch[1]) {
                     const verkeerImage = document.querySelector('#verkeer .traffic-image');
-                    if (verkeerImage) {
-                        verkeerImage.src = imageMatch[1];
-                        console.log('✅ Updated verkeer tab image to:', imageMatch[1]);
-                    } else {
-                        console.log('❌ Verkeer tab image element not found');
-                    }
+                    if (verkeerImage) verkeerImage.src = imageMatch[1];
                 }
                 
-                // Update verkeer tab subtext (add it below the image)
+                // Update verkeer tab subtext
                 if (subtextMatch && subtextMatch[1]) {
                     const verkeerImageContainer = document.querySelector('#verkeer .traffic-image-container');
                     if (verkeerImageContainer) {
@@ -514,14 +497,10 @@
                             verkeerImageContainer.appendChild(existingSubtext);
                         }
                         existingSubtext.textContent = subtextMatch[1];
-                        console.log('✅ Updated verkeer tab subtext');
-                    } else {
-                        console.log('❌ Verkeer tab image container not found');
                     }
                 }
             })
             .catch(error => {
-                console.log('❌ Error loading verkeer content:', error);
                 console.log('Using fallback verkeer content');
             });
     </script>
@@ -538,7 +517,7 @@
                 
                 // Update FAQ tab title
                 if (titleMatch && titleMatch[1]) {
-                    const faqTabTitle = document.querySelector('[data-tab="faq"] .tab-title');
+                    const faqTabTitle = document.querySelector('#faq .tab-title');
                     if (faqTabTitle) faqTabTitle.textContent = titleMatch[1];
                 }
                 
@@ -556,7 +535,7 @@
     <script>
         // Function to update transport methods
         function updateTransportMethods(transportMethodsSection) {
-            const container = document.querySelector('[data-tab="locatie"] .location-info');
+            const container = document.querySelector('#locatie .location-info');
             if (!container) {
                 console.warn('Transport methods container not found');
                 return;
@@ -577,7 +556,7 @@
         
         // Function to update facilities
         function updateFacilities(facilitiesSection) {
-            const container = document.querySelector('[data-tab="voorzieningen"] .facilities-grid');
+            const container = document.querySelector('#voorzieningen .facilities-grid');
             if (!container) {
                 console.warn('Facilities container not found');
                 return;
@@ -598,7 +577,7 @@
         
         // Function to update FAQ items
         function updateFAQItems(faqItemsSection) {
-            const container = document.querySelector('[data-tab="faq"] .faq-list');
+            const container = document.querySelector('#faq .faq-list');
             if (!container) {
                 console.warn('FAQ container not found');
                 return;
