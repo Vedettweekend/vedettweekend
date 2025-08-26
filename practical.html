@@ -467,6 +467,7 @@
                 const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
                 const imageMatch = text.match(/tab_image:\s*"?([^"\n]+)"?/);
                 const subtextMatch = text.match(/tab_subtext:\s*"?([^"\n]+)"?/);
+                const trafficTextMatch = text.match(/traffic_text:\s*"?([^"\n]+)"?/);
                 
                 // Update verkeer tab title
                 if (titleMatch && titleMatch[1]) {
@@ -497,6 +498,14 @@
                             verkeerImageContainer.appendChild(existingSubtext);
                         }
                         existingSubtext.textContent = subtextMatch[1];
+                    }
+                }
+                
+                // Update verkeer tab traffic text
+                if (trafficTextMatch && trafficTextMatch[1]) {
+                    const verkeerTrafficText = document.querySelector('#verkeer .traffic-text');
+                    if (verkeerTrafficText) {
+                        verkeerTrafficText.innerHTML = trafficTextMatch[1];
                     }
                 }
             })
@@ -723,7 +732,14 @@
                 return;
             }
             
-            image.src = './img/Wegaanduiding24.png';
+            // Get the current image source from the verkeer tab
+            const verkeerImage = document.querySelector('#verkeer .traffic-image');
+            if (verkeerImage && verkeerImage.src) {
+                image.src = verkeerImage.src;
+            } else {
+                image.src = './img/Wegaanduiding24.png'; // fallback
+            }
+            
             overlay.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
