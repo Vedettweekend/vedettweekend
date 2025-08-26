@@ -121,21 +121,8 @@
                                 </iframe>
                             </div>
                             
-                            <div class="location-info">
-                                <div class="info-card">
-                                    <h3><i class="fas fa-bicycle"></i> Met de fiets</h3>
-                                    <p>Je kan gratis gebruik maken van onze ruime fietsenstalling op het festivalterrein (zie verkeer).</p>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <h3><i class="fas fa-car"></i> Met de auto</h3>
-                                    <p>Parkeren kan op het festivalterrein indien je niet opgehaald wordt (zie verkeer).</p>
-                                </div>
-                                
-                                <div class="info-card">
-                                    <h3><i class="fas fa-handshake"></i> Opgehaald worden?</h3>
-                                    <p>Je ouders/vrienden kunnen je gemakkelijk oppikken in één van onze kiss & ride zones (zie verkeer).</p>
-                                </div>
+                            <div class="location-info" id="locatieContent">
+                                <!-- Content will be populated by JavaScript from CMS -->
                             </div>
                         </div>
                     </div>
@@ -146,40 +133,12 @@
                             <h2 class="tab-title">Voorzieningen</h2>
                         </div>
                         <div class="tab-body">
-                            <div class="facilities-grid">
-                                <div class="facility-item">
-                                    <i class="fas fa-tshirt"></i>
-                                    <span>Bewaakte vestiaire</span>
-                                </div>
-                                <div class="facility-item">
-                                    <i class="fas fa-first-aid"></i>
-                                    <span>EHBO Post</span>
-                                </div>
-                                <div class="facility-item">
-                                    <i class="fas fa-couch"></i>
-                                    <span>Lounge</span>
-                                </div>
-                                <div class="facility-item">
-                                    <i class="fas fa-restroom"></i>
-                                    <span>WC-Dorp</span>
-                                </div>
-                                <div class="facility-item">
-                                    <i class="fas fa-utensils"></i>
-                                    <span>Eetkraam</span>
-                                </div>
-                                <div class="facility-item">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>Security</span>
-                                </div>
-                                <div class="facility-item">
-                                    <i class="fas fa-ticket"></i>
-                                    <span>Doorsales</span>
-                                </div>
+                            <div class="facilities-grid" id="voorzieningenContent">
+                                <!-- Content will be populated by JavaScript from CMS -->
                             </div>
                             
-                            <div class="payment-info">
-                                <h3>Betaalmethoden</h3>
-                                <p>Op het <strong>Vedettweekend</strong> accepteren wij verschillende betaalmethoden, waaronder <strong>Payconiq</strong>, <strong>cash</strong> en <strong>Bancontact</strong>. Ook kun je ter plaatse tickets kopen aan de kassa, zolang de voorraad strekt. Echter, om het jezelf makkelijk te maken, raden we aan om je tickets en drankvouchers vooraf online aan te schaffen tegen het meest voordelig tarief.</p>
+                            <div class="payment-info" id="voorzieningenPayment">
+                                <!-- Payment info will be populated by JavaScript from CMS -->
                             </div>
                         </div>
                     </div>
@@ -198,10 +157,8 @@
                                     </button>
                                 </div>
                                 
-                                <div class="traffic-text">
-                                    <p>Het volledige verkeersplan is trouwens ook te vinden op onze Facebookpagina en Instagrampagina. We raden jou ook aan om <strong>dit naar je ouders door te sturen</strong> indien ze je komen halen.</p>
-                                
-                                    <p>Er is bovendien <strong>drankperimeter</strong> ingesteld voor de hele Ipsvoordestraat, je kan aan het begin en het einde van de straat jouw afval achterlaten in de daarvoor voorziene vuilbakken.</p>
+                                <div class="traffic-text" id="verkeerContent">
+                                    <!-- Content will be populated by JavaScript from CMS -->
                                 </div>
                             </div>
                         </div>
@@ -213,31 +170,8 @@
                             <h2 class="tab-title">Veelgestelde Vragen</h2>
                         </div>
                         <div class="tab-body">
-                            <div class="faq-list">
-                                <div class="faq-item">
-                                    <h3>1. Is er een leeftijdsbeperking?</h3>
-                                    <p>Er is <strong>geen leeftijdsbeperking</strong> voor wie wilt komen naar Vedettweekend, je hoeft dus <strong>geen</strong> 16+ te zijn.</p>
-                                </div>
-                                
-                                <div class="faq-item">
-                                    <h3>2. Kan ik mijn tickets terugsturen?</h3>
-                                    <p>Wij refunden geen gekochte tickets, maar je kan deze nog steeds aan iemand anders <strong>doorverkopen</strong> aangezien tickets niet op naam zijn.</p>
-                                </div>
-                                
-                                <div class="faq-item">
-                                    <h3>3. Wat is het verschil tussen vrijdag en zaterdag tickets?</h3>
-                                    <p>Vrijdag tickets zijn voor onze vedettfuif en zaterdag voor onze retrofuif, check dus eerst met je vrienden voor welke dag zij een ticket hebben gekocht als je niet zeker bent. Indien je toch een fout hebt gemaakt kan je je <strong>tickets omwisselen</strong>, stuur ons hiervoor een berichtje en we helpen je verder.</p>
-                                </div>
-                                
-                                <div class="faq-item">
-                                    <h3>4. Is er groepskorting beschikbaar?</h3>
-                                    <p><strong>Jeugdbewegingen</strong> kunnen ons een mailtje sturen en genieten van <strong>groepskorting!</strong></p>
-                                </div>
-                                
-                                <div class="faq-item">
-                                    <h3>5. Kan ik tickets kopen voor mijn vrienden?</h3>
-                                    <p><strong>Koop tickets voor je vrienden!</strong> Je kan meerdere tickets kopen voor jou en je vrienden.</p>
-                                </div>
+                            <div class="faq-list" id="faqContent">
+                                <!-- Content will be populated by JavaScript from CMS -->
                             </div>
                         </div>
                     </div>
@@ -396,55 +330,30 @@
             .catch(error => {
                 console.log('Using fallback hero section content');
             });
-    </script>
 
-    <!-- Locatie Tab Loading from CMS -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load Locatie Tab from CMS
-            console.log('🔍 Loading locatie content from CMS...');
-            fetch('content/practical/locatie.md')
-                .then(response => {
-                    console.log('📡 Locatie response status:', response.status);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    console.log('📄 Locatie content loaded:', text.substring(0, 100) + '...');
-                    
-                    // Parse frontmatter to get locatie content
-                    const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
-                    const transportMethodsMatch = text.match(/transport_methods:\s*\n([\s\S]*?)(?=\n---|$)/);
-                    
-                    console.log('🏷️ Title match:', titleMatch);
-                    console.log('🚗 Transport methods match:', transportMethodsMatch);
-                    
-                    // Update locatie tab title
-                    if (titleMatch && titleMatch[1]) {
-                        const locatieTabTitle = document.querySelector('[data-tab="locatie"] .tab-title');
-                        console.log('🎯 Found tab title element:', locatieTabTitle);
-                        if (locatieTabTitle) {
-                            locatieTabTitle.textContent = titleMatch[1];
-                            console.log('✅ Updated tab title to:', titleMatch[1]);
-                        }
-                    }
-                    
-                    // Update transport methods
-                    if (transportMethodsMatch) {
-                        console.log('🔄 Updating transport methods...');
-                        updateTransportMethods(transportMethodsMatch[1]);
-                    }
-                })
-                .catch(error => {
-                    console.error('❌ Error loading locatie content:', error);
-                });
-        });
-    </script>
+        // Load Locatie Tab from CMS
+        fetch('content/practical/locatie.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get locatie content
+                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
+                const transportMethodsMatch = text.match(/transport_methods:\s*\n([\s\S]*?)(?=\n---|$)/);
+                
+                // Update locatie tab title
+                if (titleMatch && titleMatch[1]) {
+                    const locatieTabTitle = document.querySelector('#locatie .tab-title');
+                    if (locatieTabTitle) locatieTabTitle.textContent = titleMatch[1];
+                }
+                
+                // Update transport methods
+                if (transportMethodsMatch) {
+                    updateTransportMethods(transportMethodsMatch[1]);
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback locatie content');
+            });
 
-    <!-- Voorzieningen Tab Loading from CMS -->
-    <script>
         // Load Voorzieningen Tab from CMS
         fetch('content/practical/voorzieningen.md')
             .then(response => response.text())
@@ -452,11 +361,11 @@
                 // Parse frontmatter to get voorzieningen content
                 const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
                 const facilitiesMatch = text.match(/facilities:\s*\n([\s\S]*?)(?=\n---|$)/);
-                const paymentInfoMatch = text.match(/payment_info:\s*"?([\s\S]*?)(?=\n---|$)/);
+                const paymentInfoMatch = text.match(/payment_info:\s*"?([\s\S]*?)(?=\n\w+:|---|$)/);
                 
                 // Update voorzieningen tab title
                 if (titleMatch && titleMatch[1]) {
-                    const voorzieningenTabTitle = document.querySelector('[data-tab="voorzieningen"] .tab-title');
+                    const voorzieningenTabTitle = document.querySelector('#voorzieningen .tab-title');
                     if (voorzieningenTabTitle) voorzieningenTabTitle.textContent = titleMatch[1];
                 }
                 
@@ -467,14 +376,79 @@
                 
                 // Update payment info
                 if (paymentInfoMatch && paymentInfoMatch[1]) {
-                    const paymentInfo = document.querySelector('[data-tab="voorzieningen"] .payment-info p');
-                    if (paymentInfo) paymentInfo.innerHTML = paymentInfoMatch[1];
+                    const paymentInfo = document.getElementById('voorzieningenPayment');
+                    if (paymentInfo) {
+                        paymentInfo.innerHTML = `
+                            <h3>Betaalmethoden</h3>
+                            <p>${paymentInfoMatch[1]}</p>
+                        `;
+                    }
                 }
             })
             .catch(error => {
                 console.log('Using fallback voorzieningen content');
             });
+
+        // Load Verkeer Tab from CMS
+        fetch('content/practical/verkeer.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get verkeer content
+                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
+                const imageMatch = text.match(/tab_image:\s*"?([^"\n]+)"?/);
+                const trafficTextMatch = text.match(/traffic_text:\s*"?([\s\S]*?)(?=\n\w+:|---|$)/);
+                
+                // Update verkeer tab title
+                if (titleMatch && titleMatch[1]) {
+                    const verkeerTabTitle = document.querySelector('#verkeer .tab-title');
+                    if (verkeerTabTitle) verkeerTabTitle.textContent = titleMatch[1];
+                }
+                
+                // Update verkeer tab image
+                if (imageMatch && imageMatch[1]) {
+                    const verkeerImage = document.querySelector('#verkeer .traffic-image');
+                    if (verkeerImage) verkeerImage.src = imageMatch[1];
+                }
+                
+                // Update verkeer tab traffic text
+                if (trafficTextMatch && trafficTextMatch[1]) {
+                    const verkeerTrafficText = document.getElementById('verkeerContent');
+                    if (verkeerTrafficText) {
+                        verkeerTrafficText.innerHTML = trafficTextMatch[1];
+                    }
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback verkeer content');
+            });
+
+        // Load FAQ Tab from CMS
+        fetch('content/practical/faq.md')
+            .then(response => response.text())
+            .then(text => {
+                // Parse frontmatter to get FAQ content
+                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
+                const faqItemsMatch = text.match(/faq_items:\s*\n([\s\S]*?)(?=\n---|$)/);
+                
+                // Update FAQ tab title
+                if (titleMatch && titleMatch[1]) {
+                    const faqTabTitle = document.querySelector('#faq .tab-title');
+                    if (faqTabTitle) faqTabTitle.textContent = titleMatch[1];
+                }
+                
+                // Update FAQ items
+                if (faqItemsMatch) {
+                    updateFAQItems(faqItemsMatch[1]);
+                }
+            })
+            .catch(error => {
+                console.log('Using fallback FAQ content');
+            });
     </script>
+
+
+
+
 
     <!-- Verkeer Tab Loading from CMS -->
     <script>
@@ -489,19 +463,19 @@
                 
                 // Update verkeer tab title
                 if (titleMatch && titleMatch[1]) {
-                    const verkeerTabTitle = document.querySelector('[data-tab="verkeer"] .tab-title');
+                    const verkeerTabTitle = document.querySelector('#verkeer .tab-title');
                     if (verkeerTabTitle) verkeerTabTitle.textContent = titleMatch[1];
                 }
                 
                 // Update verkeer tab image
                 if (imageMatch && imageMatch[1]) {
-                    const verkeerImage = document.querySelector('[data-tab="verkeer"] .traffic-image');
+                    const verkeerImage = document.querySelector('#verkeer .traffic-image');
                     if (verkeerImage) verkeerImage.src = imageMatch[1];
                 }
                 
                 // Update verkeer tab traffic text
                 if (trafficTextMatch && trafficTextMatch[1]) {
-                    const verkeerTrafficText = document.querySelector('[data-tab="verkeer"] .traffic-text');
+                    const verkeerTrafficText = document.querySelector('#verkeer .traffic-text');
                     if (verkeerTrafficText) verkeerTrafficText.innerHTML = trafficTextMatch[1];
                 }
             })
@@ -522,7 +496,7 @@
                 
                 // Update FAQ tab title
                 if (titleMatch && titleMatch[1]) {
-                    const faqTabTitle = document.querySelector('[data-tab="faq"] .tab-title');
+                    const faqTabTitle = document.querySelector('#faq .tab-title');
                     if (faqTabTitle) faqTabTitle.textContent = titleMatch[1];
                 }
                 
@@ -540,19 +514,13 @@
     <script>
         // Function to update transport methods
         function updateTransportMethods(transportMethodsSection) {
-            console.log('🔄 updateTransportMethods called with:', transportMethodsSection);
-            
-            const container = document.querySelector('[data-tab="locatie"] .location-info');
-            console.log('🎯 Found container:', container);
-            
+            const container = document.getElementById('locatieContent');
             if (!container) {
-                console.warn('❌ Transport methods container not found');
+                console.warn('Transport methods container not found');
                 return;
             }
             
             const methods = parseListItems(transportMethodsSection);
-            console.log('📋 Parsed methods:', methods);
-            
             if (methods.length > 0) {
                 const htmlContent = methods.map(method => `
                     <div class="info-card">
@@ -561,17 +529,13 @@
                     </div>
                 `).join('');
                 
-                console.log('🏗️ Generated HTML:', htmlContent);
                 container.innerHTML = htmlContent;
-                console.log('✅ Transport methods updated successfully');
-            } else {
-                console.warn('⚠️ No methods found to update');
             }
         }
         
         // Function to update facilities
         function updateFacilities(facilitiesSection) {
-            const container = document.querySelector('[data-tab="voorzieningen"] .facilities-grid');
+            const container = document.getElementById('voorzieningenContent');
             if (!container) {
                 console.warn('Facilities container not found');
                 return;
@@ -592,7 +556,7 @@
         
         // Function to update FAQ items
         function updateFAQItems(faqItemsSection) {
-            const container = document.querySelector('[data-tab="faq"] .faq-list');
+            const container = document.getElementById('faqContent');
             if (!container) {
                 console.warn('FAQ container not found');
                 return;
