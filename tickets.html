@@ -158,104 +158,53 @@
         console.log('🚀 Starting ticketshop URL CMS loading...');
         
         fetch('content/tickets/ticketshop.md')
-            .then(response => {
-                console.log('📡 Ticketshop fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                console.log('📄 Raw markdown content:', text);
-                console.log('📄 Content length:', text.length);
-                
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log each field value
-                        console.log('🔗 ticketshop_url:', data.ticketshop_url);
                         
                         // Update ticketshop iframe URL
                         if (data.ticketshop_url) {
-                            console.log('🎯 Updating ticketshop iframe URL to:', data.ticketshop_url);
-                            
                             // Initialize window.ticketshop if it doesn't exist
                             if (!window.ticketshop) {
                                 window.ticketshop = {};
                             }
                             
                             window.ticketshop.iframeLink = data.ticketshop_url;
-                            console.log('✅ Ticketshop iframe URL updated successfully');
-                            console.log('🎯 Final ticketshop data:', window.ticketshop);
-                        } else {
-                            console.log('⚠️ No ticketshop_url found in data');
                         }
                         
-                        // Final verification - log all ticketshop elements
-                        console.log('🔍 Final verification of ticketshop elements:');
-                        console.log('🔍 Ticketshop iframe link:', window.ticketshop?.iframeLink);
-                        
                     } catch (yamlError) {
-                        console.error('❌ Error parsing YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
-                console.error('❌ Error loading ticketshop content:', error);
-                console.log('Using fallback ticketshop URL');
+                console.error('Error loading ticketshop content:', error);
             });
     </script>
     
     <!-- Hero Section Loading from CMS -->
     <script>
         // Load Hero Section from CMS
-        console.log('🚀 Starting hero section CMS loading...');
-        
         fetch('content/tickets/hero-section.md')
-            .then(response => {
-                console.log('📡 Hero section fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                console.log('📄 Raw markdown content:', text);
-                console.log('📄 Content length:', text.length);
-                
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log each field value
-                        console.log('🏷️ hero_title:', data.hero_title);
-                        console.log('📝 hero_subtitle:', data.hero_subtitle);
-                        console.log('📖 hero_description:', data.hero_description);
-                        console.log('🔘 hero_button_text:', data.hero_button_text);
                         
                         // Update hero title
                         if (data.hero_title) {

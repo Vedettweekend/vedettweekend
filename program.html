@@ -172,118 +172,62 @@
     <!-- Line-up Content Loading from CMS -->
     <script>
         // Load Hero Section from CMS
-        console.log('🚀 Starting hero section CMS loading...');
-        
         fetch('content/lineup/hero-section.md')
-            .then(response => {
-                console.log('📡 Hero section fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                console.log('📄 Raw markdown content:', text);
-                console.log('📄 Content length:', text.length);
-                
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log each field value
-                        console.log('🏷️ hero_title:', data.hero_title);
-                        console.log('📝 hero_subtitle:', data.hero_subtitle);
-                        console.log('📖 hero_description:', data.hero_description);
                         
                         // Update hero title
                         if (data.hero_title) {
-                            console.log('🎯 Updating hero title to:', data.hero_title);
                             const heroTitle = document.getElementById('heroTitle');
-                            console.log('🎯 Found hero title element:', heroTitle);
                             if (heroTitle) {
                                 heroTitle.textContent = data.hero_title;
-                                console.log('✅ Hero title updated successfully');
-                            } else {
-                                console.log('❌ Hero title element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_title found in data');
                         }
                         
                         // Update hero subtitle
                         if (data.hero_subtitle) {
-                            console.log('🎯 Updating hero subtitle to:', data.hero_subtitle);
                             const heroSubtitle = document.getElementById('heroSubtitle');
-                            console.log('🎯 Found hero subtitle element:', heroSubtitle);
                             if (heroSubtitle) {
                                 heroSubtitle.textContent = data.hero_subtitle;
-                                console.log('✅ Hero subtitle updated successfully');
-                            } else {
-                                console.log('❌ Hero subtitle element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_subtitle found in data');
                         }
                         
                         // Update hero description
                         if (data.hero_description) {
-                            console.log('🎯 Updating hero description to:', data.hero_description);
                             const heroDescription = document.getElementById('heroDescription');
-                            console.log('🎯 Found hero description element:', heroDescription);
                             if (heroDescription) {
                                 heroDescription.textContent = data.hero_description;
-                                console.log('✅ Hero description updated successfully');
-                            } else {
-                                console.log('❌ Hero description element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_description found in data');
                         }
                         
-                        // Final verification - log all hero section elements
-                        console.log('🔍 Final verification of hero section elements:');
-                        console.log('🔍 Hero title:', document.getElementById('heroTitle')?.textContent);
-                        console.log('🔍 Hero subtitle:', document.getElementById('heroSubtitle')?.textContent);
-                        console.log('🔍 Hero description:', document.getElementById('heroDescription')?.textContent);
-                        
                     } catch (yamlError) {
-                        console.error('❌ Error parsing YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
-                console.error('❌ Error loading hero section content:', error);
-                console.log('Using fallback hero section content');
+                console.error('Error loading hero section content:', error);
             });
         
         // Clean function to parse timeline items from YAML data
         function parseTimelineItems(timelineItems) {
-            console.log('🔄 parseTimelineItems called with:', timelineItems);
-            
             if (!Array.isArray(timelineItems)) {
-                console.log('⚠️ timelineItems is not an array:', timelineItems);
                 return [];
             }
             
             const items = [];
             
             // Process each timeline item
-            timelineItems.forEach((item, index) => {
-                console.log(`📅 Processing timeline item ${index + 1}:`, item);
-                
+            timelineItems.forEach(item => {
                 // Check if item has required fields
                 if (item.time) {
                     // Clean up the time field - remove any extra whitespace or quotes
@@ -312,36 +256,23 @@
                     };
                     
                     items.push(processedItem);
-                    console.log(`✅ Added timeline item:`, processedItem);
-                } else {
-                    console.log(`❌ Skipped timeline item ${index + 1} - missing time field`);
                 }
             });
             
-            console.log(`📅 Final timeline items array:`, items);
             return items;
         }
         
         // Function to display timeline items
         function displayTimelineItems(containerId, items) {
             try {
-                console.log(`🎨 Displaying ${items.length} items for container:`, containerId);
-                console.log(`🎨 Items to display:`, items);
-                
                 const container = document.getElementById(containerId);
                 if (!container) {
-                    console.log(`❌ Container not found:`, containerId);
                     return;
                 }
                 
-                console.log(`🎨 Container found:`, container);
-                console.log(`🎨 Container before clearing:`, container.innerHTML);
                 container.innerHTML = '';
-                console.log(`🎨 Container after clearing:`, container.innerHTML);
                 
-                items.forEach((item, index) => {
-                    console.log(`🎨 Creating item ${index}:`, item);
-                    
+                items.forEach(item => {
                     const timelineItem = `
                         <div class="timeline-item">
                             <div class="timeline-time">${item.time}</div>
@@ -360,164 +291,85 @@
                     `;
                     
                     container.innerHTML += timelineItem;
-                    console.log(`✅ Added item ${index} to DOM`);
                 });
-                
-                console.log(`🎨 Final container HTML:`, container.innerHTML);
             } catch (error) {
-                console.error(`💥 Error in displayTimelineItems:`, error);
+                console.error('Error in displayTimelineItems:', error);
             }
         }
 
         // Function to load lineup data from CMS
         async function loadLineupData() {
             try {
-                console.log('🎨 Loading lineup data from CMS...');
-                
                 // Load Friday lineup
-                console.log('🚀 Starting Friday lineup CMS loading...');
                 const fridayResponse = await fetch('content/lineup/friday-timeline.md');
-                console.log('📡 Friday fetch response:', fridayResponse);
-                console.log('📡 Response status:', fridayResponse.status);
-                console.log('📡 Response ok:', fridayResponse.ok);
-                
                 const fridayText = await fridayResponse.text();
-                console.log('📄 Raw Friday markdown content:', fridayText);
-                console.log('📄 Content length:', fridayText.length);
                 
                 // Split the content into frontmatter and body
                 const fridayParts = fridayText.split('---');
-                console.log('✂️ Friday split parts:', fridayParts);
-                console.log('✂️ Number of parts:', fridayParts.length);
                 
                 if (fridayParts.length >= 2) {
                     const fridayFrontmatter = fridayParts[1].trim();
-                    console.log('📋 Friday frontmatter section:', fridayFrontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const fridayData = jsyaml.load(fridayFrontmatter);
-                        console.log('🔍 Parsed Friday YAML data:', fridayData);
-                        console.log('🔍 Available fields:', Object.keys(fridayData));
-                        
-                        // Log each field value
-                        console.log('🏷️ day_title:', fridayData.day_title);
-                        console.log('📅 timeline_items:', fridayData.timeline_items);
                         
                         // Update Friday day title
                         if (fridayData.day_title) {
-                            console.log('🎯 Updating Friday day title to:', fridayData.day_title);
                             const fridayTitle = document.getElementById('fridayTitle');
-                            console.log('🎯 Found Friday title element:', fridayTitle);
                             if (fridayTitle) {
                                 fridayTitle.textContent = fridayData.day_title;
-                                console.log('✅ Friday day title updated successfully');
-                            } else {
-                                console.log('❌ Friday title element not found');
                             }
-                        } else {
-                            console.log('⚠️ No day_title found in Friday data');
                         }
                         
                         // Parse Friday timeline items
                         if (fridayData.timeline_items && Array.isArray(fridayData.timeline_items)) {
-                            console.log('🎯 Parsing Friday timeline items with:', fridayData.timeline_items);
                             const fridayItems = parseTimelineItems(fridayData.timeline_items);
-                            console.log('✅ Friday timeline items parsed:', fridayItems);
-                            
                             // Display Friday items
                             displayTimelineItems('fridayTimeline', fridayItems);
-                        } else {
-                            console.log('⚠️ No timeline_items found in Friday data or not an array');
                         }
                         
-                        // Final verification - log all Friday elements
-                        console.log('🔍 Final verification of Friday elements:');
-                        console.log('🔍 Day title:', document.getElementById('fridayTitle')?.textContent);
-                        console.log('🔍 Timeline container:', document.getElementById('fridayTimeline')?.innerHTML);
-                        
                     } catch (yamlError) {
-                        console.error('❌ Error parsing Friday YAML:', yamlError);
-                        console.log('📋 Raw Friday frontmatter that failed to parse:', fridayFrontmatter);
+                        console.error('Error parsing Friday YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid Friday markdown structure - need at least 2 parts after splitting');
                 }
                 
                 // Load Saturday lineup
-                console.log('🚀 Starting Saturday lineup CMS loading...');
                 const saturdayResponse = await fetch('content/lineup/saturday-timeline.md');
-                console.log('📡 Saturday fetch response:', saturdayResponse);
-                console.log('📡 Response status:', saturdayResponse.status);
-                console.log('📡 Response ok:', saturdayResponse.ok);
-                
                 const saturdayText = await saturdayResponse.text();
-                console.log('📄 Raw Saturday markdown content:', saturdayText);
-                console.log('📄 Content length:', saturdayText.length);
                 
                 // Split the content into frontmatter and body
                 const saturdayParts = saturdayText.split('---');
-                console.log('✂️ Saturday split parts:', saturdayParts);
-                console.log('✂️ Number of parts:', saturdayParts.length);
                 
                 if (saturdayParts.length >= 2) {
                     const saturdayFrontmatter = saturdayParts[1].trim();
-                    console.log('📋 Saturday frontmatter section:', saturdayFrontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const saturdayData = jsyaml.load(saturdayFrontmatter);
-                        console.log('🔍 Parsed Saturday YAML data:', saturdayData);
-                        console.log('🔍 Available fields:', Object.keys(saturdayData));
-                        
-                        // Log each field value
-                        console.log('🏷️ day_title:', saturdayData.day_title);
-                        console.log('📅 timeline_items:', saturdayData.timeline_items);
                         
                         // Update Saturday day title
                         if (saturdayData.day_title) {
-                            console.log('🎯 Updating Saturday day title to:', saturdayData.day_title);
                             const saturdayTitle = document.getElementById('saturdayTitle');
-                            console.log('🎯 Found Saturday title element:', saturdayTitle);
                             if (saturdayTitle) {
                                 saturdayTitle.textContent = saturdayData.day_title;
-                                console.log('✅ Saturday day title updated successfully');
-                            } else {
-                                console.log('❌ Saturday title element not found');
                             }
-                        } else {
-                            console.log('⚠️ No day_title found in Saturday data');
                         }
                         
                         // Parse Saturday timeline items
                         if (saturdayData.timeline_items && Array.isArray(saturdayData.timeline_items)) {
-                            console.log('🎯 Parsing Saturday timeline items with:', saturdayData.timeline_items);
                             const saturdayItems = parseTimelineItems(saturdayData.timeline_items);
-                            console.log('✅ Saturday timeline items parsed:', saturdayItems);
-                            
                             // Display Saturday items
                             displayTimelineItems('saturdayTimeline', saturdayItems);
-                        } else {
-                            console.log('⚠️ No timeline_items found in Saturday data or not an array');
                         }
                         
-                        // Final verification - log all Saturday elements
-                        console.log('🔍 Final verification of Saturday elements:');
-                        console.log('🔍 Day title:', document.getElementById('saturdayTitle')?.textContent);
-                        console.log('🔍 Timeline container:', document.getElementById('saturdayTimeline')?.innerHTML);
-                        
                     } catch (yamlError) {
-                        console.error('❌ Error parsing Saturday YAML:', yamlError);
-                        console.log('📋 Raw Saturday frontmatter that failed to parse:', saturdayFrontmatter);
+                        console.error('Error parsing Saturday YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid Saturday markdown structure - need at least 2 parts after splitting');
                 }
                 
-                console.log('✅ Lineup data loaded successfully');
-                
             } catch (error) {
-                console.error('💥 Error loading lineup data:', error);
+                console.error('Error loading lineup data:', error);
             }
         }
 

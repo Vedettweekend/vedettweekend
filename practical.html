@@ -259,98 +259,49 @@
         console.log('🚀 Starting hero section CMS loading...');
         
         fetch('content/practical/hero-section.md')
-            .then(response => {
-                console.log('📡 Hero section fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                console.log('📄 Raw markdown content:', text);
-                console.log('📄 Content length:', text.length);
-                
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log each field value
-                        console.log('🏷️ hero_title:', data.hero_title);
-                        console.log('📝 hero_subtitle:', data.hero_subtitle);
-                        console.log('📖 hero_description:', data.hero_description);
                         
                         // Update hero title
                         if (data.hero_title) {
-                            console.log('🎯 Updating hero title to:', data.hero_title);
                             const heroTitle = document.querySelector('.info-title');
-                            console.log('🎯 Found hero title element:', heroTitle);
                             if (heroTitle) {
                                 heroTitle.textContent = data.hero_title;
-                                console.log('✅ Hero title updated successfully');
-                            } else {
-                                console.log('❌ Hero title element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_title found in data');
                         }
                         
                         // Update hero subtitle
                         if (data.hero_subtitle) {
-                            console.log('🎯 Updating hero subtitle to:', data.hero_subtitle);
                             const heroSubtitle = document.querySelector('.info-subtitle');
-                            console.log('🎯 Found hero subtitle element:', heroSubtitle);
                             if (heroSubtitle) {
                                 heroSubtitle.textContent = data.hero_subtitle;
-                                console.log('✅ Hero subtitle updated successfully');
-                            } else {
-                                console.log('❌ Hero subtitle element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_subtitle found in data');
                         }
                         
                         // Update hero description
                         if (data.hero_description) {
-                            console.log('🎯 Updating hero description to:', data.hero_description);
                             const heroDescription = document.querySelector('.info-description');
-                            console.log('🎯 Found hero description element:', heroDescription);
                             if (heroDescription) {
                                 heroDescription.textContent = data.hero_description;
-                                console.log('✅ Hero description updated successfully');
-                            } else {
-                                console.log('❌ Hero description element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_description found in data');
                         }
                         
-                        // Final verification - log all hero section elements
-                        console.log('🔍 Final verification of hero section elements:');
-                        console.log('🔍 Hero title:', document.querySelector('.info-title')?.textContent);
-                        console.log('🔍 Hero subtitle:', document.querySelector('.info-subtitle')?.textContent);
-                        console.log('🔍 Hero description:', document.querySelector('.info-description')?.textContent);
-                        
                     } catch (yamlError) {
-                        console.error('❌ Error parsing YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
-                console.error('❌ Error loading hero section content:', error);
-                console.log('Using fallback hero section content');
+                console.error('Error loading hero section content:', error);
             });
     </script>
 
