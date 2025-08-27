@@ -208,70 +208,35 @@
                         
                         // Update hero title
                         if (data.hero_title) {
-                            console.log('🎯 Updating hero title to:', data.hero_title);
                             const heroTitle = document.querySelector('.hero-title');
-                            console.log('🎯 Found hero title element:', heroTitle);
                             if (heroTitle) {
                                 heroTitle.textContent = data.hero_title;
-                                console.log('✅ Hero title updated successfully');
-                            } else {
-                                console.log('❌ Hero title element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_title found in data');
                         }
                         
                         // Update hero subtitle
                         if (data.hero_subtitle) {
-                            console.log('🎯 Updating hero subtitle to:', data.hero_subtitle);
                             const heroSubtitle = document.querySelector('.hero-subtitle');
-                            console.log('🎯 Found hero subtitle element:', heroSubtitle);
                             if (heroSubtitle) {
                                 heroSubtitle.textContent = data.hero_subtitle;
-                                console.log('✅ Hero subtitle updated successfully');
-                            } else {
-                                console.log('❌ Hero subtitle element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_subtitle found in data');
                         }
                         
                         // Update hero description
                         if (data.hero_description) {
-                            console.log('🎯 Updating hero description to:', data.hero_description);
                             const heroDescription = document.querySelector('.hero-description');
-                            console.log('🎯 Found hero description element:', heroDescription);
                             if (heroDescription) {
                                 heroDescription.textContent = data.hero_description;
-                                console.log('✅ Hero description updated successfully');
-                            } else {
-                                console.log('❌ Hero description element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_description found in data');
                         }
                         
                         // Update hero button text
                         if (data.hero_button_text) {
-                            console.log('🎯 Updating hero button text to:', data.hero_button_text);
                             const heroButton = document.querySelector('.hero-button');
-                            console.log('🎯 Found hero button element:', heroButton);
                             if (heroButton) {
                                 heroButton.textContent = data.hero_button_text;
-                                console.log('✅ Hero button text updated successfully');
-                            } else {
-                                console.log('❌ Hero button element not found');
                             }
-                        } else {
-                            console.log('⚠️ No hero_button_text found in data');
                         }
-                        
-                        // Final verification - log all hero section elements
-                        console.log('🔍 Final verification of hero section elements:');
-                        console.log('🔍 Hero title:', document.querySelector('.hero-title')?.textContent);
-                        console.log('🔍 Hero subtitle:', document.querySelector('.hero-subtitle')?.textContent);
-                        console.log('🔍 Hero description:', document.querySelector('.hero-description')?.textContent);
-                        console.log('🔍 Hero button text:', document.querySelector('.hero-button')?.textContent);
                         
                     } catch (yamlError) {
                         console.error('Error parsing YAML:', yamlError);
