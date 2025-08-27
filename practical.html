@@ -251,86 +251,105 @@
     <!-- Netlify CMS Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-    <!-- Info Data for Netlify CMS -->
-    <script>
-        // This data will be replaced by Netlify CMS when the page is built
-        window.info = {
-            location: {
-                mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2501.0103342622466!2d4.299708515568803!3d50.96157617954885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3f65901d680d9%3A0xe78e8533337ed717!2sIpsvoordestraat%2033%2C%201880%20Nieuwenrode%2C%20Belgium!5e0!3m2!1sen!2sbe!4v1660738719425!5m2!1sen!2sbe",
-                bikeInfo: "Je kan gratis gebruik maken van onze ruime fietsenstalling op het festivalterrein (zie verkeer).",
-                carInfo: "Parkeren kan op het festivalterrein indien je niet opgehaald wordt (zie verkeer).",
-                pickupInfo: "Je ouders/vrienden kunnen je gemakkelijk oppikken in één van onze kiss & ride zones (zie verkeer)."
-            },
-            facilities: [
-                "Bewaakte vestiaire",
-                "EHBO Post", 
-                "Lounge",
-                "WC-Dorp",
-                "Eetkraam",
-                "Security",
-                "Doorsales"
-            ],
-            paymentInfo: "Op het Vedettweekend accepteren wij verschillende betaalmethoden, waaronder Payconiq, cash en Bancontact. Ook kun je ter plaatse tickets kopen aan de kassa, zolang de voorraad strekt. Echter, om het jezelf makkelijk te maken, raden we aan om je tickets en drankvouchers vooraf online aan te schaffen tegen het meest voordelig tarief.",
-            traffic: {
-                image: "./img/Wegaanduiding24.png",
-                description: "Het volledige verkeersplan is trouwens ook te vinden op onze Facebookpagina en Instagrampagina. We raden jou ook aan om dit naar je ouders door te sturen indien ze je komen halen.",
-                perimeterInfo: "Er is bovendien drankperimeter ingesteld voor de hele Ipsvoordestraat, je kan aan het begin en het einde van de straat jouw afval achterlaten in de daarvoor voorziene vuilbakken."
-            },
-            faq: [
-                {
-                    question: "Is er een leeftijdsbeperking?",
-                    answer: "Er is geen leeftijdsbeperking voor wie wilt komen naar Vedettweekend, je hoeft dus geen 16+ te zijn."
-                },
-                {
-                    question: "Kan ik mijn tickets terugsturen?",
-                    answer: "Wij refunden geen gekochte tickets, maar je kan deze nog steeds aan iemand anders doorverkopen aangezien tickets niet op naam zijn."
-                },
-                {
-                    question: "Wat is het verschil tussen vrijdag en zaterdag tickets?",
-                    answer: "Vrijdag tickets zijn voor onze vedettfuif en zaterdag voor onze retrofuif, check dus eerst met je vrienden voor welke dag zij een ticket hebben gekocht als je niet zeker bent. Indien je toch een fout hebt gemaakt kan je je tickets omwisselen, stuur ons hiervoor een berichtje en we helpen je verder."
-                },
-                {
-                    question: "Is er groepskorting beschikbaar?",
-                    answer: "Jeugdbewegingen kunnen ons een mailtje sturen en genieten van groepskorting!"
-                },
-                {
-                    question: "Kan ik tickets kopen voor mijn vrienden?",
-                    answer: "Koop tickets voor je vrienden! Je kan meerdere tickets kopen voor jou en je vrienden."
-                }
-            ]
-        };
-    </script>
+
 
     <!-- Hero Section Loading from CMS -->
     <script>
         // Load Hero Section from CMS
+        console.log('🚀 Starting hero section CMS loading...');
+        
         fetch('content/practical/hero-section.md')
-            .then(response => response.text())
+            .then(response => {
+                console.log('📡 Hero section fetch response:', response);
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+                return response.text();
+            })
             .then(text => {
-                // Parse frontmatter to get hero content
-                const titleMatch = text.match(/hero_title:\s*"?([^"\n]+)"?/);
-                const subtitleMatch = text.match(/hero_subtitle:\s*"?([^"\n]+)"?/);
-                const descriptionMatch = text.match(/hero_description:\s*"?([^"\n]+)"?/);
+                console.log('📄 Raw markdown content:', text);
+                console.log('📄 Content length:', text.length);
                 
-                // Update hero title
-                if (titleMatch && titleMatch[1]) {
-                    const heroTitle = document.querySelector('.info-title');
-                    if (heroTitle) heroTitle.textContent = titleMatch[1];
-                }
+                // Split the content into frontmatter and body
+                const parts = text.split('---');
+                console.log('✂️ Split parts:', parts);
+                console.log('✂️ Number of parts:', parts.length);
                 
-                // Update hero subtitle
-                if (subtitleMatch && subtitleMatch[1]) {
-                    const heroSubtitle = document.querySelector('.info-subtitle');
-                    if (heroSubtitle) heroSubtitle.textContent = subtitleMatch[1];
-                }
-                
-                // Update hero description
-                if (descriptionMatch && descriptionMatch[1]) {
-                    const heroDescription = document.querySelector('.info-description');
-                    if (heroDescription) heroDescription.textContent = descriptionMatch[1];
+                if (parts.length >= 2) {
+                    const frontmatter = parts[1].trim();
+                    console.log('📋 Frontmatter section:', frontmatter);
+                    
+                    try {
+                        // Parse YAML frontmatter into JavaScript object
+                        const data = jsyaml.load(frontmatter);
+                        console.log('🔍 Parsed YAML data:', data);
+                        console.log('🔍 Available fields:', Object.keys(data));
+                        
+                        // Log each field value
+                        console.log('🏷️ hero_title:', data.hero_title);
+                        console.log('📝 hero_subtitle:', data.hero_subtitle);
+                        console.log('📖 hero_description:', data.hero_description);
+                        
+                        // Update hero title
+                        if (data.hero_title) {
+                            console.log('🎯 Updating hero title to:', data.hero_title);
+                            const heroTitle = document.querySelector('.info-title');
+                            console.log('🎯 Found hero title element:', heroTitle);
+                            if (heroTitle) {
+                                heroTitle.textContent = data.hero_title;
+                                console.log('✅ Hero title updated successfully');
+                            } else {
+                                console.log('❌ Hero title element not found');
+                            }
+                        } else {
+                            console.log('⚠️ No hero_title found in data');
+                        }
+                        
+                        // Update hero subtitle
+                        if (data.hero_subtitle) {
+                            console.log('🎯 Updating hero subtitle to:', data.hero_subtitle);
+                            const heroSubtitle = document.querySelector('.info-subtitle');
+                            console.log('🎯 Found hero subtitle element:', heroSubtitle);
+                            if (heroSubtitle) {
+                                heroSubtitle.textContent = data.hero_subtitle;
+                                console.log('✅ Hero subtitle updated successfully');
+                            } else {
+                                console.log('❌ Hero subtitle element not found');
+                            }
+                        } else {
+                            console.log('⚠️ No hero_subtitle found in data');
+                        }
+                        
+                        // Update hero description
+                        if (data.hero_description) {
+                            console.log('🎯 Updating hero description to:', data.hero_description);
+                            const heroDescription = document.querySelector('.info-description');
+                            console.log('🎯 Found hero description element:', heroDescription);
+                            if (heroDescription) {
+                                heroDescription.textContent = data.hero_description;
+                                console.log('✅ Hero description updated successfully');
+                            } else {
+                                console.log('❌ Hero description element not found');
+                            }
+                        } else {
+                            console.log('⚠️ No hero_description found in data');
+                        }
+                        
+                        // Final verification - log all hero section elements
+                        console.log('🔍 Final verification of hero section elements:');
+                        console.log('🔍 Hero title:', document.querySelector('.info-title')?.textContent);
+                        console.log('🔍 Hero subtitle:', document.querySelector('.info-subtitle')?.textContent);
+                        console.log('🔍 Hero description:', document.querySelector('.info-description')?.textContent);
+                        
+                    } catch (yamlError) {
+                        console.error('❌ Error parsing YAML:', yamlError);
+                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                    }
+                } else {
+                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
+                console.error('❌ Error loading hero section content:', error);
                 console.log('Using fallback hero section content');
             });
     </script>
