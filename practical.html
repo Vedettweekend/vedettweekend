@@ -667,28 +667,24 @@
                     targetPanel.classList.add('active');
                     
                     // Center the active tab between the arrows on smaller viewports
-                    centerActiveTab(button);
+                    if (tabNavigation) {
+                        const containerWidth = tabNavigation.clientWidth;
+                        const buttonWidth = button.offsetWidth;
+                        const buttonLeft = button.offsetLeft;
+                        
+                        // Calculate the center position
+                        const centerPosition = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
+                        
+                        // Smooth scroll to center the active tab
+                        tabNavigation.scrollTo({
+                            left: centerPosition,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
             
-            // Function to center the active tab
-            function centerActiveTab(activeButton) {
-                if (!tabNavigation) return;
-                
-                const containerWidth = tabNavigation.clientWidth;
-                const buttonWidth = activeButton.offsetWidth;
-                const buttonLeft = activeButton.offsetLeft;
-                const containerLeft = tabNavigation.scrollLeft;
-                
-                // Calculate the center position
-                const centerPosition = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
-                
-                // Smooth scroll to center the active tab
-                tabNavigation.scrollTo({
-                    left: centerPosition,
-                    behavior: 'smooth'
-                });
-            }
+
         });
 
         // Fullscreen functionality
@@ -815,7 +811,19 @@
                 const initialActiveTab = document.querySelector('.tab-button.active');
                 if (initialActiveTab) {
                     setTimeout(() => {
-                        centerActiveTab(initialActiveTab);
+                        // Center the active tab
+                        const containerWidth = tabNavigation.clientWidth;
+                        const buttonWidth = initialActiveTab.offsetWidth;
+                        const buttonLeft = initialActiveTab.offsetLeft;
+                        
+                        // Calculate the center position
+                        const centerPosition = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
+                        
+                        // Smooth scroll to center the active tab
+                        tabNavigation.scrollTo({
+                            left: centerPosition,
+                            behavior: 'smooth'
+                        });
                     }, 100); // Small delay to ensure layout is complete
                 }
             }
