@@ -401,25 +401,76 @@
     <!-- Locatie Tab Loading from CMS -->
     <script>
         // Load Locatie Tab from CMS
+        console.log('🚀 Starting locatie tab CMS loading...');
+        
         fetch('content/practical/locatie.md')
-            .then(response => response.text())
+            .then(response => {
+                console.log('📡 Locatie fetch response:', response);
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+                return response.text();
+            })
             .then(text => {
-                // Parse frontmatter to get locatie content
-                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
-                const transportMethodsMatch = text.match(/transport_methods:\s*\n([\s\S]*?)(?=\n---|$)/);
+                console.log('📄 Raw markdown content:', text);
+                console.log('📄 Content length:', text.length);
                 
-                // Update locatie tab title
-                if (titleMatch && titleMatch[1]) {
-                    const locatieTabTitle = document.querySelector('#locatie .tab-title');
-                    if (locatieTabTitle) locatieTabTitle.textContent = titleMatch[1];
-                }
+                // Split the content into frontmatter and body
+                const parts = text.split('---');
+                console.log('✂️ Split parts:', parts);
+                console.log('✂️ Number of parts:', parts.length);
                 
-                // Update transport methods
-                if (transportMethodsMatch) {
-                    updateTransportMethods(transportMethodsMatch[1]);
+                if (parts.length >= 2) {
+                    const frontmatter = parts[1].trim();
+                    console.log('📋 Frontmatter section:', frontmatter);
+                    
+                    try {
+                        // Parse YAML frontmatter into JavaScript object
+                        const data = jsyaml.load(frontmatter);
+                        console.log('🔍 Parsed YAML data:', data);
+                        console.log('🔍 Available fields:', Object.keys(data));
+                        
+                        // Log each field value
+                        console.log('🏷️ tab_title:', data.tab_title);
+                        console.log('🚗 transport_methods:', data.transport_methods);
+                        
+                        // Update locatie tab title
+                        if (data.tab_title) {
+                            console.log('🎯 Updating tab title to:', data.tab_title);
+                            const locatieTabTitle = document.querySelector('#locatie .tab-title');
+                            console.log('🎯 Found tab title element:', locatieTabTitle);
+                            if (locatieTabTitle) {
+                                locatieTabTitle.textContent = data.tab_title;
+                                console.log('✅ Tab title updated successfully');
+                            } else {
+                                console.log('❌ Tab title element not found');
+                            }
+                        } else {
+                            console.log('⚠️ No tab_title found in data');
+                        }
+                        
+                        // Update transport methods
+                        if (data.transport_methods && Array.isArray(data.transport_methods)) {
+                            console.log('🎯 Updating transport methods with:', data.transport_methods);
+                            updateTransportMethods(data.transport_methods);
+                        } else {
+                            console.log('⚠️ No transport_methods found in data or not an array');
+                        }
+                        
+                        // Final verification - log all locatie tab elements
+                        console.log('🔍 Final verification of locatie tab elements:');
+                        console.log('🔍 Tab title:', document.querySelector('#locatie .tab-title')?.textContent);
+                        console.log('🔍 Transport methods container:', document.querySelector('#locatie .location-info')?.innerHTML);
+                        
+                    } catch (yamlError) {
+                        console.error('❌ Error parsing YAML:', yamlError);
+                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                    }
+                } else {
+                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
+                console.error('❌ Error loading locatie content:', error);
                 console.log('Using fallback locatie content');
             });
     </script>
@@ -629,23 +680,40 @@
     <!-- Helper Functions for CMS Updates -->
     <script>
         // Function to update transport methods
-        function updateTransportMethods(transportMethodsSection) {
+        function updateTransportMethods(transportMethods) {
+            console.log('🔄 updateTransportMethods called with:', transportMethods);
+            
             const container = document.querySelector('#locatie .location-info');
             if (!container) {
-                console.warn('Transport methods container not found');
+                console.warn('❌ Transport methods container not found');
                 return;
             }
             
-            const methods = parseListItems(transportMethodsSection);
-            if (methods.length > 0) {
-                const htmlContent = methods.map(method => `
-                    <div class="info-card">
-                        <h3><i class="${method.icon}"></i> ${method.title}</h3>
-                        <p>${method.description}</p>
-                    </div>
-                `).join('');
+            console.log('🎯 Found container:', container);
+            
+            if (Array.isArray(transportMethods) && transportMethods.length > 0) {
+                // Filter only active methods
+                const activeMethods = transportMethods.filter(method => method.active === true);
+                console.log('✅ Active transport methods:', activeMethods);
                 
-                container.innerHTML = htmlContent;
+                if (activeMethods.length > 0) {
+                    const htmlContent = activeMethods.map(method => `
+                        <div class="info-card">
+                            <h3><i class="${method.icon}"></i> ${method.title}</h3>
+                            <p>${method.description}</p>
+                        </div>
+                    `).join('');
+                    
+                    container.innerHTML = htmlContent;
+                    console.log('✅ Transport methods updated successfully');
+                    console.log('🎯 Final HTML content:', container.innerHTML);
+                } else {
+                    console.log('⚠️ No active transport methods found');
+                    container.innerHTML = '<p>Geen transportmethoden beschikbaar.</p>';
+                }
+            } else {
+                console.log('⚠️ Invalid transport methods data:', transportMethods);
+                container.innerHTML = '<p>Transportmethoden kunnen niet geladen worden.</p>';
             }
         }
         
