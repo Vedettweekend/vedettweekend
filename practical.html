@@ -457,59 +457,145 @@
             });
     </script>
 
+    <!-- YAML Parser Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    
     <!-- Verkeer Tab Loading from CMS -->
     <script>
         // Load Verkeer Tab from CMS
+        console.log('🚀 Starting verkeer tab CMS loading...');
+        
         fetch('content/practical/verkeer.md')
-            .then(response => response.text())
+            .then(response => {
+                console.log('📡 Verkeer fetch response:', response);
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+                return response.text();
+            })
             .then(text => {
-                // Parse frontmatter to get verkeer content
-                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
-                const imageMatch = text.match(/tab_image:\s*"?([^"\n]+)"?/);
-                const subtextMatch = text.match(/tab_subtext:\s*"([^"]+)"/);
-                const trafficTextMatch = text.match(/traffic_text:\s*"([^"]+)"/);
+                console.log('📄 Raw markdown content:', text);
+                console.log('📄 Content length:', text.length);
                 
-                // Update verkeer tab title
-                if (titleMatch && titleMatch[1]) {
-                    const verkeerTabTitle = document.querySelector('#verkeer .tab-title');
-                    if (verkeerTabTitle) verkeerTabTitle.textContent = titleMatch[1];
-                }
+                // Split the content into frontmatter and body
+                const parts = text.split('---');
+                console.log('✂️ Split parts:', parts);
+                console.log('✂️ Number of parts:', parts.length);
                 
-                // Update verkeer tab image
-                if (imageMatch && imageMatch[1]) {
-                    const verkeerImage = document.querySelector('#verkeer .traffic-image');
-                    if (verkeerImage) verkeerImage.src = imageMatch[1];
-                }
-                
-                // Update verkeer tab subtext
-                if (subtextMatch && subtextMatch[1]) {
-                    const verkeerImageContainer = document.querySelector('#verkeer .traffic-image-container');
-                    if (verkeerImageContainer) {
-                        // Check if subtext already exists
-                        let existingSubtext = verkeerImageContainer.querySelector('.traffic-subtext');
-                        if (!existingSubtext) {
-                            // Create new subtext element
-                            existingSubtext = document.createElement('p');
-                            existingSubtext.className = 'traffic-subtext';
-                            existingSubtext.style.textAlign = 'center';
-                            existingSubtext.style.marginTop = '10px';
-                            existingSubtext.style.fontStyle = 'italic';
-                            existingSubtext.style.color = '#666';
-                            verkeerImageContainer.appendChild(existingSubtext);
+                if (parts.length >= 2) {
+                    const frontmatter = parts[1].trim();
+                    console.log('📋 Frontmatter section:', frontmatter);
+                    
+                    try {
+                        // Parse YAML frontmatter into JavaScript object
+                        const data = jsyaml.load(frontmatter);
+                        console.log('🔍 Parsed YAML data:', data);
+                        console.log('🔍 Available fields:', Object.keys(data));
+                        
+                        // Log each field value
+                        console.log('🏷️ tab_title:', data.tab_title);
+                        console.log('🖼️ tab_image:', data.tab_image);
+                        console.log('📝 tab_subtext:', data.tab_subtext);
+                        console.log('🚗 traffic_text:', data.traffic_text);
+                        
+                        // Update verkeer tab title
+                        if (data.tab_title) {
+                            console.log('🎯 Updating tab title to:', data.tab_title);
+                            const verkeerTabTitle = document.querySelector('#verkeer .tab-title');
+                            console.log('🎯 Found tab title element:', verkeerTabTitle);
+                            if (verkeerTabTitle) {
+                                verkeerTabTitle.textContent = data.tab_title;
+                                console.log('✅ Tab title updated successfully');
+                            } else {
+                                console.log('❌ Tab title element not found');
+                            }
+                        } else {
+                            console.log('⚠️ No tab_title found in data');
                         }
-                        existingSubtext.textContent = subtextMatch[1];
+                        
+                        // Update verkeer tab image
+                        if (data.tab_image) {
+                            console.log('🎯 Updating tab image to:', data.tab_image);
+                            const verkeerImage = document.querySelector('#verkeer .traffic-image');
+                            console.log('🎯 Found image element:', verkeerImage);
+                            if (verkeerImage) {
+                                verkeerImage.src = data.tab_image;
+                                console.log('✅ Image updated successfully');
+                            } else {
+                                console.log('❌ Image element not found');
+                            }
+                        } else {
+                            console.log('⚠️ No tab_image found in data');
+                        }
+                        
+                        // Update verkeer tab subtext
+                        if (data.tab_subtext) {
+                            console.log('🎯 Updating tab subtext to:', data.tab_subtext);
+                            const verkeerImageContainer = document.querySelector('#verkeer .traffic-image-container');
+                            console.log('🎯 Found image container:', verkeerImageContainer);
+                            
+                            if (verkeerImageContainer) {
+                                // Check if subtext already exists
+                                let existingSubtext = verkeerImageContainer.querySelector('.traffic-subtext');
+                                console.log('🎯 Existing subtext element:', existingSubtext);
+                                
+                                if (!existingSubtext) {
+                                    console.log('🎯 Creating new subtext element...');
+                                    existingSubtext = document.createElement('p');
+                                    existingSubtext.className = 'traffic-subtext';
+                                    existingSubtext.style.textAlign = 'center';
+                                    existingSubtext.style.marginTop = '10px';
+                                    existingSubtext.style.fontStyle = 'italic';
+                                    existingSubtext.style.color = '#666';
+                                    verkeerImageContainer.appendChild(existingSubtext);
+                                    console.log('✅ New subtext element created and added');
+                                }
+                                
+                                existingSubtext.textContent = data.tab_subtext;
+                                console.log('✅ Subtext updated successfully');
+                                console.log('🎯 Subtext element after update:', existingSubtext);
+                                console.log('🎯 Subtext element HTML:', existingSubtext.outerHTML);
+                            } else {
+                                console.log('❌ Image container not found');
+                            }
+                        } else {
+                            console.log('⚠️ No tab_subtext found in data');
+                        }
+                        
+                        // Update verkeer tab traffic text
+                        if (data.traffic_text) {
+                            console.log('🎯 Updating traffic text to:', data.traffic_text);
+                            const verkeerTrafficText = document.querySelector('#verkeer .traffic-text');
+                            console.log('🎯 Found traffic text element:', verkeerTrafficText);
+                            
+                            if (verkeerTrafficText) {
+                                verkeerTrafficText.innerHTML = data.traffic_text;
+                                console.log('✅ Traffic text updated successfully');
+                                console.log('🎯 Traffic text element after update:', verkeerTrafficText);
+                                console.log('🎯 Traffic text element HTML:', verkeerTrafficText.outerHTML);
+                            } else {
+                                console.log('❌ Traffic text element not found');
+                            }
+                        } else {
+                            console.log('⚠️ No traffic_text found in data');
+                        }
+                        
+                        // Final verification - log all verkeer tab elements
+                        console.log('🔍 Final verification of verkeer tab elements:');
+                        console.log('🔍 Tab title:', document.querySelector('#verkeer .tab-title')?.textContent);
+                        console.log('🔍 Tab image src:', document.querySelector('#verkeer .traffic-image')?.src);
+                        console.log('🔍 Tab subtext:', document.querySelector('#verkeer .traffic-subtext')?.textContent);
+                        console.log('🔍 Tab traffic text:', document.querySelector('#verkeer .traffic-text')?.innerHTML);
+                        
+                    } catch (yamlError) {
+                        console.error('❌ Error parsing YAML:', yamlError);
+                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
                     }
-                }
-                
-                // Update verkeer tab traffic text
-                if (trafficTextMatch && trafficTextMatch[1]) {
-                    const verkeerTrafficText = document.querySelector('#verkeer .traffic-text');
-                    if (verkeerTrafficText) {
-                        verkeerTrafficText.innerHTML = trafficTextMatch[1];
-                    }
+                } else {
+                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
+                console.error('❌ Error loading verkeer content:', error);
                 console.log('Using fallback verkeer content');
             });
     </script>
