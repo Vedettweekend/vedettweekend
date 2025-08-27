@@ -2,28 +2,28 @@
 featured_artists:
   - name: TBA
     dateBadge: TBA
-    image: /img/uploads/tba.jpg
+    image: /img/uploads/tba-25.webp
     title: "CHECK IT OUT:"
     djName: TBA
     websiteUrl: https://www.facebook.com/vedettweekend
     websiteIcon: fa fa-link
   - name: TBA
     dateBadge: TBA
-    image: /img/uploads/tba.jpg
+    image: /img/uploads/tba-25.webp
     title: "CHECK IT OUT:"
     djName: TBA
     websiteUrl: https://www.facebook.com/vedettweekend
     websiteIcon: fa fa-link
   - name: TBA
     dateBadge: TBA
-    image: /img/uploads/tba.jpg
+    image: /img/uploads/tba-25.webp
     title: "CHECK IT OUT:"
     djName: TBA
     websiteUrl: https://www.facebook.com/vedettweekend
     websiteIcon: fa fa-link
   - name: TBA
-    dateBadge: ZA 26 OKT
-    image: /img/uploads/tba.jpg
+    dateBadge: TBA
+    image: /img/uploads/tba-25.webp
     title: "CHECK IT OUT:"
     djName: TBA
     websiteUrl: https://www.facebook.com/vedettweekend
