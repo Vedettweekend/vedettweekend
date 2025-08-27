@@ -33,11 +33,15 @@ sponsors:
     altText: Bakertilly
     websiteUrl: https://www.bakertilly.be/nl
   - active: true
+    image: /img/uploads/logoduvel.png
+    altText: Duvel
+    websiteUrl: vedett.be
+  - active: true
     image: /img/uploads/logomaxt.png
     altText: MaxT Dranken
     websiteUrl: https://www.facebook.com/p/Maxt-Dranken-100084040300979/?locale=nl_NL
   - active: true
-    image: /img/uploads/logoduvel.png
-    altText: Duvel
-    websiteUrl: vedett.be
+    altText: feryn
+    image: /img/uploads/feryn.png
+    websiteUrl: feryn.be
 ---
