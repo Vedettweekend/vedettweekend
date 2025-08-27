@@ -256,7 +256,7 @@
     <!-- Hero Section Loading from CMS -->
     <script>
         // Load Hero Section from CMS
-        console.log('🚀 Starting hero section CMS loading...');
+
         
         fetch('content/practical/hero-section.md')
             .then(response => response.text())
@@ -308,154 +308,82 @@
     <!-- Locatie Tab Loading from CMS -->
     <script>
         // Load Locatie Tab from CMS
-        console.log('🚀 Starting locatie tab CMS loading...');
+
         
         fetch('content/practical/locatie.md')
-            .then(response => {
-                console.log('📡 Locatie fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                console.log('📄 Raw markdown content:', text);
-                console.log('📄 Content length:', text.length);
-                
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log each field value
-                        console.log('🏷️ tab_title:', data.tab_title);
-                        console.log('🚗 transport_methods:', data.transport_methods);
                         
                         // Update locatie tab title
                         if (data.tab_title) {
-                            console.log('🎯 Updating tab title to:', data.tab_title);
                             const locatieTabTitle = document.querySelector('#locatie .tab-title');
-                            console.log('🎯 Found tab title element:', locatieTabTitle);
                             if (locatieTabTitle) {
                                 locatieTabTitle.textContent = data.tab_title;
-                                console.log('✅ Tab title updated successfully');
-                            } else {
-                                console.log('❌ Tab title element not found');
                             }
-                        } else {
-                            console.log('⚠️ No tab_title found in data');
                         }
                         
                         // Update transport methods
                         if (data.transport_methods && Array.isArray(data.transport_methods)) {
-                            console.log('🎯 Updating transport methods with:', data.transport_methods);
                             updateTransportMethods(data.transport_methods);
-                        } else {
-                            console.log('⚠️ No transport_methods found in data or not an array');
                         }
                         
-                        // Final verification - log all locatie tab elements
-                        console.log('🔍 Final verification of locatie tab elements:');
-                        console.log('🔍 Tab title:', document.querySelector('#locatie .tab-title')?.textContent);
-                        console.log('🔍 Transport methods container:', document.querySelector('#locatie .location-info')?.innerHTML);
-                        
                     } catch (yamlError) {
-                        console.error('❌ Error parsing YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
-                console.error('❌ Error loading locatie content:', error);
-                console.log('Using fallback locatie content');
+                console.error('Error loading locatie content:', error);
             });
     </script>
 
     <!-- Voorzieningen Tab Loading from CMS -->
     <script>
         // Load Voorzieningen Tab from CMS
-        console.log('🚀 Starting voorzieningen tab CMS loading...');
+
         
         fetch('content/practical/voorzieningen.md')
-            .then(response => {
-                console.log('📡 Voorzieningen fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                console.log('📄 Raw markdown content:', text);
-                console.log('📄 Content length:', text.length);
-                
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log each field value
-                        console.log('🏷️ tab_title:', data.tab_title);
-                        console.log('🏢 facilities:', data.facilities);
                         
                         // Update voorzieningen tab title
                         if (data.tab_title) {
-                            console.log('🎯 Updating tab title to:', data.tab_title);
                             const voorzieningenTabTitle = document.querySelector('#voorzieningen .tab-title');
-                            console.log('🎯 Found tab title element:', voorzieningenTabTitle);
                             if (voorzieningenTabTitle) {
                                 voorzieningenTabTitle.textContent = data.tab_title;
-                                console.log('✅ Tab title updated successfully');
-                            } else {
-                                console.log('❌ Tab title element not found');
                             }
-                        } else {
-                            console.log('⚠️ No tab_title found in data');
                         }
                         
                         // Update facilities
                         if (data.facilities && Array.isArray(data.facilities)) {
-                            console.log('🎯 Updating facilities with:', data.facilities);
                             updateFacilities(data.facilities);
-                        } else {
-                            console.log('⚠️ No facilities found in data or not an array');
                         }
                         
-                        // Final verification - log all voorzieningen tab elements
-                        console.log('🔍 Final verification of voorzieningen tab elements:');
-                        console.log('🔍 Tab title:', document.querySelector('#voorzieningen .tab-title')?.textContent);
-                        console.log('🔍 Facilities container:', document.querySelector('#voorzieningen .facilities-grid')?.innerHTML);
-                        
                     } catch (yamlError) {
-                        console.error('❌ Error parsing YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
-                console.error('❌ Error loading voorzieningen content:', error);
-                console.log('Using fallback voorzieningen content');
+                console.error('Error loading voorzieningen content:', error);
             });
     </script>
 
@@ -465,83 +393,46 @@
     <!-- Verkeer Tab Loading from CMS -->
     <script>
         // Load Verkeer Tab from CMS
-        console.log('🚀 Starting verkeer tab CMS loading...');
+
         
         fetch('content/practical/verkeer.md')
-            .then(response => {
-                console.log('📡 Verkeer fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                console.log('📄 Raw markdown content:', text);
-                console.log('📄 Content length:', text.length);
-                
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log each field value
-                        console.log('🏷️ tab_title:', data.tab_title);
-                        console.log('🖼️ tab_image:', data.tab_image);
-                        console.log('📝 tab_subtext:', data.tab_subtext);
-                        console.log('🚗 traffic_text:', data.traffic_text);
                         
                         // Update verkeer tab title
                         if (data.tab_title) {
-                            console.log('🎯 Updating tab title to:', data.tab_title);
                             const verkeerTabTitle = document.querySelector('#verkeer .tab-title');
-                            console.log('🎯 Found tab title element:', verkeerTabTitle);
                             if (verkeerTabTitle) {
                                 verkeerTabTitle.textContent = data.tab_title;
-                                console.log('✅ Tab title updated successfully');
-                            } else {
-                                console.log('❌ Tab title element not found');
                             }
-                        } else {
-                            console.log('⚠️ No tab_title found in data');
                         }
                         
                         // Update verkeer tab image
                         if (data.tab_image) {
-                            console.log('🎯 Updating tab image to:', data.tab_image);
                             const verkeerImage = document.querySelector('#verkeer .traffic-image');
-                            console.log('🎯 Found image element:', verkeerImage);
                             if (verkeerImage) {
                                 verkeerImage.src = data.tab_image;
-                                console.log('✅ Image updated successfully');
-                            } else {
-                                console.log('❌ Image element not found');
                             }
-                        } else {
-                            console.log('⚠️ No tab_image found in data');
                         }
                         
                         // Update verkeer tab subtext
                         if (data.tab_subtext) {
-                            console.log('🎯 Updating tab subtext to:', data.tab_subtext);
                             const verkeerImageContainer = document.querySelector('#verkeer .traffic-image-container');
-                            console.log('🎯 Found image container:', verkeerImageContainer);
                             
                             if (verkeerImageContainer) {
                                 // Check if subtext already exists
                                 let existingSubtext = verkeerImageContainer.querySelector('.traffic-subtext');
-                                console.log('🎯 Existing subtext element:', existingSubtext);
                                 
                                 if (!existingSubtext) {
-                                    console.log('🎯 Creating new subtext element...');
                                     existingSubtext = document.createElement('p');
                                     existingSubtext.className = 'traffic-subtext';
                                     existingSubtext.style.textAlign = 'center';
@@ -549,133 +440,69 @@
                                     existingSubtext.style.fontStyle = 'italic';
                                     existingSubtext.style.color = '#666';
                                     verkeerImageContainer.appendChild(existingSubtext);
-                                    console.log('✅ New subtext element created and added');
                                 }
                                 
                                 existingSubtext.textContent = data.tab_subtext;
-                                console.log('✅ Subtext updated successfully');
-                                console.log('🎯 Subtext element after update:', existingSubtext);
-                                console.log('🎯 Subtext element HTML:', existingSubtext.outerHTML);
-                            } else {
-                                console.log('❌ Image container not found');
                             }
-                        } else {
-                            console.log('⚠️ No tab_subtext found in data');
                         }
                         
                         // Update verkeer tab traffic text
                         if (data.traffic_text) {
-                            console.log('🎯 Updating traffic text to:', data.traffic_text);
                             const verkeerTrafficText = document.querySelector('#verkeer .traffic-text');
-                            console.log('🎯 Found traffic text element:', verkeerTrafficText);
                             
                             if (verkeerTrafficText) {
                                 verkeerTrafficText.innerHTML = data.traffic_text;
-                                console.log('✅ Traffic text updated successfully');
-                                console.log('🎯 Traffic text element after update:', verkeerTrafficText);
-                                console.log('🎯 Traffic text element HTML:', verkeerTrafficText.outerHTML);
-                            } else {
-                                console.log('❌ Traffic text element not found');
                             }
-                        } else {
-                            console.log('⚠️ No traffic_text found in data');
                         }
                         
-                        // Final verification - log all verkeer tab elements
-                        console.log('🔍 Final verification of verkeer tab elements:');
-                        console.log('🔍 Tab title:', document.querySelector('#verkeer .tab-title')?.textContent);
-                        console.log('🔍 Tab image src:', document.querySelector('#verkeer .traffic-image')?.src);
-                        console.log('🔍 Tab subtext:', document.querySelector('#verkeer .traffic-subtext')?.textContent);
-                        console.log('🔍 Tab traffic text:', document.querySelector('#verkeer .traffic-text')?.innerHTML);
-                        
                     } catch (yamlError) {
-                        console.error('❌ Error parsing YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
-                console.error('❌ Error loading verkeer content:', error);
-                console.log('Using fallback verkeer content');
+                console.error('Error loading verkeer content:', error);
             });
     </script>
 
          <!-- FAQ Tab Loading from CMS -->
      <script>
          // Load FAQ Tab from CMS
-         console.log('🚀 Starting FAQ tab CMS loading...');
+ 
          
          fetch('content/practical/faq.md')
-             .then(response => {
-                 console.log('📡 FAQ fetch response:', response);
-                 console.log('📡 Response status:', response.status);
-                 console.log('📡 Response ok:', response.ok);
-                 return response.text();
-             })
+             .then(response => response.text())
              .then(text => {
-                 console.log('📄 Raw markdown content:', text);
-                 console.log('📄 Content length:', text.length);
-                 
                  // Split the content into frontmatter and body
                  const parts = text.split('---');
-                 console.log('✂️ Split parts:', parts);
-                 console.log('✂️ Number of parts:', parts.length);
                  
                  if (parts.length >= 2) {
                      const frontmatter = parts[1].trim();
-                     console.log('📋 Frontmatter section:', frontmatter);
                      
                      try {
                          // Parse YAML frontmatter into JavaScript object
                          const data = jsyaml.load(frontmatter);
-                         console.log('🔍 Parsed YAML data:', data);
-                         console.log('🔍 Available fields:', Object.keys(data));
-                         
-                         // Log each field value
-                         console.log('🏷️ tab_title:', data.tab_title);
-                         console.log('❓ faq_items:', data.faq_items);
                          
                          // Update FAQ tab title
                          if (data.tab_title) {
-                             console.log('🎯 Updating tab title to:', data.tab_title);
                              const faqTabTitle = document.querySelector('#faq .tab-title');
-                             console.log('🎯 Found tab title element:', faqTabTitle);
                              if (faqTabTitle) {
                                  faqTabTitle.textContent = data.tab_title;
-                                 console.log('✅ Tab title updated successfully');
-                             } else {
-                                 console.log('❌ Tab title element not found');
                              }
-                         } else {
-                             console.log('⚠️ No tab_title found in data');
                          }
                          
                          // Update FAQ items
                          if (data.faq_items && Array.isArray(data.faq_items)) {
-                             console.log('🎯 Updating FAQ items with:', data.faq_items);
                              updateFAQItems(data.faq_items);
-                         } else {
-                             console.log('⚠️ No faq_items found in data or not an array');
                          }
                          
-                         // Final verification - log all FAQ tab elements
-                         console.log('🔍 Final verification of FAQ tab elements:');
-                         console.log('🔍 Tab title:', document.querySelector('#faq .tab-title')?.textContent);
-                         console.log('🔍 FAQ list:', document.querySelector('#faq .faq-list')?.innerHTML);
-                         
                      } catch (yamlError) {
-                         console.error('❌ Error parsing YAML:', yamlError);
-                         console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                         console.error('Error parsing YAML:', yamlError);
                      }
-                 } else {
-                     console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                  }
              })
              .catch(error => {
-                 console.error('❌ Error loading FAQ content:', error);
-                 console.log('Using fallback FAQ content');
+                 console.error('Error loading FAQ content:', error);
              });
      </script>
 
@@ -683,103 +510,68 @@
     <script>
         // Function to update transport methods
         function updateTransportMethods(transportMethods) {
-            console.log('🔄 updateTransportMethods called with:', transportMethods);
-            
             const container = document.querySelector('#locatie .location-info');
             if (!container) {
-                console.warn('❌ Transport methods container not found');
+                console.warn('Transport methods container not found');
                 return;
             }
             
-            console.log('🎯 Found container:', container);
-            
-                         if (Array.isArray(transportMethods) && transportMethods.length > 0) {
-                 console.log('✅ Transport methods:', transportMethods);
-                 
-                 if (transportMethods.length > 0) {
-                                         const htmlContent = transportMethods.map(method => `
-                         <div class="info-card">
-                             <h3><i class="${method.icon}"></i> ${method.title}</h3>
-                             <p>${method.description}</p>
-                         </div>
-                     `).join('');
-                    
-                    container.innerHTML = htmlContent;
-                    console.log('✅ Transport methods updated successfully');
-                    console.log('🎯 Final HTML content:', container.innerHTML);
-                } else {
-                    console.log('⚠️ No active transport methods found');
-                    container.innerHTML = '<p>Geen transportmethoden beschikbaar.</p>';
-                }
+            if (Array.isArray(transportMethods) && transportMethods.length > 0) {
+                const htmlContent = transportMethods.map(method => `
+                    <div class="info-card">
+                        <h3><i class="${method.icon}"></i> ${method.title}</h3>
+                        <p>${method.description}</p>
+                    </div>
+                `).join('');
+                
+                container.innerHTML = htmlContent;
             } else {
-                console.log('⚠️ Invalid transport methods data:', transportMethods);
-                container.innerHTML = '<p>Transportmethoden kunnen niet geladen worden.</p>';
+                container.innerHTML = '<p>Geen transportmethoden beschikbaar.</p>';
             }
         }
         
         // Function to update facilities
         function updateFacilities(facilities) {
-            console.log('🔄 updateFacilities called with:', facilities);
-            
             const container = document.querySelector('#voorzieningen .facilities-grid');
             if (!container) {
-                console.warn('❌ Facilities container not found');
+                console.warn('Facilities container not found');
                 return;
             }
             
-            console.log('🎯 Found container:', container);
-            
-                         if (Array.isArray(facilities) && facilities.length > 0) {
-                 console.log('✅ Facilities:', facilities);
-                 
-                 if (facilities.length > 0) {
-                                         const htmlContent = facilities.map(facility => `
-                         <div class="facility-item">
-                             <i class="${facility.icon}"></i>
-                             <span>${facility.title}</span>
-                         </div>
-                     `).join('');
-                    
-                    container.innerHTML = htmlContent;
-                    console.log('✅ Facilities updated successfully');
-                    console.log('🎯 Final HTML content:', container.innerHTML);
-                } else {
-                    console.log('⚠️ No active facilities found');
-                    container.innerHTML = '<p>Geen voorzieningen beschikbaar.</p>';
-                }
+            if (Array.isArray(facilities) && facilities.length > 0) {
+                const htmlContent = facilities.map(facility => `
+                    <div class="facility-item">
+                        <i class="${facility.icon}"></i>
+                        <span>${facility.title}</span>
+                    </div>
+                `).join('');
+                
+                container.innerHTML = htmlContent;
             } else {
-                console.log('⚠️ Invalid facilities data:', facilities);
-                container.innerHTML = '<p>Voorzieningen kunnen niet geladen worden.</p>';
+                container.innerHTML = '<p>Geen voorzieningen beschikbaar.</p>';
             }
         }
         
-                 // Function to update FAQ items
-         function updateFAQItems(faqItems) {
-             console.log('🔄 updateFAQItems called with:', faqItems);
-             
-             const container = document.querySelector('#faq .faq-list');
-             if (!container) {
-                 console.warn('❌ FAQ container not found');
-                 return;
-             }
-             
-             console.log('🎯 Found container:', container);
-             
-             if (Array.isArray(faqItems) && faqItems.length > 0) {
-                 const htmlContent = faqItems.map((item, index) => `
-                     <div class="faq-item">
-                         <h3>${index + 1}. ${item.question}</h3>
-                         <p>${item.answer}</p>
-                     </div>
-                 `).join('');
-                 
-                 container.innerHTML = htmlContent;
-                 console.log('✅ FAQ items updated successfully');
-                 console.log('🎯 Final HTML content:', container.innerHTML);
-             } else {
-                 console.log('⚠️ No FAQ items found or invalid data');
-                 container.innerHTML = '<p>Geen FAQ items beschikbaar.</p>';
-             }
+        // Function to update FAQ items
+        function updateFAQItems(faqItems) {
+            const container = document.querySelector('#faq .faq-list');
+            if (!container) {
+                console.warn('FAQ container not found');
+                return;
+            }
+            
+            if (Array.isArray(faqItems) && faqItems.length > 0) {
+                const htmlContent = faqItems.map((item, index) => `
+                    <div class="faq-item">
+                        <h3>${index + 1}. ${item.question}</h3>
+                        <p>${item.answer}</p>
+                    </div>
+                `).join('');
+                
+                container.innerHTML = htmlContent;
+            } else {
+                container.innerHTML = '<p>Geen FAQ items beschikbaar.</p>';
+            }
          }
         
         // Function to parse list items from CMS markdown

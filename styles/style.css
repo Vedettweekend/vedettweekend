@@ -1915,7 +1915,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('./img/BackgroundWebsite.png') center/cover;
+  background: url('./img/poster-background.png') center/cover;
   opacity: 0.1;
   z-index: -1;
 }

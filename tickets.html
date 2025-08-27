@@ -155,7 +155,7 @@
     <!-- Ticketshop URL Loading from CMS -->
     <script>
         // Load Ticketshop URL from CMS
-        console.log('🚀 Starting ticketshop URL CMS loading...');
+
         
         fetch('content/tickets/ticketshop.md')
             .then(response => response.text())
@@ -274,16 +274,12 @@
                         console.log('🔍 Hero button text:', document.querySelector('.hero-button')?.textContent);
                         
                     } catch (yamlError) {
-                        console.error('❌ Error parsing YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
-                console.error('❌ Error loading hero section content:', error);
-                console.log('Using fallback hero section content');
+                console.error('Error loading hero section content:', error);
             });
     </script>
     
