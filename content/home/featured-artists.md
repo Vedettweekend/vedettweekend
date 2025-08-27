@@ -22,7 +22,7 @@ featured_artists:
     websiteUrl: https://www.facebook.com/vedettweekend
     websiteIcon: fa fa-link
   - name: TBA
-    dateBadge: ZA 26 OKT
+    dateBadge: TBA
     image: /img/uploads/tba.jpg
     title: "CHECK IT OUT:"
     djName: TBA
