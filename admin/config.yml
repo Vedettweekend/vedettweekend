@@ -107,8 +107,7 @@ collections:
               {label: "Image", name: "image", widget: "image", hint: "Artist/Event image"},
               {label: "Title", name: "title", widget: "string", hint: "Artist/Event name"},
               {label: "Subtext", name: "subtext", widget: "text", hint: "Description or additional info"},
-              {label: "URL", name: "url", widget: "string", hint: "Link when clicked"},
-              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this timeline item"}
+              {label: "URL", name: "url", widget: "string", hint: "Link when clicked"}
             ]}
       
       - name: "saturday_timeline"
@@ -121,8 +120,7 @@ collections:
               {label: "Image", name: "image", widget: "image", hint: "Artist/Event image"},
               {label: "Title", name: "title", widget: "string", hint: "Artist/Event name"},
               {label: "Subtext", name: "subtext", widget: "text", hint: "Description or additional info"},
-              {label: "URL", name: "url", widget: "string", hint: "Link when clicked"},
-              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this timeline item"}
+              {label: "URL", name: "url", widget: "string", hint: "Link when clicked"}
             ]}
 
   - name: "practical"

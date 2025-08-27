@@ -315,8 +315,8 @@
             timelineItems.forEach((item, index) => {
                 console.log(`📅 Processing timeline item ${index + 1}:`, item);
                 
-                // Check if item is active and has required fields
-                if (item.active === true && item.time) {
+                // Check if item has required fields
+                if (item.time) {
                     // Clean up the time field - remove any extra whitespace or quotes
                     let cleanTime = item.time.trim();
                     
@@ -345,13 +345,7 @@
                     items.push(processedItem);
                     console.log(`✅ Added timeline item:`, processedItem);
                 } else {
-                    if (!item.active || item.active !== true) {
-                        console.log(`❌ Skipped timeline item ${index + 1} - not active (active: ${item.active})`);
-                    } else if (!item.time) {
-                        console.log(`❌ Skipped timeline item ${index + 1} - missing time field`);
-                    } else {
-                        console.log(`❌ Skipped timeline item ${index + 1} - unknown reason`);
-                    }
+                    console.log(`❌ Skipped timeline item ${index + 1} - missing time field`);
                 }
             });
             
