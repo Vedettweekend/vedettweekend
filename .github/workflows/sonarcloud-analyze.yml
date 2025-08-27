@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v5.0.0
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -25,3 +25,6 @@ jobs:
           args: >
             -Dsonar.organization=vedettweekend
             -Dsonar.projectKey=Vedettweekend_vedettweekend
+            -Dsonar.javascript.lcov.reportsPaths=coverage/lcov.info
+            -Dsonar.coverage.exclusions=**/*.test.js,**/*.spec.js,**/node_modules/**
+            -Dsonar.test.inclusions=**/*.test.js,**/*.spec.js
