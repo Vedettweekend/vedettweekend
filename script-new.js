@@ -86,102 +86,64 @@ class VedettWebsite {
 
     // ===== LOGO LOADING FROM CMS =====
     loadLogo() {
-        console.log('🎨 Starting logo loading from CMS...');
-        
         fetch('content/home/logo.md')
-            .then(response => {
-                console.log('📡 Logo fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                console.log('📄 Raw logo markdown content:', text);
-                console.log('📄 Content length:', text.length);
-                
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Logo frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed logo YAML data:', data);
-                        console.log('🔍 Available logo fields:', Object.keys(data));
-                        
-                        // Log logo image path
-                        console.log('🖼️ logo_image:', data.logo_image);
                         
                         // Update all logos on the page (both nav and hero logos)
                         if (data.logo_image) {
-                            console.log('🎯 Updating all logos to:', data.logo_image);
-                            
                             const navLogos = document.querySelectorAll('.nav-logo');
                             const heroLogos = document.querySelectorAll('.hero-logo');
                             
-                            console.log('🔍 Found nav logos:', navLogos.length);
-                            console.log('🔍 Found hero logos:', heroLogos.length);
-                            
                             // Update nav logos
-                            navLogos.forEach((logo, index) => {
-                                console.log(`🔄 Updating nav logo ${index + 1}:`, logo);
+                            navLogos.forEach(logo => {
                                 logo.src = data.logo_image;
-                                console.log(`✅ Nav logo ${index + 1} updated successfully`);
                             });
                             
                             // Update hero logos
-                            heroLogos.forEach((logo, index) => {
-                                console.log(`🔄 Updating hero logo ${index + 1}:`, logo);
+                            heroLogos.forEach(logo => {
                                 logo.src = data.logo_image;
-                                console.log(`✅ Hero logo ${index + 1} updated successfully`);
                             });
-                            
-                            console.log('✅ All logos updated successfully');
                         } else {
-                            console.log('⚠️ No logo_image found in data, using fallback');
                             this.setFallbackLogo();
                         }
                         
                     } catch (yamlError) {
-                        console.error('❌ Error parsing logo YAML:', yamlError);
-                        console.log('📋 Raw logo frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing logo YAML:', yamlError);
                         this.setFallbackLogo();
                     }
                 } else {
-                    console.log('❌ Invalid logo markdown structure - need at least 2 parts after splitting');
                     this.setFallbackLogo();
                 }
             })
             .catch(error => {
-                console.error('❌ Error fetching logo from CMS:', error);
-                console.log('🔄 Using fallback logo due to fetch error');
+                console.error('Error fetching logo from CMS:', error);
                 this.setFallbackLogo();
             });
     }
 
     setFallbackLogo() {
-        console.log('🔄 Setting fallback logo...');
         const navLogos = document.querySelectorAll('.nav-logo');
         const heroLogos = document.querySelectorAll('.hero-logo');
         
         // Set fallback for nav logos
-        navLogos.forEach((logo, index) => {
+        navLogos.forEach(logo => {
             logo.src = './img/vedett25.webp';
-            console.log(`✅ Fallback logo set for nav logo ${index + 1}`);
         });
         
         // Set fallback for hero logos
-        heroLogos.forEach((logo, index) => {
+        heroLogos.forEach(logo => {
             logo.src = './img/vedett25.webp';
-            console.log(`✅ Fallback logo set for hero logo ${index + 1}`);
         });
-        
-        console.log('✅ All fallback logos set successfully');
     }
 
 
@@ -323,42 +285,24 @@ class VedettWebsite {
     // Load Footer Sponsors from CMS (Clean YAML parsing)
     async loadFooterSponsors() {
         try {
-            console.log('🚀 Starting footer sponsors CMS loading...');
-            
             const response = await fetch('content/home/footer-sponsors.md');
-            console.log('📡 Footer sponsors fetch response:', response);
-            console.log('📡 Response status:', response.status);
-            console.log('📡 Response ok:', response.ok);
-            
             const text = await response.text();
-            console.log('📄 Raw markdown content:', text);
-            console.log('📄 Content length:', text.length);
             
             // Split the content into frontmatter and body
             const parts = text.split('---');
-            console.log('✂️ Split parts:', parts);
-            console.log('✂️ Number of parts:', parts.length);
             
             if (parts.length >= 2) {
                 const frontmatter = parts[1].trim();
-                console.log('📋 Frontmatter section:', frontmatter);
                 
                 try {
                     // Parse YAML frontmatter into JavaScript object
                     const data = jsyaml.load(frontmatter);
-                    console.log('🔍 Parsed YAML data:', data);
-                    console.log('🔍 Available fields:', Object.keys(data));
-                    
-                    // Log sponsors array
-                    console.log('🏢 Sponsors array:', data.sponsors);
                     
                     if (data.sponsors && Array.isArray(data.sponsors)) {
                         const sponsors = [];
                         
                         // Process each sponsor (no active filtering needed)
-                        data.sponsors.forEach((sponsor, index) => {
-                            console.log(`🏢 Processing sponsor ${index + 1}:`, sponsor);
-                            
+                        data.sponsors.forEach(sponsor => {
                             // Check if sponsor has required fields
                             if (sponsor.image && sponsor.websiteUrl) {
                                 // Ensure URL has proper protocol
@@ -374,19 +318,8 @@ class VedettWebsite {
                                 };
                                 
                                 sponsors.push(processedSponsor);
-                                console.log(`✅ Added footer sponsor:`, processedSponsor);
-                            } else {
-                                if (!sponsor.image) {
-                                    console.log(`❌ Skipped sponsor ${index + 1} - missing image field`);
-                                } else if (!sponsor.websiteUrl) {
-                                    console.log(`❌ Skipped sponsor ${index + 1} - missing website URL field`);
-                                } else {
-                                    console.log(`❌ Skipped sponsor ${index + 1} - unknown reason`);
-                                }
                             }
                         });
-                        
-                        console.log('🏢 Final footer sponsors array:', sponsors);
                         
                         // Display active footer sponsors in footer
                         const footerSponsorsContainer = document.getElementById('footerSponsors');
@@ -398,30 +331,16 @@ class VedettWebsite {
                             `).join('');
                             
                             footerSponsorsContainer.innerHTML = htmlContent;
-                            console.log('✅ Updated footer sponsors with', sponsors.length, 'sponsors');
-                            console.log('🎯 Final HTML content:', footerSponsorsContainer.innerHTML);
-                        } else {
-                            console.log('⚠️ Footer sponsors container not found or no sponsors to display');
                         }
-                    } else {
-                        console.log('⚠️ No sponsors found in data or not an array');
                     }
                     
-                    // Final verification - log all footer sponsor elements
-                    console.log('🔍 Final verification of footer sponsor elements:');
-                    console.log('🔍 Footer sponsors container:', document.getElementById('footerSponsors')?.innerHTML);
-                    
                 } catch (yamlError) {
-                    console.error('❌ Error parsing YAML:', yamlError);
-                    console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                    console.error('Error parsing YAML:', yamlError);
                 }
-            } else {
-                console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
             }
             
         } catch (error) {
-            console.error('❌ Error loading footer sponsors content:', error);
-            console.log('Using fallback footer sponsors content');
+            console.error('Error loading footer sponsors content:', error);
         }
     }
 

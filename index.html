@@ -267,46 +267,26 @@
         // Load Featured Artists from CMS (Clean YAML parsing)
         async function loadFeaturedArtists() {
             try {
-                console.log('🎵 Starting featured artists CMS loading...');
-                
                 const response = await fetch('content/home/featured-artists.md');
-                console.log('📡 Featured artists fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                
                 const text = await response.text();
-                console.log('📄 Raw featured artists markdown content:', text);
-                console.log('📄 Content length:', text.length);
                 
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Featured artists frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed featured artists YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log featured artists array
-                        console.log('🎵 featured_artists array:', data.featured_artists);
-                        console.log('🎵 Number of featured artists:', data.featured_artists ? data.featured_artists.length : 0);
                         
                         if (data.featured_artists && Array.isArray(data.featured_artists)) {
                             // Process each featured artist
-                            const artists = data.featured_artists.map((artist, index) => {
-                                console.log(`🎵 Processing featured artist ${index + 1}:`, artist);
-                                
+                            const artists = data.featured_artists.map(artist => {
                                 // Ensure URL has proper protocol
                                 let urlValue = artist.websiteUrl || '';
                                 if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
                                     urlValue = 'https://' + urlValue;
-                                    console.log(`🔗 Updated URL for featured artist ${index + 1}:`, urlValue);
                                 }
                                 
                                 const processedArtist = {
@@ -319,28 +299,20 @@
                                     websiteIcon: artist.websiteIcon || 'fa fa-link'
                                 };
                                 
-                                console.log(`✅ Processed featured artist ${index + 1}:`, processedArtist);
                                 return processedArtist;
                             });
                             
-                            console.log('🎵 Final processed featured artists array:', artists);
-                            
                             // Display featured artists in grid
                             displayFeaturedArtists(artists);
-                        } else {
-                            console.log('⚠️ No featured_artists array found in data or featured_artists is not an array');
                         }
                         
                     } catch (yamlError) {
-                        console.error('❌ Error parsing featured artists YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing featured artists YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid featured artists markdown structure - need at least 2 parts after splitting');
                 }
                 
             } catch (error) {
-                console.error('❌ Error fetching featured artists from CMS:', error);
+                console.error('Error fetching featured artists from CMS:', error);
             }
         }
 
@@ -348,16 +320,12 @@
         function displayFeaturedArtists(artists) {
             const container = document.getElementById('artistsGrid');
             if (!container) {
-                console.log('❌ Artists grid container not found');
                 return;
             }
             
             if (artists.length === 0) {
-                console.log('⚠️ No artists to display');
                 return;
             }
-            
-            console.log('🎵 Displaying', artists.length, 'featured artists');
             
             container.innerHTML = '';
             
@@ -388,59 +356,32 @@
                 `;
                 
                 container.innerHTML += artistCard;
-                console.log(`✅ Added artist card ${index + 1} for ${artist.name}`);
             });
-            
-            console.log('🎵 Artists grid updated successfully');
         }
 
                 // Load Featured Sponsors from CMS (Clean YAML parsing)
         async function loadFeaturedSponsors() {
             try {
-                console.log('🏢 Starting featured sponsors CMS loading...');
-                
                 const response = await fetch('content/home/featured-sponsors.md');
-                console.log('📡 Featured sponsors fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                
                 const text = await response.text();
-                console.log('📄 Raw featured sponsors markdown content:', text);
-                console.log('📄 Content length:', text.length);
                 
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 Featured sponsors frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed featured sponsors YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log sponsors array
-                        console.log('🏢 sponsors array:', data.sponsors);
-                        console.log('🏢 Number of sponsors:', data.sponsors ? data.sponsors.length : 0);
                         
                         if (data.sponsors && Array.isArray(data.sponsors)) {
-                            // Process all sponsors (no active filtering needed)
-                            console.log('🏢 All sponsors:', data.sponsors);
-                            console.log('🏢 Number of sponsors:', data.sponsors.length);
-                            
                             // Process each sponsor
-                            const sponsors = data.sponsors.map((sponsor, index) => {
-                                console.log(`🏢 Processing sponsor ${index + 1}:`, sponsor);
-                                
+                            const sponsors = data.sponsors.map(sponsor => {
                                 // Ensure URL has proper protocol
                                 let urlValue = sponsor.websiteUrl || '';
                                 if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
                                     urlValue = 'https://' + urlValue;
-                                    console.log(`🔗 Updated URL for sponsor ${index + 1}:`, urlValue);
                                 }
                                 
                                 const processedSponsor = {
@@ -449,11 +390,8 @@
                                     altText: sponsor.altText || 'Sponsor'
                                 };
                                 
-                                console.log(`✅ Processed sponsor ${index + 1}:`, processedSponsor);
                                 return processedSponsor;
                             });
-                            
-                            console.log('🏢 Final processed sponsors array:', sponsors);
                             
                             // Display active sponsors in grid
                             const sponsorsGrid = document.getElementById('sponsorsGrid');
@@ -465,20 +403,12 @@
                                 `).join('');
                                 
                                 sponsorsGrid.innerHTML = htmlContent;
-                                console.log('🏢 Updated sponsors grid with', sponsors.length, 'sponsors');
-                            } else {
-                                console.log('❌ Sponsors grid element not found or no sponsors to display');
                             }
-                        } else {
-                            console.log('⚠️ No sponsors array found in data or sponsors is not an array');
                         }
                         
                     } catch (yamlError) {
-                        console.error('❌ Error parsing featured sponsors YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing featured sponsors YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid featured sponsors markdown structure - need at least 2 parts after splitting');
                 }
                 
             } catch (error) {
@@ -495,66 +425,39 @@
         // Load YouTube Video from CMS (Clean YAML parsing)
         async function loadYouTubeVideo() {
             try {
-                console.log('📺 Starting YouTube video CMS loading...');
-                
                 const response = await fetch('content/home/youtube-video.md');
-                console.log('📡 YouTube video fetch response:', response);
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response ok:', response.ok);
-                
                 const text = await response.text();
-                console.log('📄 Raw YouTube video markdown content:', text);
-                console.log('📄 Content length:', text.length);
                 
                 // Split the content into frontmatter and body
                 const parts = text.split('---');
-                console.log('✂️ Split parts:', parts);
-                console.log('✂️ Number of parts:', parts.length);
                 
                 if (parts.length >= 2) {
                     const frontmatter = parts[1].trim();
-                    console.log('📋 YouTube video frontmatter section:', frontmatter);
                     
                     try {
                         // Parse YAML frontmatter into JavaScript object
                         const data = jsyaml.load(frontmatter);
-                        console.log('🔍 Parsed YouTube video YAML data:', data);
-                        console.log('🔍 Available fields:', Object.keys(data));
-                        
-                        // Log YouTube URL
-                        console.log('🔗 youtube_url:', data.youtube_url);
                         
                         if (data.youtube_url) {
                             // Convert YouTube watch URL to embed URL
                             const videoId = data.youtube_url.match(/[?&]v=([^&]+)/);
                             if (videoId && videoId[1]) {
                                 const embedUrl = `https://www.youtube.com/embed/${videoId[1]}`;
-                                console.log('🎯 Converting to embed URL:', embedUrl);
                                 
                                 const iframe = document.getElementById('youtubeVideo');
                                 if (iframe) {
                                     iframe.src = embedUrl;
-                                    console.log('✅ YouTube video iframe updated successfully');
-                                } else {
-                                    console.log('❌ YouTube video iframe element not found');
                                 }
-                            } else {
-                                console.log('⚠️ Could not extract video ID from URL:', data.youtube_url);
                             }
-                        } else {
-                            console.log('⚠️ No youtube_url found in data');
                         }
                         
                     } catch (yamlError) {
-                        console.error('❌ Error parsing YouTube video YAML:', yamlError);
-                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                        console.error('Error parsing YouTube video YAML:', yamlError);
                     }
-                } else {
-                    console.log('❌ Invalid YouTube video markdown structure - need at least 2 parts after splitting');
                 }
                 
             } catch (error) {
-                console.error('❌ Error fetching YouTube video from CMS:', error);
+                console.error('Error fetching YouTube video from CMS:', error);
             }
         }
 
