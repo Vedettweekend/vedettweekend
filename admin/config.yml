@@ -48,18 +48,20 @@ collections:
 
   - name: "featured_artists"
     label: "Featured Artists"
-    folder: "content/featured-artists"
-    create: false
-    slug: "artist-{{name}}"
-    fields:
-      - {label: "Artist Name", name: "name", widget: "string"}
-      - {label: "Date Badge", name: "dateBadge", widget: "string", hint: "e.g., VR 25 OKT, ZA 26 OKT"}
-      - {label: "Artist Image", name: "image", widget: "image", hint: "Single image for both desktop and mobile"}
-      - {label: "Title", name: "title", widget: "string", default: "CHECK IT OUT:"}
-      - {label: "DJ Name", name: "djName", widget: "string", hint: "Full DJ/Artist name to display"}
-      - {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when card is clicked"}
-      - {label: "Website Icon", name: "websiteIcon", widget: "string", default: "fas fa-link", hint: "Font Awesome icon class"}
-      - {label: "Active", name: "active", widget: "boolean", default: true}
+    files:
+      - name: "featured_artists_list"
+        label: "Featured Artists List"
+        file: "content/home/featured-artists.md"
+        fields:
+          - {label: "Featured Artists", name: "featured_artists", widget: "list", fields: [
+              {label: "Artist Name", name: "name", widget: "string", hint: "Full artist/DJ name"},
+              {label: "Date Badge", name: "dateBadge", widget: "string", hint: "e.g., VR 25 OKT, ZA 26 OKT"},
+              {label: "Artist Image", name: "image", widget: "image", hint: "Single image for both desktop and mobile"},
+              {label: "Title", name: "title", widget: "string", default: "CHECK IT OUT:", hint: "Title above the artist name"},
+              {label: "DJ Name", name: "djName", widget: "string", hint: "Full DJ/Artist name to display"},
+              {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when card is clicked"},
+              {label: "Website Icon", name: "websiteIcon", widget: "string", default: "fas fa-link", hint: "Font Awesome icon class"}
+            ]}
 
   - name: "sponsors"
     label: "Sponsors"
@@ -71,8 +73,7 @@ collections:
           - {label: "Sponsors", name: "sponsors", widget: "list", fields: [
               {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"},
               {label: "Sponsor Image", name: "image", widget: "image", hint: "Sponsor logo image"},
-              {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"},
-              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this sponsor"}
+              {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"}
             ]}
       
       - name: "footer_sponsors"
@@ -82,8 +83,7 @@ collections:
           - {label: "Sponsors", name: "sponsors", widget: "list", fields: [
               {label: "Alt Text", name: "altText", widget: "string", hint: "Alternative text for accessibility"},
               {label: "Sponsor Image", name: "image", widget: "image", hint: "Sponsor logo image"},
-              {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"},
-              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this sponsor"}
+              {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when sponsor is clicked"}
             ]}
 
   - name: "lineup"

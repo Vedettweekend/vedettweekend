@@ -364,12 +364,12 @@ class VedettWebsite {
                     if (data.sponsors && Array.isArray(data.sponsors)) {
                         const sponsors = [];
                         
-                        // Process each sponsor
+                        // Process each sponsor (no active filtering needed)
                         data.sponsors.forEach((sponsor, index) => {
                             console.log(`🏢 Processing sponsor ${index + 1}:`, sponsor);
                             
-                            // Check if sponsor is active and has required fields
-                            if (sponsor.active === true && sponsor.image && sponsor.websiteUrl) {
+                            // Check if sponsor has required fields
+                            if (sponsor.image && sponsor.websiteUrl) {
                                 // Ensure URL has proper protocol
                                 let urlValue = sponsor.websiteUrl.trim();
                                 if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
@@ -385,9 +385,7 @@ class VedettWebsite {
                                 sponsors.push(processedSponsor);
                                 console.log(`✅ Added footer sponsor:`, processedSponsor);
                             } else {
-                                if (!sponsor.active || sponsor.active !== true) {
-                                    console.log(`❌ Skipped sponsor ${index + 1} - not active (active: ${sponsor.active})`);
-                                } else if (!sponsor.image) {
+                                if (!sponsor.image) {
                                     console.log(`❌ Skipped sponsor ${index + 1} - missing image field`);
                                 } else if (!sponsor.websiteUrl) {
                                     console.log(`❌ Skipped sponsor ${index + 1} - missing website URL field`);
