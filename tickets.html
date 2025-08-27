@@ -261,28 +261,73 @@
     <script>
         
 
-        // Get the ticketshop data from Netlify CMS
-        const ticketshopData = window.ticketshop || {
-            bannerImage: 'img/BANNEREVENTSQUARE.png',
-            bannerAlt: 'our event banner',
-            iframeLink: 'https://vedettweekend.eventsquare.store/iuyug9ujkxeq'
-        };
-        
-        // Update banner image and alt text
-        const bannerImg = document.querySelector('.ticketshop-banner');
-        if (bannerImg) {
-            bannerImg.src = ticketshopData.bannerImage;
-            bannerImg.alt = ticketshopData.bannerAlt;
-        }
-        
-        // Embed the iframe with editable link
-        ESQ.embed({
-            link: ticketshopData.iframeLink,
-            element: "esq-store",
-        });
-        
-        // The spinner will be naturally covered by the iframe when it loads
-        // No need for complex detection - the iframe has higher z-index
+        // Load ticketshop data from CMS using YAML parsing
+        fetch('content/tickets/ticketshop.md')
+            .then(response => response.text())
+            .then(text => {
+                // Split the content into frontmatter and body
+                const parts = text.split('---');
+                
+                if (parts.length >= 2) {
+                    const frontmatter = parts[1].trim();
+                    
+                    try {
+                        // Parse YAML frontmatter into JavaScript object
+                        const ticketshopData = jsyaml.load(frontmatter);
+                        
+                        // Update banner image and alt text (using default values if not in CMS)
+                        const bannerImg = document.querySelector('.ticketshop-banner');
+                        if (bannerImg) {
+                            bannerImg.src = ticketshopData.bannerImage || 'img/BANNEREVENTSQUARE.png';
+                            bannerImg.alt = ticketshopData.bannerAlt || 'our event banner';
+                        }
+                        
+                        // Embed the iframe with the URL from CMS
+                        if (ticketshopData.ticketshop_url) {
+                            ESQ.embed({
+                                link: ticketshopData.ticketshop_url,
+                                element: "esq-store",
+                            });
+                        } else {
+                            // Fallback to default URL if not found in CMS
+                            ESQ.embed({
+                                link: 'https://vedettweekend.eventsquare.store/lnupdtfkj4fx',
+                                element: "esq-store",
+                            });
+                        }
+                        
+                    } catch (yamlError) {
+                        console.error('Error parsing ticketshop YAML:', yamlError);
+                        
+                        // Fallback to default values if YAML parsing fails
+                        const bannerImg = document.querySelector('.ticketshop-banner');
+                        if (bannerImg) {
+                            bannerImg.src = 'img/BANNEREVENTSQUARE.png';
+                            bannerImg.alt = 'our event banner';
+                        }
+                        
+                        ESQ.embed({
+                            link: 'https://vedettweekend.eventsquare.store/lnupdtfkj4fx',
+                            element: "esq-store",
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error loading ticketshop content:', error);
+                
+                // Fallback to default values if fetch fails
+                const bannerImg = document.querySelector('.ticketshop-banner');
+                if (bannerImg) {
+                    bannerImg.src = 'img/BANNEREVENTSQUARE.png';
+                    bannerImg.alt = 'our event banner';
+                }
+                
+                ESQ.embed({
+                    link: 'https://vedettweekend.eventsquare.store/lnupdtfkj4fx',
+                    element: "esq-store",
+                });
+            });
         
 
     </script>
