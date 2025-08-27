@@ -42,4 +42,10 @@ timeline_items:
       het oog!
     image: /img/uploads/tba.jpg
     time: 02:00 <> 03:00 (+1 winteruur)
+  - active: true
+    title: test
+    time: test
+    subtext: test
+    url: test.be
+    image: /img/uploads/tba.jpg
 ---
