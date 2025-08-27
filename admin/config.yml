@@ -60,7 +60,7 @@ collections:
               {label: "Title", name: "title", widget: "string", default: "CHECK IT OUT:", hint: "Title above the artist name"},
               {label: "DJ Name", name: "djName", widget: "string", hint: "Full DJ/Artist name to display"},
               {label: "Website URL", name: "websiteUrl", widget: "string", hint: "URL to redirect to when card is clicked"},
-              {label: "Website Icon", name: "websiteIcon", widget: "string", default: "fas fa-link", hint: "Font Awesome icon class"}
+              {label: "Website Icon", name: "websiteIcon", widget: "string", default: "fa fa-link", hint: "Font Awesome icon class"}
             ]}
 
   - name: "sponsors"
