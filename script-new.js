@@ -70,9 +70,6 @@ class VedettWebsite {
         // Load logo from CMS
         this.loadLogo();
         
-        // Load sponsors
-        this.loadSponsors();
-        
         // Load footer sponsors
         this.loadFooterSponsors();
         
@@ -321,13 +318,7 @@ class VedettWebsite {
         `;
     }
 
-    loadSponsors() {
-        // This function is now handled by the loadFeaturedSponsors() function in index.html
-        // Featured sponsors are loaded dynamically from the CMS
-        console.log('Featured sponsors loading handled by loadFeaturedSponsors()');
-    }
 
-    // createSponsorItem function removed - now handled by loadFeaturedSponsors() in index.html
 
     // Load Footer Sponsors from CMS (Clean YAML parsing)
     async loadFooterSponsors() {

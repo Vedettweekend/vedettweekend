@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Resource hints for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://identity.netlify.com">
+    <link rel="dns-prefetch" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <meta name="description" content="Vedettweekend 2025 staat weer voor de deur, op vrijdag 25 en zaterdag 26 oktober staat Nieuwenrode weer volledig op stelten want het wordt de grootste editie tot nu toe.">
     <meta name="color-scheme" content="light only">
     <link rel="stylesheet" href="styles/style.css">
@@ -33,7 +41,7 @@
         <nav class="navbar">
             <div class="nav-branding">
                 <a href="./">
-                    <img class="nav-logo" src="./img/vedett25.webp">
+                    <img class="nav-logo" src="./img/vedett25.webp" alt="Vedett Weekend Logo" loading="eager">
                 </a>
             </div>
             <ul class="nav-menu" id="navMenu">
@@ -100,7 +108,7 @@
     <div class="countdown-container">
       <!-- Logo -->
       <div class="countdown-logo">
-        <img class="hero-logo" src="./img/vedett25.webp">
+                        <img class="hero-logo" src="./img/vedett25.webp" alt="Vedett Weekend Hero Logo" loading="eager" fetchpriority="high">
       </div>
   
       <!-- Timer -->
@@ -170,12 +178,12 @@
         <div class="sponsors-container">
             <!-- Color banners -->
             <div class="banner-right">
-                <img src="img/purple.png" class="color-banner" alt="Purple banner">
-                <img src="img/red.png" class="color-banner" alt="Red banner">
-                <img src="img/blue.png" class="color-banner" alt="Blue banner">
-                <img src="img/purple.png" class="color-banner" alt="Purple banner">
-                <img src="img/red.png" class="color-banner" alt="Red banner">
-                <img src="img/blue.png" class="color-banner" alt="Blue banner">
+                        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy">
+        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy">
+        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy">
+        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy">
+        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy">
+        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy">
             </div>
 
             <!-- Main sponsors grid -->
@@ -184,12 +192,12 @@
             </div>
 
             <div class="banner-left">
-                <img src="img/red.png" class="color-banner" alt="Red banner">
-                <img src="img/blue.png" class="color-banner" alt="Blue banner">
-                <img src="img/purple.png" class="color-banner" alt="Purple banner">
-                <img src="img/red.png" class="color-banner" alt="Red banner">
-                <img src="img/blue.png" class="color-banner" alt="Blue banner">
-                <img src="img/purple.png" class="color-banner" alt="Purple banner">
+                        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy">
+        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy">
+        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy">
+        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy">
+        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy">
+        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy">
             </div>
         </div>
     </section>
@@ -256,29 +264,6 @@
     
     <!-- CMS Data Loading -->
     <script>
-        // Load YouTube URL from CMS
-        fetch('/content/site-settings/youtube-video.md')
-            .then(response => response.text())
-            .then(text => {
-                // Parse frontmatter to get youtube_url
-                const match = text.match(/youtube_url:\s*([^\s\n]+)/);
-                if (match && match[1]) {
-                    const iframe = document.getElementById('youtubeVideo');
-                    if (iframe) {
-                        // Convert watch URL to embed URL if needed
-                        let videoUrl = match[1];
-                        if (videoUrl.includes('youtube.com/watch?v=')) {
-                            const videoId = videoUrl.split('v=')[1];
-                            videoUrl = `https://www.youtube.com/embed/${videoId}`;
-                        }
-                        iframe.src = videoUrl;
-                    }
-                }
-            })
-            .catch(error => {
-                console.log('Using default YouTube URL');
-            });
-
         // Load Featured Artists from CMS (Clean YAML parsing)
         async function loadFeaturedArtists() {
             try {
@@ -586,10 +571,12 @@
     </script>
     
     <!-- YAML Parser Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <!-- js-yaml loaded asynchronously -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js" defer></script>
     
     <!-- Main JavaScript -->
-    <script src="script-new.js"></script>
+    <!-- Main JavaScript loaded asynchronously -->
+    <script src="script-new.js" defer></script>
     
     <!-- Facebook SDK -->
     <script crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v17.0" nonce="hc8Wtw7g" defer></script>
