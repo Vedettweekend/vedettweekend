@@ -1,29 +1,45 @@
 ---
 tab_title: "VOORZIENINGEN"
 facilities:
+  - icon: "fas fa-toilet"
+    title: "WC Dorp"
+    description: "Sanitaire voorzieningen in het dorp."
+    active: true
+  - icon: "fas fa-shield-alt"
+    title: "Security"
+    description: "Beveiliging aanwezig op het terrein."
+    active: true
   - icon: "fas fa-utensils"
-    title: "Restaurant & Bar"
-    description: "Verschillende eetgelegenheden en bars zijn beschikbaar op het terrein."
+    title: "Eetkraam"
+    description: "Eetgelegenheden beschikbaar op het terrein."
     active: true
   - icon: "fas fa-tshirt"
-    title: "Kleding & Souvenirs"
-    description: "Vedettweekend merchandise en kleding verkrijgbaar in de shop."
+    title: "Vestiaire"
+    description: "Bewaakte vestiaire voor kleding en spullen."
     active: true
   - icon: "fas fa-first-aid"
-    title: "Eerste Hulp"
-    description: "Medische hulp is 24/7 beschikbaar op het terrein."
+    title: "EHBO Post"
+    description: "Eerste hulp post aanwezig op het terrein."
     active: true
-  - icon: "fas fa-toilet"
-    title: "Sanitaire voorzieningen"
-    description: "Voldoende toiletten en douches beschikbaar op het hele terrein."
+  - icon: "fas fa-couch"
+    title: "Lounge"
+    description: "Ontspanningsruimte beschikbaar."
     active: true
-  - icon: "fas fa-wifi"
-    title: "Gratis WiFi"
-    description: "Snelle internetverbinding beschikbaar in alle gebieden."
+  - icon: "fas fa-ticket-alt"
+    title: "Doorsales"
+    description: "Tickets verkrijgbaar aan de deur."
     active: true
-  - icon: "fas fa-charging-station"
-    title: "Oplaadpunten"
-    description: "Elektrische oplaadpunten voor telefoons en andere apparaten."
+  - icon: "fas fa-mobile-alt"
+    title: "Payconiq"
+    description: "Betaling mogelijk via Payconiq app."
+    active: true
+  - icon: "fas fa-credit-card"
+    title: "Bancontact"
+    description: "Betaling mogelijk met Bancontact."
+    active: true
+  - icon: "fas fa-money-bill-wave"
+    title: "Cash"
+    description: "Contante betaling mogelijk."
     active: true
 ---
 
