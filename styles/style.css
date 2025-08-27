@@ -2230,6 +2230,29 @@ body {
   margin: 0;
 }
 
+.infobox {
+  background: rgba(197, 51, 100, 0.1);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(197, 51, 100, 0.2);
+  margin-top: 2rem;
+}
+
+.infobox h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.infobox p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* Traffic Tab Styles */
 .traffic-info {
   display: grid;
