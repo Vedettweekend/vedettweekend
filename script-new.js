@@ -67,6 +67,9 @@ class VedettWebsite {
     loadContent() {
         // Featured artists are now loaded from CMS in index.html
         
+        // Load logo from CMS
+        this.loadLogo();
+        
         // Load sponsors
         this.loadSponsors();
         
@@ -82,6 +85,106 @@ class VedettWebsite {
         if (window.info) {
             this.loadInfo();
         }
+    }
+
+    // ===== LOGO LOADING FROM CMS =====
+    loadLogo() {
+        console.log('🎨 Starting logo loading from CMS...');
+        
+        fetch('content/home/logo.md')
+            .then(response => {
+                console.log('📡 Logo fetch response:', response);
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+                return response.text();
+            })
+            .then(text => {
+                console.log('📄 Raw logo markdown content:', text);
+                console.log('📄 Content length:', text.length);
+                
+                // Split the content into frontmatter and body
+                const parts = text.split('---');
+                console.log('✂️ Split parts:', parts);
+                console.log('✂️ Number of parts:', parts.length);
+                
+                if (parts.length >= 2) {
+                    const frontmatter = parts[1].trim();
+                    console.log('📋 Logo frontmatter section:', frontmatter);
+                    
+                    try {
+                        // Parse YAML frontmatter into JavaScript object
+                        const data = jsyaml.load(frontmatter);
+                        console.log('🔍 Parsed logo YAML data:', data);
+                        console.log('🔍 Available logo fields:', Object.keys(data));
+                        
+                        // Log logo image path
+                        console.log('🖼️ logo_image:', data.logo_image);
+                        
+                        // Update all logos on the page (both nav and hero logos)
+                        if (data.logo_image) {
+                            console.log('🎯 Updating all logos to:', data.logo_image);
+                            
+                            const navLogos = document.querySelectorAll('.nav-logo');
+                            const heroLogos = document.querySelectorAll('.hero-logo');
+                            
+                            console.log('🔍 Found nav logos:', navLogos.length);
+                            console.log('🔍 Found hero logos:', heroLogos.length);
+                            
+                            // Update nav logos
+                            navLogos.forEach((logo, index) => {
+                                console.log(`🔄 Updating nav logo ${index + 1}:`, logo);
+                                logo.src = data.logo_image;
+                                console.log(`✅ Nav logo ${index + 1} updated successfully`);
+                            });
+                            
+                            // Update hero logos
+                            heroLogos.forEach((logo, index) => {
+                                console.log(`🔄 Updating hero logo ${index + 1}:`, logo);
+                                logo.src = data.logo_image;
+                                console.log(`✅ Hero logo ${index + 1} updated successfully`);
+                            });
+                            
+                            console.log('✅ All logos updated successfully');
+                        } else {
+                            console.log('⚠️ No logo_image found in data, using fallback');
+                            this.setFallbackLogo();
+                        }
+                        
+                    } catch (yamlError) {
+                        console.error('❌ Error parsing logo YAML:', yamlError);
+                        console.log('📋 Raw logo frontmatter that failed to parse:', frontmatter);
+                        this.setFallbackLogo();
+                    }
+                } else {
+                    console.log('❌ Invalid logo markdown structure - need at least 2 parts after splitting');
+                    this.setFallbackLogo();
+                }
+            })
+            .catch(error => {
+                console.error('❌ Error fetching logo from CMS:', error);
+                console.log('🔄 Using fallback logo due to fetch error');
+                this.setFallbackLogo();
+            });
+    }
+
+    setFallbackLogo() {
+        console.log('🔄 Setting fallback logo...');
+        const navLogos = document.querySelectorAll('.nav-logo');
+        const heroLogos = document.querySelectorAll('.hero-logo');
+        
+        // Set fallback for nav logos
+        navLogos.forEach((logo, index) => {
+            logo.src = './img/vedett25.webp';
+            console.log(`✅ Fallback logo set for nav logo ${index + 1}`);
+        });
+        
+        // Set fallback for hero logos
+        heroLogos.forEach((logo, index) => {
+            logo.src = './img/vedett25.webp';
+            console.log(`✅ Fallback logo set for hero logo ${index + 1}`);
+        });
+        
+        console.log('✅ All fallback logos set successfully');
     }
 
 

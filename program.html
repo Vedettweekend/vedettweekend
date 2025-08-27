@@ -167,38 +167,7 @@
     <!-- Main JavaScript -->
     <script src="script-new.js"></script>
     
-    <!-- Logo Loading from CMS -->
-    <script>
-        // Load Logo from CMS
-        fetch('content/home/logo.md')
-            .then(response => response.text())
-            .then(text => {
-                // Parse frontmatter to get logo path
-                const logoMatch = text.match(/logo_image:\s*"?([^"\n]+)"?/);
-                
-                if (logoMatch && logoMatch[1]) {
-                    // Update all nav logos on the page
-                    const navLogos = document.querySelectorAll('.nav-logo');
-                    
-                    navLogos.forEach(logo => {
-                        logo.src = logoMatch[1];
-                    });
-                } else {
-                    // Fallback to default logo if CMS fails
-                    const navLogos = document.querySelectorAll('.nav-logo');
-                    
-                    navLogos.forEach(logo => {
-                        logo.src = './img/vedett25.webp';
-                    });
-                }
-            })
-            .catch(error => {
-                // Fallback to default logo if fetch fails
-                const navLogos = document.querySelectorAll('.nav-logo');
-                
-                logo.src = './img/vedett25.webp';
-            });
-    </script>
+
     
     <!-- Line-up Content Loading from CMS -->
     <script>
