@@ -113,6 +113,9 @@ class VedettWebsite {
                             heroLogos.forEach(logo => {
                                 logo.src = data.logo_image;
                             });
+                            
+                            // Preload the logo image for better performance
+                            this.preloadImage(data.logo_image);
                         } else {
                             this.setFallbackLogo();
                         }
@@ -137,13 +140,24 @@ class VedettWebsite {
         
         // Set fallback for nav logos
         navLogos.forEach(logo => {
-            logo.src = './img/vedett25.webp';
+            logo.src = './img/uploads/vedettlogo-2025.webp';
         });
         
         // Set fallback for hero logos
         heroLogos.forEach(logo => {
-            logo.src = './img/vedett25.webp';
+            logo.src = './img/uploads/vedettlogo-2025.webp';
         });
+        
+        // Preload fallback logo
+        this.preloadImage('./img/uploads/vedettlogo-2025.webp');
+    }
+    
+    preloadImage(src) {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
     }
 
 
