@@ -4,12 +4,10 @@ faq_items:
   - question: Is er een leeftijdsbeperking?
     answer: Er is <strong>geen leeftijdsbeperking</strong> voor wie wilt komen naar
       Vedettweekend, je hoeft dus <strong>geen</strong> 16+ te zijn.
-  - question: Kan ik mijn tickets terugsturen? test
+  - question: Kan ik mijn tickets terugsturen?
     answer: Wij refunden geen gekochte tickets, maar je kan deze nog steeds aan
       iemand anders <strong>doorverkopen</strong> aangezien tickets niet op naam
       zijn.
-  - question: test
-    answer: test
   - question: Wat is het verschil tussen vrijdag en zaterdag tickets?
     answer: Vrijdag tickets zijn voor onze vedettfuif en zaterdag voor onze
       retrofuif, check dus eerst met je vrienden voor welke dag zij een ticket
