@@ -226,109 +226,110 @@ class VedettWebsite {
 
     // createSponsorItem function removed - now handled by loadFeaturedSponsors() in index.html
 
-    // Load Footer Sponsors from CMS (New expandable panel structure)
+    // Load Footer Sponsors from CMS (Clean YAML parsing)
     async loadFooterSponsors() {
         try {
+            console.log('🚀 Starting footer sponsors CMS loading...');
+            
             const response = await fetch('content/home/footer-sponsors.md');
+            console.log('📡 Footer sponsors fetch response:', response);
+            console.log('📡 Response status:', response.status);
+            console.log('📡 Response ok:', response.ok);
+            
             const text = await response.text();
+            console.log('📄 Raw markdown content:', text);
+            console.log('📄 Content length:', text.length);
             
-            console.log('🏢 Footer sponsors CMS response:', text);
+            // Split the content into frontmatter and body
+            const parts = text.split('---');
+            console.log('✂️ Split parts:', parts);
+            console.log('✂️ Number of parts:', parts.length);
             
-            // Parse frontmatter to get sponsors list
-            const sponsorsMatch = text.match(/sponsors:\s*\n([\s\S]*?)(?=\n---|$)/);
-            
-            if (sponsorsMatch) {
-                const sponsorsSection = sponsorsMatch[1];
-                console.log('🏢 Footer sponsors section found:', sponsorsSection);
+            if (parts.length >= 2) {
+                const frontmatter = parts[1].trim();
+                console.log('📋 Frontmatter section:', frontmatter);
                 
-                const sponsors = [];
-                
-                // Handle both field orders: altText first OR active first
-                const sponsorMatches = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*(?:altText|active):/g);
-                console.log('🏢 Found footer sponsor matches:', Array.from(sponsorMatches));
-                
-                // Reset the iterator
-                const sponsorMatches2 = sponsorsSection.matchAll(/(?:^|\n)\s*-\s*(?:altText|active):/g);
-                
-                for (const match of sponsorMatches2) {
-                    const startIndex = match.index;
+                try {
+                    // Parse YAML frontmatter into JavaScript object
+                    const data = jsyaml.load(frontmatter);
+                    console.log('🔍 Parsed YAML data:', data);
+                    console.log('🔍 Available fields:', Object.keys(data));
                     
-                    console.log(`🏢 Processing footer sponsor match:`, match);
-                    console.log(`🏢 Start index:`, startIndex);
+                    // Log sponsors array
+                    console.log('🏢 Sponsors array:', data.sponsors);
                     
-                    // Find the end of this sponsor item (next dash or end of section)
-                    const nextSponsorDash = sponsorsSection.indexOf('\n  - ', startIndex + 1);
-                    const endIndex = nextSponsorDash > -1 ? nextSponsorDash : sponsorsSection.length;
-                    
-                    console.log(`🏢 Next footer sponsor dash at:`, nextSponsorDash);
-                    console.log(`🏢 End index:`, endIndex);
-                    
-                    // Extract the full sponsor block
-                    const sponsorBlock = sponsorsSection.substring(startIndex, endIndex);
-                    
-                    console.log(`🏢 Parsing footer sponsor block:`, sponsorBlock);
-                    
-                    // Extract each field using regex (order doesn't matter)
-                    const altTextMatch = sponsorBlock.match(/altText:\s*"?([^"\n]+)"?/);
-                    const imageMatch = sponsorBlock.match(/image:\s*"?([^"\n]+)"?/);
-                    const websiteUrlMatch = sponsorBlock.match(/websiteUrl:\s*"?([^"\n]+)"?/);
-                    const activeMatch = sponsorBlock.match(/active:\s*(true|false)/);
-                    
-                    console.log(`🏢 Footer alt text match:`, altTextMatch);
-                    console.log(`🏢 Footer image match:`, imageMatch);
-                    console.log(`🏢 Footer website URL match:`, websiteUrlMatch);
-                    console.log(`🏢 Footer active match:`, activeMatch);
-                    
-                    // Check if sponsor is active and has required fields
-                    if (activeMatch && activeMatch[1] === 'true' && imageMatch && websiteUrlMatch) {
-                        // Ensure URL has proper protocol
-                        let urlValue = websiteUrlMatch[1].trim();
-                        if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
-                            urlValue = 'https://' + urlValue;
-                        }
+                    if (data.sponsors && Array.isArray(data.sponsors)) {
+                        const sponsors = [];
                         
-                        const sponsor = {
-                            image: imageMatch[1].trim(),
-                            websiteUrl: urlValue,
-                            altText: altTextMatch ? altTextMatch[1].trim() : 'Footer Sponsor'
-                        };
+                        // Process each sponsor
+                        data.sponsors.forEach((sponsor, index) => {
+                            console.log(`🏢 Processing sponsor ${index + 1}:`, sponsor);
+                            
+                            // Check if sponsor is active and has required fields
+                            if (sponsor.active === true && sponsor.image && sponsor.websiteUrl) {
+                                // Ensure URL has proper protocol
+                                let urlValue = sponsor.websiteUrl.trim();
+                                if (urlValue && !urlValue.startsWith('http://') && !urlValue.startsWith('https://')) {
+                                    urlValue = 'https://' + urlValue;
+                                }
+                                
+                                const processedSponsor = {
+                                    image: sponsor.image.trim(),
+                                    websiteUrl: urlValue,
+                                    altText: sponsor.altText ? sponsor.altText.trim() : 'Footer Sponsor'
+                                };
+                                
+                                sponsors.push(processedSponsor);
+                                console.log(`✅ Added footer sponsor:`, processedSponsor);
+                            } else {
+                                if (!sponsor.active || sponsor.active !== true) {
+                                    console.log(`❌ Skipped sponsor ${index + 1} - not active (active: ${sponsor.active})`);
+                                } else if (!sponsor.image) {
+                                    console.log(`❌ Skipped sponsor ${index + 1} - missing image field`);
+                                } else if (!sponsor.websiteUrl) {
+                                    console.log(`❌ Skipped sponsor ${index + 1} - missing website URL field`);
+                                } else {
+                                    console.log(`❌ Skipped sponsor ${index + 1} - unknown reason`);
+                                }
+                            }
+                        });
                         
-                        sponsors.push(sponsor);
-                        console.log(`✅ Added footer sponsor:`, sponsor);
-                    } else {
-                        if (!activeMatch || activeMatch[1] !== 'true') {
-                            console.log(`❌ Skipped footer sponsor - not active (active: ${activeMatch ? activeMatch[1] : 'missing'})`);
-                        } else if (!imageMatch) {
-                            console.log(`❌ Skipped footer sponsor - missing image field`);
-                        } else if (!websiteUrlMatch) {
-                            console.log(`❌ Skipped footer sponsor - missing website URL field`);
+                        console.log('🏢 Final footer sponsors array:', sponsors);
+                        
+                        // Display active footer sponsors in footer
+                        const footerSponsorsContainer = document.getElementById('footerSponsors');
+                        if (footerSponsorsContainer && sponsors.length > 0) {
+                            const htmlContent = sponsors.map(sponsor => `
+                                <a href="${sponsor.websiteUrl}" class="footer-sponsor" target="_blank" rel="noopener noreferrer">
+                                    <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
+                                </a>
+                            `).join('');
+                            
+                            footerSponsorsContainer.innerHTML = htmlContent;
+                            console.log('✅ Updated footer sponsors with', sponsors.length, 'sponsors');
+                            console.log('🎯 Final HTML content:', footerSponsorsContainer.innerHTML);
                         } else {
-                            console.log(`❌ Skipped footer sponsor - unknown reason`);
+                            console.log('⚠️ Footer sponsors container not found or no sponsors to display');
                         }
-                        console.log(`🏢 Footer sponsor block that failed:`, sponsorBlock);
+                    } else {
+                        console.log('⚠️ No sponsors found in data or not an array');
                     }
-                }
-                
-                console.log('🏢 Final footer sponsors array:', sponsors);
-                
-                // Display active footer sponsors in footer
-                const footerSponsorsContainer = document.getElementById('footerSponsors');
-                if (footerSponsorsContainer && sponsors.length > 0) {
-                    const htmlContent = sponsors.map(sponsor => `
-                        <a href="${sponsor.websiteUrl}" class="footer-sponsor" target="_blank" rel="noopener noreferrer">
-                            <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
-                        </a>
-                    `).join('');
                     
-                    footerSponsorsContainer.innerHTML = htmlContent;
-                    console.log('🏢 Updated footer sponsors with', sponsors.length, 'sponsors');
+                    // Final verification - log all footer sponsor elements
+                    console.log('🔍 Final verification of footer sponsor elements:');
+                    console.log('🔍 Footer sponsors container:', document.getElementById('footerSponsors')?.innerHTML);
+                    
+                } catch (yamlError) {
+                    console.error('❌ Error parsing YAML:', yamlError);
+                    console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
                 }
             } else {
-                console.log('❌ No footer sponsors section found in CMS response');
+                console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
             }
             
         } catch (error) {
-            console.error('🏢 Footer sponsor loading error:', error);
+            console.error('❌ Error loading footer sponsors content:', error);
+            console.log('Using fallback footer sponsors content');
         }
     }
 
