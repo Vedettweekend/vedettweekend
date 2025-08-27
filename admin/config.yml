@@ -154,9 +154,9 @@ collections:
         fields:
           - {label: "Tab Title", name: "tab_title", widget: "string", default: "VOORZIENINGEN", hint: "Title for the voorzieningen tab"}
           - {label: "Facilities", name: "facilities", widget: "list", fields: [
-              {label: "Icon", name: "icon", widget: "string", default: "fas fa-utensils", hint: "Font Awesome icon class"},
-              {label: "Title", name: "title", widget: "string", hint: "Facility title"},
-              {label: "Description", name: "description", widget: "text", hint: "Facility description"},
+              {label: "Icon", name: "icon", widget: "string", default: "fas fa-utensils", hint: "Font Awesome icon class (e.g., fas fa-tshirt, fas fa-first-aid, fas fa-couch)"},
+              {label: "Title", name: "title", widget: "string", hint: "Facility title (e.g., Bewaakte vestiaire, EHBO Post, Lounge)"},
+              {label: "Description", name: "description", widget: "text", hint: "Description of this facility"},
               {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this facility"}
             ]}
       

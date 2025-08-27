@@ -478,32 +478,76 @@
     <!-- Voorzieningen Tab Loading from CMS -->
     <script>
         // Load Voorzieningen Tab from CMS
+        console.log('🚀 Starting voorzieningen tab CMS loading...');
+        
         fetch('content/practical/voorzieningen.md')
-            .then(response => response.text())
+            .then(response => {
+                console.log('📡 Voorzieningen fetch response:', response);
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+                return response.text();
+            })
             .then(text => {
-                // Parse frontmatter to get voorzieningen content
-                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
-                const facilitiesMatch = text.match(/facilities:\s*\n([\s\S]*?)(?=\n---|$)/);
-                const paymentInfoMatch = text.match(/payment_info:\s*"?([\s\S]*?)(?=\n---|$)/);
+                console.log('📄 Raw markdown content:', text);
+                console.log('📄 Content length:', text.length);
                 
-                // Update voorzieningen tab title
-                if (titleMatch && titleMatch[1]) {
-                    const voorzieningenTabTitle = document.querySelector('#voorzieningen .tab-title');
-                    if (voorzieningenTabTitle) voorzieningenTabTitle.textContent = titleMatch[1];
-                }
+                // Split the content into frontmatter and body
+                const parts = text.split('---');
+                console.log('✂️ Split parts:', parts);
+                console.log('✂️ Number of parts:', parts.length);
                 
-                // Update facilities
-                if (facilitiesMatch) {
-                    updateFacilities(facilitiesMatch[1]);
-                }
-                
-                // Update payment info
-                if (paymentInfoMatch && paymentInfoMatch[1]) {
-                    const paymentInfo = document.querySelector('#voorzieningen .payment-info p');
-                    if (paymentInfo) paymentInfo.innerHTML = paymentInfoMatch[1];
+                if (parts.length >= 2) {
+                    const frontmatter = parts[1].trim();
+                    console.log('📋 Frontmatter section:', frontmatter);
+                    
+                    try {
+                        // Parse YAML frontmatter into JavaScript object
+                        const data = jsyaml.load(frontmatter);
+                        console.log('🔍 Parsed YAML data:', data);
+                        console.log('🔍 Available fields:', Object.keys(data));
+                        
+                        // Log each field value
+                        console.log('🏷️ tab_title:', data.tab_title);
+                        console.log('🏢 facilities:', data.facilities);
+                        
+                        // Update voorzieningen tab title
+                        if (data.tab_title) {
+                            console.log('🎯 Updating tab title to:', data.tab_title);
+                            const voorzieningenTabTitle = document.querySelector('#voorzieningen .tab-title');
+                            console.log('🎯 Found tab title element:', voorzieningenTabTitle);
+                            if (voorzieningenTabTitle) {
+                                voorzieningenTabTitle.textContent = data.tab_title;
+                                console.log('✅ Tab title updated successfully');
+                            } else {
+                                console.log('❌ Tab title element not found');
+                            }
+                        } else {
+                            console.log('⚠️ No tab_title found in data');
+                        }
+                        
+                        // Update facilities
+                        if (data.facilities && Array.isArray(data.facilities)) {
+                            console.log('🎯 Updating facilities with:', data.facilities);
+                            updateFacilities(data.facilities);
+                        } else {
+                            console.log('⚠️ No facilities found in data or not an array');
+                        }
+                        
+                        // Final verification - log all voorzieningen tab elements
+                        console.log('🔍 Final verification of voorzieningen tab elements:');
+                        console.log('🔍 Tab title:', document.querySelector('#voorzieningen .tab-title')?.textContent);
+                        console.log('🔍 Facilities container:', document.querySelector('#voorzieningen .facilities-grid')?.innerHTML);
+                        
+                    } catch (yamlError) {
+                        console.error('❌ Error parsing YAML:', yamlError);
+                        console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                    }
+                } else {
+                    console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
                 }
             })
             .catch(error => {
+                console.error('❌ Error loading voorzieningen content:', error);
                 console.log('Using fallback voorzieningen content');
             });
     </script>
@@ -718,23 +762,40 @@
         }
         
         // Function to update facilities
-        function updateFacilities(facilitiesSection) {
+        function updateFacilities(facilities) {
+            console.log('🔄 updateFacilities called with:', facilities);
+            
             const container = document.querySelector('#voorzieningen .facilities-grid');
             if (!container) {
-                console.warn('Facilities container not found');
+                console.warn('❌ Facilities container not found');
                 return;
             }
             
-            const facilities = parseListItems(facilitiesSection);
-            if (facilities.length > 0) {
-                const htmlContent = facilities.map(facility => `
-                    <div class="facility-item">
-                        <i class="${facility.icon}"></i>
-                        <span>${facility.title}</span>
-                    </div>
-                `).join('');
+            console.log('🎯 Found container:', container);
+            
+            if (Array.isArray(facilities) && facilities.length > 0) {
+                // Filter only active facilities
+                const activeFacilities = facilities.filter(facility => facility.active === true);
+                console.log('✅ Active facilities:', activeFacilities);
                 
-                container.innerHTML = htmlContent;
+                if (activeFacilities.length > 0) {
+                    const htmlContent = activeFacilities.map(facility => `
+                        <div class="facility-item">
+                            <i class="${facility.icon}"></i>
+                            <span>${facility.title}</span>
+                        </div>
+                    `).join('');
+                    
+                    container.innerHTML = htmlContent;
+                    console.log('✅ Facilities updated successfully');
+                    console.log('🎯 Final HTML content:', container.innerHTML);
+                } else {
+                    console.log('⚠️ No active facilities found');
+                    container.innerHTML = '<p>Geen voorzieningen beschikbaar.</p>';
+                }
+            } else {
+                console.log('⚠️ Invalid facilities data:', facilities);
+                container.innerHTML = '<p>Voorzieningen kunnen niet geladen worden.</p>';
             }
         }
         
