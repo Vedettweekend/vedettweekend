@@ -174,30 +174,7 @@
                         </div>
                         <div class="tab-body">
                             <div class="faq-list">
-                                <div class="faq-item">
-                                    <h3>1. Is er een leeftijdsbeperking?</h3>
-                                    <p>Er is <strong>geen leeftijdsbeperking</strong> voor wie wilt komen naar Vedettweekend, je hoeft dus <strong>geen</strong> 16+ te zijn.</p>
-                                </div>
-                                
-                                <div class="faq-item">
-                                    <h3>2. Kan ik mijn tickets terugsturen?</h3>
-                                    <p>Wij refunden geen gekochte tickets, maar je kan deze nog steeds aan iemand anders <strong>doorverkopen</strong> aangezien tickets niet op naam zijn.</p>
-                                </div>
-                                
-                                <div class="faq-item">
-                                    <h3>3. Wat is het verschil tussen vrijdag en zaterdag tickets?</h3>
-                                    <p>Vrijdag tickets zijn voor onze vedettfuif en zaterdag voor onze retrofuif, check dus eerst met je vrienden voor welke dag zij een ticket hebben gekocht als je niet zeker bent. Indien je toch een fout hebt gemaakt kan je je <strong>tickets omwisselen</strong>, stuur ons hiervoor een berichtje en we helpen je verder.</p>
-                                </div>
-                                
-                                <div class="faq-item">
-                                    <h3>4. Is er groepskorting beschikbaar?</h3>
-                                    <p><strong>Jeugdbewegingen</strong> kunnen ons een mailtje sturen en genieten van <strong>groepskorting!</strong></p>
-                                </div>
-                                
-                                <div class="faq-item">
-                                    <h3>5. Kan ik tickets kopen voor mijn vrienden?</h3>
-                                    <p><strong>Koop tickets voor je vrienden!</strong> Je kan meerdere tickets kopen voor jou en je vrienden.</p>
-                                </div>
+                                <!-- FAQ items will be loaded dynamically from CMS -->
                             </div>
                         </div>
                     </div>
@@ -655,31 +632,82 @@
             });
     </script>
 
-    <!-- FAQ Tab Loading from CMS -->
-    <script>
-        // Load FAQ Tab from CMS
-        fetch('content/practical/faq.md')
-            .then(response => response.text())
-            .then(text => {
-                // Parse frontmatter to get FAQ content
-                const titleMatch = text.match(/tab_title:\s*"?([^"\n]+)"?/);
-                const faqItemsMatch = text.match(/faq_items:\s*\n([\s\S]*?)(?=\n---|$)/);
-                
-                // Update FAQ tab title
-                if (titleMatch && titleMatch[1]) {
-                    const faqTabTitle = document.querySelector('#faq .tab-title');
-                    if (faqTabTitle) faqTabTitle.textContent = titleMatch[1];
-                }
-                
-                // Update FAQ items
-                if (faqItemsMatch) {
-                    updateFAQItems(faqItemsMatch[1]);
-                }
-            })
-            .catch(error => {
-                console.log('Using fallback FAQ content');
-            });
-    </script>
+         <!-- FAQ Tab Loading from CMS -->
+     <script>
+         // Load FAQ Tab from CMS
+         console.log('🚀 Starting FAQ tab CMS loading...');
+         
+         fetch('content/practical/faq.md')
+             .then(response => {
+                 console.log('📡 FAQ fetch response:', response);
+                 console.log('📡 Response status:', response.status);
+                 console.log('📡 Response ok:', response.ok);
+                 return response.text();
+             })
+             .then(text => {
+                 console.log('📄 Raw markdown content:', text);
+                 console.log('📄 Content length:', text.length);
+                 
+                 // Split the content into frontmatter and body
+                 const parts = text.split('---');
+                 console.log('✂️ Split parts:', parts);
+                 console.log('✂️ Number of parts:', parts.length);
+                 
+                 if (parts.length >= 2) {
+                     const frontmatter = parts[1].trim();
+                     console.log('📋 Frontmatter section:', frontmatter);
+                     
+                     try {
+                         // Parse YAML frontmatter into JavaScript object
+                         const data = jsyaml.load(frontmatter);
+                         console.log('🔍 Parsed YAML data:', data);
+                         console.log('🔍 Available fields:', Object.keys(data));
+                         
+                         // Log each field value
+                         console.log('🏷️ tab_title:', data.tab_title);
+                         console.log('❓ faq_items:', data.faq_items);
+                         
+                         // Update FAQ tab title
+                         if (data.tab_title) {
+                             console.log('🎯 Updating tab title to:', data.tab_title);
+                             const faqTabTitle = document.querySelector('#faq .tab-title');
+                             console.log('🎯 Found tab title element:', faqTabTitle);
+                             if (faqTabTitle) {
+                                 faqTabTitle.textContent = data.tab_title;
+                                 console.log('✅ Tab title updated successfully');
+                             } else {
+                                 console.log('❌ Tab title element not found');
+                             }
+                         } else {
+                             console.log('⚠️ No tab_title found in data');
+                         }
+                         
+                         // Update FAQ items
+                         if (data.faq_items && Array.isArray(data.faq_items)) {
+                             console.log('🎯 Updating FAQ items with:', data.faq_items);
+                             updateFAQItems(data.faq_items);
+                         } else {
+                             console.log('⚠️ No faq_items found in data or not an array');
+                         }
+                         
+                         // Final verification - log all FAQ tab elements
+                         console.log('🔍 Final verification of FAQ tab elements:');
+                         console.log('🔍 Tab title:', document.querySelector('#faq .tab-title')?.textContent);
+                         console.log('🔍 FAQ list:', document.querySelector('#faq .faq-list')?.innerHTML);
+                         
+                     } catch (yamlError) {
+                         console.error('❌ Error parsing YAML:', yamlError);
+                         console.log('📋 Raw frontmatter that failed to parse:', frontmatter);
+                     }
+                 } else {
+                     console.log('❌ Invalid markdown structure - need at least 2 parts after splitting');
+                 }
+             })
+             .catch(error => {
+                 console.error('❌ Error loading FAQ content:', error);
+                 console.log('Using fallback FAQ content');
+             });
+     </script>
 
     <!-- Helper Functions for CMS Updates -->
     <script>
@@ -695,18 +723,16 @@
             
             console.log('🎯 Found container:', container);
             
-            if (Array.isArray(transportMethods) && transportMethods.length > 0) {
-                // Filter only active methods
-                const activeMethods = transportMethods.filter(method => method.active === true);
-                console.log('✅ Active transport methods:', activeMethods);
-                
-                if (activeMethods.length > 0) {
-                    const htmlContent = activeMethods.map(method => `
-                        <div class="info-card">
-                            <h3><i class="${method.icon}"></i> ${method.title}</h3>
-                            <p>${method.description}</p>
-                        </div>
-                    `).join('');
+                         if (Array.isArray(transportMethods) && transportMethods.length > 0) {
+                 console.log('✅ Transport methods:', transportMethods);
+                 
+                 if (transportMethods.length > 0) {
+                                         const htmlContent = transportMethods.map(method => `
+                         <div class="info-card">
+                             <h3><i class="${method.icon}"></i> ${method.title}</h3>
+                             <p>${method.description}</p>
+                         </div>
+                     `).join('');
                     
                     container.innerHTML = htmlContent;
                     console.log('✅ Transport methods updated successfully');
@@ -733,18 +759,16 @@
             
             console.log('🎯 Found container:', container);
             
-            if (Array.isArray(facilities) && facilities.length > 0) {
-                // Filter only active facilities
-                const activeFacilities = facilities.filter(facility => facility.active === true);
-                console.log('✅ Active facilities:', activeFacilities);
-                
-                if (activeFacilities.length > 0) {
-                    const htmlContent = activeFacilities.map(facility => `
-                        <div class="facility-item">
-                            <i class="${facility.icon}"></i>
-                            <span>${facility.title}</span>
-                        </div>
-                    `).join('');
+                         if (Array.isArray(facilities) && facilities.length > 0) {
+                 console.log('✅ Facilities:', facilities);
+                 
+                 if (facilities.length > 0) {
+                                         const htmlContent = facilities.map(facility => `
+                         <div class="facility-item">
+                             <i class="${facility.icon}"></i>
+                             <span>${facility.title}</span>
+                         </div>
+                     `).join('');
                     
                     container.innerHTML = htmlContent;
                     console.log('✅ Facilities updated successfully');
@@ -759,26 +783,34 @@
             }
         }
         
-        // Function to update FAQ items
-        function updateFAQItems(faqItemsSection) {
-            const container = document.querySelector('#faq .faq-list');
-            if (!container) {
-                console.warn('FAQ container not found');
-                return;
-            }
-            
-            const faqItems = parseListItems(faqItemsSection);
-            if (faqItems.length > 0) {
-                const htmlContent = faqItems.map((item, index) => `
-                    <div class="faq-item">
-                        <h3>${index + 1}. ${item.question}</h3>
-                        <p>${item.answer}</p>
-                    </div>
-                `).join('');
-                
-                container.innerHTML = htmlContent;
-            }
-        }
+                 // Function to update FAQ items
+         function updateFAQItems(faqItems) {
+             console.log('🔄 updateFAQItems called with:', faqItems);
+             
+             const container = document.querySelector('#faq .faq-list');
+             if (!container) {
+                 console.warn('❌ FAQ container not found');
+                 return;
+             }
+             
+             console.log('🎯 Found container:', container);
+             
+             if (Array.isArray(faqItems) && faqItems.length > 0) {
+                 const htmlContent = faqItems.map((item, index) => `
+                     <div class="faq-item">
+                         <h3>${index + 1}. ${item.question}</h3>
+                         <p>${item.answer}</p>
+                     </div>
+                 `).join('');
+                 
+                 container.innerHTML = htmlContent;
+                 console.log('✅ FAQ items updated successfully');
+                 console.log('🎯 Final HTML content:', container.innerHTML);
+             } else {
+                 console.log('⚠️ No FAQ items found or invalid data');
+                 container.innerHTML = '<p>Geen FAQ items beschikbaar.</p>';
+             }
+         }
         
         // Function to parse list items from CMS markdown
         function parseListItems(section) {

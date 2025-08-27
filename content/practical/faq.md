@@ -1,25 +1,16 @@
 ---
 tab_title: "FAQ"
-tab_subtitle: "Veelgestelde vragen"
 faq_items:
-  - question: "Wat is de minimumleeftijd voor Vedettweekend?"
-    answer: "De minimumleeftijd is 18 jaar. Geldig identiteitsbewijs is verplicht bij de ingang."
-    active: true
-  - question: "Kan ik mijn eigen eten en drinken meenemen?"
-    answer: "Eigen eten en drinken is niet toegestaan. Er zijn voldoende eetgelegenheden en bars op het terrein."
-    active: true
-  - question: "Is er camping mogelijk?"
-    answer: "Ja, er is een campingterrein beschikbaar. Reserveren is aanbevolen."
-    active: true
-  - question: "Wat als het regent?"
-    answer: "Het evenement gaat door, ook bij regen. De meeste activiteiten vinden plaats in overdekte ruimtes."
-    active: true
-  - question: "Kan ik mijn ticket doorverkopen?"
-    answer: "Tickets zijn persoonlijk en niet overdraagbaar. Controle bij de ingang is verplicht."
-    active: true
-  - question: "Zijn er lockers beschikbaar?"
-    answer: "Ja, er zijn lockers beschikbaar voor het opbergen van waardevolle spullen."
-    active: true
+  - question: "Is er een leeftijdsbeperking?"
+    answer: "Er is <strong>geen leeftijdsbeperking</strong> voor wie wilt komen naar Vedettweekend, je hoeft dus <strong>geen</strong> 16+ te zijn."
+  - question: "Kan ik mijn tickets terugsturen?"
+    answer: "Wij refunden geen gekochte tickets, maar je kan deze nog steeds aan iemand anders <strong>doorverkopen</strong> aangezien tickets niet op naam zijn."
+  - question: "Wat is het verschil tussen vrijdag en zaterdag tickets?"
+    answer: "Vrijdag tickets zijn voor onze vedettfuif en zaterdag voor onze retrofuif, check dus eerst met je vrienden voor welke dag zij een ticket hebben gekocht als je niet zeker bent. Indien je toch een fout hebt gemaakt kan je je <strong>tickets omwisselen</strong>, stuur ons hiervoor een berichtje en we helpen je verder."
+  - question: "Is er groepskorting beschikbaar?"
+    answer: "<strong>Jeugdbewegingen</strong> kunnen ons een mailtje sturen en genieten van <strong>groepskorting!</strong>"
+  - question: "Kan ik tickets kopen voor mijn vrienden?"
+    answer: "<strong>Koop tickets voor je vrienden!</strong> Je kan meerdere tickets kopen voor jou en je vrienden."
 ---
 
 

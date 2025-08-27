@@ -144,8 +144,7 @@ collections:
           - {label: "Transport Methods", name: "transport_methods", widget: "list", fields: [
               {label: "Icon", name: "icon", widget: "string", default: "fas fa-bicycle", hint: "Font Awesome icon class (e.g., fas fa-bicycle, fas fa-car, fas fa-handshake)"},
               {label: "Title", name: "title", widget: "string", hint: "Transport method title (e.g., Met de fiets, Met de auto, Opgehaald worden)"},
-              {label: "Description", name: "description", widget: "text", hint: "Description of this transport method"},
-              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this transport method"}
+              {label: "Description", name: "description", widget: "text", hint: "Description of this transport method"}
             ]}
       
       - name: "voorzieningen"
@@ -156,8 +155,7 @@ collections:
           - {label: "Facilities", name: "facilities", widget: "list", fields: [
               {label: "Icon", name: "icon", widget: "string", default: "fas fa-utensils", hint: "Font Awesome icon class (e.g., fas fa-tshirt, fas fa-first-aid, fas fa-couch)"},
               {label: "Title", name: "title", widget: "string", hint: "Facility title (e.g., Bewaakte vestiaire, EHBO Post, Lounge)"},
-              {label: "Description", name: "description", widget: "text", hint: "Description of this facility"},
-              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this facility"}
+              {label: "Description", name: "text", hint: "Description of this facility"}
             ]}
       
       - name: "verkeer"
@@ -175,7 +173,6 @@ collections:
         fields:
           - {label: "Tab Title", name: "tab_title", widget: "string", default: "FAQ", hint: "Title for the FAQ tab"}
           - {label: "FAQ Items", name: "faq_items", widget: "list", fields: [
-              {label: "Question", name: "question", widget: "string", hint: "FAQ question"},
-              {label: "Answer", name: "answer", widget: "text", hint: "FAQ answer"},
-              {label: "Active", name: "active", widget: "boolean", default: true, hint: "Show/hide this FAQ item"}
+              {label: "Question", name: "question", widget: "string", hint: "FAQ question (e.g., Is er een leeftijdsbeperking?)"},
+              {label: "Answer", name: "answer", widget: "text", hint: "FAQ answer (e.g., Er is geen leeftijdsbeperking voor wie wilt komen naar Vedettweekend)"}
             ]}
