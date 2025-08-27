@@ -9,16 +9,38 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://identity.netlify.com">
+    <link rel="preconnect" href="https://space-trial.video-dns.com">
     <link rel="dns-prefetch" href="https://www.youtube.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <meta name="description" content="Vedettweekend 2025 staat weer voor de deur, op vrijdag 25 en zaterdag 26 oktober staat Nieuwenrode weer volledig op stelten want het wordt de grootste editie tot nu toe.">
     <meta name="color-scheme" content="light only">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" type="image/x-icon" href="./img/faviconvedett.ico">
+    
+    <!-- Critical CSS to prevent layout shifts -->
+    <style>
+      /* Prevent layout shifts for video container */
+      .video-container {
+        aspect-ratio: 16/9;
+        overflow: hidden;
+      }
+      
+      /* Ensure images don't cause layout shifts */
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      /* Optimize font loading */
+      .fa, .fas, .fab {
+        font-display: swap;
+      }
+    </style>
     <link rel="canonical" href="https://www.vedettweekend.be/" />
     
-    <!-- Font Awesome for social media icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome for social media icons - loaded asynchronously -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -41,7 +63,7 @@
         <nav class="navbar">
             <div class="nav-branding">
                 <a href="./">
-                    <img class="nav-logo" src="./img/vedett25.webp" alt="Vedett Weekend Logo" loading="eager">
+                    <img class="nav-logo" src="./img/vedett25.webp" alt="Vedett Weekend Logo" loading="eager" fetchpriority="high" width="60" height="44">
                 </a>
             </div>
             <ul class="nav-menu" id="navMenu">
@@ -76,21 +98,19 @@
 
     <!-- Hero Section Component -->
 <section class="hero">
-    <div class="video-container">
-        <div class="hero-video">
-            <img 
-              src="img/poster-background.png" 
-              alt="Vedettweekend Poster Background" 
-              class="hero-video-poster"
-            >
-            <div class="hero-video-frame">
-                <iframe
-                  src="https://space-trial.video-dns.com/JGWV7daWT1/player.html?autoplay=1&muted=1&loop=1"
-                  frameborder="0"
-                  allow="autoplay; fullscreen"
-                  title="Background Video"
-                ></iframe>
-              </div>
+        <div class="video-container">
+      <div class="hero-video">
+        <div class="hero-video-frame">
+          <iframe
+            src="https://space-trial.video-dns.com/JGWV7daWT1/player.html?autoplay=1&muted=1&loop=1"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            title="Background Video"
+            loading="lazy"
+            width="1920"
+            height="1080"
+          ></iframe>
+        </div>
               
               
               
@@ -107,7 +127,7 @@
     <div class="countdown-container">
       <!-- Logo -->
       <div class="countdown-logo">
-                        <img class="hero-logo" src="./img/vedett25.webp" alt="Vedett Weekend Hero Logo" loading="eager" fetchpriority="high">
+                        <img class="hero-logo" src="./img/vedett25.webp" alt="Vedett Weekend Hero Logo" loading="eager" fetchpriority="high" width="325" height="237">
       </div>
   
       <!-- Timer -->
@@ -162,6 +182,7 @@
                 frameborder="0" 
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen
+                loading="lazy"
                 title="Vedettweekend Aftermovie">
             </iframe>
         </div>
@@ -177,12 +198,12 @@
         <div class="sponsors-container">
             <!-- Color banners -->
             <div class="banner-right">
-                        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy">
-        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy">
-        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy">
-        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy">
-        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy">
-        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy">
+                        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy" width="50" height="200">
+        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy" width="50" height="200">
+        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy" width="50" height="200">
+        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy" width="50" height="200">
+        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy" width="50" height="200">
+        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy" width="50" height="200">
             </div>
 
             <!-- Main sponsors grid -->
@@ -191,12 +212,12 @@
             </div>
 
             <div class="banner-left">
-                        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy">
-        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy">
-        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy">
-        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy">
-        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy">
-        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy">
+                        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy" width="50" height="200">
+        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy" width="50" height="200">
+        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy" width="50" height="200">
+        <img src="img/red.png" class="color-banner" alt="Red banner" loading="lazy" width="50" height="200">
+        <img src="img/blue.png" class="color-banner" alt="Blue banner" loading="lazy" width="50" height="200">
+        <img src="img/purple.png" class="color-banner" alt="Purple banner" loading="lazy" width="50" height="200">
             </div>
         </div>
     </section>
@@ -397,7 +418,7 @@
                             if (sponsorsGrid && sponsors.length > 0) {
                                 const htmlContent = sponsors.map(sponsor => `
                                     <a href="${sponsor.websiteUrl}" class="sponsor-item" target="_blank" rel="noopener noreferrer">
-                                        <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy">
+                                        <img src="${sponsor.image}" alt="${sponsor.altText}" loading="lazy" width="200" height="60">
                                     </a>
                                 `).join('');
                                 
@@ -473,14 +494,15 @@
     </script>
     
     <!-- YAML Parser Library -->
-    <!-- js-yaml loaded asynchronously -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js" defer></script>
     
     <!-- Main JavaScript -->
-    <!-- Main JavaScript loaded asynchronously -->
     <script src="script-new.js" defer></script>
     
-    <!-- Facebook SDK -->
+    <!-- Facebook SDK - loaded asynchronously to avoid blocking -->
     <script crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v17.0" nonce="hc8Wtw7g" defer></script>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="img/vedett25.webp" as="image" type="image/webp">
 </body>
 </html>
