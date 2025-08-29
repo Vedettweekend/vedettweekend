@@ -9,6 +9,9 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Lottie Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles/style.css">
     
@@ -83,7 +86,7 @@
             <div class="ticketshop-container">
                 <div id="esq-store">
                     <!-- Loading animation -->
-                    <div id="loading-spinner" class="spinner"></div>
+                    <div id="lottie-container" class="lottie-spinner"></div>
                 </div>
             </div>
         </div>
@@ -334,6 +337,83 @@
     
     <!-- Facebook SDK -->
     <script crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v17.0" nonce="hc8Wtw7g" defer></script>
+    
+    <!-- Lottie Animation Script -->
+    <script>
+        // Load and play Lottie animation
+        let lottieAnimation;
+        let animationHidden = false;
+        
+        // Initialize Lottie animation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const lottieContainer = document.getElementById('lottie-container');
+            
+            if (lottieContainer) {
+                lottieAnimation = lottie.loadAnimation({
+                    container: lottieContainer,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: 'img/lottie.json'
+                });
+            }
+        });
+        
+        // Function to hide Lottie animation when ticketshop loads
+        function hideLottieAnimation() {
+            if (animationHidden) return; // Prevent multiple calls
+            
+            animationHidden = true;
+            if (lottieAnimation) {
+                lottieAnimation.pause();
+                lottieAnimation.destroy();
+            }
+            const container = document.getElementById('lottie-container');
+            if (container) {
+                container.style.display = 'none';
+            }
+        }
+        
+        // Hide animation when EventSquare iframe loads
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'esq-store-loaded') {
+                hideLottieAnimation();
+            }
+        });
+        
+        // Monitor for EventSquare iframe to be fully loaded and visible
+        function checkForIframe() {
+            const esqStore = document.getElementById('esq-store');
+            if (esqStore) {
+                const iframes = esqStore.querySelectorAll('iframe');
+                if (iframes.length > 0) {
+                    const iframe = iframes[0];
+                    
+                    // Check if iframe is actually visible and has content
+                    if (iframe.offsetWidth > 0 && iframe.offsetHeight > 0) {
+                        // Wait a bit more to ensure the iframe content is fully loaded
+                        setTimeout(() => {
+                            if (!animationHidden) {
+                                hideLottieAnimation();
+                            }
+                        }, 2000); // Wait 2 seconds after iframe appears
+                        return;
+                    }
+                }
+            }
+            
+            // If no iframe yet or iframe not ready, check again in a moment
+            if (!animationHidden) {
+                setTimeout(checkForIframe, 1000);
+            }
+        }
+        
+        // Start checking for iframe after EventSquare script has had time to load
+        setTimeout(checkForIframe, 3000);
+        
+        // Fallback timeout to hide animation (much longer now)
+        setTimeout(hideLottieAnimation, 30000);
+    </script>
 </body>
 </html>
 

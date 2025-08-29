@@ -1339,7 +1339,7 @@ body {
 .ticketshop-container {
   max-width: calc(1200px + 10vw);
   width: calc(100% - 10vw);
-  min-height: 300px;
+  min-height: 400px;
   margin: 0 auto;
   padding: 2rem 2rem;
   background: rgba(255, 255, 255, 0.05);
@@ -1348,6 +1348,7 @@ body {
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .ticketshop-container:hover {
@@ -1370,6 +1371,7 @@ body {
   position: relative;
   margin: 0; /* Remove all margins */
   padding: 0; /* Remove all padding */
+  min-height: 300px;
 }
 
 #esq-store iframe {
@@ -1392,25 +1394,15 @@ body {
   padding: 0 !important;
 }
 
-.spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #C53364;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 50px auto;
+.lottie-spinner {
+  width: 200px;
+  height: 200px;
   display: block;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1; /* Lower z-index so iframe covers it */
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .full-width-line {
