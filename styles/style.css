@@ -2689,7 +2689,7 @@ body {
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   font-family: 'Mont', sans-serif;
-  font-size: 14px;
+  font-size: 16px; /* Changed from 14px to prevent iOS zoom */
   resize: vertical;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
