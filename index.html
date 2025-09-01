@@ -159,7 +159,7 @@
   
            <!-- CTA Button -->
            <div class="countdown-cta">
-            <a href="tickets.html" class="cta-button" onclick="umami.track('button_clicked')">
+            <a href="tickets.html" class="cta-button">
               <span class="cta-text">KOOP TICKETS</span>
             </a>
           </div>
@@ -507,5 +507,292 @@
     
     <!-- Preload critical resources -->
     <link rel="preload" href="img/uploads/vedettlogo-2025.webp" as="image" type="image/webp">
+
+    <!-- Feedback Widget -->
+    <div id="feedback-widget" class="feedback-widget">
+        <div id="feedback-toggle" class="feedback-toggle" onclick="toggleFeedback()">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        
+        <div id="feedback-form" class="feedback-form" style="display: none;">
+            <div class="feedback-header">
+                <h3>Feedback</h3>
+                <button class="feedback-close" onclick="toggleFeedback()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="feedback-content">
+                <p class="feedback-question">Hoe kunnen we voor jou Vedettweekend nog beter maken?</p>
+                
+                <form id="feedback-form-element" onsubmit="submitFeedback(event)">
+                    <textarea 
+                        id="feedback-input" 
+                        class="feedback-input" 
+                        placeholder="Deel je ideeën en suggesties..."
+                        required
+                    ></textarea>
+                    
+                    <div class="feedback-actions">
+                        <button type="button" class="feedback-cancel" onclick="toggleFeedback()">
+                            Annuleren
+                        </button>
+                        <button type="submit" class="feedback-submit">
+                            Verstuur Feedback
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Widget Styles -->
+    <style>
+        /* Feedback Widget Styles */
+        .feedback-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            font-family: 'Mont', sans-serif;
+        }
+
+        .feedback-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #C53364, #8B5CF6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 24px;
+        }
+
+        .feedback-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .feedback-form {
+            position: absolute;
+            bottom: 80px;
+            left: 0;
+            width: 350px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-header {
+            background: linear-gradient(135deg, #C53364, #8B5CF6);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feedback-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .feedback-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+
+        .feedback-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .feedback-content {
+            padding: 20px;
+        }
+
+        .feedback-question {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .feedback-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Mont', sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .feedback-input:focus {
+            outline: none;
+            border-color: #C53364;
+        }
+
+        .feedback-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .feedback-cancel,
+        .feedback-submit {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Mont', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-cancel {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .feedback-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .feedback-submit {
+            background: linear-gradient(135deg, #C53364, #8B5CF6);
+            color: white;
+        }
+
+        .feedback-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(197, 51, 100, 0.4);
+        }
+
+        .feedback-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .feedback-widget {
+                bottom: 15px;
+                left: 15px;
+            }
+            
+            .feedback-form {
+                width: calc(100vw - 60px);
+                left: -15px;
+                margin: 0 15px;
+            }
+            
+            .feedback-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+
+    <!-- Feedback Widget JavaScript -->
+    <script>
+        // Feedback Widget Functions
+        let feedbackWidgetOpen = false;
+
+        function toggleFeedback() {
+            const form = document.getElementById('feedback-form');
+            const toggle = document.getElementById('feedback-toggle');
+            
+            if (feedbackWidgetOpen) {
+                form.style.display = 'none';
+                toggle.style.transform = 'rotate(0deg)';
+                feedbackWidgetOpen = false;
+            } else {
+                form.style.display = 'block';
+                toggle.style.transform = 'rotate(45deg)';
+                feedbackWidgetOpen = true;
+            }
+        }
+
+        async function submitFeedback(event) {
+            event.preventDefault();
+            
+            const feedbackInput = document.getElementById('feedback-input');
+            const submitButton = document.querySelector('.feedback-submit');
+            const feedback = feedbackInput.value.trim();
+            
+            if (!feedback) {
+                alert('Voer alstublieft feedback in voordat u verzendt.');
+                return;
+            }
+            
+            // Disable submit button
+            submitButton.disabled = true;
+            submitButton.textContent = 'Versturen...';
+            
+            try {
+                // Replace 'YOUR_GOOGLE_APPS_SCRIPT_URL' with your actual Apps Script URL
+                const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `feedback=${encodeURIComponent(feedback)}`
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Success
+                    feedbackInput.value = '';
+                    alert('Bedankt voor je feedback!');
+                    toggleFeedback(); // Close the widget
+                } else {
+                    throw new Error(result.message);
+                }
+                
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                alert('Er is een fout opgetreden. Probeer het later opnieuw.');
+            } finally {
+                // Re-enable submit button
+                submitButton.disabled = false;
+                submitButton.textContent = 'Verstuur Feedback';
+            }
+        }
+    </script>
 </body>
 </html>
