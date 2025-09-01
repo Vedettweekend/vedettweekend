@@ -27,6 +27,12 @@ collections:
         file: "content/home/logo.md"
         fields:
           - {label: "Logo Image", name: "logo_image", widget: "image", hint: "This logo will be used in the header and on the main page"}
+      
+      - name: "countdown_timer"
+        label: "Countdown Timer"
+        file: "content/home/countdown-timer.md"
+        fields:
+          - {label: "Target Date", name: "target_date", widget: "datetime", default: "2025-10-24T20:00:00", hint: "The date and time the countdown should count down to (format: YYYY-MM-DDTHH:MM:SS)"}
 
   - name: "tickets"
     label: "Tickets Page"

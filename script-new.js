@@ -234,35 +234,69 @@ class VedettWebsite {
         
         if (!daysElement || !hoursElement || !minutesElement || !secondsElement) return;
 
-        const targetDate = new Date('2025-10-24T20:00:00').getTime();
+        // Load countdown target date from CMS
+        this.loadCountdownDate().then(targetDate => {
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
 
-        const updateCountdown = () => {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+                if (distance < 0) {
+                    // Event has started
+                    daysElement.textContent = '00';
+                    hoursElement.textContent = '00';
+                    minutesElement.textContent = '00';
+                    secondsElement.textContent = '00';
+                    return;
+                }
 
-            if (distance < 0) {
-                // Event has started
-                daysElement.textContent = '00';
-                hoursElement.textContent = '00';
-                minutesElement.textContent = '00';
-                secondsElement.textContent = '00';
-                return;
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Update individual elements
+                daysElement.textContent = days.toString().padStart(2, '0');
+                hoursElement.textContent = hours.toString().padStart(2, '0');
+                minutesElement.textContent = minutes.toString().padStart(2, '0');
+                secondsElement.textContent = seconds.toString().padStart(2, '0');
+            };
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    }
+
+    // Load countdown target date from CMS
+    async loadCountdownDate() {
+        try {
+            const response = await fetch('content/home/countdown-timer.md');
+            const text = await response.text();
+            
+            // Split the content into frontmatter and body
+            const parts = text.split('---');
+            
+            if (parts.length >= 2) {
+                const frontmatter = parts[1].trim();
+                
+                try {
+                    // Parse YAML frontmatter into JavaScript object
+                    const data = jsyaml.load(frontmatter);
+                    
+                    if (data.target_date) {
+                        return new Date(data.target_date).getTime();
+                    }
+                    
+                } catch (yamlError) {
+                    console.error('Error parsing countdown timer YAML:', yamlError);
+                }
             }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Update individual elements
-            daysElement.textContent = days.toString().padStart(2, '0');
-            hoursElement.textContent = hours.toString().padStart(2, '0');
-            minutesElement.textContent = minutes.toString().padStart(2, '0');
-            secondsElement.textContent = seconds.toString().padStart(2, '0');
-        };
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+            
+        } catch (error) {
+            console.error('Error fetching countdown timer from CMS:', error);
+        }
+        
+        // Fallback to default date if CMS data is unavailable
+        return new Date('2025-10-24T20:00:00').getTime();
     }
 
     // ===== CONTENT LOADING =====
