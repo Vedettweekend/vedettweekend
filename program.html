@@ -378,5 +378,111 @@
         // Load lineup data when page loads
         loadLineupData();
     </script>
+    
+    <!-- Feedback Widget -->
+    <div id="feedback-widget" class="feedback-widget">
+        <div id="feedback-toggle" class="feedback-toggle" onclick="toggleFeedback()">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        
+        <div id="feedback-form" class="feedback-form" style="display: none;">
+            <div class="feedback-header">
+                <h3>Feedback</h3>
+                <button class="feedback-close" onclick="toggleFeedback()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="feedback-content">
+                <p class="feedback-question">Hoe kunnen we voor jou Vedettweekend nog beter maken?</p>
+                
+                <form id="feedback-form-element" onsubmit="submitFeedback(event)">
+                    <textarea 
+                        id="feedback-input" 
+                        class="feedback-input" 
+                        placeholder="Deel je ideeën en suggesties..."
+                        required
+                    ></textarea>
+                    
+                    <div class="feedback-actions">
+                        <button type="button" class="feedback-cancel" onclick="toggleFeedback()">
+                            Annuleren
+                        </button>
+                        <button type="submit" class="feedback-submit">
+                            Verstuur Feedback
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Widget JavaScript -->
+    <script>
+        // Feedback Widget Functions
+        let feedbackWidgetOpen = false;
+
+        function toggleFeedback() {
+            const form = document.getElementById('feedback-form');
+            const toggle = document.getElementById('feedback-toggle');
+            
+            if (feedbackWidgetOpen) {
+                form.style.display = 'none';
+                toggle.style.transform = 'rotate(0deg)';
+                feedbackWidgetOpen = false;
+            } else {
+                form.style.display = 'block';
+                toggle.style.transform = 'rotate(45deg)';
+                feedbackWidgetOpen = true;
+            }
+        }
+
+        async function submitFeedback(event) {
+            event.preventDefault();
+            
+            const feedbackInput = document.getElementById('feedback-input');
+            const submitButton = document.querySelector('.feedback-submit');
+            const feedback = feedbackInput.value.trim();
+            
+            if (!feedback) {
+                alert('Voer alstublieft feedback in voordat u verzendt.');
+                return;
+            }
+            
+            // Disable submit button
+            submitButton.disabled = true;
+            submitButton.textContent = 'Versturen...';
+            
+            try {
+                // Submit feedback to Google Apps Script
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyVNLn1P7-nMwud-TLFbbVvxvartGqRLK9Wfyw_CAHlHY8jLQ55nBFx3qd5o2nUDlqzgw/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `feedback=${encodeURIComponent(feedback)}`
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Success
+                    feedbackInput.value = '';
+                    alert('Bedankt voor je feedback!');
+                    toggleFeedback(); // Close the widget
+                } else {
+                    throw new Error(result.message);
+                }
+                
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                alert('Er is een fout opgetreden. Probeer het later opnieuw.');
+            } finally {
+                // Re-enable submit button
+                submitButton.disabled = false;
+                submitButton.textContent = 'Verstuur Feedback';
+            }
+        }
+    </script>
 </body>
 </html>
