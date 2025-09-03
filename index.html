@@ -12,8 +12,7 @@
     <link rel="preconnect" href="https://space-trial.video-dns.com">
     <link rel="dns-prefetch" href="https://www.youtube.com">
     
-    <!-- Mave.io Player Component -->
-    <script type="module" src="https://cdn.video-dns.com/npm/@maveio/components/+esm"></script>
+
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <meta name="description" content="Vedettweekend 2025 staat weer voor de deur, op vrijdag 25 en zaterdag 26 oktober staat Nieuwenrode weer volledig op stelten want het wordt de grootste editie tot nu toe.">
     <meta name="color-scheme" content="light only">
@@ -137,19 +136,21 @@
         <div class="video-container">
       <div class="hero-video">
         <div class="hero-video-frame">
-          <mave-player 
-            embed="JGWV7daWT1" 
-            autoplay="lazy" 
-            muted="true" 
-            loop="true"
-            controls="none"
-            id="hero-video-player">
-          </mave-player>
+          <iframe
+            src="https://space-trial.video-dns.com/JGWV7daWT1/player.html?autoplay=1&muted=1&loop=1"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            title="Background Video"
+            loading="lazy"
+            width="1920"
+            height="1080"
+            id="hero-video-iframe">
+          </iframe>
         </div>
         
-        <!-- Custom Play/Pause Button -->
-        <button id="video-play-pause-btn" class="video-control-btn" aria-label="Play/Pause video">
-          <i class="fas fa-pause" id="play-pause-icon"></i>
+        <!-- Custom Restart Button -->
+        <button id="video-restart-btn" class="video-control-btn" aria-label="Restart video">
+          <i class="fas fa-redo" id="restart-icon"></i>
         </button>
               
           </div>
@@ -527,118 +528,52 @@
         // Load YouTube video when page loads
         loadYouTubeVideo();
         
-        // Video control functionality
+        // Video restart functionality for iframe
         function initVideoControls() {
-            const videoPlayer = document.getElementById('hero-video-player');
-            const playPauseBtn = document.getElementById('video-play-pause-btn');
-            const playPauseIcon = document.getElementById('play-pause-icon');
+            const videoIframe = document.getElementById('hero-video-iframe');
+            const restartBtn = document.getElementById('video-restart-btn');
+            const restartIcon = document.getElementById('restart-icon');
             
-            if (!videoPlayer || !playPauseBtn || !playPauseIcon) {
+            if (!videoIframe || !restartBtn || !restartIcon) {
                 console.warn('Video control elements not found');
                 return;
             }
             
-            console.log('Video player found:', videoPlayer);
+            console.log('Video iframe found:', videoIframe);
             
-            // Wait for the mave-player to be ready with multiple fallback events
-            const waitForPlayer = () => {
-                // Try multiple events to ensure the player is ready
-                const events = ['loadeddata', 'canplay', 'loadstart', 'ready'];
-                
-                events.forEach(event => {
-                    videoPlayer.addEventListener(event, () => {
-                        console.log(`Player ${event} event fired`);
-                        setTimeout(updatePlayPauseIcon, 100); // Small delay to ensure state is set
-                    });
-                });
-                
-                // Fallback: try to initialize after a delay
-                setTimeout(() => {
-                    console.log('Fallback initialization');
-                    updatePlayPauseIcon();
-                }, 2000);
-            };
-            
-            // Track our own play/pause state since the player API might not work
-            let isVideoPlaying = true; // Start with true since autoplay is enabled
-            
-            // Handle play/pause button click
-            playPauseBtn.addEventListener('click', (e) => {
+            // Handle restart button click
+            restartBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                console.log('Play/pause button clicked, current state:', isVideoPlaying);
+                console.log('Restart button clicked');
                 
                 try {
-                    // Try multiple approaches to control the video
-                    const actualVideo = videoPlayer.querySelector('video');
+                    // Add a small rotation animation to the icon
+                    restartIcon.style.transform = 'rotate(360deg)';
+                    restartIcon.style.transition = 'transform 0.5s ease';
                     
-                    if (actualVideo) {
-                        console.log('Found actual video element');
-                        if (isVideoPlaying) {
-                            console.log('Pausing video');
-                            actualVideo.pause();
-                            isVideoPlaying = false;
-                        } else {
-                            console.log('Playing video');
-                            actualVideo.play();
-                            isVideoPlaying = true;
-                        }
-                    } else {
-                        // Fallback: try the mave-player methods
-                        if (typeof videoPlayer.play === 'function' && typeof videoPlayer.pause === 'function') {
-                            if (isVideoPlaying) {
-                                console.log('Pausing video via mave-player');
-                                videoPlayer.pause();
-                                isVideoPlaying = false;
-                            } else {
-                                console.log('Playing video via mave-player');
-                                videoPlayer.play();
-                                isVideoPlaying = true;
-                            }
-                        } else {
-                            // Last resort: toggle our internal state
-                            console.log('Using internal state toggle');
-                            isVideoPlaying = !isVideoPlaying;
-                        }
-                    }
+                    // Force autoplay by ensuring the URL has autoplay=1 and adding a timestamp to force reload
+                    const baseUrl = 'https://space-trial.video-dns.com/JGWV7daWT1/player.html';
+                    const params = new URLSearchParams({
+                        autoplay: '1',
+                        muted: '1',
+                        loop: '1',
+                        t: Date.now() // Add timestamp to force reload
+                    });
                     
-                    // Update icon immediately
-                    updatePlayPauseIcon();
+                    const newSrc = `${baseUrl}?${params.toString()}`;
+                    videoIframe.src = newSrc;
+                    
+                    console.log('Video restarted with forced autoplay');
+                    
+                    // Reset the icon rotation after animation
+                    setTimeout(() => {
+                        restartIcon.style.transform = 'rotate(0deg)';
+                    }, 500);
+                    
                 } catch (error) {
-                    console.error('Error controlling video:', error);
-                    // Fallback: just toggle our internal state
-                    isVideoPlaying = !isVideoPlaying;
-                    updatePlayPauseIcon();
+                    console.error('Error restarting video:', error);
                 }
             });
-            
-            // Update icon based on our internal state
-            function updatePlayPauseIcon() {
-                try {
-                    console.log('Updating icon, isVideoPlaying:', isVideoPlaying);
-                    
-                    if (isVideoPlaying) {
-                        playPauseIcon.className = 'fas fa-pause';
-                        playPauseBtn.setAttribute('aria-label', 'Pause video');
-                    } else {
-                        playPauseIcon.className = 'fas fa-play';
-                        playPauseBtn.setAttribute('aria-label', 'Play video');
-                    }
-                } catch (error) {
-                    console.error('Error updating play/pause icon:', error);
-                }
-            }
-            
-            // Listen for video state changes on both the player and any nested video
-            const events = ['play', 'pause', 'playing', 'paused'];
-            events.forEach(event => {
-                videoPlayer.addEventListener(event, () => {
-                    console.log(`Video ${event} event`);
-                    updatePlayPauseIcon();
-                });
-            });
-            
-            // Initialize
-            waitForPlayer();
         }
         
         // Initialize video controls when page loads
