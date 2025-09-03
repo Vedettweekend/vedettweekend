@@ -38,34 +38,7 @@
         font-display: swap;
       }
       
-      /* Video control button styling */
-      .video-control-btn {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: transparent;
-        border: none;
-        color: white;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        transition: all 0.3s ease;
-        z-index: 10;
-      }
-      
-      .video-control-btn:hover {
-        transform: scale(1.1);
-        opacity: 0.8;
-      }
-      
-      .video-control-btn:active {
-        transform: scale(0.95);
-      }
+
     </style>
     <link rel="canonical" href="https://www.vedettweekend.be/" />
     
@@ -137,21 +110,17 @@
       <div class="hero-video">
         <div class="hero-video-frame">
           <iframe
-            src="https://space-trial.video-dns.com/JGWV7daWT1/player.html?autoplay=1&muted=1&loop=1"
+            src="https://space-trial.video-dns.com/JGWV7daWT1/player.html?autoplay=1&muted=1&loop=1&playsinline=1"
             frameborder="0"
             allow="autoplay; fullscreen"
             title="Background Video"
             loading="lazy"
             width="1920"
             height="1080"
-            id="hero-video-iframe">
-          </iframe>
+          ></iframe>
         </div>
-        
-        <!-- Custom Restart Button -->
-        <button id="video-restart-btn" class="video-control-btn" aria-label="Restart video">
-          <i class="fas fa-redo" id="restart-icon"></i>
-        </button>
+              
+              
               
           </div>
               
@@ -528,56 +497,7 @@
         // Load YouTube video when page loads
         loadYouTubeVideo();
         
-        // Video restart functionality for iframe
-        function initVideoControls() {
-            const videoIframe = document.getElementById('hero-video-iframe');
-            const restartBtn = document.getElementById('video-restart-btn');
-            const restartIcon = document.getElementById('restart-icon');
-            
-            if (!videoIframe || !restartBtn || !restartIcon) {
-                console.warn('Video control elements not found');
-                return;
-            }
-            
-            console.log('Video iframe found:', videoIframe);
-            
-            // Handle restart button click
-            restartBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('Restart button clicked');
-                
-                try {
-                    // Add a small rotation animation to the icon
-                    restartIcon.style.transform = 'rotate(360deg)';
-                    restartIcon.style.transition = 'transform 0.5s ease';
-                    
-                    // Force autoplay by ensuring the URL has autoplay=1 and adding a timestamp to force reload
-                    const baseUrl = 'https://space-trial.video-dns.com/JGWV7daWT1/player.html';
-                    const params = new URLSearchParams({
-                        autoplay: '1',
-                        muted: '1',
-                        loop: '1',
-                        t: Date.now() // Add timestamp to force reload
-                    });
-                    
-                    const newSrc = `${baseUrl}?${params.toString()}`;
-                    videoIframe.src = newSrc;
-                    
-                    console.log('Video restarted with forced autoplay');
-                    
-                    // Reset the icon rotation after animation
-                    setTimeout(() => {
-                        restartIcon.style.transform = 'rotate(0deg)';
-                    }, 500);
-                    
-                } catch (error) {
-                    console.error('Error restarting video:', error);
-                }
-            });
-        }
-        
-        // Initialize video controls when page loads
-        document.addEventListener('DOMContentLoaded', initVideoControls);
+
         
         // Footer sponsors are now loaded centrally by script-new.js
     </script>
