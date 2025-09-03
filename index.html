@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://identity.netlify.com">
     <link rel="preconnect" href="https://space-trial.video-dns.com">
     <link rel="dns-prefetch" href="https://www.youtube.com">
+    
+    <!-- Mave.io Player Component -->
+    <script type="module" src="https://cdn.video-dns.com/npm/@maveio/components/+esm"></script>
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <meta name="description" content="Vedettweekend 2025 staat weer voor de deur, op vrijdag 25 en zaterdag 26 oktober staat Nieuwenrode weer volledig op stelten want het wordt de grootste editie tot nu toe.">
     <meta name="color-scheme" content="light only">
@@ -34,6 +37,35 @@
       /* Optimize font loading */
       .fa, .fas, .fab {
         font-display: swap;
+      }
+      
+      /* Video control button styling */
+      .video-control-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        z-index: 10;
+      }
+      
+      .video-control-btn:hover {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+      
+      .video-control-btn:active {
+        transform: scale(0.95);
       }
     </style>
     <link rel="canonical" href="https://www.vedettweekend.be/" />
@@ -105,18 +137,20 @@
         <div class="video-container">
       <div class="hero-video">
         <div class="hero-video-frame">
-          <iframe
-            src="https://space-trial.video-dns.com/JGWV7daWT1/player.html?autoplay=1&muted=1&loop=1"
-            frameborder="0"
-            allow="autoplay; fullscreen"
-            title="Background Video"
-            loading="lazy"
-            width="1920"
-            height="1080"
-          ></iframe>
+          <mave-player 
+            embed="JGWV7daWT1" 
+            autoplay="lazy" 
+            muted="true" 
+            loop="true"
+            controls="none"
+            id="hero-video-player">
+          </mave-player>
         </div>
-              
-              
+        
+        <!-- Custom Play/Pause Button -->
+        <button id="video-play-pause-btn" class="video-control-btn" aria-label="Play/Pause video">
+          <i class="fas fa-pause" id="play-pause-icon"></i>
+        </button>
               
           </div>
               
@@ -492,6 +526,123 @@
         
         // Load YouTube video when page loads
         loadYouTubeVideo();
+        
+        // Video control functionality
+        function initVideoControls() {
+            const videoPlayer = document.getElementById('hero-video-player');
+            const playPauseBtn = document.getElementById('video-play-pause-btn');
+            const playPauseIcon = document.getElementById('play-pause-icon');
+            
+            if (!videoPlayer || !playPauseBtn || !playPauseIcon) {
+                console.warn('Video control elements not found');
+                return;
+            }
+            
+            console.log('Video player found:', videoPlayer);
+            
+            // Wait for the mave-player to be ready with multiple fallback events
+            const waitForPlayer = () => {
+                // Try multiple events to ensure the player is ready
+                const events = ['loadeddata', 'canplay', 'loadstart', 'ready'];
+                
+                events.forEach(event => {
+                    videoPlayer.addEventListener(event, () => {
+                        console.log(`Player ${event} event fired`);
+                        setTimeout(updatePlayPauseIcon, 100); // Small delay to ensure state is set
+                    });
+                });
+                
+                // Fallback: try to initialize after a delay
+                setTimeout(() => {
+                    console.log('Fallback initialization');
+                    updatePlayPauseIcon();
+                }, 2000);
+            };
+            
+            // Track our own play/pause state since the player API might not work
+            let isVideoPlaying = true; // Start with true since autoplay is enabled
+            
+            // Handle play/pause button click
+            playPauseBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Play/pause button clicked, current state:', isVideoPlaying);
+                
+                try {
+                    // Try multiple approaches to control the video
+                    const actualVideo = videoPlayer.querySelector('video');
+                    
+                    if (actualVideo) {
+                        console.log('Found actual video element');
+                        if (isVideoPlaying) {
+                            console.log('Pausing video');
+                            actualVideo.pause();
+                            isVideoPlaying = false;
+                        } else {
+                            console.log('Playing video');
+                            actualVideo.play();
+                            isVideoPlaying = true;
+                        }
+                    } else {
+                        // Fallback: try the mave-player methods
+                        if (typeof videoPlayer.play === 'function' && typeof videoPlayer.pause === 'function') {
+                            if (isVideoPlaying) {
+                                console.log('Pausing video via mave-player');
+                                videoPlayer.pause();
+                                isVideoPlaying = false;
+                            } else {
+                                console.log('Playing video via mave-player');
+                                videoPlayer.play();
+                                isVideoPlaying = true;
+                            }
+                        } else {
+                            // Last resort: toggle our internal state
+                            console.log('Using internal state toggle');
+                            isVideoPlaying = !isVideoPlaying;
+                        }
+                    }
+                    
+                    // Update icon immediately
+                    updatePlayPauseIcon();
+                } catch (error) {
+                    console.error('Error controlling video:', error);
+                    // Fallback: just toggle our internal state
+                    isVideoPlaying = !isVideoPlaying;
+                    updatePlayPauseIcon();
+                }
+            });
+            
+            // Update icon based on our internal state
+            function updatePlayPauseIcon() {
+                try {
+                    console.log('Updating icon, isVideoPlaying:', isVideoPlaying);
+                    
+                    if (isVideoPlaying) {
+                        playPauseIcon.className = 'fas fa-pause';
+                        playPauseBtn.setAttribute('aria-label', 'Pause video');
+                    } else {
+                        playPauseIcon.className = 'fas fa-play';
+                        playPauseBtn.setAttribute('aria-label', 'Play video');
+                    }
+                } catch (error) {
+                    console.error('Error updating play/pause icon:', error);
+                }
+            }
+            
+            // Listen for video state changes on both the player and any nested video
+            const events = ['play', 'pause', 'playing', 'paused'];
+            events.forEach(event => {
+                videoPlayer.addEventListener(event, () => {
+                    console.log(`Video ${event} event`);
+                    updatePlayPauseIcon();
+                });
+            });
+            
+            // Initialize
+            waitForPlayer();
+        }
+        
+        // Initialize video controls when page loads
+        document.addEventListener('DOMContentLoaded', initVideoControls);
         
         // Footer sponsors are now loaded centrally by script-new.js
     </script>
