@@ -54,9 +54,6 @@
 
     <script defer src="https://cloud.umami.is/script.js" data-website-id="572fcf36-61d7-4b37-aeb9-ac0da22e1f93"></script>
     
-    <!-- Mave.io Player Component -->
-    <script type="module" src="https://cdn.video-dns.com/npm/@maveio/components/+esm"></script>
-    
     <title>Home | Vedettweekend</title>
 </head>
 <body>
@@ -106,16 +103,17 @@
     <!-- Hero Section Component -->
 <section class="hero">
         <div class="video-container">
-              <div class="hero-video">
+      <div class="hero-video">
         <div class="hero-video-frame">
-          <mave-player 
-            id="hero-video"
-            embed="JGWV7daWT1"
-            autoplay="always"
-            loop
-            controls="none"
-            aspect-ratio="16/9"
-          ></mave-player>
+          <iframe
+            src="https://space-trial.video-dns.com/JGWV7daWT1/player.html?autoplay=1&muted=1&loop=1"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            title="Background Video"
+            loading="lazy"
+            width="1920"
+            height="1080"
+          ></iframe>
         </div>
               
               
@@ -127,13 +125,6 @@
   
       <!-- Overlay -->
       <div class="hero-overlay"></div>
-      
-      <!-- Video Controls -->
-      <div class="video-controls">
-        <button id="video-play-pause" class="video-control-btn" onclick="toggleVideoPlayPause()">
-          <i class="fas fa-play" id="play-pause-icon"></i>
-        </button>
-      </div>
     </div>
   
     <!-- Countdown Container with Logo, Timer, and Button -->
@@ -623,64 +614,6 @@
                 submitButton.textContent = 'Verstuur Feedback';
             }
         }
-
-        // Video Controls
-        let isVideoPlaying = true;
-
-        function toggleVideoPlayPause() {
-            const player = document.getElementById('hero-video');
-            const playPauseIcon = document.getElementById('play-pause-icon');
-            const playPauseBtn = document.getElementById('video-play-pause');
-            
-            if (player) {
-                if (isVideoPlaying) {
-                    // Pause the video using Mave.io method
-                    player.pause();
-                    playPauseIcon.className = 'fas fa-play';
-                    playPauseBtn.setAttribute('aria-label', 'Play video');
-                    isVideoPlaying = false;
-                } else {
-                    // Play the video using Mave.io method
-                    player.play();
-                    playPauseIcon.className = 'fas fa-pause';
-                    playPauseBtn.setAttribute('aria-label', 'Pause video');
-                    isVideoPlaying = true;
-                }
-            }
-        }
-
-        // Initialize video state
-        document.addEventListener('DOMContentLoaded', function() {
-            const player = document.getElementById('hero-video');
-            const playPauseIcon = document.getElementById('play-pause-icon');
-            
-            if (player) {
-                // Wait for the Mave player to be ready
-                player.addEventListener('loadeddata', function() {
-                    // Set initial state based on autoplay
-                    isVideoPlaying = true;
-                    playPauseIcon.className = 'fas fa-pause';
-                });
-                
-                // Listen for play events
-                player.addEventListener('play', function() {
-                    isVideoPlaying = true;
-                    playPauseIcon.className = 'fas fa-pause';
-                });
-                
-                // Listen for pause events
-                player.addEventListener('pause', function() {
-                    isVideoPlaying = false;
-                    playPauseIcon.className = 'fas fa-play';
-                });
-                
-                // Set initial state
-                setTimeout(() => {
-                    isVideoPlaying = true;
-                    playPauseIcon.className = 'fas fa-pause';
-                }, 1000);
-            }
-        });
     </script>
 </body>
 </html>
