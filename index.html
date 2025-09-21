@@ -35,6 +35,44 @@
       .fa, .fas, .fab {
         font-display: swap;
       }
+      
+      /* Mobile video play button */
+      .mobile-play-button {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.6);
+        border: none;
+        color: white;
+        cursor: pointer;
+        display: none; /* Hidden by default, shown on mobile */
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        transition: all 0.2s ease;
+        z-index: 9999;
+        backdrop-filter: blur(4px);
+        pointer-events: auto;
+      }
+      
+      .mobile-play-button:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: scale(1.1);
+      }
+      
+      .mobile-play-button:active {
+        transform: scale(0.95);
+      }
+      
+      /* Show play button on mobile devices */
+      @media (max-width: 768px) {
+        .mobile-play-button {
+          display: flex;
+        }
+      }
     </style>
     <link rel="canonical" href="https://www.vedettweekend.be/" />
     
@@ -102,30 +140,28 @@
 
     <!-- Hero Section Component -->
 <section class="hero">
-        <div class="video-container">
-      <div class="hero-video">
-        <div class="hero-video-frame">
-          <iframe
-            src="https://space-trial.video-dns.com/JGWV7daWT1/player.html?autoplay=1&muted=1&loop=1"
-            frameborder="0"
-            allow="autoplay; fullscreen"
-            title="Background Video"
-            loading="lazy"
-            width="1920"
-            height="1080"
-          ></iframe>
-        </div>
-              
-              
-              
-          </div>
-              
-  
+    <div class="hero-video-frame">
+        <video
+          id="hero-video"
+          class="hero-video-element"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          title="Background Video"
+        >
+          <source src="img/aftermovie-23.webm" type="video/webm">
+          Your browser does not support the video tag.
+        </video>
       
-  
-      <!-- Overlay -->
-      <div class="hero-overlay"></div>
-    </div>
+        <!-- Mobile Play Button Overlay -->
+        <button id="mobile-play-btn" class="mobile-play-button" aria-label="Play video">
+          <i class="fas fa-play"></i>
+        </button>
+      </div>
+      
+
   
     <!-- Countdown Container with Logo, Timer, and Button -->
     <div class="countdown-container">
@@ -492,6 +528,86 @@
         
         // Load YouTube video when page loads
         loadYouTubeVideo();
+        
+        // Mobile video functionality
+        function initMobileVideo() {
+            const video = document.getElementById('hero-video');
+            const playBtn = document.getElementById('mobile-play-btn');
+            
+            if (!video || !playBtn) {
+                console.warn('Video elements not found');
+                return;
+            }
+            
+            console.log('Video element found:', video);
+            console.log('Play button found:', playBtn);
+            
+            // Check if device is mobile
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+            console.log('Is mobile device:', isMobile);
+            
+            // Show button on mobile devices
+            if (isMobile) {
+                playBtn.style.display = 'flex';
+            }
+            
+            // Handle play/pause button click
+            playBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Button clicked, video paused:', video.paused);
+                
+                if (video.paused) {
+                    console.log('Attempting to play video');
+                    video.play().then(() => {
+                        console.log('Video started playing');
+                        updateButtonIcon();
+                    }).catch(error => {
+                        console.log('Video play failed:', error);
+                    });
+                } else {
+                    console.log('Pausing video');
+                    video.pause();
+                    updateButtonIcon();
+                }
+            });
+            
+            // Function to update button icon
+            function updateButtonIcon() {
+                if (video.paused) {
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    playBtn.setAttribute('aria-label', 'Play video');
+                    console.log('Button updated to play icon');
+                } else {
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    playBtn.setAttribute('aria-label', 'Pause video');
+                    console.log('Button updated to pause icon');
+                }
+            }
+            
+            // Handle video events
+            video.addEventListener('play', () => {
+                console.log('Video play event fired');
+                updateButtonIcon();
+            });
+            
+            video.addEventListener('pause', () => {
+                console.log('Video pause event fired');
+                updateButtonIcon();
+            });
+            
+            video.addEventListener('loadeddata', () => {
+                console.log('Video loaded');
+                updateButtonIcon();
+            });
+            
+            // Initial state
+            setTimeout(() => {
+                updateButtonIcon();
+            }, 500);
+        }
+        
+        // Initialize mobile video when page loads
+        document.addEventListener('DOMContentLoaded', initMobileVideo);
         
         // Footer sponsors are now loaded centrally by script-new.js
     </script>

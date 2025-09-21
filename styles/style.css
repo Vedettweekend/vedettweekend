@@ -373,12 +373,23 @@ body {
   overflow: hidden; /* Ensure video gets cropped when viewport shrinks */
 }
 
-.hero-video {
+.hero-video-frame {
+  position: relative;
+  width: 100vw;
+  height: 100vh; /* full viewport height */
+  overflow: hidden;
+  background: black; /* fallback behind video */
+}
+
+.hero-video-element {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  min-height: 100vh; /* Ensure video takes full viewport height */
+  object-fit: cover;          /* fill container, no black bars */
+  object-position: center;    /* focus area in center */
+  display: block;
 }
+
+
 
 
 
@@ -2574,32 +2585,7 @@ body {
 }
 
 
-.hero-video {
-  position: relative;
-  width: 100%;
-  height: 100vh; /* full screen hero */
-  overflow: hidden;
-}
 
-.hero-video-frame {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* clicks go through */
-}
-
-.hero-video-frame iframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100vw;
-  height: 56.25vw; /* 16:9 ratio */
-  min-height: 100vh;
-  min-width: 177.77vh; /* 16:9 ratio */
-  transform: translate(-50%, -50%);
-}
 
 
 
