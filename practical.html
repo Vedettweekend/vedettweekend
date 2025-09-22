@@ -517,7 +517,7 @@
             
             if (Array.isArray(transportMethods) && transportMethods.length > 0) {
                 const htmlContent = transportMethods.map(method => `
-                    <div class="info-card">
+                    <div class="info-card transport-method">
                         <h3><i class="${method.icon}"></i> ${method.title}</h3>
                         <p>${method.description}</p>
                     </div>
@@ -641,6 +641,25 @@
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabPanels = document.querySelectorAll('.tab-panel');
             const tabNavigation = document.getElementById('tabNavigation');
+            
+            // Function to switch to a specific tab (for external links)
+            window.switchToTab = function(tabName) {
+                // Remove active class from all buttons and panels
+                tabButtons.forEach(button => button.classList.remove('active'));
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+                
+                // Add active class to the target tab
+                const targetButton = document.querySelector(`[data-tab="${tabName}"]`);
+                const targetPanel = document.getElementById(tabName);
+                
+                if (targetButton && targetPanel) {
+                    targetButton.classList.add('active');
+                    targetPanel.classList.add('active');
+                    
+                    // Scroll to the tab section
+                    targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
 
             if (!tabButtons.length || !tabPanels.length) {
                 console.warn('Tab elements not found');

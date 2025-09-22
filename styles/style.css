@@ -1066,6 +1066,27 @@ body {
   text-decoration: none !important;
 }
 
+/* Transport method links - make them look like normal text */
+.transport-method a {
+  color: #ffffff;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.transport-method a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.transport-method a:visited {
+  color: #ffffff;
+}
+
+.transport-method a:active {
+  color: #ffffff;
+}
+
 .footer-section a:active {
   color: #ffffff !important;
   text-decoration: none !important;
