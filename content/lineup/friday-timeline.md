@@ -27,7 +27,7 @@ timeline_items:
       Je kan hem kennen van de Weerdse Bierfeesten, Carré, Student Kick-Off of zelfs van in Lloret de Mar… en 24 oktober komt hij gewoon Vedettweekend op z’n kop zetten. 🔥
 
 
-      Het wordt een stevig feestje, zorg dat je erbij bent! 🍻 Tickets in de link in bio 🎟️ 
+      Het wordt een stevig feestje, zorg dat je erbij bent! 🍻 
 
 
       SEE YOU THERE!!!🐧😎🥂
