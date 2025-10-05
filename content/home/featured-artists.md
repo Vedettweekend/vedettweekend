@@ -14,18 +14,18 @@ featured_artists:
     djName: JØMEL
     websiteUrl: https://www.facebook.com/vedettweekend
     websiteIcon: fa fa-link
-  - name: TBA
-    dateBadge: TBA
-    image: /img/uploads/tba-25.webp
+  - name: DJ MASSIV
+    dateBadge: ZAT 25 OKT
+    image: /img/uploads/lassiv.webp
     title: "CHECK IT OUT:"
-    djName: TBA
+    djName: DJ MASSIV
     websiteUrl: https://www.facebook.com/vedettweekend
     websiteIcon: fa fa-link
-  - name: TBA
-    dateBadge: TBA
-    image: /img/uploads/tba-25.webp
+  - name: ROBOTELLI & DEPANNAGE 2000
+    dateBadge: ZA 25 OKT
+    image: /img/uploads/gekkeboys.webp
     title: "CHECK IT OUT:"
-    djName: TBA
+    djName: ROBOTELLI & DEPANNAGE 2000
     websiteUrl: https://www.facebook.com/vedettweekend
     websiteIcon: fa fa-link
 ---
