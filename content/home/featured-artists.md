@@ -7,11 +7,11 @@ featured_artists:
     djName: DJ TRSTN & MC LEYTON
     websiteUrl: https://www.facebook.com/vedettweekend
     websiteIcon: fa fa-link
-  - name: TBA
-    dateBadge: TBA
-    image: /img/uploads/tba-25.webp
+  - name: JØMEL
+    dateBadge: VR 24 OKT
+    image: /img/uploads/jomel.webp
     title: "CHECK IT OUT:"
-    djName: TBA
+    djName: JØMEL
     websiteUrl: https://www.facebook.com/vedettweekend
     websiteIcon: fa fa-link
   - name: TBA
