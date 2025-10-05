@@ -33,11 +33,17 @@ timeline_items:
       SEE YOU THERE!!!🐧😎🥂
     url: https://www.facebook.com/vedettweekend
   - time: 22:00 <> 23:00
-    title: TBA
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
+    title: TONUT
+    subtext: >-
+      Vrijdagavond staat DJ TONUT achter de decks van Vedettweekend!! 🚀 😎‼️
+
+
+      Je zag hem al op Sunrise Festival, in de legendarische Ikon en Villa… en 24 oktober staat hij in onze tent.🔥 
+
+
+      LET’S GO!!! 🐧🥂
     url: https://www.facebook.com/vedettweekend
-    image: /img/uploads/tba-25.webp
+    image: /img/uploads/tonut.webp
   - time: 23:00 <> 00:00
     image: /img/uploads/tba-25.webp
     title: TBA
