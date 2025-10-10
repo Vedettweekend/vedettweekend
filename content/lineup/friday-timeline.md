@@ -2,7 +2,7 @@
 day_title: VRIJDAG 24 OKTOBER
 timeline_items:
   - time: 20:00 <> 21:00
-    image: /img/uploads/dj1.webp
+    image: /img/uploads/tba-25.webp
     title: RESIDENT DJ
     subtext: Onze DJ(s) staan te popelen om vanaf 20u de boel op stelten te zetten.
       Geen opwarming nodig want we gaan meteen all-in vanaf de eerste beat! Mis
