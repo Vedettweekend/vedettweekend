@@ -1,7 +1,7 @@
 ---
 day_title: ZATERDAG 25 OKTOBER
 timeline_items:
-  - image: /img/uploads/tba-25.webp
+  - image: /img/uploads/pasta.webp
     time: 17:30 <> 21:00
     title: Pastafestijn
     subtext: Kom genieten van een lekkere pasta!
