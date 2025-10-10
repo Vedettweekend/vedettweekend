@@ -3,7 +3,14 @@ day_title: VRIJDAG 24 OKTOBER
 timeline_items:
   - time: 20:00 <> 21:00
     image: /img/uploads/dj1.webp
-    title: PIT STOP
+    title: RESIDENT DJ
+    subtext: Onze DJ(s) staan te popelen om vanaf 20u de boel op stelten te zetten.
+      Geen opwarming nodig want we gaan meteen all-in vanaf de eerste beat! Mis
+      dit niet, dit wordt het feest van het jaar
+    url: https://www.facebook.com/vedettweekend
+  - image: /img/uploads/dj1.webp
+    time: 21:00 <> 22:00
+    title: DJ PIT-STOP
     subtext: >-
       🚨 Het is eindelijk zover… de allereerste DJ-announcement voor
       VEDETTWEEKEND 2025! 🍻
@@ -17,8 +24,7 @@ timeline_items:
 
       LET’S GOOO! 🚀
     url: https://www.facebook.com/vedettweekend
-  - image: /img/uploads/dj2.webp
-    time: 21:00 <> 22:00
+  - time: 22:00 <> 23:00
     title: DJ A.R.N
     subtext: >-
       Vrijdagavond verwelkomen we niemand minder dan DJ A.R.N! 🎶
@@ -32,7 +38,9 @@ timeline_items:
 
       SEE YOU THERE!!!🐧😎🥂
     url: https://www.facebook.com/vedettweekend
-  - time: 22:00 <> 23:00
+    image: /img/uploads/dj2.webp
+  - time: 23:00 <> 00:00
+    image: /img/uploads/tonut.webp
     title: TONUT
     subtext: >-
       Vrijdagavond staat DJ TONUT achter de decks van Vedettweekend!! 🚀 😎‼️
@@ -43,29 +51,41 @@ timeline_items:
 
       LET’S GO!!! 🐧🥂
     url: https://www.facebook.com/vedettweekend
-    image: /img/uploads/tonut.webp
-  - time: 23:00 <> 00:00
-    image: /img/uploads/tba-25.webp
-    title: TBA
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
-    url: https://www.facebook.com/vedettweekend
   - time: 00:00 <> 01:00
-    image: /img/uploads/tba-25.webp
-    title: TBA
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
+    image: /img/uploads/thrills.webp
+    title: THRILLS
+    subtext: >-
+      Vrijdagavond verwelkomen we niemand minder dan DJ THRILLS! 🎶
+
+      Finalist van MNM Start to DJ 2025 en klaar om Vedettweekend compleet te laten ontploffen! 🔥
+
+
+      📅 Vrijdag 24 oktober
+
+      🐧🥂 TOT DAN!!!
     url: https://www.facebook.com/vedettweekend
   - time: 01:00 <> 02:00
-    image: /img/uploads/tba-25.webp
-    title: TBA
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
+    image: /img/uploads/trstn.webp
+    title: DJ TRSTN & MC LEYTON
+    subtext: >-
+      Naast alle andere bangers, krijgen we vrijdagavond 24 oktober nog een
+      topduo achter de decks: DJ TRSTN & MC LEYTON! 🔥🎤
+
+
+      Je zag ze al op 12urenloop, Sunrise Festival, Student Welcome, Campo Solar,… en nu komen ze Vedettweekend afbreken! 💥
+
+
+      CMOOON!!! 🐧😎🥂
     url: https://www.facebook.com/vedettweekend
   - time: 02:00 <> 03:00
-    image: /img/uploads/tba-25.webp
-    title: TBA
+    image: /img/uploads/jomel2.webp
+    title: JØMEL
     url: https://www.facebook.com/vedettweekend
-    subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
-      het oog voor alle updates
+    subtext: >-
+      Vrijdagavond 24 oktober verwelkomen we DJ & producer JØMEL! 🔥🎶
+
+      Resident bij Alegria en Vesper Leuven, en klaar om Vedettweekend compleet op z’n kop te zetten! 💥
+
+
+      KNALLEEEEN!!!
 ---
