@@ -18,16 +18,31 @@ sponsors:
   - image: /img/uploads/ArgentaDeJongh@0.5x.webp
     altText: Argenta - De Jongh - Gits BV
     websiteUrl: https://www.argenta.be/nl/kantoren/de-jongh--gits-bv-3136.html
-  - image: /img/uploads/CoMarkt(FV)@0.5x.webp
-    altText: Comarkt
-    websiteUrl: https://www.comarkt.be/nl
   - image: /img/uploads/BakerTilly(FV)@0.5x.webp
     altText: Bakertilly
     websiteUrl: https://www.bakertilly.be/nl
   - image: /img/uploads/MaxT(FV)@0.5x.webp
     altText: MaxT Dranken
     websiteUrl: https://www.facebook.com/p/Maxt-Dranken-100084040300979/?locale=nl_NL
-  - image: /img/uploads/logoduvel.png
-    altText: Duvel
-    websiteUrl: vedett.be
+  - altText: Carrefour Market Bij Den Bels
+    image: /img/uploads/carrefour.png
+    websiteUrl: https://www.facebook.com/CarrefourmarketKapellleopdenBos/
+  - altText: D-quest Consulting
+    image: /img/uploads/dquest.png
+    websiteUrl: https://vedettweekend.be/
+  - altText: Van Roey
+    image: /img/uploads/vanroey.png
+    websiteUrl: https://www.vanroey.be/
+  - altText: Mijn Totem
+    image: /img/uploads/mijntotem-wit_octolab.png
+    websiteUrl: https://mijntotem.be/?srsltid=AfmBOoq5ngh0bbrcq_TIbM-8aOvYkUfPeOHkERINeIIR4FzqbqhaMsrr
+  - altText: Tuinen L'ecluse
+    image: /img/uploads/tuinen.png
+    websiteUrl: https://www.tuinenlecluse.be/
+  - altText: Consteca
+    image: /img/uploads/consteca.png
+    websiteUrl: https://www.consteca.be/
+  - altText: Taxaz
+    image: /img/uploads/taxas2.png
+    websiteUrl: https://www.facebook.com/p/TAXAZ-Boekhouding-Fiscaliteit-100029265686934/
 ---
