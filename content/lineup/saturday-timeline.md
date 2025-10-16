@@ -7,23 +7,23 @@ timeline_items:
     subtext: Kom genieten van een lekkere pasta!
     url: https://www.facebook.com/vedettweekend
   - time: 21:00 <> 21:30
-    title: TBA
-    image: /img/uploads/tba-25.webp
+    title: STABKEY
+    image: /img/uploads/stabkey.webp
     url: https://www.facebook.com/vedettweekend
     subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
       het oog!
   - subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
       het oog!
-    title: TBA
+    title: HIGH PALERMO
     url: https://www.facebook.com/vedettweekend
     time: 21:30 <> 23:00
-    image: /img/uploads/tba-25.webp
+    image: /img/uploads/palermo.webp
   - subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
       het oog!
-    title: TBA
+    title: TOMO
     url: https://www.facebook.com/vedettweekend
     time: 23:00 <> 00:30
-    image: /img/uploads/tba-25.webp
+    image: /img/uploads/tomo.webp
   - subtext: Deze artiest zal binnenkort aangekondigd worden, hou onze socials in
       het oog!
     title: TBA
