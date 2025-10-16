@@ -25,24 +25,24 @@ sponsors:
     altText: MaxT Dranken
     websiteUrl: https://www.facebook.com/p/Maxt-Dranken-100084040300979/?locale=nl_NL
   - altText: Carrefour Market Bij Den Bels
-    image: /img/uploads/carrefour.png
+    image: /img/uploads/carrefour2.png
     websiteUrl: https://www.facebook.com/CarrefourmarketKapellleopdenBos/
   - altText: D-quest Consulting
-    image: /img/uploads/dquest.png
+    image: /img/uploads/dquest2.png
     websiteUrl: https://vedettweekend.be/
   - altText: Van Roey
-    image: /img/uploads/vanroey.png
+    image: /img/uploads/vanroey2.png
     websiteUrl: https://www.vanroey.be/
   - altText: Mijn Totem
     image: /img/uploads/mijntotem-wit_octolab.png
     websiteUrl: https://mijntotem.be/?srsltid=AfmBOoq5ngh0bbrcq_TIbM-8aOvYkUfPeOHkERINeIIR4FzqbqhaMsrr
   - altText: Tuinen L'ecluse
-    image: /img/uploads/tuinen.png
+    image: /img/uploads/tuinen2.png
     websiteUrl: https://www.tuinenlecluse.be/
   - altText: Consteca
     image: /img/uploads/consteca.png
     websiteUrl: https://www.consteca.be/
   - altText: Taxaz
-    image: /img/uploads/taxas2.png
+    image: /img/uploads/taxas3.png
     websiteUrl: https://www.facebook.com/p/TAXAZ-Boekhouding-Fiscaliteit-100029265686934/
 ---
