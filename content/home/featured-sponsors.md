@@ -25,10 +25,10 @@ sponsors:
     altText: MaxT Dranken
     websiteUrl: https://www.facebook.com/p/Maxt-Dranken-100084040300979/?locale=nl_NL
   - altText: Carrefour Market Bij Den Bels
-    image: /img/uploads/carrefour2.png
+    image: /img/uploads/carrefour.webp
     websiteUrl: https://www.facebook.com/CarrefourmarketKapellleopdenBos/
   - altText: D-quest Consulting
-    image: /img/uploads/dquest2.png
+    image: /img/uploads/d-quest.webp
     websiteUrl: https://vedettweekend.be/
   - altText: Van Roey
     image: /img/uploads/VanRoey@0.5x.webp
@@ -43,6 +43,6 @@ sponsors:
     image: /img/uploads/Consteca(FV)@0.5x.webp
     websiteUrl: https://www.consteca.be/
   - altText: Taxaz
-    image: /img/uploads/taxas3.png
+    image: /img/uploads/taxaz.webp
     websiteUrl: https://www.facebook.com/p/TAXAZ-Boekhouding-Fiscaliteit-100029265686934/
 ---
