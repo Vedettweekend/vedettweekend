@@ -31,16 +31,16 @@ sponsors:
     image: /img/uploads/dquest2.png
     websiteUrl: https://vedettweekend.be/
   - altText: Van Roey
-    image: /img/uploads/vanroey2.png
+    image: /img/uploads/VanRoey@0.5x.webp
     websiteUrl: https://www.vanroey.be/
   - altText: Mijn Totem
     image: /img/uploads/mijntotem-wit_octolab.png
     websiteUrl: https://mijntotem.be/?srsltid=AfmBOoq5ngh0bbrcq_TIbM-8aOvYkUfPeOHkERINeIIR4FzqbqhaMsrr
   - altText: Tuinen L'ecluse
-    image: /img/uploads/tuinen2.png
+    image: /img/uploads/Lecluse(FV)@0.5x.webp
     websiteUrl: https://www.tuinenlecluse.be/
   - altText: Consteca
-    image: /img/uploads/consteca.png
+    image: /img/uploads/Consteca(FV)@0.5x.webp
     websiteUrl: https://www.consteca.be/
   - altText: Taxaz
     image: /img/uploads/taxas3.png
