@@ -1,16 +1,10 @@
 ---
 sponsors:
-  - image: /img/uploads/Dstny(FV)@0.5x.webp
-    altText: Sojo
-    websiteUrl: https://www.dstny.be/nl
-  - image: /img/uploads/redbullwhite.png
-    altText: Red bull
-    websiteUrl: https://www.redbull.com/be-nl
   - altText: Bakertilly
     image: /img/uploads/BakerTilly(FV)@0.5x.webp
     websiteUrl: https://www.bakertilly.be/nl
   - websiteUrl: https://www.argenta.be/nl/kantoren/de-jongh--gits-bv-3136.html
-    altText: Argenta
+    altText: Argenta - De Jongh - Gits BV
     image: /img/uploads/ArgentaDeJongh@0.5x.webp
   - altText: VanRoey
     image: /img/uploads/VanRoey@0.5x.webp
@@ -33,10 +27,22 @@ sponsors:
   - altText: MaxT Dranken
     websiteUrl: https://www.facebook.com/p/Drankenhandel-Maxt-Dranken-100084040300979/
     image: /img/uploads/MaxT(FV)@0.5x.webp
-  - altText: Comarkt
-    websiteUrl: comarkt.be
-    image: /img/uploads/CoMarkt(FV)@0.5x.webp
-  - altText: Marivoet
-    image: /img/uploads/Marivoet(FV)@0.5x.webp
-    websiteUrl: https://marivoet.be/
+  - altText: Instabel
+    image: /img/uploads/instabel-2025.png
+    websiteUrl: https://www.instabel.be/
+  - altText: Carrefour Market Bij Den Bels
+    websiteUrl: https://www.facebook.com/CarrefourmarketKapellleopdenBos/
+    image: /img/uploads/carrefour.webp
+  - altText: Mijn Totem
+    image: /img/uploads/mijntotem-wit_octolab.png
+    websiteUrl: https://mijntotem.be/?srsltid=AfmBOoq5ngh0bbrcq_TIbM-8aOvYkUfPeOHkERINeIIR4FzqbqhaMsrr
+  - altText: D-quest Consulting
+    image: /img/uploads/d-quest.webp
+    websiteUrl: https://vedettweekend.be/
+  - altText: Tuinen L'ecluse
+    image: /img/uploads/Lecluse(FV)@0.5x.webp
+    websiteUrl: https://www.tuinenlecluse.be/
+  - altText: Taxaz
+    image: /img/uploads/taxaz.webp
+    websiteUrl: https://www.facebook.com/p/TAXAZ-Boekhouding-Fiscaliteit-100029265686934/
 ---
